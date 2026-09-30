@@ -1,4 +1,4 @@
-import { openOutApp, openWebview, showToast } from "zmp-sdk";
+import { openOutApp, openWebview } from "zmp-sdk";
 import { Box, Button, Icon, Text } from "zmp-ui";
 
 import Reveal from "@/components/wedding/reveal";
@@ -26,13 +26,9 @@ const InvitationSection = () => {
   const countdown = useCountdown(weddingConfig.weddingISO);
 
   const openLink = async (url: string) => {
-    // TODO(debug): temporary toasts to find out why the button does nothing
-    showToast({ message: "1. bấm nút: " + url.slice(0, 60) });
     try {
       await openOutApp({ url });
-      showToast({ message: "2. openOutApp xong, không lỗi" });
-    } catch (e) {
-      showToast({ message: "2. openOutApp lỗi: " + JSON.stringify(e) });
+    } catch {
       try {
         await openWebview({ url });
       } catch {
