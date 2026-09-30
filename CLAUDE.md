@@ -1,0 +1,9 @@
+# my-study
+
+Ứng dụng chính nằm ở `my-wed/` (Zalo Mini App thiệp cưới). Đọc `docs/PLAN.md` trước khi làm việc: đó là kế hoạch và các quyết định đã chốt (gallery mẫu thiệp, 10 mẫu, giá 99.000đ, không thanh toán trong app).
+
+Quy ước bắt buộc:
+- Giao tiếp với chủ repo bằng tiếng Việt.
+- **Chỉ deploy khi chủ repo nói.**
+- Không commit `.env` hay bất kỳ token nào; không đưa ảnh/thông tin khách vào repo này (public).
+- Dựng mẫu mới từ ảnh thiết kế: dùng skill `new-template`.
