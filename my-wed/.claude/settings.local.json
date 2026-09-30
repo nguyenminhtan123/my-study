@@ -1,0 +1,8 @@
+{
+  "enabledMcpjsonServers": [
+    "atlassian",
+    "figma",
+    "gh-pull_requests",
+    "slack"
+  ]
+}
