@@ -1,4 +1,4 @@
-import { openOutApp } from "zmp-sdk";
+import { openOutApp, openWebview } from "zmp-sdk";
 import { Box, Button, Icon, Text } from "zmp-ui";
 
 import Reveal from "@/components/wedding/reveal";
@@ -25,7 +25,17 @@ const FamilyColumn = ({
 const InvitationSection = () => {
   const countdown = useCountdown(weddingConfig.weddingISO);
 
-  const openLink = (url: string) => openOutApp({ url });
+  const openLink = async (url: string) => {
+    try {
+      await openOutApp({ url });
+    } catch {
+      try {
+        await openWebview({ url });
+      } catch {
+        window.open(url, "_blank");
+      }
+    }
+  };
 
   return (
     <Box>
