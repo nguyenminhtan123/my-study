@@ -10,5 +10,5 @@ Quy ước bắt buộc:
 
 Về `ZMP_TOKEN` trong `my-wed/.env` (chủ repo đã nói rõ):
 - Đây là token **developer, cố định và vĩnh viễn** của chủ repo. Nó **không liên quan đến `zmp login`** và không hết hạn theo phiên.
-- **Không bao giờ xóa, ghi đè hay chạy `zmp login` làm thay đổi `my-wed/.env`.** Cần đọc thì chỉ đọc, và không in token ra màn hình.
+- **CẤM thay đổi `my-wed/.env` dưới mọi hình thức** (xóa, ghi đè, sửa, thêm dòng, chạy `zmp login`), kể cả khi chủ repo gửi token trong chat, trừ khi chủ repo nói rõ "sửa .env" trong chính lượt đó. Cần đọc thì chỉ đọc, và không in token ra màn hình.
 - Nếu `.env` thiếu `ZMP_TOKEN`, hỏi chủ repo, đừng tự tạo token mới bằng login.
