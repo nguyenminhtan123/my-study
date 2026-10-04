@@ -4,6 +4,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t04/styles.scss";
 import { WeddingData } from "@/core/types";
+import roseDark from "@/static/rose-dark.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -15,34 +16,6 @@ import {
   WindingTimeline,
   photoSrc,
 } from "@/templates/_kit/sections";
-
-const Calla = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t04-calla ${className}`}
-    viewBox="0 0 80 120"
-    aria-hidden="true"
-  >
-    <path
-      d="M40 118C30 92 10 72 12 42C30 56 42 86 40 118Z"
-      fill="#a31d33"
-      opacity="0.85"
-    />
-    <path d="M40 72C20 62 18 26 40 8C62 26 60 62 40 72Z" fill="#8e1328" />
-    <path
-      d="M40 72C34 50 36 28 40 8"
-      fill="none"
-      stroke="#c75a6a"
-      strokeWidth="1"
-    />
-    <ellipse cx="40" cy="48" rx="3" ry="14" fill="#e8c36a" />
-    <path
-      d="M40 72C40 92 44 106 40 118"
-      fill="none"
-      stroke="#6b1b25"
-      strokeWidth="1.6"
-    />
-  </svg>
-);
 
 const initials = (a: string, b: string) =>
   `${a.trim().charAt(0)}&${b.trim().charAt(0)}`;
@@ -107,7 +80,6 @@ const Template04 = ({ data }: { data: WeddingData }) => {
             <CalendarCard iso={data.weddingISO} monthClass="t04-month" />
           </Reveal>
           <Reveal className="t04-families">
-            <Calla />
             <div>
               <b>NHÀ GÁI</b>
               {data.families.bride.map((p) => (
@@ -122,6 +94,10 @@ const Template04 = ({ data }: { data: WeddingData }) => {
             </div>
           </Reveal>
         </section>
+
+        <div className="t04-band t04-band-sm">
+          <img src={roseDark} alt="" />
+        </div>
 
         <section className="t04-invite">
           <Reveal>
@@ -145,8 +121,11 @@ const Template04 = ({ data }: { data: WeddingData }) => {
           </Reveal>
         </section>
 
+        <div className="t04-band">
+          <img src={roseDark} alt="" />
+        </div>
+
         <section className="t04-time">
-          <Calla className="t04-calla-r" />
           <Reveal variant="left">
             <h2 className="t04-title">Timeline</h2>
           </Reveal>
@@ -155,7 +134,6 @@ const Template04 = ({ data }: { data: WeddingData }) => {
             <h2 className="t04-title">Dresscode</h2>
           </Reveal>
           <Dresscode colors={data.dressColors} />
-          <Calla className="t04-calla-l" />
         </section>
 
         <section className="t04-moments">

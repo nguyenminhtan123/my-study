@@ -4,6 +4,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t10/styles.scss";
 import { WeddingData } from "@/core/types";
+import fern from "@/static/fern-dark.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -126,6 +127,10 @@ const Template10 = ({ data }: { data: WeddingData }) => {
             </div>
           </Reveal>
         </section>
+
+        <div className="t10-fern">
+          <img src={fern} alt="" />
+        </div>
 
         <section className="t10-time">
           <Reveal variant="left">

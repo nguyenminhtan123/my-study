@@ -117,23 +117,6 @@
 .t05-frame-waves {
   height: 90px;
 }
-.t05-star {
-  position: absolute;
-  width: 58px;
-  filter: drop-shadow(0 3px 5px rgba(80, 60, 20, 0.3));
-  animation: t05-float 6s ease-in-out infinite alternate;
-}
-.t05-star-a {
-  right: 12px;
-  bottom: 12px;
-  rotate: 18deg;
-}
-.t05-star-b {
-  left: -6px;
-  top: 28px;
-  width: 80px;
-  rotate: -20deg;
-}
 
 // ---- save the date ----
 .t05-std {
@@ -272,9 +255,6 @@
   font-size: 30px;
   color: var(--k-accent2);
 }
-.t05-pair-waves {
-  height: 70px;
-}
 
 // ---- story ----
 .t05-story {
@@ -395,5 +375,47 @@
   }
   to {
     transform: translateY(-8px) rotate(8deg);
+  }
+}
+
+// ---- real photos (CC0, see docs/CREDITS.md) ----
+.t05-star {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(80, 60, 20, 0.3);
+  animation: t05-float 6s ease-in-out infinite alternate;
+}
+.t05-star-a {
+  right: 14px;
+  bottom: 14px;
+}
+.t05-star-b {
+  left: 14px;
+  top: 30px;
+}
+.t05-wave-photo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 96px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: t05-zoom 14s ease-in-out infinite alternate;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0) 70%);
   }
 }

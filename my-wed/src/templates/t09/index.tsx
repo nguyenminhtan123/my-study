@@ -3,6 +3,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t09/styles.scss";
 import { WeddingData } from "@/core/types";
+import hydrangea from "@/static/hydrangea-blue.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -19,64 +20,6 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-/** Four-petal paper hydrangea floret. */
-const Floret = ({ x, y, s }: { x: number; y: number; s: number }) => (
-  <g
-    transform={`translate(${x} ${y}) scale(${s})`}
-    fill="#ffffff"
-    stroke="#d9dcef"
-    strokeWidth="0.6"
-  >
-    {[0, 90, 180, 270].map((r) => (
-      <ellipse
-        key={r}
-        cx="0"
-        cy="-8"
-        rx="7"
-        ry="9"
-        transform={`rotate(${r + 20})`}
-      />
-    ))}
-    <circle r="2.2" fill="#c8cbe6" stroke="none" />
-  </g>
-);
-
-const Hydrangea = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t09-hydra ${className}`}
-    viewBox="0 0 200 110"
-    aria-hidden="true"
-  >
-    <defs>
-      <filter id="t09-sh" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow
-          dx="0"
-          dy="2"
-          stdDeviation="2"
-          floodColor="#5a5e9a"
-          floodOpacity="0.3"
-        />
-      </filter>
-    </defs>
-    <g filter="url(#t09-sh)">
-      {[
-        [30, 24, 1.5],
-        [70, 14, 1.3],
-        [110, 28, 1.6],
-        [152, 16, 1.4],
-        [186, 34, 1.3],
-        [50, 56, 1.4],
-        [92, 60, 1.5],
-        [136, 58, 1.3],
-        [20, 74, 1.1],
-        [172, 76, 1.2],
-      ].map(([x, y, s], i) => (
-        <Floret key={i} x={x} y={y} s={s} />
-      ))}
-    </g>
-  </svg>
-);
-
 const Template09 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const mono = `${data.groom.charAt(0)}&${data.bride.charAt(0)}`;
@@ -92,7 +35,9 @@ const Template09 = ({ data }: { data: WeddingData }) => {
       <Drifters kind="petal" count={12} color="#c8cbe6" opacity={0.9} />
 
       <section className="t09-cover">
-        <Hydrangea />
+        <div className="t09-hydra">
+          <img src={hydrangea} alt="" />
+        </div>
         <div className="t09-mono">{mono}</div>
         <div className="t09-torn">
           <img src={photoSrc(data.photos.cover)} alt="" />

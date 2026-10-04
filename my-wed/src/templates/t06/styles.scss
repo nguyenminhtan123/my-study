@@ -51,36 +51,10 @@
   padding-bottom: 40px;
   background: linear-gradient(180deg, #fff, var(--k-bg));
 }
-.t06-flowers {
-  position: relative;
-  height: 120px;
-  overflow: hidden;
-}
-.t06-flower {
-  position: absolute;
-  animation: t06-bob 6s ease-in-out infinite alternate;
-}
-.t06-f1 {
-  left: -18px;
-  top: -20px;
-  width: 130px;
-}
-.t06-f2 {
-  left: 100px;
-  top: -34px;
-  width: 110px;
-  animation-delay: -2s;
-}
-.t06-f3 {
-  right: -20px;
-  top: -14px;
-  width: 140px;
-  animation-delay: -4s;
-}
 .t06-mono {
   position: absolute;
   left: 50%;
-  top: 70px;
+  top: 136px;
   z-index: 3;
   transform: translateX(-50%);
   font-family: var(--k-script);
@@ -133,20 +107,6 @@
     letter-spacing: 0.2em;
     color: var(--k-muted);
   }
-}
-.t06-clover {
-  position: absolute;
-  width: 52px;
-  animation: t06-spin 7s ease-in-out infinite alternate;
-}
-.t06-c1 {
-  right: 24px;
-  top: 468px;
-}
-.t06-c2 {
-  left: 18px;
-  bottom: 24px;
-  width: 44px;
 }
 
 // ---- invite ----
@@ -436,4 +396,44 @@
   to {
     transform: rotate(12deg) scale(1.1);
   }
+}
+
+// ---- real photos (CC0, see docs/CREDITS.md) ----
+.t06-flowers {
+  position: relative;
+  height: 170px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: t06-zoom 16s ease-in-out infinite alternate;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 55%, #fff);
+  }
+}
+.t06-clover {
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 18px rgba(30, 70, 40, 0.28);
+  animation: t06-bob 6s ease-in-out infinite alternate;
+}
+.t06-c1 {
+  right: 20px;
+  top: 440px;
+}
+.t06-c2 {
+  left: 16px;
+  bottom: 18px;
+  width: 70px;
+  height: 70px;
 }

@@ -3,6 +3,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t05/styles.scss";
 import { WeddingData } from "@/core/types";
+import seaWave from "@/static/sea-wave.jpg";
+import starfish from "@/static/starfish.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -28,23 +30,6 @@ const Waves = ({ className = "" }: { className?: string }) => (
   </div>
 );
 
-const Starfish = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t05-star ${className}`}
-    viewBox="0 0 100 100"
-    aria-hidden="true"
-  >
-    <path
-      d="M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38Z"
-      fill="#f4e6cf"
-      stroke="#d6bf94"
-      strokeWidth="2"
-      strokeLinejoin="round"
-    />
-    <circle cx="50" cy="50" r="3" fill="#d6bf94" />
-  </svg>
-);
-
 const Template05 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
 
@@ -58,7 +43,7 @@ const Template05 = ({ data }: { data: WeddingData }) => {
           <img src={photoSrc(data.photos.cover)} alt="" />
           <Waves className="t05-frame-waves" />
         </div>
-        <Starfish className="t05-star-a" />
+        <img className="t05-star t05-star-a" src={starfish} alt="" />
       </section>
 
       <section className="t05-std">
@@ -135,11 +120,13 @@ const Template05 = ({ data }: { data: WeddingData }) => {
           <span>{data.groom}</span>
           <span>{data.bride}</span>
         </div>
-        <Waves className="t05-pair-waves" />
+        <div className="t05-wave-photo">
+          <img src={seaWave} alt="" />
+        </div>
       </section>
 
       <section className="t05-story">
-        <Starfish className="t05-star-b" />
+        <img className="t05-star t05-star-b" src={starfish} alt="" />
         <Reveal variant="right">
           <h2 className="t05-script t05-story-title">Love Story</h2>
         </Reveal>

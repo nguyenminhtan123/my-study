@@ -3,6 +3,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t06/styles.scss";
 import { WeddingData } from "@/core/types";
+import clover from "@/static/clover.jpg";
+import hydrangea from "@/static/hydrangea-white.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -16,73 +18,6 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-/** Layered white paper flower drawn with SVG ellipses and soft shadows. */
-const PaperFlower = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t06-flower ${className}`}
-    viewBox="0 0 100 100"
-    aria-hidden="true"
-  >
-    <defs>
-      <filter id="t06-sh" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow
-          dx="0"
-          dy="2"
-          stdDeviation="2"
-          floodColor="#6b7f6e"
-          floodOpacity="0.35"
-        />
-      </filter>
-    </defs>
-    <g filter="url(#t06-sh)" fill="#fbfdfb" stroke="#dfe7de" strokeWidth="0.8">
-      {Array.from({ length: 8 }, (_, i) => (
-        <ellipse
-          key={i}
-          cx="50"
-          cy="28"
-          rx="14"
-          ry="22"
-          transform={`rotate(${i * 45} 50 50)`}
-        />
-      ))}
-    </g>
-    <g fill="#f2f6f1" stroke="#dfe7de" strokeWidth="0.6">
-      {Array.from({ length: 6 }, (_, i) => (
-        <ellipse
-          key={i}
-          cx="50"
-          cy="36"
-          rx="9"
-          ry="13"
-          transform={`rotate(${i * 60 + 20} 50 50)`}
-        />
-      ))}
-    </g>
-    <circle cx="50" cy="50" r="5" fill="#d9e3a8" />
-  </svg>
-);
-
-const Clover = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t06-clover ${className}`}
-    viewBox="0 0 60 60"
-    aria-hidden="true"
-  >
-    <g fill="#2f7a3a">
-      <path d="M30 28C24 14 8 18 14 30C18 36 26 34 30 28Z" />
-      <path d="M30 28C46 24 48 8 36 12C28 16 28 24 30 28Z" />
-      <path d="M30 32C24 46 8 42 14 30C18 24 26 26 30 32Z" />
-      <path d="M30 32C46 36 48 52 36 48C28 44 28 36 30 32Z" />
-    </g>
-    <path
-      d="M30 30C32 42 36 50 42 56"
-      fill="none"
-      stroke="#256b30"
-      strokeWidth="2"
-    />
-  </svg>
-);
-
 const Template06 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const mono = `${data.groom.charAt(0)}${data.bride.charAt(0)}`;
@@ -93,15 +28,13 @@ const Template06 = ({ data }: { data: WeddingData }) => {
 
       <section className="t06-cover">
         <div className="t06-flowers">
-          <PaperFlower className="t06-f1" />
-          <PaperFlower className="t06-f2" />
-          <PaperFlower className="t06-f3" />
+          <img src={hydrangea} alt="" />
         </div>
         <div className="t06-mono">{mono}</div>
         <div className="t06-torn">
           <img src={photoSrc(data.photos.cover)} alt="" />
         </div>
-        <Clover className="t06-c1" />
+        <img className="t06-clover t06-c1" src={clover} alt="" />
         <p className="t06-cover-names">
           {data.groom} &amp; {data.bride}
           <span>
@@ -132,7 +65,7 @@ const Template06 = ({ data }: { data: WeddingData }) => {
           <p className="t06-addr">{data.venueAddress}</p>
           <VenueActions data={data} />
         </Reveal>
-        <Clover className="t06-c2" />
+        <img className="t06-clover t06-c2" src={clover} alt="" />
       </section>
 
       <section className="t06-env">
