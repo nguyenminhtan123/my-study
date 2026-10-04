@@ -7,3 +7,8 @@ Quy ước bắt buộc:
 - **Chỉ deploy khi chủ repo nói.**
 - Không commit `.env` hay bất kỳ token nào; không đưa ảnh/thông tin khách vào repo này (public).
 - Dựng mẫu mới từ ảnh thiết kế: dùng skill `new-template`.
+
+Về `ZMP_TOKEN` trong `my-wed/.env` (chủ repo đã nói rõ):
+- Đây là token **developer, cố định và vĩnh viễn** của chủ repo. Nó **không liên quan đến `zmp login`** và không hết hạn theo phiên.
+- **Không bao giờ xóa, ghi đè hay chạy `zmp login` làm thay đổi `my-wed/.env`.** Cần đọc thì chỉ đọc, và không in token ra màn hình.
+- Nếu `.env` thiếu `ZMP_TOKEN`, hỏi chủ repo, đừng tự tạo token mới bằng login.
