@@ -336,7 +336,8 @@
     line-height: 1.6;
   }
   input,
-  textarea {
+  textarea,
+  select {
     width: 100%;
     padding: 10px 16px;
     border: 1px solid var(--k-accent);
@@ -348,6 +349,13 @@
     outline: none;
     resize: none;
     box-sizing: border-box;
+  }
+  select {
+    appearance: none;
+    background: transparent
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23666'/></svg>")
+      no-repeat right 14px center;
+    text-align: left;
   }
   small {
     color: #b3443a;

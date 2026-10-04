@@ -198,9 +198,11 @@ const Chips = ({
 export const RsvpForm = ({
   data,
   title = "Xác nhận tham dự",
+  variant = "chips",
 }: {
   data: WeddingData;
   title?: ReactNode;
+  variant?: "chips" | "select";
 }) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
@@ -250,21 +252,40 @@ export const RsvpForm = ({
         placeholder="Gửi lời chúc đến cô dâu chú rể"
         onChange={(event) => setMessage(event.target.value)}
       />
-      <Chips
-        options={["Sẽ tham dự", "Không thể tham dự"]}
-        value={attend}
-        onChange={setAttend}
-      />
-      <Chips
-        options={["Đi một mình", "Đi cùng người thân"]}
-        value={plus}
-        onChange={setPlus}
-      />
-      <Chips
-        options={["Khách của chú rể", "Khách của cô dâu"]}
-        value={side}
-        onChange={setSide}
-      />
+      {variant === "select" ? (
+        <>
+          <select value={attend} onChange={(e) => setAttend(e.target.value)}>
+            <option>Sẽ tham dự</option>
+            <option>Không thể tham dự</option>
+          </select>
+          <select value={plus} onChange={(e) => setPlus(e.target.value)}>
+            <option>Đi một mình</option>
+            <option>Đi cùng người thân</option>
+          </select>
+          <select value={side} onChange={(e) => setSide(e.target.value)}>
+            <option>Khách của chú rể</option>
+            <option>Khách của cô dâu</option>
+          </select>
+        </>
+      ) : (
+        <>
+          <Chips
+            options={["Sẽ tham dự", "Không thể tham dự"]}
+            value={attend}
+            onChange={setAttend}
+          />
+          <Chips
+            options={["Đi một mình", "Đi cùng người thân"]}
+            value={plus}
+            onChange={setPlus}
+          />
+          <Chips
+            options={["Khách của chú rể", "Khách của cô dâu"]}
+            value={side}
+            onChange={setSide}
+          />
+        </>
+      )}
       <button type="submit" className="k-submit">
         Xác nhận
       </button>
