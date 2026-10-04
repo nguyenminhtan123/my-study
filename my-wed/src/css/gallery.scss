@@ -1,0 +1,133 @@
+.gl-page {
+  --gl-bg: #faf6f3;
+  --gl-ink: #3b2224;
+  --gl-accent: #a6242d;
+  --gl-muted: #8a6e6b;
+  --gl-line: #ead8d2;
+  --gl-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--gl-sans);
+  background: var(--gl-bg);
+  color: var(--gl-ink);
+  padding: 0 16px calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
+.gl-head {
+  padding: 44px 4px 18px;
+
+  h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--gl-accent);
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--gl-muted);
+  }
+}
+
+.gl-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gl-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0 12px;
+  border: 1px solid var(--gl-line);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 6px;
+  }
+}
+
+.gl-card-name,
+.gl-price,
+.gl-card-cta {
+  padding: 0 12px;
+}
+
+.gl-card-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.gl-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  s {
+    font-size: 12px;
+    color: var(--gl-muted);
+  }
+
+  b {
+    font-size: 16px;
+    color: var(--gl-accent);
+  }
+}
+
+.gl-card-cta {
+  font-size: 13px;
+  color: var(--gl-accent);
+}
+
+.gl-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid #ead8d2;
+  box-shadow: 0 -4px 18px rgba(74, 20, 28, 0.12);
+  color: #3b2224;
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.gl-bar-back {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ead8d2;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 22px;
+  line-height: 1;
+  color: #3b2224;
+}
+
+.gl-bar-price {
+  flex: 1;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.gl-bar-cta {
+  flex: none;
+  background: #a6242d;
+}
+
+// Keep the end of the template clear of the fixed bar.
+.gl-bar ~ .wd-page {
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}

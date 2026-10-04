@@ -8,7 +8,7 @@ const freeze = pg => pg.evaluate(async () => { await document.fonts.ready; docum
   await pg.addInitScript(() => { let s = 12345; Math.random = () => (s = (s * 16807) % 2147483647) / 2147483647; });
   await pg.clock.install({ time: new Date('2026-10-01T00:00:00+07:00') });
   await pg.goto(url); await pg.clock.runFor(3000);
-  await pg.addStyleTag({ content: '[class*=heart]{display:none!important}*{caret-color:transparent!important}' });
+  await pg.addStyleTag({ content: '[class*=heart]{display:none!important}*{caret-color:transparent!important}' + (process.env.EXTRA_CSS || '') });
   await pg.waitForTimeout(3500);
   await freeze(pg); await pg.screenshot({ path: outdir + '/00-intro.png' });
   await pg.locator('button.wd-seal').click({ force: true });

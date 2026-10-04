@@ -1,10 +1,10 @@
-import { openOutApp, openWebview } from "zmp-sdk";
 import { Box, Button, Icon, Text } from "zmp-ui";
 
 import Reveal from "@/templates/t01/components/reveal";
 import PhotoFrame from "@/templates/t01/components/photo-frame";
 import { useCountdown } from "@/core/hooks/use-countdown";
 import { useWeddingData } from "@/core/wedding-context";
+import { openLink } from "@/core/utils/open-link";
 import { buildCalendarUrl, buildMapUrl } from "@/core/utils/wedding";
 
 const FamilyColumn = ({
@@ -25,18 +25,6 @@ const FamilyColumn = ({
 const InvitationSection = () => {
   const data = useWeddingData();
   const countdown = useCountdown(data.weddingISO);
-
-  const openLink = async (url: string) => {
-    try {
-      await openOutApp({ url });
-    } catch {
-      try {
-        await openWebview({ url });
-      } catch {
-        window.open(url, "_blank");
-      }
-    }
-  };
 
   return (
     <Box>
