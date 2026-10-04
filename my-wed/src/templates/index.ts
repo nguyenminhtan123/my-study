@@ -31,6 +31,15 @@ import { demoData as demoData09 } from "@/templates/t09/demo-data";
 import Template10 from "@/templates/t10";
 import cover10 from "@/static/destiny.jpeg";
 import { demoData as demoData10 } from "@/templates/t10/demo-data";
+import Template11 from "@/templates/t11";
+import cover11 from "@/static/album1.jpeg";
+import { demoData as demoData11 } from "@/templates/t11/demo-data";
+import Template12 from "@/templates/t12";
+import cover12 from "@/static/album2.jpeg";
+import { demoData as demoData12 } from "@/templates/t12/demo-data";
+import Template13 from "@/templates/t13";
+import cover13 from "@/static/album3.jpeg";
+import { demoData as demoData13 } from "@/templates/t13/demo-data";
 
 export interface TemplateEntry {
   id: string;
@@ -110,6 +119,27 @@ export const templates: TemplateEntry[] = [
     thumbnail: cover10,
     Component: Template10,
     demoData: demoData10,
+  },
+  {
+    id: "t11",
+    name: "Mẫu 11 · Đỏ rượu & kem",
+    thumbnail: cover11,
+    Component: Template11,
+    demoData: demoData11,
+  },
+  {
+    id: "t12",
+    name: "Mẫu 12 · Xanh rêu & kem",
+    thumbnail: cover12,
+    Component: Template12,
+    demoData: demoData12,
+  },
+  {
+    id: "t13",
+    name: "Mẫu 13 · Xanh cổ điển",
+    thumbnail: cover13,
+    Component: Template13,
+    demoData: demoData13,
   },
 ];
 

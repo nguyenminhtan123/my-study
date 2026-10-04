@@ -85,3 +85,7 @@ Xem skill `.claude/skills/new-template/SKILL.md`. Tóm tắt: trích bảng màu
 - Không đưa ảnh/thông tin khách vào repo `my-study` (repo public).
 - Deploy: `zmp deploy -p -m "<mô tả>"` chạy không tương tác, bản Development (không có `-t`). CLI cần cài toàn cục (`npm i -g zmp-cli`). `zmp login` cần quét QR bằng Zalo.
 - Link mở bản dev: `https://zalo.me/s/<APP_ID>/?env=DEVELOPMENT&version=<version>`.
+
+## Cập nhật: thêm mẫu t11–t13 (tham khảo Pinterest)
+
+Giữ nguyên t01–t10, thêm 3 mẫu mới theo xu hướng các ghim Pinterest (bảng màu hẹp, khối nền xen kẽ, chữ serif lớn): `t11` Đỏ rượu & kem (phong bì dấu sáp, khung tem răng cưa), `t12` Xanh rêu & kem (bố cục tạp chí, timeline icon, dải sọc cuối trang), `t13` Xanh cổ điển (monogram, dải ảnh viền rách). Gallery hiện có 13 mẫu.
