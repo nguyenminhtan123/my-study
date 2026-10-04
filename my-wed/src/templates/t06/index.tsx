@@ -4,6 +4,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t06/styles.scss";
 import { WeddingData } from "@/core/types";
+import reliefImg from "@/static/hydrangea-paper.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import { IconPin } from "@/templates/_kit/icons";
@@ -165,75 +166,6 @@ const Floret = ({
   </g>
 );
 
-const Leaf = ({
-  x,
-  y,
-  s,
-  r,
-}: {
-  x: number;
-  y: number;
-  s: number;
-  r: number;
-}) => (
-  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}>
-    <path
-      d="M0 0 C-34 -10 -44 -52 -4 -78 C38 -52 30 -8 0 0Z"
-      fill="url(#t06-pet)"
-      stroke="#dde5df"
-      strokeWidth="0.8"
-    />
-    <path
-      d="M0 -4 L-3 -70 M-3 -26 L-20 -40 M-3 -26 L14 -40 M-3 -46 L-16 -56 M-3 -46 L10 -56"
-      fill="none"
-      stroke="#e2e9e4"
-      strokeWidth="1.1"
-    />
-  </g>
-);
-
-const CLUSTER_L = [
-  [30, 34, 1.1, 10],
-  [62, 24, 1.2, 40],
-  [96, 40, 1.1, 70],
-  [48, 66, 1.2, 20],
-  [82, 72, 1.1, 50],
-  [24, 92, 1, 80],
-  [112, 76, 0.9, 30],
-  [66, 100, 1, 15],
-];
-const CLUSTER_R = [
-  [300, 30, 1.25, 15],
-  [336, 48, 1.15, 45],
-  [366, 28, 1.1, 70],
-  [318, 72, 1.2, 25],
-  [352, 84, 1.15, 55],
-  [290, 96, 1, 35],
-  [372, 66, 0.9, 5],
-];
-
-/** Embossed white paper relief of leaves and hydrangea clusters across the top. */
-const PaperRelief = () => (
-  <svg className="t06-relief" viewBox="0 0 390 250" aria-hidden="true">
-    <g filter="url(#t06-sh2)">
-      <Leaf x={80} y={150} s={1.05} r={-20} />
-      <Leaf x={170} y={120} s={1} r={25} />
-      <Leaf x={250} y={160} s={1.1} r={-30} />
-      <Leaf x={330} y={150} s={1} r={20} />
-      <Leaf x={20} y={170} s={0.9} r={-60} />
-      {CLUSTER_L.map(([x, y, s, r], i) => (
-        <Floret key={`l${i}`} x={x} y={y} s={s * 1.15} r={r} />
-      ))}
-      {CLUSTER_R.map(([x, y, s, r], i) => (
-        <Floret key={`r${i}`} x={x} y={y} s={s * 1.15} r={r} />
-      ))}
-      <Floret x={120} y={158} s={1.3} r={10} />
-      <Floret x={205} y={96} s={1.2} r={30} />
-      <Floret x={186} y={150} s={0.9} r={55} />
-    </g>
-  </svg>
-);
-
 const SCATTER = [
   { x: 6, y: 12, s: 74, d: 0, dur: 16 },
   { x: 58, y: 4, s: 56, d: -4, dur: 20 },
@@ -256,7 +188,9 @@ const Template06 = ({ data }: { data: WeddingData }) => {
 
       {/* 1. cover: relief on top, photo band with diagonal torn edges */}
       <section className="t06-cover">
-        <PaperRelief />
+        <div className="t06-relief">
+          <img src={reliefImg} alt="" />
+        </div>
         <div className="t06-mono">
           <span>{mono}</span>
           <svg viewBox="0 0 120 40" aria-hidden="true">
