@@ -5,6 +5,7 @@ import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
+import { LotusArt } from "@/templates/t03/lotus";
 import {
   CalendarCard,
   Countdown,
@@ -17,23 +18,6 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-const Lotus = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`t03-lotus ${className}`}
-    viewBox="0 0 120 80"
-    aria-hidden="true"
-  >
-    <g fill="#fff" stroke="#8aa57a" strokeWidth="1">
-      <path d="M60 70C44 62 40 36 60 12C80 36 76 62 60 70Z" />
-      <path d="M60 70C38 68 22 48 26 26C48 34 62 52 60 70Z" />
-      <path d="M60 70C82 68 98 48 94 26C72 34 58 52 60 70Z" />
-      <path d="M60 72C32 74 10 62 6 44C32 44 52 56 60 72Z" />
-      <path d="M60 72C88 74 110 62 114 44C88 44 68 56 60 72Z" />
-    </g>
-    <circle cx="60" cy="52" r="4" fill="#e8d98a" />
-  </svg>
-);
-
 const Template03 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
 
@@ -41,9 +25,12 @@ const Template03 = ({ data }: { data: WeddingData }) => {
     <Page className="t03-root">
       <Drifters kind="petal" count={12} color="#ffffff" opacity={0.85} />
 
+      <div className="t03-head">
+        <LotusArt className="t03-lotus" />
+      </div>
+
       <section className="t03-cover">
         <img src={photoSrc(data.photos.cover)} alt="" />
-        <Lotus className="t03-lotus-top" />
         <div className="t03-cover-names">
           <h1>
             {data.groom}
@@ -54,6 +41,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t03-std">
+        <LotusArt className="t03-lotus-corner" />
         <Reveal variant="zoom">
           <div className="t03-envelope">
             <CalendarCard iso={data.weddingISO} />
