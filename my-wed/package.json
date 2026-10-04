@@ -20,8 +20,10 @@
     "deploy": "zmp deploy"
   },
   "dependencies": {
+    "@fontsource/allura": "^5.3.0",
     "@fontsource/be-vietnam-pro": "^5.3.0",
     "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/dancing-script": "^5.3.0",
     "@fontsource/great-vibes": "^5.3.0",
     "@fontsource/playfair-display": "^5.3.0",
     "jotai": "^2.12.1",

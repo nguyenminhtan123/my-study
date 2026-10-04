@@ -67,7 +67,7 @@ Xem skill `.claude/skills/new-template/SKILL.md`. Tóm tắt: trích bảng màu
 1. ✅ **Tái cấu trúc**: mẫu hiện tại thành `t01`, tách `core/` (`types.ts` với `WeddingData`, `wedding-context.tsx`, `hooks/`, `utils/`), registry `templates/index.ts`. Giao diện giữ nguyên.
 2. ✅ Gallery (`/`), trang chi tiết mẫu (`/template/:id`, thanh giá cố định + nút "Chọn mẫu" + nút quay lại). Nút "Chọn mẫu" sao chép tin nhắn soạn sẵn và mở `zalo.me/<số>` nếu `ownerZaloPhone` trong `core/shop-config.ts` có giá trị (hiện đang **trống**, cần điền số Zalo của chủ shop). Giá cũng cấu hình ở `shop-config.ts`.
 3. Chế độ build một mẫu cho từng khách + script kiểm tra khách/mẫu.
-4. Mẫu `t02`–`t10`. **`t02` (Tối giản) xong**, mẫu gốc tự thiết kế theo xu hướng 2026 (tối giản; cổ điển+hiện đại; bohemian; pastel; vintage; đỏ truyền thống). Còn `t03`–`t10`: tự thiết kế theo các hướng còn lại hoặc dùng ảnh thiết kế của chủ shop (skill `new-template`). Không lấy được video TikTok nên không dựa vào đó.
+4. Mẫu `t02`–`t10`. **`t02` (Tối giản) xong**, mẫu gốc tự thiết kế theo xu hướng 2026 (tối giản; cổ điển+hiện đại; bohemian; pastel; vintage; đỏ truyền thống). **`t03` Sen trắng, `t04` Đỏ rượu vang (phong bì dấu sáp), `t05` Biển xanh đã xong**, dựng theo ảnh tham chiếu của chủ shop (lấy phong cách và bố cục, không dùng ảnh/hình minh họa gốc; mọi trang trí là SVG/CSS tự vẽ), có animation (hiện dần khi cuộn, cánh hoa/bong bóng rơi, sóng, timeline vẽ dần...). Bộ thành phần chung nằm ở `src/templates/_kit/`. Còn `t06`–`t10`: ảnh tham chiếu còn lại gồm xanh rêu/Our Memories, xanh lá kiểu satin tối giản, dark green vintage có chữ Hỷ, hoàng hôn vàng, tím xanh hoa giấy, rừng tối có phong bì dấu sáp. Không lấy được video TikTok nên không dựa vào đó.
 
 ## Việc còn mở
 

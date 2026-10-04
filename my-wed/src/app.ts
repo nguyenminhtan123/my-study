@@ -16,6 +16,16 @@ import "@fontsource/be-vietnam-pro/latin-400.css";
 import "@fontsource/be-vietnam-pro/vietnamese-400.css";
 import "@fontsource/be-vietnam-pro/latin-500.css";
 import "@fontsource/be-vietnam-pro/vietnamese-500.css";
+import "@fontsource/allura/latin-400.css";
+import "@fontsource/allura/vietnamese-400.css";
+import "@fontsource/dancing-script/latin-400.css";
+import "@fontsource/dancing-script/vietnamese-400.css";
+import "@fontsource/dancing-script/latin-600.css";
+import "@fontsource/dancing-script/vietnamese-600.css";
+import "@fontsource/playfair-display/latin-400.css";
+import "@fontsource/playfair-display/vietnamese-400.css";
+import "@fontsource/playfair-display/latin-400-italic.css";
+import "@fontsource/playfair-display/vietnamese-400-italic.css";
 // ZaUI stylesheet
 import "zmp-ui/zaui.css";
 // Tailwind stylesheet

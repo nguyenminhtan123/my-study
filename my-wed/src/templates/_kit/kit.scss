@@ -1,0 +1,449 @@
+// Shared building blocks for templates t03+. A template sets these variables on its root:
+// --k-bg --k-ink --k-muted --k-accent --k-accent2 --k-line --k-card
+// --k-display (headings) --k-script (handwriting) --k-body
+
+@media (prefers-reduced-motion: reduce) {
+  .k-reveal,
+  .k-drift,
+  .k-path,
+  .k-wind-item {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+// ---------- scroll reveal ----------
+.k-reveal {
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.k-reveal.k-up {
+  transform: translateY(34px);
+}
+.k-reveal.k-left {
+  transform: translateX(-42px);
+}
+.k-reveal.k-right {
+  transform: translateX(42px);
+}
+.k-reveal.k-zoom {
+  transform: scale(0.86);
+}
+.k-reveal.k-in {
+  opacity: 1;
+  transform: none;
+}
+
+// ---------- drifting particles ----------
+.k-drift {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+
+  svg {
+    position: absolute;
+    top: -30px;
+    aspect-ratio: 1;
+    animation: k-fall linear infinite;
+  }
+}
+.k-drift-bubble svg {
+  top: auto;
+  bottom: -30px;
+  animation-name: k-rise;
+  fill: rgba(255, 255, 255, 0.25) !important;
+}
+@keyframes k-fall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0);
+  }
+  50% {
+    transform: translate3d(var(--sway), 55vh, 0) rotate(calc(var(--spin) / 2));
+  }
+  100% {
+    transform: translate3d(calc(var(--sway) * -0.6), 112vh, 0)
+      rotate(var(--spin));
+  }
+}
+@keyframes k-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  100% {
+    transform: translate3d(var(--sway), -112vh, 0) scale(1.1);
+  }
+}
+
+// ---------- calendar ----------
+.k-cal {
+  padding: 14px 14px 18px;
+  background: var(--k-card, #fff);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+.k-cal-month {
+  text-align: center;
+  font-family: var(--k-display);
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--k-ink);
+}
+.k-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px 0;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--k-muted);
+}
+.k-cal-dow {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--k-accent);
+}
+.k-cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+.k-cal-hit {
+  position: relative;
+  color: #fff;
+  font-weight: 600;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 26px;
+    height: 24px;
+    background: var(--k-accent);
+    transform: translate(-50%, -50%);
+    clip-path: path("M13 23C-5 11 3 -1 13 6C23 -1 31 11 13 23Z");
+    animation: k-beat 1.8s ease-in-out infinite;
+  }
+  b {
+    position: relative;
+    font-weight: 600;
+  }
+}
+@keyframes k-beat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.22);
+  }
+}
+
+// ---------- countdown ----------
+.k-count {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  div + div {
+    border-left: 1px solid var(--k-line);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--k-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  span {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--k-muted);
+  }
+}
+
+// ---------- winding timeline ----------
+.k-wind {
+  position: relative;
+  width: 300px;
+  height: 430px;
+  margin: 0 auto;
+  color: var(--k-accent);
+
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+.k-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 3.2s ease-in-out 0.2s;
+}
+.k-in .k-path {
+  stroke-dashoffset: 0;
+}
+.k-dot {
+  fill: currentColor;
+}
+.k-wind-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+  color: var(--k-accent);
+
+  svg {
+    position: static;
+    width: 38px;
+    height: 38px;
+    flex: none;
+  }
+}
+.k-in .k-wind-item {
+  opacity: 1;
+  transform: none;
+}
+.k-wind-item.k-r {
+  flex-direction: row;
+}
+.k-wind-item.k-l {
+  flex-direction: row-reverse;
+}
+.k-wind-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  color: var(--k-ink);
+
+  b {
+    font-family: var(--k-display);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  span {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+.k-r .k-wind-text {
+  text-align: right;
+}
+
+// ---------- dresscode ----------
+.k-dress {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+
+  span {
+    display: block;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--k-line);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// ---------- mosaic ----------
+.k-mosaic {
+  display: grid;
+  gap: 8px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// ---------- actions ----------
+.k-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border: 1px solid var(--k-accent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--k-accent);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition:
+      background 0.3s,
+      color 0.3s;
+  }
+  button:active {
+    background: var(--k-accent);
+    color: #fff;
+  }
+}
+
+// ---------- form ----------
+.k-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+
+  h3 {
+    margin: 0;
+    font-family: var(--k-script);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--k-accent);
+  }
+  p {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: var(--k-muted);
+    line-height: 1.6;
+  }
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--k-accent);
+    border-radius: 18px;
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    color: var(--k-ink);
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+  }
+  small {
+    color: #b3443a;
+    text-align: left;
+  }
+}
+.k-chips {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  button {
+    padding: 8px 14px;
+    border: 1px solid var(--k-accent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--k-ink);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition:
+      background 0.25s,
+      color 0.25s;
+  }
+  button.on {
+    background: var(--k-accent);
+    color: #fff;
+  }
+}
+.k-submit {
+  margin-top: 6px;
+  padding: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--k-accent);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.k-thanks {
+  padding: 40px 0;
+}
+
+// ---------- gift ----------
+.k-gift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.k-gift-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 22px 16px;
+  background: var(--k-card, #fff);
+  border: 1px solid var(--k-line);
+  box-sizing: border-box;
+  color: var(--k-ink);
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 6px;
+  }
+  span {
+    font-size: 12px;
+    color: var(--k-muted);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  em {
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+  button {
+    margin-top: 10px;
+    padding: 9px 18px;
+    border: 1px solid var(--k-accent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--k-accent);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+}
