@@ -76,7 +76,9 @@
   justify-content: center;
   gap: 26px;
   padding: 24px;
-  transition: opacity 0.9s ease 0.7s, visibility 0s linear 1.6s;
+  transition:
+    opacity 0.9s ease 0.7s,
+    visibility 0s linear 1.6s;
 
   &.wd-intro-open {
     opacity: 0;
@@ -193,7 +195,9 @@
   font-family: var(--serif);
   font-style: italic;
   font-size: 20px;
-  box-shadow: 0 3px 10px rgba(80, 30, 40, 0.35), inset 0 0 0 5px #c4454d;
+  box-shadow:
+    0 3px 10px rgba(80, 30, 40, 0.35),
+    inset 0 0 0 5px #c4454d;
   transition: opacity 0.3s;
 }
 
@@ -219,7 +223,11 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(74, 20, 28, 0.38), rgba(74, 20, 28, 0) 42%);
+    background: linear-gradient(
+      180deg,
+      rgba(74, 20, 28, 0.38),
+      rgba(74, 20, 28, 0) 42%
+    );
     pointer-events: none;
   }
 }
@@ -447,7 +455,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(74, 20, 28, 0.4), rgba(74, 20, 28, 0) 40%);
+  background: linear-gradient(
+    0deg,
+    rgba(74, 20, 28, 0.4),
+    rgba(74, 20, 28, 0) 40%
+  );
   pointer-events: none;
 }
 
@@ -669,7 +681,9 @@
 
 .wd-reveal {
   opacity: 0;
-  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 0.8, 0.3, 1);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.22, 0.8, 0.3, 1);
   will-change: opacity, transform;
 
   &.wd-reveal-up {
@@ -797,10 +811,16 @@
 
 @keyframes wd-pulse {
   0% {
-    box-shadow: 0 3px 10px rgba(80, 30, 40, 0.35), inset 0 0 0 5px #c4454d, 0 0 0 0 rgba(196, 69, 77, 0.55);
+    box-shadow:
+      0 3px 10px rgba(80, 30, 40, 0.35),
+      inset 0 0 0 5px #c4454d,
+      0 0 0 0 rgba(196, 69, 77, 0.55);
   }
   100% {
-    box-shadow: 0 3px 10px rgba(80, 30, 40, 0.35), inset 0 0 0 5px #c4454d, 0 0 0 22px rgba(196, 69, 77, 0);
+    box-shadow:
+      0 3px 10px rgba(80, 30, 40, 0.35),
+      inset 0 0 0 5px #c4454d,
+      0 0 0 22px rgba(196, 69, 77, 0);
   }
 }
 
@@ -910,7 +930,6 @@
     transition-delay: 3.4s;
   }
 }
-
 
 @keyframes wd-tick {
   0%,

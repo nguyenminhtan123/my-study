@@ -128,6 +128,6 @@
 }
 
 // Keep the end of the template clear of the fixed bar.
-.gl-bar ~ .wd-page {
+.gl-bar ~ .zaui-page {
   padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 }
