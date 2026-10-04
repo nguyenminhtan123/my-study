@@ -5,7 +5,8 @@ import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
-import { LotusArt } from "@/templates/t03/lotus";
+import lotusPink from "@/static/lotus-pink.jpg";
+import lotusWhite from "@/static/lotus-white.jpg";
 import {
   CalendarCard,
   Countdown,
@@ -26,7 +27,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       <Drifters kind="petal" count={12} color="#ffffff" opacity={0.85} />
 
       <div className="t03-head">
-        <LotusArt className="t03-lotus" />
+        <img src={lotusPink} alt="" />
       </div>
 
       <section className="t03-cover">
@@ -41,7 +42,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t03-std">
-        <LotusArt className="t03-lotus-corner" />
+        <img className="t03-lotus-round" src={lotusWhite} alt="" />
         <Reveal variant="zoom">
           <div className="t03-envelope">
             <CalendarCard iso={data.weddingISO} />

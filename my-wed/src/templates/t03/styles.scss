@@ -85,30 +85,6 @@
     );
   }
 }
-.t03-head {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 150px;
-  background: linear-gradient(180deg, #ffffff, #f6f8f3);
-  overflow: hidden;
-}
-.t03-lotus {
-  width: 210px;
-  height: auto;
-  margin-bottom: -6px;
-  transform-origin: 50% 100%;
-  animation: t03-sway 6s ease-in-out infinite alternate;
-}
-.t03-lotus-corner {
-  position: absolute;
-  right: -14px;
-  top: 6px;
-  width: 120px;
-  opacity: 0.95;
-  transform-origin: 50% 100%;
-  animation: t03-sway 7s ease-in-out infinite alternate-reverse;
-}
 .t03-cover-names {
   position: absolute;
   left: 22px;
@@ -451,5 +427,44 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+// ---- lotus photos (CC0, see docs/CREDITS.md) ----
+.t03-head {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background: #fff;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 30%;
+    mix-blend-mode: multiply;
+    animation: t03-lotus-zoom 14s ease-in-out infinite alternate;
+    transform-origin: 62% 40%;
+  }
+}
+.t03-lotus-round {
+  position: absolute;
+  right: 12px;
+  top: 14px;
+  z-index: 1;
+  width: 96px;
+  height: 96px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(40, 60, 30, 0.25);
+  animation: t03-sway 7s ease-in-out infinite alternate;
+}
+@keyframes t03-lotus-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
   }
 }
