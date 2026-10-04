@@ -1,23 +1,23 @@
-// Template 6: paper flowers and clovers (layout follows the owner's reference).
+// Template 6: emerald and mist, quiet editorial layout (diagonal torn photo band, white relief, line-art sprigs).
 .t06-root {
-  --k-bg: #f2f7f4;
-  --k-ink: #1f4a33;
-  --k-muted: #6b8575;
-  --k-accent: #1f5a3a;
-  --k-accent2: #2e7a4a;
-  --k-line: #cfe0d5;
-  --k-card: #fbfdfb;
+  --k-bg: #f4f7f4;
+  --k-ink: #173d2e;
+  --k-muted: #6f8a7a;
+  --k-accent: #17503a;
+  --k-accent2: #3f7a5c;
+  --k-line: #d4e1d8;
+  --k-card: #fbfcfa;
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --k-script: "Allura", "Great Vibes", Georgia, serif;
+  --k-script: "Cormorant Garamond", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding: 0;
   background-color: var(--k-bg);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .07 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .06 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
   font-size: 14px;
-  line-height: 1.75;
+  line-height: 1.8;
   color-scheme: light;
   overflow-x: hidden;
 
@@ -25,49 +25,67 @@
     display: block;
     max-width: 100%;
   }
-  h1,
-  h2,
-  h3,
-  p,
-  figure {
+  :where(h1, h2, h3, p, figure) {
     margin: 0;
+  }
+  em {
+    font-family: var(--k-display);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .k-form h3 {
+    font-family: var(--k-display);
+    font-size: 30px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--k-accent);
   }
   .k-form input,
   .k-form textarea,
   .k-form select {
-    border-radius: 14px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 9px 14px;
+    border: 0;
+    border-bottom: 1px solid #a9c1b2;
+    border-radius: 0;
+    background-color: transparent;
+    padding: 11px 2px;
+    font-size: 13px;
+  }
+  .k-form textarea {
+    border: 1px solid #a9c1b2;
+    padding: 10px 12px;
+  }
+  .k-submit {
+    border-radius: 0;
+    background: var(--k-accent);
+    letter-spacing: 0.28em;
     font-size: 12px;
   }
+  .k-chips button.on {
+    background: var(--k-accent);
+  }
 }
-.t06-cap {
-  font-size: 11px;
-  letter-spacing: 0.06em;
+.t06-eyebrow {
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
   color: var(--k-muted);
 }
-
-// ---- paper flowers & clovers ----
-.t06-bloom,
-.t06-clover {
-  position: absolute;
-  pointer-events: none;
+.t06-sprig {
+  display: block;
+  width: 170px;
+  margin: 14px auto 18px;
+  color: var(--k-accent2);
 }
-.t06-bloom {
-  width: 84px;
-  animation: t06-spin 24s linear infinite;
-}
-.t06-clover {
-  width: 56px;
-  transform-origin: 50% 90%;
-  animation: t06-bob 5s ease-in-out infinite alternate;
+.t06-sprig-sm {
+  width: 130px;
+  margin-bottom: 4px;
 }
 
 // ---- cover ----
 .t06-cover {
   position: relative;
   padding-top: 196px;
-  padding-bottom: 64px;
+  padding-bottom: 56px;
   background: linear-gradient(180deg, #fbfdfc, var(--k-bg) 420px);
 }
 .t06-relief {
@@ -92,19 +110,19 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.42) 0%,
-      rgba(255, 255, 255, 0.42) 50%,
-      rgba(251, 253, 252, 0.96) 94%
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(251, 253, 252, 0.97) 94%
     );
   }
 }
 .t06-mono {
   position: absolute;
   left: 50%;
-  top: 176px;
+  top: 150px;
   z-index: 4;
-  width: 132px;
-  margin-left: -66px;
+  width: 160px;
+  margin-left: -80px;
   text-align: center;
   color: var(--k-accent);
   animation: t06-rise 1.4s 0.3s both;
@@ -112,21 +130,27 @@
   span {
     display: block;
     font-family: var(--k-display);
-    font-size: 66px;
-    font-weight: 500;
+    font-size: 64px;
+    font-weight: 400;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.12em;
+    padding-left: 0.12em;
   }
-  svg {
+  i {
     display: block;
-    width: 120px;
-    margin: -14px auto 0;
+    width: 1px;
+    height: 34px;
+    margin: 8px auto 0;
+    background: currentColor;
+    opacity: 0.55;
+    transform-origin: top;
+    animation: t06-grow 1.6s 0.9s ease both;
   }
 }
 .t06-torn-wrap {
   position: relative;
   filter: drop-shadow(0 -4px 2px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 6px 8px rgba(30, 60, 45, 0.18));
+    drop-shadow(0 8px 10px rgba(30, 60, 45, 0.18));
   animation: t06-reveal 1.6s 0.4s ease both;
 }
 .t06-torn {
@@ -185,162 +209,129 @@
     animation: t06-zoom 16s ease-in-out infinite alternate;
   }
 }
-.t06-flo {
-  position: absolute;
-  width: 92px;
-  animation: t06-spin 26s linear infinite;
-  pointer-events: none;
-}
-.t06-flo-a {
-  right: 20px;
-  top: 560px;
-  z-index: 3;
-}
-.t06-flo-b {
-  left: 30px;
-  top: 690px;
-  width: 104px;
-  z-index: 3;
-  animation-duration: 32s;
-  animation-direction: reverse;
-}
-.t06-cv-clover-l {
-  left: -8px;
-  top: 600px;
-  width: 52px;
-  z-index: 3;
-}
-.t06-cv-clover-m {
-  left: 176px;
-  top: 742px;
-  width: 40px;
-  z-index: 3;
-}
-.t06-cv-clover-r {
-  right: 24px;
-  top: 740px;
-  width: 78px;
-  z-index: 3;
-}
 .t06-cover-names {
   position: relative;
-  margin: 4px 0 0;
+  margin: 10px 0 0;
   padding: 0 26px 0 0;
   text-align: right;
   font-family: var(--k-display);
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 500;
+  letter-spacing: 0.06em;
   color: var(--k-accent);
-  z-index: 3;
 
+  em {
+    color: var(--k-accent2);
+    font-size: 20px;
+  }
   span {
     display: block;
-    margin-top: 6px;
-    font-size: 14px;
-    letter-spacing: 0.1em;
+    margin-top: 2px;
+    font-family: var(--k-body);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    color: var(--k-muted);
   }
 }
 
 // ---- invitation ----
 .t06-invite {
-  position: relative;
-  padding: 26px 24px 64px;
+  padding: 36px 28px 56px;
   text-align: center;
 
   h2 {
-    margin: 12px 0 14px;
+    margin: 18px 0 0;
     font-family: var(--k-display);
-    font-size: 36px;
-    font-weight: 500;
-    line-height: 1.1;
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
     color: var(--k-accent);
 
-    i {
-      font-family: var(--k-script);
-      font-style: normal;
-      font-size: 34px;
+    em {
+      display: block;
+      margin: 2px 0;
+      font-size: 30px;
       color: var(--k-accent2);
     }
   }
   h3 {
-    margin: 6px 0 2px;
+    margin: 10px 0 2px;
     font-family: var(--k-display);
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 }
-.t06-paper {
-  margin: 8px auto 20px;
-  max-width: 282px;
-  padding: 14px 10px;
+.t06-card {
+  margin: 14px auto 30px;
+  max-width: 250px;
+  padding: 20px 16px 16px;
   background: #fff;
-  filter: drop-shadow(0 6px 10px rgba(47, 90, 62, 0.16));
-  clip-path: polygon(
-    0 3%,
-    6% 0,
-    14% 4%,
-    24% 0,
-    36% 3%,
-    50% 0,
-    64% 4%,
-    78% 0,
-    90% 3%,
-    100% 0,
-    100% 97%,
-    92% 100%,
-    80% 96%,
-    66% 100%,
-    52% 96%,
-    38% 100%,
-    24% 96%,
-    12% 100%,
-    0 97%
-  );
+  border: 1px solid var(--k-line);
+  box-shadow: 0 14px 30px rgba(23, 80, 58, 0.1);
 
   b {
     display: block;
     font-family: var(--k-display);
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--k-accent);
   }
   span {
-    letter-spacing: 0.18em;
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  small {
+    display: block;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--k-line);
+    font-size: 12px;
+    letter-spacing: 0.22em;
     color: var(--k-muted);
-    font-size: 13px;
   }
 }
 .t06-addr {
-  margin: 0 auto 18px;
-  max-width: 290px;
+  margin: 0 auto 22px;
+  max-width: 270px;
   font-family: var(--k-display);
   font-style: italic;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--k-muted);
 }
 .t06-direction {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 22px;
+  gap: 8px;
+  padding: 10px 26px;
   border: 1px solid var(--k-accent);
   background: transparent;
   color: var(--k-accent);
   font: inherit;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
   cursor: pointer;
-}
-.t06-in-clover {
-  right: 36px;
-  bottom: 10px;
-  width: 64px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+
+  &:active {
+    background: var(--k-accent);
+    color: #fff;
+  }
 }
 
 // ---- envelope ----
 .t06-env {
-  padding: 56px 34px 10px;
+  padding: 60px 34px 10px;
 }
 .t06-envelope {
   position: relative;
@@ -349,9 +340,9 @@
 .t06-back {
   position: absolute;
   inset: 0;
-  background: #1d5a36;
+  background: #174a34;
   border-radius: 3px;
-  box-shadow: 0 16px 30px rgba(20, 70, 40, 0.38);
+  box-shadow: 0 20px 34px rgba(20, 60, 40, 0.34);
 }
 .t06-flap {
   position: absolute;
@@ -359,7 +350,7 @@
   right: 0;
   top: -70px;
   height: 70px;
-  background: linear-gradient(180deg, #174a2c, #1d5a36);
+  background: linear-gradient(180deg, #123b29, #174a34);
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
   z-index: 1;
 }
@@ -394,7 +385,7 @@
   position: absolute;
   inset: 40px 0 0 0;
   z-index: 3;
-  background: linear-gradient(180deg, #226a40, #1a5230);
+  background: linear-gradient(180deg, #1c5a3d, #153f2c);
   clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
   border-radius: 0 0 3px 3px;
 }
@@ -403,53 +394,36 @@
   left: 50%;
   top: 86px;
   z-index: 5;
-  width: 52px;
-  height: 52px;
-  margin-left: -26px;
+  width: 54px;
+  height: 54px;
+  margin-left: -27px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e6c27a, #a07a30 75%);
+  background: radial-gradient(circle at 35% 30%, #e6c982, #9c7a34 78%);
   box-shadow:
     0 5px 10px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 4px rgba(255, 255, 255, 0.18);
+    inset 0 0 0 4px rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   animation: t06-shine 3.6s ease-in-out infinite;
 
   span {
-    font-family: var(--k-script);
-    font-size: 22px;
+    font-family: var(--k-display);
+    font-size: 21px;
+    font-style: italic;
     color: #fff6dd;
+    letter-spacing: 0.04em;
   }
 }
-.t06-tag {
-  position: absolute;
-  left: 50%;
-  top: 100px;
-  z-index: 4;
-  margin-left: 22px;
-  padding: 1px 8px;
-  background: #e9d8a8;
-  color: #6a5420;
-  font-size: 7px;
-  letter-spacing: 0.1em;
-  transform: rotate(-4deg);
-}
-.t06-env-bloom {
-  right: -22px;
-  bottom: -26px;
-  width: 78px;
-  z-index: 6;
-}
 
-// ---- wide torn photo ----
+// ---- wide photo ----
 .t06-wide {
   position: relative;
-  margin-top: 30px;
+  margin-top: 40px;
 
   img {
     width: 100%;
-    height: 230px;
+    height: 250px;
     object-fit: cover;
     clip-path: polygon(
       0 5%,
@@ -465,49 +439,53 @@
       0 100%
     );
   }
-}
-.t06-wide .k-reveal {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 26px;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 40% 0 0 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 30, 20, 0),
+      rgba(10, 30, 20, 0.5)
+    );
+    pointer-events: none;
+  }
+  .k-reveal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 26px;
+    z-index: 2;
+  }
 }
 .t06-save {
   text-align: center;
   font-family: var(--k-display);
-  font-style: italic;
   font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
 
-  i {
-    font-family: var(--k-script);
+  em {
+    text-transform: none;
+    letter-spacing: 0.02em;
     font-size: 40px;
   }
-}
-
-// ---- scattered paper flowers ----
-.t06-scatter {
-  position: relative;
-  height: 300px;
-  overflow: hidden;
-}
-.t06-sc {
-  position: absolute;
-  animation: t06-spin linear infinite;
 }
 
 // ---- couple frames ----
 .t06-frames {
   position: relative;
   height: 470px;
-  margin: 0 14px;
+  margin: 40px 16px 0;
 }
 .t06-fr {
   position: absolute;
   padding: 8px 8px 4px;
   background: #fff;
-  box-shadow: 0 10px 24px rgba(40, 70, 50, 0.22);
+  box-shadow: 0 14px 30px rgba(23, 80, 58, 0.16);
 
   img {
     width: 100%;
@@ -515,19 +493,19 @@
     object-fit: cover;
   }
   p {
-    padding: 10px 0 4px;
+    padding: 12px 0 6px;
     text-align: center;
-    font-size: 13px;
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--k-accent);
   }
-  i {
+  em {
     display: block;
-    font-family: var(--k-script);
-    font-style: normal;
-    font-size: 24px;
+    font-size: 22px;
     letter-spacing: 0;
-    color: #8aa093;
+    text-transform: none;
+    color: var(--k-muted);
   }
 }
 .t06-fr-groom {
@@ -547,31 +525,26 @@
     height: 290px;
   }
 }
-.t06-fr-clover {
-  right: -4px;
-  bottom: 6px;
-  width: 96px;
-  z-index: 3;
-}
 
-// ---- album collage ----
+// ---- album ----
 .t06-album {
-  position: relative;
-  padding: 24px 14px 30px;
+  padding: 34px 16px 30px;
 }
 .t06-album-title {
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   text-align: right;
   font-family: var(--k-display);
-  font-style: italic;
   font-size: 40px;
   font-weight: 400;
-  color: #98a89d;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8aa595;
 
-  i {
-    font-family: var(--k-script);
-    font-size: 50px;
-    color: #b9c6bd;
+  em {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 44px;
+    color: var(--k-accent2);
   }
 }
 .t06-collage {
@@ -588,7 +561,7 @@
   width: 100%;
   object-fit: cover;
   border: 3px solid #fff;
-  box-shadow: 0 4px 10px rgba(40, 70, 50, 0.18);
+  box-shadow: 0 6px 14px rgba(23, 80, 58, 0.14);
   box-sizing: border-box;
 }
 .t06-ph1 {
@@ -609,7 +582,7 @@
     height: 440px;
     object-fit: cover;
     border: 3px solid #fff;
-    box-shadow: 0 4px 10px rgba(40, 70, 50, 0.18);
+    box-shadow: 0 6px 14px rgba(23, 80, 58, 0.14);
     box-sizing: border-box;
   }
   p {
@@ -617,70 +590,64 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 6px 8px;
-    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 8px;
+    background: rgba(255, 255, 255, 0.92);
     font-family: var(--k-display);
-    font-size: 17px;
-    letter-spacing: 0.12em;
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     text-align: center;
 
     span {
       display: block;
-      color: #98a89d;
+      font-size: 13px;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      text-transform: none;
+      color: var(--k-muted);
     }
   }
 }
-.t06-al-bloom {
-  right: 8px;
-  top: 6px;
-  width: 64px;
-}
-.t06-al-clover {
-  left: 74px;
-  bottom: 24px;
-  width: 72px;
-  z-index: 2;
-}
 
 .t06-form {
-  padding: 18px 24px 8px;
+  padding: 22px 28px 8px;
+  text-align: center;
 }
 .t06-gift {
-  padding: 26px 24px 30px;
+  padding: 30px 28px 34px;
 }
-.t06-end img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.t06-end {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 30, 20, 0),
+      rgba(10, 30, 20, 0.6)
+    );
+  }
+  p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    z-index: 2;
+    text-align: center;
+    font-family: var(--k-display);
+    font-style: italic;
+    font-size: 40px;
+    color: #fff;
+  }
 }
 
-@keyframes t06-breathe {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.04);
-  }
-}
-@keyframes t06-spin {
-  from {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.08);
-  }
-  to {
-    transform: rotate(360deg) scale(1);
-  }
-}
-@keyframes t06-bob {
-  from {
-    transform: rotate(-9deg) scale(1);
-  }
-  to {
-    transform: rotate(9deg) scale(1.08);
-  }
-}
 @keyframes t06-zoom {
   from {
     transform: scale(1);
@@ -697,6 +664,14 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+@keyframes t06-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
   }
 }
 @keyframes t06-reveal {
