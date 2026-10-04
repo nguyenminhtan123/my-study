@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Box, Button, Tabs, Text, useSnackbar } from "zmp-ui";
 
-import { GiftSide, weddingConfig } from "@/data/wedding";
-import { copyText } from "@/utils/wedding";
+import { GiftSide } from "@/core/types";
+import { useWeddingData } from "@/core/wedding-context";
+import { copyText } from "@/core/utils/wedding";
 
 const SIDES: { key: GiftSide; label: string }[] = [
   { key: "groom", label: "Chú rể" },
@@ -50,9 +51,10 @@ const PlaceholderQr = ({ seed }: { seed: number }) => (
 );
 
 const GiftSection = () => {
+  const data = useWeddingData();
   const [side, setSide] = useState<GiftSide>("groom");
   const { openSnackbar } = useSnackbar();
-  const gift = weddingConfig.gifts[side];
+  const gift = data.gifts[side];
 
   const handleCopy = async () => {
     const copied = await copyText(gift.account.replace(/\s/g, ""));

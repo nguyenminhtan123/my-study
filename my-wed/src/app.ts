@@ -22,7 +22,7 @@ import "zmp-ui/zaui.css";
 import "@/css/tailwind.scss";
 // Your stylesheet
 import "@/css/app.scss";
-import "@/css/wedding.scss";
+
 
 // React core
 import React from "react";

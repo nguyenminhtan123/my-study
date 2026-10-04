@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { useReveal } from "@/hooks/use-reveal";
+import { useReveal } from "@/core/hooks/use-reveal";
 
 export type RevealVariant = "up" | "left" | "right" | "zoom";
 

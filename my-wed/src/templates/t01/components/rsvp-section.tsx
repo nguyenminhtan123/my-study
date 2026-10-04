@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Box, Button, Input, Radio, Text } from "zmp-ui";
 
-import { weddingConfig } from "@/data/wedding";
+import { useWeddingData } from "@/core/wedding-context";
 
 // const MIN_GUESTS = 1;
 // const MAX_GUESTS = 10;
@@ -12,6 +12,7 @@ type Attendance = "yes" | "no";
 //   Math.min(MAX_GUESTS, Math.max(MIN_GUESTS, value));
 
 const RsvpSection = () => {
+  const data = useWeddingData();
   const [name, setName] = useState("");
   const [attendance, setAttendance] = useState<Attendance>("yes");
   // const [guests, setGuests] = useState(MIN_GUESTS);
@@ -44,7 +45,7 @@ const RsvpSection = () => {
       <h2 className="wd-script">Xác nhận tham dự</h2>
       <Text className="wd-muted wd-card-sub">
         Rất mong được đón bạn. Phản hồi giúp gia đình chuẩn bị chu đáo, trước
-        ngày {weddingConfig.rsvpDeadline}.
+        ngày {data.rsvpDeadline}.
       </Text>
       <form className="wd-form" onSubmit={handleSubmit} noValidate>
         <Input

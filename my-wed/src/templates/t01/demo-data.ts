@@ -5,29 +5,15 @@ import album4 from "@/static/album4.jpeg";
 import couple from "@/static/couple.jpeg";
 import cover from "@/static/cover.jpg";
 import destiny from "@/static/destiny.jpeg";
+import {
+  GiftSide,
+  GiftAccount,
+  PhotoSlot,
+  TimelineStep,
+  WeddingData,
+} from "@/core/types";
 
-export type GiftSide = "groom" | "bride";
-
-export interface GiftAccount {
-  bank: string;
-  account: string;
-  owner: string;
-  qr: string;
-}
-
-export interface TimelineStep {
-  time: string;
-  label: string;
-}
-
-export interface PhotoSlot {
-  key: string;
-  label: string;
-  ratio: string;
-  src: string;
-}
-
-export const weddingConfig = {
+export const demoData: WeddingData = {
   groom: "TÂN",
   bride: "TRANG",
   weddingISO: "2026-10-30T17:00:00+07:00",

@@ -1,6 +1,6 @@
 # Kế hoạch: Gallery mẫu thiệp cưới online (Zalo Mini App)
 
-Trạng thái: **mới chốt hướng đi, chưa bắt đầu tái cấu trúc code.**
+Trạng thái: **bước 1 (tái cấu trúc) đã xong**, giao diện mẫu 1 giữ nguyên (so ảnh 10/10 giống hệt, xem `tools/visual-check/`). Bước 2 trở đi chưa làm.
 App hiện tại: `my-wed/` (React + TypeScript + zmp-ui + Vite), là 1 thiệp cưới đơn.
 
 ## Mục tiêu
@@ -64,7 +64,7 @@ Xem skill `.claude/skills/new-template/SKILL.md`. Tóm tắt: trích bảng màu
 
 ## Thứ tự làm
 
-1. **Tái cấu trúc**: mẫu hiện tại thành `t01`, tách `core/`. Giao diện giữ nguyên.
+1. ✅ **Tái cấu trúc**: mẫu hiện tại thành `t01`, tách `core/` (`types.ts` với `WeddingData`, `wedding-context.tsx`, `hooks/`, `utils/`), registry `templates/index.ts`. Giao diện giữ nguyên.
 2. Gallery, trang chi tiết mẫu, giá, nút "Chọn mẫu".
 3. Chế độ build một mẫu cho từng khách + script kiểm tra khách/mẫu.
 4. Mẫu `t02`–`t10` khi có thiết kế (dùng skill `new-template`).

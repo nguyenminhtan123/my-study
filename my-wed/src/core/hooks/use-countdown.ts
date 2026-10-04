@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Countdown, computeCountdown } from "@/utils/wedding";
+import { Countdown, computeCountdown } from "@/core/utils/wedding";
 
 const REFRESH_INTERVAL_MS = 30000;
 

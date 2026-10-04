@@ -1,42 +1,10 @@
-import { useState } from "react";
-import { Page } from "zmp-ui";
+import { templates } from "@/templates";
 
-import AlbumSection from "@/components/wedding/album-section";
-import EnvelopeIntro from "@/components/wedding/envelope-intro";
-import FooterSection from "@/components/wedding/footer-section";
-import GiftSection from "@/components/wedding/gift-section";
-import HeroSection from "@/components/wedding/hero-section";
-import InvitationSection from "@/components/wedding/invitation-section";
-import RsvpSection from "@/components/wedding/rsvp-section";
-import { RevealContext } from "@/hooks/use-reveal";
-import Reveal from "@/components/wedding/reveal";
-import TimelineSection from "@/components/wedding/timeline-section";
-
+// Step 1 of the gallery plan: still shows only the first template.
+// The gallery list and template detail pages replace this later.
 function HomePage() {
-  const [opened, setOpened] = useState(false);
-
-  return (
-    <Page className="wd-page">
-      <EnvelopeIntro opened={opened} onOpen={() => setOpened(true)} />
-      <RevealContext.Provider value={opened}>
-        <div className={`wd-sheet ${opened ? "wd-started" : ""}`}>
-          <HeroSection />
-          <InvitationSection />
-          <TimelineSection />
-          <AlbumSection />
-          <Reveal>
-            <RsvpSection />
-          </Reveal>
-          <Reveal variant="zoom">
-            <GiftSection />
-          </Reveal>
-          <Reveal>
-            <FooterSection />
-          </Reveal>
-        </div>
-      </RevealContext.Provider>
-    </Page>
-  );
+  const { Component, demoData } = templates[0];
+  return <Component data={demoData} />;
 }
 
 export default HomePage;

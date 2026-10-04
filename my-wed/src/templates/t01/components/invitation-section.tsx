@@ -1,11 +1,11 @@
 import { openOutApp, openWebview } from "zmp-sdk";
 import { Box, Button, Icon, Text } from "zmp-ui";
 
-import Reveal from "@/components/wedding/reveal";
-import PhotoFrame from "@/components/wedding/photo-frame";
-import { useCountdown } from "@/hooks/use-countdown";
-import { weddingConfig } from "@/data/wedding";
-import { buildCalendarUrl, buildMapUrl } from "@/utils/wedding";
+import Reveal from "@/templates/t01/components/reveal";
+import PhotoFrame from "@/templates/t01/components/photo-frame";
+import { useCountdown } from "@/core/hooks/use-countdown";
+import { useWeddingData } from "@/core/wedding-context";
+import { buildCalendarUrl, buildMapUrl } from "@/core/utils/wedding";
 
 const FamilyColumn = ({
   title,
@@ -23,7 +23,8 @@ const FamilyColumn = ({
 );
 
 const InvitationSection = () => {
-  const countdown = useCountdown(weddingConfig.weddingISO);
+  const data = useWeddingData();
+  const countdown = useCountdown(data.weddingISO);
 
   const openLink = async (url: string) => {
     try {
@@ -39,7 +40,7 @@ const InvitationSection = () => {
 
   return (
     <Box>
-      <PhotoFrame photo={weddingConfig.photos.couple} />
+      <PhotoFrame photo={data.photos.couple} />
       <Box className="wd-invite">
         <Reveal>
           <Text className="wd-lead">
@@ -50,9 +51,9 @@ const InvitationSection = () => {
         </Reveal>
         <Reveal variant="zoom" delay={150}>
           <Box className="wd-big-names">
-            <span className="wd-big-name">{weddingConfig.groom}</span>
+            <span className="wd-big-name">{data.groom}</span>
             <span className="wd-script wd-big-and">&</span>
-            <span className="wd-big-name">{weddingConfig.bride}</span>
+            <span className="wd-big-name">{data.bride}</span>
           </Box>
         </Reveal>
         <Reveal delay={250}>
@@ -80,21 +81,15 @@ const InvitationSection = () => {
         <Reveal delay={450}>
           <Box className="wd-venue">
             <small>Địa điểm</small>
-            <b>{weddingConfig.venueName}</b>
-            <small>{weddingConfig.venueAddress}</small>
+            <b>{data.venueName}</b>
+            <small>{data.venueAddress}</small>
           </Box>
         </Reveal>
       </Box>
       <Reveal>
         <Box className="wd-families">
-          <FamilyColumn
-            title="Nhà trai"
-            parents={weddingConfig.families.groom}
-          />
-          <FamilyColumn
-            title="Nhà gái"
-            parents={weddingConfig.families.bride}
-          />
+          <FamilyColumn title="Nhà trai" parents={data.families.groom} />
+          <FamilyColumn title="Nhà gái" parents={data.families.bride} />
         </Box>
       </Reveal>
       <Reveal>
@@ -103,7 +98,7 @@ const InvitationSection = () => {
             variant="tertiary"
             size="small"
             prefixIcon={<Icon icon="zi-location" />}
-            onClick={() => openLink(buildMapUrl(weddingConfig.venueQuery))}
+            onClick={() => openLink(buildMapUrl(data.venueQuery))}
           >
             Chỉ đường
           </Button>
@@ -114,9 +109,9 @@ const InvitationSection = () => {
             onClick={() =>
               openLink(
                 buildCalendarUrl(
-                  weddingConfig.eventTitle,
-                  weddingConfig.calendarDates,
-                  weddingConfig.venueQuery,
+                  data.eventTitle,
+                  data.calendarDates,
+                  data.venueQuery,
                 ),
               )
             }

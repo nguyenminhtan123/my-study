@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-import { useReveal } from "@/hooks/use-reveal";
-import { PhotoSlot } from "@/data/wedding";
-import { buildPlaceholder } from "@/utils/wedding";
+import { useReveal } from "@/core/hooks/use-reveal";
+import { PhotoSlot } from "@/core/types";
+import { buildPlaceholder } from "@/core/utils/wedding";
 
 interface PhotoFrameProps {
   photo: PhotoSlot;
