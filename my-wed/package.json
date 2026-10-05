@@ -30,14 +30,12 @@
     "lucide-react": "^1.48.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "three": "^0.170.0",
     "zmp-sdk": "latest",
     "zmp-ui": "latest"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.170.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",

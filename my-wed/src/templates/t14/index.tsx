@@ -4,6 +4,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t14/styles.scss";
 import { WeddingData } from "@/core/types";
+import coupleVector from "@/static/couple-vector.svg";
+import { Drifters } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   Countdown,
@@ -12,22 +14,24 @@ import {
   VenueActions,
   photoSrc,
 } from "@/templates/_kit/sections";
-import type { World } from "@/templates/t14/world";
 
 interface Stop {
   title: string;
   body: ReactNode;
 }
 
+const CARD_OUT_MS = 380; // card fades out before we start walking
+const WALK_MS = 1800; // must match the transition on .t14-arch / .t14-walking
+
 const Template14 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const [entered, setEntered] = useState(false);
-  const [stop, setStop] = useState(0);
+  const [pos, setPos] = useState(0); // where the walk is heading (drives the arches)
+  const [shown, setShown] = useState(0); // which stop's card is on screen
   const [cardOn, setCardOn] = useState(false);
-  const [noGL, setNoGL] = useState(false);
+  const [busy, setBusy] = useState(false);
   const touchY = useRef<number | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const worldRef = useRef<World | null>(null);
+  const timers = useRef<number[]>([]);
 
   const stops: Stop[] = [
     {
@@ -117,51 +121,35 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     },
     { title: "Mừng cưới", body: <GiftCard data={data} /> },
   ];
-  const last = stops.length; // index of the final altar scene
-  const finale = stop === last;
+  const last = stops.length; // index of the altar
+  const finale = shown === last;
 
-  // three.js is loaded on demand so the other templates stay light.
-  useEffect(() => {
-    let cancelled = false;
-    import("@/templates/t14/world")
-      .then(({ createWorld }) => {
-        if (cancelled || !canvasRef.current) return;
-        try {
-          worldRef.current = createWorld(canvasRef.current, {
-            stops: last,
-            photo: photoSrc(data.photos.couple),
-          });
-        } catch {
-          setNoGL(true);
-        }
-      })
-      .catch(() => setNoGL(true));
-    return () => {
-      cancelled = true;
-      worldRef.current?.dispose();
-      worldRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (entered) worldRef.current?.setStop(stop);
-  }, [stop, entered]);
-
-  // Show the info card only after the camera has arrived.
-  useEffect(() => {
-    if (!entered) return;
-    setCardOn(false);
-    const t = setTimeout(() => setCardOn(true), stop === 0 ? 3000 : 1900);
-    return () => clearTimeout(t);
-  }, [stop, entered]);
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  const later = (fn: () => void, ms: number) => {
+    timers.current.push(window.setTimeout(fn, ms));
+  };
 
   const enter = () => {
     setEntered(true);
-    worldRef.current?.open();
+    setBusy(true);
+    later(() => {
+      setCardOn(true);
+      setBusy(false);
+    }, 2600);
   };
-  const go = (delta: number) =>
-    setStop((s) => Math.min(last, Math.max(0, s + delta)));
+
+  // Hide the card, walk, swap the content, then show the card: never the other way round.
+  const goTo = (target: number) => {
+    if (busy || target < 0 || target > last || target === shown) return;
+    setBusy(true);
+    setCardOn(false);
+    later(() => setPos(target), CARD_OUT_MS);
+    later(() => {
+      setShown(target);
+      setCardOn(true);
+      setBusy(false);
+    }, CARD_OUT_MS + WALK_MS);
+  };
 
   const onTouchStart = (e: TouchEvent) => {
     touchY.current = e.touches[0].clientY;
@@ -170,88 +158,138 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     if (touchY.current === null) return;
     const dy = touchY.current - e.changedTouches[0].clientY;
     touchY.current = null;
-    if (Math.abs(dy) > 50) go(dy > 0 ? 1 : -1);
+    if (Math.abs(dy) > 50) goTo(shown + (dy > 0 ? 1 : -1));
   };
 
+  const walking = busy && pos !== shown;
+
   return (
-    <Page className={`t14-root ${noGL ? "t14-nogl" : ""}`}>
-      <canvas ref={canvasRef} className="t14-canvas" />
-      <div className="t14-vignette" />
-
-      {/* gate: the doors are 3D, this is the text and button over them */}
-      <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
-        <p>Welcome to our wedding</p>
-        <h1>
-          {data.groom}
-          <i>&amp;</i>
-          {data.bride}
-        </h1>
-        <p className="t14-gate-date">
-          {d.day} · {d.month} · {d.year}
-        </p>
-        <button type="button" onClick={enter}>
-          Mở cửa lễ đường
-        </button>
-      </div>
-
+    <Page className="t14-root">
       <div
-        className={`t14-world ${entered ? "t14-on" : ""}`}
+        className={`t14-scene ${entered ? "t14-entered" : ""} ${walking ? "t14-walking" : ""} ${pos === last ? "t14-at-altar" : ""}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        {!finale && (
-          <div className={`t14-card ${cardOn ? "t14-card-on" : ""}`}>
-            <p className="t14-step">
-              {String(stop + 1).padStart(2, "0")} /{" "}
-              {String(last).padStart(2, "0")} · {stops[stop].title}
-            </p>
-            <div className="t14-card-body">{stops[stop].body}</div>
-          </div>
-        )}
+        <div className="t14-sky" />
+        <div className="t14-glow" />
+        <div className="t14-ground" />
+        <div className="t14-runner" />
+        <div className="t14-bank t14-bank-l" />
+        <div className="t14-bank t14-bank-r" />
 
-        <div
-          className={`t14-finale ${finale && cardOn ? "t14-finale-on" : ""}`}
-        >
-          <h2>
+        {Array.from({ length: last + 1 }, (_, i) => {
+          const rel = i - pos;
+          const scale = rel >= 0 ? 1 / (1 + rel * 0.85) : 2.6;
+          return (
+            <div
+              key={i}
+              className={`t14-arch ${i === last ? "t14-arch-altar" : ""}`}
+              style={{
+                transform: `scale(${scale})`,
+                opacity: rel < 0 ? 0 : rel > 2 ? 0 : 1,
+                zIndex: 20 - i,
+              }}
+            >
+              <div className="t14-arch-flowers" />
+            </div>
+          );
+        })}
+
+        <img
+          className={`t14-couple ${finale && cardOn ? "t14-couple-on" : ""}`}
+          src={coupleVector}
+          alt=""
+        />
+        <Drifters kind="petal" count={10} color="#f7d4dc" opacity={0.9} />
+      </div>
+
+      {/* gate */}
+      <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
+        <div className="t14-gate-arch">
+          <div className="t14-arch-flowers" />
+          <div className="t14-doors">
+            <div className="t14-door t14-door-l" />
+            <div className="t14-door t14-door-r" />
+          </div>
+        </div>
+        <div className="t14-gate-text">
+          <p>Welcome to our wedding</p>
+          <h1>
             {data.groom}
             <i>&amp;</i>
             {data.bride}
-          </h2>
-          <p>Cảm ơn bạn đã cùng chúng mình đi hết con đường này</p>
-        </div>
-
-        <nav className="t14-nav">
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            disabled={stop === 0}
-            aria-label="Quay lại"
-          >
-            ‹
+          </h1>
+          <p className="t14-gate-date">
+            {d.day} · {d.month} · {d.year}
+          </p>
+          <button type="button" onClick={enter}>
+            Mở cửa lễ đường
           </button>
-          <div className="t14-dots">
-            {Array.from({ length: last + 1 }, (_, i) => (
-              <i
-                key={i}
-                className={i === stop ? "on" : i < stop ? "done" : ""}
-              />
-            ))}
+        </div>
+      </div>
+
+      {entered && (
+        <div className="t14-ui">
+          {!finale && (
+            <div className={`t14-card ${cardOn ? "t14-card-on" : ""}`}>
+              <p className="t14-step">
+                {String(shown + 1).padStart(2, "0")} /{" "}
+                {String(last).padStart(2, "0")} · {stops[shown].title}
+              </p>
+              <div className="t14-card-body">{stops[shown].body}</div>
+            </div>
+          )}
+
+          <div
+            className={`t14-finale ${finale && cardOn ? "t14-finale-on" : ""}`}
+          >
+            <h2>
+              {data.groom}
+              <i>&amp;</i>
+              {data.bride}
+            </h2>
+            <p>Cảm ơn bạn đã cùng chúng mình đi hết con đường này</p>
           </div>
-          {finale ? (
+
+          <nav className="t14-nav">
             <button
               type="button"
-              className="t14-next"
-              onClick={() => setStop(0)}
+              onClick={() => goTo(shown - 1)}
+              disabled={busy || shown === 0}
+              aria-label="Quay lại"
             >
-              Xem lại từ đầu
+              ‹
             </button>
-          ) : (
-            <button type="button" className="t14-next" onClick={() => go(1)}>
-              {stop === last - 1 ? "Đến lễ đường" : "Tiếp tục"} ›
-            </button>
-          )}
-        </nav>
-      </div>
+            <div className="t14-dots">
+              {Array.from({ length: last + 1 }, (_, i) => (
+                <i
+                  key={i}
+                  className={i === shown ? "on" : i < shown ? "done" : ""}
+                />
+              ))}
+            </div>
+            {finale ? (
+              <button
+                type="button"
+                className="t14-next"
+                disabled={busy}
+                onClick={() => goTo(0)}
+              >
+                Xem lại từ đầu
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="t14-next"
+                disabled={busy}
+                onClick={() => goTo(shown + 1)}
+              >
+                {shown === last - 1 ? "Đến lễ đường" : "Tiếp tục"} ›
+              </button>
+            )}
+          </nav>
+        </div>
+      )}
     </Page>
   );
 };
