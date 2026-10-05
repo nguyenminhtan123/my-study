@@ -26,8 +26,7 @@ interface Stop {
   body: ReactNode;
 }
 
-const CARD_OUT_MS = 380; // card fades out before the hearts fly
-const GUST_MS = 1900; // hearts blow across the aisle, then the next card shows
+const GUST_MS = 1700; // the gust blows the card away; the next card rides in at the tail of it
 
 // one gust of hearts: fixed pseudo-random values so every gust looks the same on re-render
 const GUST = Array.from({ length: 26 }, (_, i) => ({
@@ -60,6 +59,9 @@ const Template14 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const [entered, setEntered] = useState(false);
   const [gust, setGust] = useState(0); // bumps on every move so the hearts replay
+  const [dir, setDir] = useState(1); // 1 = forward (wind blows left to right), -1 = back
+  const touchX = useRef<number | null>(null);
+  const touchInCard = useRef(false);
   const [shown, setShown] = useState(0); // which stop's card is on screen
   const [cardOn, setCardOn] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -175,32 +177,40 @@ const Template14 = ({ data }: { data: WeddingData }) => {
   const goTo = (target: number) => {
     if (busy || target < 0 || target > last || target === shown) return;
     setBusy(true);
-    setCardOn(false);
-    later(() => setGust((g) => g + 1), CARD_OUT_MS);
+    setDir(target > shown ? 1 : -1);
+    setCardOn(false); // the card is swept away by the same gust
+    setGust((g) => g + 1);
     later(() => {
       setShown(target);
       setCardOn(true);
-      setBusy(false);
-    }, CARD_OUT_MS + GUST_MS);
+    }, GUST_MS);
+    later(() => setBusy(false), GUST_MS + 500);
   };
 
+  // Swipe with the wind (finger left to right) to go on, against it to go back. Up/down also works,
+  // except inside a card whose content scrolls.
   const onTouchStart = (e: TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
     touchY.current = e.touches[0].clientY;
+    touchInCard.current = !!(e.target as HTMLElement).closest?.(
+      ".t14-card-body",
+    );
   };
   const onTouchEnd = (e: TouchEvent) => {
-    if (touchY.current === null) return;
+    if (touchX.current === null || touchY.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
     const dy = touchY.current - e.changedTouches[0].clientY;
-    touchY.current = null;
-    if (Math.abs(dy) > 50) goTo(shown + (dy > 0 ? 1 : -1));
+    touchX.current = touchY.current = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      goTo(shown + (dx > 0 ? 1 : -1));
+    } else if (Math.abs(dy) > 50 && !touchInCard.current) {
+      goTo(shown + (dy > 0 ? 1 : -1));
+    }
   };
 
   return (
     <Page className="t14-root">
-      <div
-        className={`t14-scene ${entered ? "t14-entered" : ""} `}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
+      <div className={`t14-scene ${entered ? "t14-entered" : ""}`}>
         <div className="t14-cam">
           <div className="t14-photo" />
         </div>
@@ -215,7 +225,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
           <defs>
             {[
               ["#ffd6dc", "#e98a9b"],
-              ["#fff4f0", "#f2b8bf"],
+              ["#ffe1e4", "#ef9fae"],
               ["#f7d9a8", "#c9965a"],
               ["#ffc2cc", "#d0607a"],
             ].map(([a, b], i) => (
@@ -234,7 +244,11 @@ const Template14 = ({ data }: { data: WeddingData }) => {
           </defs>
         </svg>
         {gust > 0 && (
-          <div className="t14-gust" key={gust}>
+          <div
+            className="t14-gust"
+            key={gust}
+            style={{ transform: `scaleX(${dir})` }}
+          >
             {GUST.map((h, i) => (
               <span
                 key={i}
@@ -281,7 +295,12 @@ const Template14 = ({ data }: { data: WeddingData }) => {
       </div>
 
       {entered && (
-        <div className="t14-ui">
+        <div
+          className="t14-ui"
+          style={{ "--dir": dir } as CSSProperties}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
           <header
             className={`t14-head ${cardOn && !finale ? "t14-head-on" : ""}`}
           >
@@ -295,7 +314,10 @@ const Template14 = ({ data }: { data: WeddingData }) => {
             </span>
           </header>
           {!finale && (
-            <div className={`t14-card ${cardOn ? "t14-card-on" : ""}`}>
+            <div
+              key={shown}
+              className={`t14-card ${cardOn ? "t14-card-on" : "t14-card-out"}`}
+            >
               <div className="t14-card-body">{stops[shown].body}</div>
             </div>
           )}

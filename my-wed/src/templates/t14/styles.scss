@@ -168,13 +168,12 @@
     content: "";
     position: absolute;
     inset: 0;
+    // red is the wedding (hỷ) colour; multiplying keeps the real folds and light of the fabric
     background:
-      linear-gradient(
-        180deg,
-        rgba(255, 246, 232, 0.25),
-        rgba(240, 225, 205, 0.3)
-      ),
+      linear-gradient(180deg, #c8283a, #a3172b 70%, #8c1224),
       url("@/static/curtain.jpg") center / cover no-repeat;
+    background-blend-mode: multiply;
+    filter: saturate(1.15) contrast(1.08);
   }
 }
 .t14-curtain-l {
@@ -186,11 +185,7 @@
     position: absolute;
     inset: 0 0 0 auto;
     width: 36px;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0),
-      rgba(70, 50, 30, 0.16)
-    );
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(40, 0, 5, 0.35));
   }
 }
 .t14-curtain-r {
@@ -205,11 +200,7 @@
     position: absolute;
     inset: 0 auto 0 0;
     width: 36px;
-    background: linear-gradient(
-      270deg,
-      rgba(0, 0, 0, 0),
-      rgba(70, 50, 30, 0.16)
-    );
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(40, 0, 5, 0.35));
   }
 }
 // drawing the curtains: the fabric bunches up toward each side
@@ -240,14 +231,13 @@
   top: 50%;
   transform: translateY(-50%);
   margin: 0 22px;
-  padding: 34px 20px 30px;
-  border-radius: 999px 999px 24px 24px;
-  background: radial-gradient(
-    closest-side,
-    rgba(255, 251, 245, 0.92),
-    rgba(255, 251, 245, 0.75) 70%,
-    rgba(255, 251, 245, 0)
-  );
+  padding: 60px 20px 30px;
+  border-radius: 999px 999px 18px 18px;
+  background: rgba(255, 250, 242, 0.96);
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 250, 242, 0.96),
+    inset 0 0 0 7px #c9a463,
+    0 24px 50px rgba(60, 10, 15, 0.45);
   text-align: center;
   transition: opacity 0.5s;
 
@@ -306,11 +296,7 @@
   position: fixed;
   inset: 0;
   z-index: 40;
-  pointer-events: none;
-
-  > * {
-    pointer-events: auto;
-  }
+  touch-action: pan-y; // we read horizontal swipes ourselves
 }
 .t14-card {
   position: absolute;
@@ -328,20 +314,40 @@
   border-radius: 20px;
   box-shadow: 0 18px 40px rgba(90, 40, 50, 0.2);
   text-align: center;
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.38s ease,
-    transform 0.38s ease;
-  pointer-events: none;
 }
+// --dir (set on .t14-ui) is 1 going forward and -1 going back: the card leaves with the wind
+// and the next one glides in behind it from the other side
 .t14-card-on {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation: t14-card-in 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+.t14-card-out {
+  pointer-events: none;
+  animation: t14-card-away 0.9s cubic-bezier(0.5, 0, 0.75, 0.4) both;
+}
+@keyframes t14-card-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir) * -70%))
+      rotate(calc(var(--dir) * -5deg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes t14-card-away {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: translateX(calc(var(--dir) * -6px))
+      rotate(calc(var(--dir) * -1.5deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--dir) * 125%), -60px)
+      rotate(calc(var(--dir) * 14deg));
+  }
 }
 .t14-card-body {
   overflow-y: auto;
