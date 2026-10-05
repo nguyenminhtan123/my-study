@@ -89,3 +89,7 @@ Xem skill `.claude/skills/new-template/SKILL.md`. Tóm tắt: trích bảng màu
 ## Cập nhật: thêm mẫu t11–t13 (tham khảo Pinterest)
 
 Giữ nguyên t01–t10, thêm 3 mẫu mới theo xu hướng các ghim Pinterest (bảng màu hẹp, khối nền xen kẽ, chữ serif lớn): `t11` Đỏ rượu & kem (phong bì dấu sáp, khung tem răng cưa), `t12` Xanh rêu & kem (bố cục tạp chí, timeline icon, dải sọc cuối trang), `t13` Xanh cổ điển (monogram, dải ảnh viền rách). Gallery hiện có 13 mẫu.
+
+## Cập nhật: mẫu t14 · Lối vào lễ đường
+
+Màn đầu là cửa lễ đường (chạm để mở, hai cánh cửa xoay 3D). Sau đó là lối đi 3D bằng CSS qua các cổng hoa; mỗi chặng dừng hiện một thẻ thông tin (lời mời, thời gian + đếm ngược, địa điểm, chương trình, ảnh, xác nhận tham dự, mừng cưới). Điều hướng bằng nút Tiếp tục/Quay lại hoặc vuốt lên/xuống. Chặng cuối là cảnh trao nhẫn: bóng dáng cô dâu chú rể ngược sáng (SVG), nhẫn vàng xoay 3D, cảnh có chiều sâu. Không dùng mô hình người 3D thật (cần file 3D thiết kế sẵn, nặng). Gallery có 14 mẫu.
