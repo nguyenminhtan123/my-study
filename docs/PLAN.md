@@ -92,4 +92,4 @@ Giữ nguyên t01–t10, thêm 3 mẫu mới theo xu hướng các ghim Pinteres
 
 ## Cập nhật: mẫu t14 · Lối vào lễ đường
 
-Màn đầu là cửa lễ đường (chạm để mở, hai cánh cửa xoay 3D). Sau đó là lối đi 3D bằng CSS qua các cổng hoa; mỗi chặng dừng hiện một thẻ thông tin (lời mời, thời gian + đếm ngược, địa điểm, chương trình, ảnh, xác nhận tham dự, mừng cưới). Điều hướng bằng nút Tiếp tục/Quay lại hoặc vuốt lên/xuống. Chặng cuối là cảnh trao nhẫn: bóng dáng cô dâu chú rể ngược sáng (SVG), nhẫn vàng xoay 3D, cảnh có chiều sâu. Không dùng mô hình người 3D thật (cần file 3D thiết kế sẵn, nặng). Gallery có 14 mẫu.
+Màn đầu là cửa lễ đường (chạm để mở, hai cánh cửa xoay 3D). Sau đó là lối đi 3D thật (three.js, nạp riêng khi mở mẫu 14) qua các cổng hoa; mỗi chặng dừng hiện một thẻ thông tin (lời mời, thời gian + đếm ngược, địa điểm, chương trình, ảnh, xác nhận tham dự, mừng cưới). Điều hướng bằng nút Tiếp tục/Quay lại hoặc vuốt lên/xuống. Chặng cuối là lễ đài: ảnh thật của cô dâu chú rể trong khung vàng, nhẫn kim loại 3D có kim cương xoay phía trên, nến và ánh sáng ấm. Không dùng mô hình người 3D thật (cần file 3D thiết kế sẵn, nặng). Gallery có 14 mẫu.

@@ -4,7 +4,6 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t14/styles.scss";
 import { WeddingData } from "@/core/types";
-import { Drifters } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   Countdown,
@@ -13,10 +12,7 @@ import {
   VenueActions,
   photoSrc,
 } from "@/templates/_kit/sections";
-import { Couple, FlowerArch, Ring3D } from "@/templates/t14/scene";
-
-const GAP = 700; // distance between arches along the aisle
-const AHEAD = 320; // how far in front of the camera the current arch stands
+import type { World } from "@/templates/t14/world";
 
 interface Stop {
   title: string;
@@ -28,7 +24,10 @@ const Template14 = ({ data }: { data: WeddingData }) => {
   const [entered, setEntered] = useState(false);
   const [stop, setStop] = useState(0);
   const [cardOn, setCardOn] = useState(false);
+  const [noGL, setNoGL] = useState(false);
   const touchY = useRef<number | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const worldRef = useRef<World | null>(null);
 
   const stops: Stop[] = [
     {
@@ -121,14 +120,46 @@ const Template14 = ({ data }: { data: WeddingData }) => {
   const last = stops.length; // index of the final altar scene
   const finale = stop === last;
 
+  // three.js is loaded on demand so the other templates stay light.
+  useEffect(() => {
+    let cancelled = false;
+    import("@/templates/t14/world")
+      .then(({ createWorld }) => {
+        if (cancelled || !canvasRef.current) return;
+        try {
+          worldRef.current = createWorld(canvasRef.current, {
+            stops: last,
+            photo: photoSrc(data.photos.couple),
+          });
+        } catch {
+          setNoGL(true);
+        }
+      })
+      .catch(() => setNoGL(true));
+    return () => {
+      cancelled = true;
+      worldRef.current?.dispose();
+      worldRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (entered) worldRef.current?.setStop(stop);
+  }, [stop, entered]);
+
   // Show the info card only after the camera has arrived.
   useEffect(() => {
     if (!entered) return;
     setCardOn(false);
-    const t = setTimeout(() => setCardOn(true), 1500);
+    const t = setTimeout(() => setCardOn(true), stop === 0 ? 3000 : 1900);
     return () => clearTimeout(t);
   }, [stop, entered]);
 
+  const enter = () => {
+    setEntered(true);
+    worldRef.current?.open();
+  };
   const go = (delta: number) =>
     setStop((s) => Math.min(last, Math.max(0, s + delta)));
 
@@ -142,69 +173,37 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     if (Math.abs(dy) > 50) go(dy > 0 ? 1 : -1);
   };
 
-  const camZ = stop * GAP - AHEAD;
-
   return (
-    <Page className="t14-root">
-      {/* gate */}
+    <Page className={`t14-root ${noGL ? "t14-nogl" : ""}`}>
+      <canvas ref={canvasRef} className="t14-canvas" />
+      <div className="t14-vignette" />
+
+      {/* gate: the doors are 3D, this is the text and button over them */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
-        <div className="t14-gate-arch">
-          <FlowerArch seed={9} />
-        </div>
-        <div className="t14-doors">
-          <div className="t14-door t14-door-l" />
-          <div className="t14-door t14-door-r" />
-        </div>
-        <div className="t14-gate-text">
-          <p>Welcome to our wedding</p>
-          <h1>
-            {data.groom}
-            <i>&amp;</i>
-            {data.bride}
-          </h1>
-          <button type="button" onClick={() => setEntered(true)}>
-            Mở cửa lễ đường
-          </button>
-        </div>
+        <p>Welcome to our wedding</p>
+        <h1>
+          {data.groom}
+          <i>&amp;</i>
+          {data.bride}
+        </h1>
+        <p className="t14-gate-date">
+          {d.day} · {d.month} · {d.year}
+        </p>
+        <button type="button" onClick={enter}>
+          Mở cửa lễ đường
+        </button>
       </div>
 
-      {/* 3D aisle */}
       <div
-        className={`t14-world ${entered ? "t14-on" : ""} ${finale ? "t14-at-end" : ""}`}
+        className={`t14-world ${entered ? "t14-on" : ""}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div className="t14-glow" />
-        <div className="t14-cam" style={{ transform: `translateZ(${camZ}px)` }}>
-          <div className="t14-floor" />
-          {Array.from({ length: last + 1 }, (_, i) => (
-            <div
-              key={i}
-              className={`t14-arch ${i < stop ? "t14-passed" : ""}`}
-              style={{ transform: `translate3d(-50%, -58%, ${-i * GAP}px)` }}
-            >
-              <FlowerArch seed={i} />
-            </div>
-          ))}
-          {Array.from({ length: (last + 1) * 2 }, (_, i) => (
-            <div
-              key={`p${i}`}
-              className="t14-posts"
-              style={{
-                transform: `translate3d(-50%, 0, ${-i * (GAP / 2) - GAP / 4}px)`,
-              }}
-            >
-              <span />
-              <span />
-            </div>
-          ))}
-        </div>
-        <Drifters kind="petal" count={10} color="#f6d6dc" opacity={0.85} />
-
         {!finale && (
           <div className={`t14-card ${cardOn ? "t14-card-on" : ""}`}>
             <p className="t14-step">
-              Chặng {stop + 1}/{last} · {stops[stop].title}
+              {String(stop + 1).padStart(2, "0")} /{" "}
+              {String(last).padStart(2, "0")} · {stops[stop].title}
             </p>
             <div className="t14-card-body">{stops[stop].body}</div>
           </div>
@@ -213,26 +212,12 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         <div
           className={`t14-finale ${finale && cardOn ? "t14-finale-on" : ""}`}
         >
-          <div className="t14-sun" />
-          <div className="t14-stage">
-            <div className="t14-layer t14-l-back">
-              <FlowerArch seed={4} />
-            </div>
-            <div className="t14-layer t14-l-mid">
-              <Couple />
-            </div>
-            <div className="t14-layer t14-l-front">
-              <Ring3D />
-            </div>
-          </div>
-          <div className="t14-final-text">
-            <h2>
-              {data.groom}
-              <i>&amp;</i>
-              {data.bride}
-            </h2>
-            <p>Cảm ơn bạn đã cùng chúng mình đi hết con đường này</p>
-          </div>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+          <p>Cảm ơn bạn đã cùng chúng mình đi hết con đường này</p>
         </div>
 
         <nav className="t14-nav">
