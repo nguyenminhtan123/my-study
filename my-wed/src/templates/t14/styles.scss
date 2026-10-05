@@ -1,6 +1,6 @@
-// Template 14: walk down the aisle. One real photo of a flower-lined aisle; each stop moves the
-// camera closer to the draped arch (transform only, so it stays smooth on phones). Sheer curtains
-// open at the start; the couple's own photo waits under the arch at the end.
+// Template 14: the aisle. One real photo of a flower-lined aisle stays still; real curtains draw
+// open at the start, and between stops a gust of hearts blows across (transform/opacity only, so
+// it stays smooth on phones). The couple's own photo waits under the arch at the end.
 .t14-root {
   --k-bg: #fbf3ef;
   --k-ink: #3f3329;
@@ -62,12 +62,11 @@
   overflow: hidden;
   background: #efe6da;
 }
+// framing: the sharp bouquet on the left, the aisle running to the draped arch on the right
 .t14-cam {
   position: absolute;
   inset: 0;
-  transform-origin: 50% 30%; // the draped arch at the end of the aisle
-  transition: transform 1.8s cubic-bezier(0.55, 0, 0.3, 1);
-  will-change: transform;
+  transform: translateX(22vw);
 }
 .t14-photo {
   // full photo width (3:2) so the camera can pan without showing an edge
@@ -88,10 +87,6 @@
   filter: none;
   transform: none;
 }
-// a gentle step while walking
-.t14-walking .t14-photo {
-  animation: t14-step 0.9s ease-in-out 2;
-}
 // warm light + cream fade at the bottom so the card always reads
 .t14-veil {
   position: absolute;
@@ -105,8 +100,9 @@
     ),
     linear-gradient(
       180deg,
-      rgba(251, 245, 238, 0.35) 0%,
-      rgba(251, 245, 238, 0) 22%,
+      rgba(251, 245, 238, 0.9) 0%,
+      rgba(251, 245, 238, 0.55) 16%,
+      rgba(251, 245, 238, 0) 30%,
       rgba(251, 245, 238, 0) 52%,
       rgba(251, 245, 238, 0.7) 78%,
       rgba(251, 245, 238, 0.92) 100%
@@ -117,8 +113,8 @@
 .t14-portrait {
   position: absolute;
   left: 50%;
-  top: 12%;
-  width: min(48vw, 200px);
+  top: 9%;
+  width: min(50vw, 210px);
   aspect-ratio: 3 / 4;
   margin-left: max(-24vw, -100px);
   padding: 6px;
@@ -160,40 +156,82 @@
 }
 .t14-curtain {
   position: absolute;
-  top: -2%;
-  bottom: -2%;
-  width: 54%;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0 9px,
-      rgba(255, 255, 255, 0.55) 16px,
-      rgba(236, 226, 214, 0.45) 26px,
-      rgba(255, 255, 255, 0) 34px
-    ),
-    linear-gradient(
-      180deg,
-      rgba(252, 248, 242, 0.96),
-      rgba(246, 238, 228, 0.93)
-    );
-  box-shadow: 0 0 40px rgba(80, 60, 40, 0.18);
-  transition: transform 2s cubic-bezier(0.6, 0, 0.2, 1) 0.15s;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(60, 45, 30, 0.25);
+  transition: transform 2.1s cubic-bezier(0.65, 0, 0.25, 1) 0.1s;
+
+  // real fabric photo, warmed slightly; the right panel is its mirror
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 246, 232, 0.25),
+        rgba(240, 225, 205, 0.3)
+      ),
+      url("@/static/curtain.jpg") center / cover no-repeat;
+  }
 }
 .t14-curtain-l {
   left: 0;
-  transform-origin: left top;
-  border-right: 1px solid rgba(196, 160, 99, 0.35);
+  transform-origin: left center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 36px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0),
+      rgba(70, 50, 30, 0.16)
+    );
+  }
 }
 .t14-curtain-r {
   right: 0;
-  transform-origin: right top;
-  border-left: 1px solid rgba(196, 160, 99, 0.35);
+  transform-origin: right center;
+
+  &::before {
+    transform: scaleX(-1);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 36px;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0),
+      rgba(70, 50, 30, 0.16)
+    );
+  }
 }
+// drawing the curtains: the fabric bunches up toward each side
 .t14-gate-open .t14-curtain-l {
-  transform: translateX(-92%) skewX(4deg);
+  transform: scaleX(0.14);
 }
 .t14-gate-open .t14-curtain-r {
-  transform: translateX(92%) skewX(-4deg);
+  transform: scaleX(0.14);
+}
+// gold rod across the top
+.t14-pelmet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: linear-gradient(180deg, #e9cf98, #b8955a 60%, #8f6f3c);
+  box-shadow: 0 3px 10px rgba(60, 45, 30, 0.3);
+  transition: opacity 0.6s ease 1.8s;
+}
+.t14-gate-open .t14-pelmet {
+  opacity: 0;
 }
 .t14-gate-text {
   position: absolute;
@@ -201,7 +239,15 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  padding: 0 28px;
+  margin: 0 22px;
+  padding: 34px 20px 30px;
+  border-radius: 999px 999px 24px 24px;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 251, 245, 0.92),
+    rgba(255, 251, 245, 0.75) 70%,
+    rgba(255, 251, 245, 0)
+  );
   text-align: center;
   transition: opacity 0.5s;
 
@@ -296,13 +342,6 @@
   transition:
     opacity 0.6s ease,
     transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.t14-step {
-  margin-bottom: 8px;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--k-accent2);
 }
 .t14-card-body {
   overflow-y: auto;
@@ -533,16 +572,6 @@
   }
 }
 
-// keeps the photo's -54% offset (see .t14-photo) and only adds the bob
-@keyframes t14-step {
-  0%,
-  100% {
-    translate: -54% 0;
-  }
-  50% {
-    translate: -54% -4px;
-  }
-}
 @keyframes t14-pulse {
   0%,
   100% {
@@ -550,5 +579,113 @@
   }
   50% {
     box-shadow: 0 0 0 10px rgba(74, 47, 54, 0);
+  }
+}
+
+// ---------- header at the top of each stop ----------
+.t14-head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(26px + env(safe-area-inset-top, 0px));
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.38s ease,
+    transform 0.38s ease;
+  pointer-events: none;
+
+  p {
+    font-size: 10.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--k-muted);
+
+    i {
+      font-size: 15px;
+      letter-spacing: 0;
+      color: var(--k-accent);
+    }
+  }
+  h2 {
+    margin: 4px 0 2px;
+    font-family: var(--k-display);
+    font-size: 36px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--k-ink);
+  }
+  span {
+    display: inline-block;
+    padding-top: 6px;
+    border-top: 1px solid var(--k-accent2);
+    font-size: 10.5px;
+    letter-spacing: 0.3em;
+    color: #9c7a43;
+  }
+}
+.t14-head-on {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+// ---------- a gust of hearts between stops ----------
+.t14-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.t14-gust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+.t14-gust-h {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  animation: t14-blow linear both;
+
+  i {
+    display: block;
+    animation: t14-flutter 0.6s ease-in-out infinite alternate both;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(0 3px 4px rgba(150, 70, 80, 0.25));
+  }
+}
+@keyframes t14-blow {
+  0% {
+    opacity: 0;
+    transform: translate(-40px, 0) rotate(-20deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(50vw, calc(var(--sway) * -1)) rotate(10deg);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(108vw, calc(var(--sway) * -2.4)) rotate(28deg);
+  }
+}
+@keyframes t14-flutter {
+  from {
+    transform: translateY(-6px) rotate(-12deg) scale(1);
+  }
+  to {
+    transform: translateY(6px) rotate(12deg) scale(0.9);
   }
 }

@@ -14,5 +14,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/fern-dark.jpg` | Mẫu 10 (dải lá dương xỉ) | flickr "Palm-leaf fern. NZ" của Bernard Spragg https://www.flickr.com/photos/88123769@N02/52675927969 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/hydrangea-paper.jpg` | Mẫu 6 (mảng hoa giấy trên cùng) | Bản đổi tông trắng từ `hydrangea-white.jpg` (rawpixel, CC0) |
 | `my-wed/src/static/aisle.jpg` | Mẫu 14 (toàn bộ cảnh lối đi lễ đường) | rawpixel "Scene prepared wedding flower bouquets" https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird (CC0 1.0) |
+| `my-wed/src/static/curtain.jpg` | Mẫu 14 (rèm vải ở màn mở đầu) | rawpixel "Free white curtain image" https://www.rawpixel.com/image/5903743/photo-image-light-public-domain-shadow (CC0 1.0) |
 
 Ảnh đã được thu nhỏ và chuyển sang JPEG.

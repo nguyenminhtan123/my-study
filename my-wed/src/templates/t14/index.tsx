@@ -1,4 +1,11 @@
-import { ReactNode, TouchEvent, useEffect, useRef, useState } from "react";
+import {
+  CSSProperties,
+  ReactNode,
+  TouchEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
@@ -19,13 +26,40 @@ interface Stop {
   body: ReactNode;
 }
 
-const CARD_OUT_MS = 380; // card fades out before we start walking
-const WALK_MS = 1800; // must match the transition on .t14-cam
+const CARD_OUT_MS = 380; // card fades out before the hearts fly
+const GUST_MS = 1900; // hearts blow across the aisle, then the next card shows
+
+// one gust of hearts: fixed pseudo-random values so every gust looks the same on re-render
+const GUST = Array.from({ length: 26 }, (_, i) => ({
+  top: 12 + ((i * 37) % 76),
+  size: 16 + ((i * 7) % 22),
+  delay: (i * 53) % 520,
+  dur: 1250 + ((i * 131) % 600),
+  sway: 20 + ((i * 11) % 40),
+  tone: i % 4,
+}));
+
+const Heart = ({ tone }: { tone: number }) => (
+  <svg viewBox="0 0 24 22" aria-hidden="true">
+    <path
+      d="M12 21S3.6 15.9 1.5 10.7C-.2 6.5 2.3 2.4 6 2.1c2.4-.2 4.4 1.1 6 3.2 1.6-2.1 3.6-3.4 6-3.2 3.7.3 6.2 4.4 4.5 8.6C20.4 15.9 12 21 12 21z"
+      fill={`url(#t14-heart-${tone})`}
+    />
+    <path
+      d="M6.3 5.2c-1.6.3-2.7 1.9-2.4 3.6"
+      stroke="#fff"
+      strokeOpacity=".7"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      fill="none"
+    />
+  </svg>
+);
 
 const Template14 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const [entered, setEntered] = useState(false);
-  const [pos, setPos] = useState(0); // where the walk is heading (drives the camera)
+  const [gust, setGust] = useState(0); // bumps on every move so the hearts replay
   const [shown, setShown] = useState(0); // which stop's card is on screen
   const [cardOn, setCardOn] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -142,12 +176,12 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     if (busy || target < 0 || target > last || target === shown) return;
     setBusy(true);
     setCardOn(false);
-    later(() => setPos(target), CARD_OUT_MS);
+    later(() => setGust((g) => g + 1), CARD_OUT_MS);
     later(() => {
       setShown(target);
       setCardOn(true);
       setBusy(false);
-    }, CARD_OUT_MS + WALK_MS);
+    }, CARD_OUT_MS + GUST_MS);
   };
 
   const onTouchStart = (e: TouchEvent) => {
@@ -160,22 +194,14 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     if (Math.abs(dy) > 50) goTo(shown + (dy > 0 ? 1 : -1));
   };
 
-  const walking = busy && pos !== shown;
-
   return (
     <Page className="t14-root">
       <div
-        className={`t14-scene ${entered ? "t14-entered" : ""} ${walking ? "t14-walking" : ""}`}
+        className={`t14-scene ${entered ? "t14-entered" : ""} `}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div
-          className="t14-cam"
-          style={{
-            // start beside the sharp bouquet on the left, then turn into the aisle while walking
-            transform: `translateX(${(1 - pos / last) * 48}vw) scale(${1 + pos * 0.13})`,
-          }}
-        >
+        <div className="t14-cam">
           <div className="t14-photo" />
         </div>
         <div className="t14-veil" />
@@ -184,13 +210,59 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         >
           <img src={photoSrc(data.photos.cover)} alt="" />
         </div>
-        <Drifters kind="petal" count={8} color="#f6d2cf" opacity={0.85} />
+        <Drifters kind="heart" count={7} color="#f3c2c4" opacity={0.75} />
+        <svg className="t14-defs" aria-hidden="true">
+          <defs>
+            {[
+              ["#ffd6dc", "#e98a9b"],
+              ["#fff4f0", "#f2b8bf"],
+              ["#f7d9a8", "#c9965a"],
+              ["#ffc2cc", "#d0607a"],
+            ].map(([a, b], i) => (
+              <linearGradient
+                key={i}
+                id={`t14-heart-${i}`}
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="1"
+              >
+                <stop offset="0" stopColor={a} />
+                <stop offset="1" stopColor={b} />
+              </linearGradient>
+            ))}
+          </defs>
+        </svg>
+        {gust > 0 && (
+          <div className="t14-gust" key={gust}>
+            {GUST.map((h, i) => (
+              <span
+                key={i}
+                className="t14-gust-h"
+                style={
+                  {
+                    top: `${h.top}%`,
+                    width: h.size,
+                    animationDelay: `${h.delay}ms`,
+                    animationDuration: `${h.dur}ms`,
+                    "--sway": `${h.sway}px`,
+                  } as CSSProperties
+                }
+              >
+                <i style={{ animationDelay: `${h.delay}ms` }}>
+                  <Heart tone={h.tone} />
+                </i>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* gate: sheer curtains over the aisle */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
         <div className="t14-curtain t14-curtain-l" />
         <div className="t14-curtain t14-curtain-r" />
+        <div className="t14-pelmet" />
         <div className="t14-gate-text">
           <p>Welcome to our wedding</p>
           <h1>
@@ -210,12 +282,20 @@ const Template14 = ({ data }: { data: WeddingData }) => {
 
       {entered && (
         <div className="t14-ui">
+          <header
+            className={`t14-head ${cardOn && !finale ? "t14-head-on" : ""}`}
+          >
+            <p>
+              {data.groom} <i>&amp;</i> {data.bride}
+            </p>
+            <h2>{stops[Math.min(shown, last - 1)].title}</h2>
+            <span>
+              {String(Math.min(shown, last - 1) + 1).padStart(2, "0")} /{" "}
+              {String(last).padStart(2, "0")}
+            </span>
+          </header>
           {!finale && (
             <div className={`t14-card ${cardOn ? "t14-card-on" : ""}`}>
-              <p className="t14-step">
-                {String(shown + 1).padStart(2, "0")} /{" "}
-                {String(last).padStart(2, "0")} · {stops[shown].title}
-              </p>
               <div className="t14-card-body">{stops[shown].body}</div>
             </div>
           )}
