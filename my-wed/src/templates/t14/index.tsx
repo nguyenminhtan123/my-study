@@ -4,7 +4,6 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t14/styles.scss";
 import { WeddingData } from "@/core/types";
-import coupleVector from "@/static/couple-vector.svg";
 import { Drifters } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -21,12 +20,12 @@ interface Stop {
 }
 
 const CARD_OUT_MS = 380; // card fades out before we start walking
-const WALK_MS = 1800; // must match the transition on .t14-arch / .t14-walking
+const WALK_MS = 1800; // must match the transition on .t14-cam
 
 const Template14 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   const [entered, setEntered] = useState(false);
-  const [pos, setPos] = useState(0); // where the walk is heading (drives the arches)
+  const [pos, setPos] = useState(0); // where the walk is heading (drives the camera)
   const [shown, setShown] = useState(0); // which stop's card is on screen
   const [cardOn, setCardOn] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -166,52 +165,32 @@ const Template14 = ({ data }: { data: WeddingData }) => {
   return (
     <Page className="t14-root">
       <div
-        className={`t14-scene ${entered ? "t14-entered" : ""} ${walking ? "t14-walking" : ""} ${pos === last ? "t14-at-altar" : ""}`}
+        className={`t14-scene ${entered ? "t14-entered" : ""} ${walking ? "t14-walking" : ""}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div className="t14-sky" />
-        <div className="t14-glow" />
-        <div className="t14-ground" />
-        <div className="t14-runner" />
-        <div className="t14-bank t14-bank-l" />
-        <div className="t14-bank t14-bank-r" />
-
-        {Array.from({ length: last + 1 }, (_, i) => {
-          const rel = i - pos;
-          const scale = rel >= 0 ? 1 / (1 + rel * 0.85) : 2.6;
-          return (
-            <div
-              key={i}
-              className={`t14-arch ${i === last ? "t14-arch-altar" : ""}`}
-              style={{
-                transform: `scale(${scale})`,
-                opacity: rel < 0 ? 0 : rel > 2 ? 0 : 1,
-                zIndex: 20 - i,
-              }}
-            >
-              <div className="t14-arch-flowers" />
-            </div>
-          );
-        })}
-
-        <img
-          className={`t14-couple ${finale && cardOn ? "t14-couple-on" : ""}`}
-          src={coupleVector}
-          alt=""
-        />
-        <Drifters kind="petal" count={10} color="#f7d4dc" opacity={0.9} />
+        <div
+          className="t14-cam"
+          style={{
+            // start beside the sharp bouquet on the left, then turn into the aisle while walking
+            transform: `translateX(${(1 - pos / last) * 48}vw) scale(${1 + pos * 0.13})`,
+          }}
+        >
+          <div className="t14-photo" />
+        </div>
+        <div className="t14-veil" />
+        <div
+          className={`t14-portrait ${finale && cardOn ? "t14-portrait-on" : ""}`}
+        >
+          <img src={photoSrc(data.photos.cover)} alt="" />
+        </div>
+        <Drifters kind="petal" count={8} color="#f6d2cf" opacity={0.85} />
       </div>
 
-      {/* gate */}
+      {/* gate: sheer curtains over the aisle */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
-        <div className="t14-gate-arch">
-          <div className="t14-arch-flowers" />
-          <div className="t14-doors">
-            <div className="t14-door t14-door-l" />
-            <div className="t14-door t14-door-r" />
-          </div>
-        </div>
+        <div className="t14-curtain t14-curtain-l" />
+        <div className="t14-curtain t14-curtain-r" />
         <div className="t14-gate-text">
           <p>Welcome to our wedding</p>
           <h1>
@@ -222,6 +201,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
           <p className="t14-gate-date">
             {d.day} · {d.month} · {d.year}
           </p>
+          <div className="t14-gate-rule" />
           <button type="button" onClick={enter}>
             Mở cửa lễ đường
           </button>

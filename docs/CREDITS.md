@@ -13,7 +13,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/hydrangea-blue.jpg` | Mẫu 9 (dải trên cùng) | flickr "Hydrangea kaleidoscope" của J.M_photography #01 https://www.flickr.com/photos/66670330@N07/51289258315 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/fern-dark.jpg` | Mẫu 10 (dải lá dương xỉ) | flickr "Palm-leaf fern. NZ" của Bernard Spragg https://www.flickr.com/photos/88123769@N02/52675927969 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/hydrangea-paper.jpg` | Mẫu 6 (mảng hoa giấy trên cùng) | Bản đổi tông trắng từ `hydrangea-white.jpg` (rawpixel, CC0) |
-| `my-wed/src/static/rosebush.jpg` | Mẫu 14 (dàn hoa hai bên lối đi, vòm lễ đài) | rawpixel "Pink peonies" https://www.rawpixel.com/image/3301745/free-photo-image-blossom-cc0-creative-commons (CC0 1.0) |
-| `my-wed/src/static/couple-vector.svg` | Mẫu 14 (hình cô dâu chú rể ở lễ đài) | FreeSVG "Wedding day with no background" https://freesvg.org/wedding-day-with-no-background (CC0 / Public Domain) |
+| `my-wed/src/static/aisle.jpg` | Mẫu 14 (toàn bộ cảnh lối đi lễ đường) | rawpixel "Scene prepared wedding flower bouquets" https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird (CC0 1.0) |
 
-Ảnh đã được thu nhỏ và chuyển sang JPEG (trừ file SVG).
+Ảnh đã được thu nhỏ và chuyển sang JPEG.
