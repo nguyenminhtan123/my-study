@@ -483,3 +483,16 @@
 .k-album.k-album.k-album > .k-reveal {
   margin-top: 0;
 }
+
+// Phones set to "reduce motion": stop the templates' own loops and entrance animations too
+// (they jump straight to their final state).
+@media (prefers-reduced-motion: reduce) {
+  [class*="-root"] *,
+  [class*="-root"] *::before,
+  [class*="-root"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}

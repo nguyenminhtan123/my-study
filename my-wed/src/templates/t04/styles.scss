@@ -206,8 +206,8 @@
   margin: 0 auto;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(194, 53, 74, 0.45);
-  animation: t04-glow 4s ease-in-out infinite alternate;
+  position: relative;
+  box-shadow: 0 0 50px rgba(194, 53, 74, 0.4);
 
   img {
     width: 100%;
@@ -360,14 +360,39 @@
 }
 @keyframes t04-glow {
   from {
-    box-shadow: 0 0 40px rgba(194, 53, 74, 0.3);
+    opacity: 0.35;
+    transform: scale(0.94);
   }
   to {
-    box-shadow: 0 0 80px rgba(194, 53, 74, 0.6);
+    opacity: 0.9;
+    transform: scale(1.06);
   }
 }
 
 // leave room for the gallery bar on the preview page
 .gl-bar ~ .t04-root .t04-hero-text {
   bottom: calc(80px + 6%);
+}
+
+// breathing halo behind the rose (transform/opacity only, smooth on phones)
+.t04-rose-sec .k-reveal:first-child {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 290px;
+    height: 290px;
+    margin: -145px 0 0 -145px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(194, 53, 74, 0.55),
+      rgba(194, 53, 74, 0) 68%
+    );
+    animation: t04-glow 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
 }

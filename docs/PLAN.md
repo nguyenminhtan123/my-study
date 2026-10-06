@@ -144,3 +144,7 @@ Còn lửng: `t16` Oải hương và `t18` Hoa đào cổ họa (có thể đổ
 ## Cập nhật: album ảnh cưới theo hướng ảnh
 
 Album trong các mẫu dùng lưới chung `.k-album` + `photoShape(photo)` (trong `_kit`): ảnh ngang chiếm cả hàng, ảnh dọc đứng cặp đôi ngang nhau, khung cắt ưu tiên phần mặt (`object-position: 50% 30%`). Bỏ khung trái tim ở album mẫu 3 (cắt mất đầu), ảnh ngang ở mẫu 9/10 thành khung bo tròn thay vì hình tròn, mẫu 2 không lặp lại ảnh bìa, mẫu 23 bỏ viền mờ. Mẫu tự dựng album mới nên dùng `.k-album`.
+
+## Cập nhật: rà animation toàn bộ mẫu
+
+Đã kiểm tra tự động cả 24 mẫu (cuộn hết trang): không phần tử nào bị kẹt ẩn. Quy ước: hiệu ứng **lặp liên tục** chỉ dùng `transform`/`opacity` (đổ bóng, vị trí nền, bo góc, filter chỉ dùng cho hiệu ứng chạy một lần). Đã sửa các vòng lặp nặng ở t04 (quầng sáng hoa hồng), t05 (ảnh sỏi, nền nước), t07 (vệt sáng lụa, dải lụa), t14 (nút mở cửa), t19 (bóng đèn). Máy bật "giảm chuyển động" thì mọi hiệu ứng của mẫu dừng ở trạng thái cuối (`_kit/kit.scss`). t01 giữ nguyên (mẫu gốc của chủ shop).
