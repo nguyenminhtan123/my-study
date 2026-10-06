@@ -11,7 +11,7 @@ Biến `my-wed` thành mini app dạng **gallery**: người dùng Zalo xem prev
 
 - Gallery là **Zalo mini app** (khách hàng là người dùng Zalo).
 - **10 mẫu**. Chủ shop đưa thiết kế dạng ảnh, Claude dựng từng mẫu.
-- **Giá cứng**: giá gốc 199.000đ (gạch), giá bán 99.000đ.
+- **Không hiển thị giá trong app** (đổi ngày 06/10/2026): chủ shop thỏa thuận giá với từng khách qua Zalo. Trước đó có giá cứng 199.000đ/99.000đ, đã bỏ.
 - **Không có thanh toán trong app** ở MVP. Chủ shop chốt và thu tiền qua chat Zalo.
 - Nút "Chọn mẫu" mở chat Zalo với **chủ shop** kèm tin nhắn soạn sẵn (tên mẫu). Nếu `zmp-sdk` không gửi sẵn nội dung được thì có nút sao chép tin nhắn. Số Zalo của chủ shop: **chưa cung cấp**.
 - Không có màn hình cấu hình/CMS. Dữ liệu mẫu hard-code trong code.
@@ -31,7 +31,7 @@ my-wed/src/
       demo-data.ts
     t02/ ...
   pages/
-    gallery.tsx          danh sách mẫu + giá
+    gallery.tsx          danh sách mẫu (ảnh chụp màn hình đầu của từng mẫu)
     template-detail.tsx  xem thử mẫu + nút "Chọn mẫu"
 ```
 
@@ -65,7 +65,7 @@ Xem skill `.claude/skills/new-template/SKILL.md`. Tóm tắt: trích bảng màu
 ## Thứ tự làm
 
 1. ✅ **Tái cấu trúc**: mẫu hiện tại thành `t01`, tách `core/` (`types.ts` với `WeddingData`, `wedding-context.tsx`, `hooks/`, `utils/`), registry `templates/index.ts`. Giao diện giữ nguyên.
-2. ✅ Gallery (`/`), trang chi tiết mẫu (`/template/:id`, thanh giá cố định + nút "Chọn mẫu" + nút quay lại). Nút "Chọn mẫu" sao chép tin nhắn soạn sẵn và mở `zalo.me/<số>` nếu `ownerZaloPhone` trong `core/shop-config.ts` có giá trị (hiện đang **trống**, cần điền số Zalo của chủ shop). Giá cũng cấu hình ở `shop-config.ts`.
+2. ✅ Gallery (`/`), trang chi tiết mẫu (`/template/:id`, thanh cố định: nút quay lại + tên mẫu + nút "Chọn mẫu"). Nút "Chọn mẫu" sao chép tin nhắn soạn sẵn và mở `zalo.me/<số>` nếu `ownerZaloPhone` trong `core/shop-config.ts` có giá trị (hiện đang **trống**, cần điền số Zalo của chủ shop). Danh sách mẫu nhớ vị trí cuộn: xem mẫu xong quay lại vẫn ở đúng chỗ. Ảnh đại diện mỗi mẫu là ảnh chụp màn hình đầu của mẫu đó (`src/static/thumbs/tNN.jpg`); khi sửa giao diện mẫu nên chụp lại.
 3. Chế độ build một mẫu cho từng khách + script kiểm tra khách/mẫu.
 4. Mẫu `t02`–`t10`. **`t02` (Tối giản) xong**, mẫu gốc tự thiết kế theo xu hướng 2026 (tối giản; cổ điển+hiện đại; bohemian; pastel; vintage; đỏ truyền thống). **`t03` Sen trắng, `t04` Đỏ rượu vang (phong bì dấu sáp), `t05` Biển xanh đã xong**, dựng theo ảnh tham chiếu của chủ shop (lấy phong cách và bố cục, không dùng ảnh/hình minh họa gốc; mọi trang trí là SVG/CSS tự vẽ), có animation (hiện dần khi cuộn, cánh hoa/bong bóng rơi, sóng, timeline vẽ dần...). Bộ thành phần chung nằm ở `src/templates/_kit/`. Còn `t06`–`t10`: ảnh tham chiếu còn lại gồm xanh rêu/Our Memories, xanh lá kiểu satin tối giản, dark green vintage có chữ Hỷ, hoàng hôn vàng, tím xanh hoa giấy, rừng tối có phong bì dấu sáp. Không lấy được video TikTok nên không dựa vào đó.
 

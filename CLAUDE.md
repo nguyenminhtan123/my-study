@@ -1,6 +1,6 @@
 # my-study
 
-Ứng dụng chính nằm ở `my-wed/` (Zalo Mini App thiệp cưới). Đọc `docs/PLAN.md` trước khi làm việc: đó là kế hoạch và các quyết định đã chốt (gallery mẫu thiệp, 10 mẫu, giá 99.000đ, không thanh toán trong app).
+Ứng dụng chính nằm ở `my-wed/` (Zalo Mini App thiệp cưới). Đọc `docs/PLAN.md` trước khi làm việc: đó là kế hoạch và các quyết định đã chốt (gallery mẫu thiệp, 24 mẫu, không hiển thị giá, không thanh toán trong app).
 
 Quy ước bắt buộc:
 - Giao tiếp với chủ repo bằng tiếng Việt.
