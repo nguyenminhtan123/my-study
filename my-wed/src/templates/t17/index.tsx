@@ -3,143 +3,106 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t17/styles.scss";
 import { WeddingData } from "@/core/types";
-import forest from "@/static/t17-autumn-forest.jpg";
-import leaves from "@/static/t17-maple-leaves.jpg";
+import bouquet from "@/static/t17-bouquet.jpg";
+import roses from "@/static/t17-bouquet-roses.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   CalendarCard,
   Countdown,
+  Families,
   GiftCard,
   RsvpForm,
   VenueActions,
   photoSrc,
 } from "@/templates/_kit/sections";
 
-const MONTHS = [
-  "Tháng Một",
-  "Tháng Hai",
-  "Tháng Ba",
-  "Tháng Tư",
-  "Tháng Năm",
-  "Tháng Sáu",
-  "Tháng Bảy",
-  "Tháng Tám",
-  "Tháng Chín",
-  "Tháng Mười",
-  "Tháng Mười Một",
-  "Tháng Mười Hai",
-];
-
 const Template17 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const monthName = MONTHS[Number(d.month) - 1];
 
   return (
     <Page className="t17-root">
-      <Drifters kind="petal" count={10} color="#c8692f" opacity={0.7} />
+      <Drifters kind="petal" count={12} color="#f2b8ae" opacity={0.75} />
 
       <section className="t17-hero">
-        <img src={forest} alt="" />
+        <img src={bouquet} alt="" />
         <div className="t17-hero-text">
-          <p className="t17-kicker">
-            Mùa thu năm ấy, chúng mình về chung một nhà
-          </p>
+          <p className="t17-small">The bride's bouquet</p>
           <h1>
             {data.groom}
-            <i>và</i>
+            <i>&amp;</i>
             {data.bride}
           </h1>
+          <p className="t17-ribbon">
+            {d.day} · {d.month} · {d.year}
+          </p>
         </div>
-        <p className="t17-hero-date">
-          {d.day} · {d.month} · {d.year}
-        </p>
       </section>
 
-      <section className="t17-paper t17-invite">
-        <img className="t17-leaves" src={leaves} alt="" />
+      <section className="t17-sec t17-center">
         <Reveal>
-          <p className="t17-kicker">Trân trọng kính mời</p>
+          <p className="t17-small">Trân trọng kính mời</p>
           <h2 className="t17-title">
-            Đến dự lễ thành hôn
+            Đến chung vui trong ngày
             <br />
-            của chúng mình
+            cô dâu cầm hoa về nhà chồng
           </h2>
         </Reveal>
         <Reveal>
-          <div className="t17-fam">
-            <div>
-              <b>Nhà trai</b>
-              {data.families.groom.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-            <div>
-              <b>Nhà gái</b>
-              {data.families.bride.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-          </div>
+          <Families data={data} className="t17-fam" />
         </Reveal>
         <Reveal variant="zoom">
-          <figure className="t17-portrait">
+          <div className="t17-arch">
             <img src={photoSrc(data.photos.cover)} alt="" />
-            <figcaption>
-              {data.groom} &amp; {data.bride}
-            </figcaption>
-          </figure>
-        </Reveal>
-      </section>
-
-      <section className="t17-dark">
-        <Reveal>
-          <p className="t17-kicker">Save the date</p>
-          <div className="t17-big">
-            <b>{d.day}</b>
-            <div>
-              <span>{monthName}</span>
-              <span>{d.year}</span>
-              <em>
-                {d.weekday} · {d.time}
-              </em>
-            </div>
           </div>
         </Reveal>
+      </section>
+
+      <section
+        className="t17-roses"
+        style={{ backgroundImage: `url(${roses})` }}
+      >
         <Reveal>
-          <Countdown iso={data.weddingISO} />
+          <div className="t17-glass">
+            <p className="t17-small">Save the date</p>
+            <p className="t17-bigdate">
+              {d.day}
+              <span>.</span>
+              {d.month}
+            </p>
+            <p className="t17-muted">
+              {d.weekday} · {d.time} · {d.year}
+            </p>
+            <Countdown iso={data.weddingISO} />
+          </div>
         </Reveal>
       </section>
 
-      <section className="t17-paper">
+      <section className="t17-sec">
         <Reveal>
           <div className="t17-card">
             <CalendarCard iso={data.weddingISO} />
           </div>
         </Reveal>
         <Reveal>
-          <div className="t17-venue">
-            <p className="t17-kicker">Địa điểm</p>
+          <div className="t17-card">
+            <p className="t17-small">Địa điểm</p>
             <h2 className="t17-title">{data.venueName}</h2>
             <p className="t17-muted">{data.venueAddress}</p>
             <VenueActions data={data} />
           </div>
         </Reveal>
-      </section>
-
-      <section className="t17-band">
-        <img src={forest} alt="" />
-      </section>
-
-      <section className="t17-paper">
         <Reveal>
-          <h2 className="t17-title t17-center">Một ngày của chúng mình</h2>
+          <h2 className="t17-title t17-center">Chương trình</h2>
         </Reveal>
         <ol className="t17-steps">
           {data.timeline.map((s, i) => (
-            <Reveal key={s.time} delay={i * 120}>
+            <Reveal
+              key={s.time}
+              variant={i % 2 ? "right" : "left"}
+              delay={i * 120}
+            >
               <li>
-                <em>0{i + 1}</em>
                 <b>{s.time}</b>
                 <span>{s.label}</span>
               </li>
@@ -148,30 +111,23 @@ const Template17 = ({ data }: { data: WeddingData }) => {
         </ol>
       </section>
 
-      <section className="t17-paper t17-album">
-        <img className="t17-leaves t17-leaves-l" src={leaves} alt="" />
+      <section className="t17-sec t17-blush">
         <Reveal>
-          <h2 className="t17-title t17-center">Kỷ niệm</h2>
+          <h2 className="t17-title t17-center">Khoảnh khắc</h2>
         </Reveal>
-        <div className="t17-photos">
+        <div className="t17-album">
           {data.album.map((p, i) => (
-            <Reveal
-              key={p.key}
-              variant={i % 2 ? "right" : "left"}
-              delay={i * 100}
-            >
-              <figure>
-                <img src={photoSrc(p)} alt="" />
-              </figure>
+            <Reveal key={p.key} variant="zoom" delay={i * 120}>
+              <img src={photoSrc(p)} alt="" />
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="t17-paper">
+      <section className="t17-sec">
         <Reveal>
           <div className="t17-card">
-            <RsvpForm data={data} variant="select" title="Hồi đáp" />
+            <RsvpForm data={data} title="Xác nhận tham dự" />
           </div>
         </Reveal>
         <Reveal>
@@ -183,12 +139,12 @@ const Template17 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t17-foot">
-        <img src={forest} alt="" />
+        <img src={bouquet} alt="" />
         <div>
-          <p className="t17-kicker">Cảm ơn bạn</p>
+          <p className="t17-small">Thank you</p>
           <h2>
             {data.groom}
-            <i>và</i>
+            <i>&amp;</i>
             {data.bride}
           </h2>
         </div>

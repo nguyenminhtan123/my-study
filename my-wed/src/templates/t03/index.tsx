@@ -3,48 +3,32 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
-import bridge from "@/static/t03-monet-bridge.jpg";
-import lilies from "@/static/t03-monet-lilies.jpg";
+import leaf from "@/static/t03-betel-leaf.jpg";
+import tray from "@/static/t03-betel-tray.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   CalendarCard,
   Countdown,
+  Families,
   GiftCard,
   RsvpForm,
   VenueActions,
   photoSrc,
 } from "@/templates/_kit/sections";
 
-// a picture hung like in a museum: gilt frame, mat, small plaque
-const Framed = ({
-  src,
-  plaque,
-  ratio = "4 / 5",
-}: {
-  src: string;
-  plaque?: string;
-  ratio?: string;
-}) => (
-  <figure className="t03-framed">
-    <div className="t03-gilt">
-      <img src={src} alt="" style={{ aspectRatio: ratio }} />
-    </div>
-    {plaque && <figcaption>{plaque}</figcaption>}
-  </figure>
-);
-
 const Template03 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
 
   return (
     <Page className="t03-root">
-      <Drifters kind="petal" count={10} color="#e6b3bf" opacity={0.7} />
+      <Drifters kind="sparkle" count={8} color="#f1cf7e" opacity={0.6} />
 
       <section className="t03-hero">
-        <img src={lilies} alt="" />
+        <img src={tray} alt="" />
         <div className="t03-hero-text">
-          <p className="t03-small">Lễ thành hôn</p>
+          <span className="t03-hy">囍</span>
+          <p className="t03-small">Trầu cau nên duyên</p>
           <h1>
             {data.groom}
             <i>&amp;</i>
@@ -58,52 +42,33 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
       <section className="t03-sec t03-center">
         <Reveal>
-          <p className="t03-small">Trân trọng kính mời</p>
-          <h2 className="t03-title">
-            Như hoa súng nở trên mặt hồ yên,
-            <br />
-            chúng mình về chung một nhà
-          </h2>
+          <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
+          <p className="t03-small">Trân trọng báo tin lễ thành hôn</p>
         </Reveal>
         <Reveal>
-          <div className="t03-fam">
-            <div>
-              <b>Nhà trai</b>
-              {data.families.groom.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-            <div>
-              <b>Nhà gái</b>
-              {data.families.bride.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-          </div>
+          <Families data={data} className="t03-fam" />
         </Reveal>
         <Reveal variant="zoom">
-          <Framed
-            src={photoSrc(data.photos.cover)}
-            plaque={`${data.groom} & ${data.bride} · ${d.year}`}
-          />
+          <div className="t03-leaf">
+            <img src={photoSrc(data.photos.cover)} alt="" />
+          </div>
         </Reveal>
       </section>
 
-      <section
-        className="t03-band"
-        style={{ backgroundImage: `url(${lilies})` }}
-      >
+      <section className="t03-red">
         <Reveal>
-          <div className="t03-glass">
-            <p className="t03-small">Ngày chung đôi</p>
-            <p className="t03-bigdate">
-              {d.day}.{d.month}.{d.year}
-            </p>
-            <p className="t03-sub">
-              {d.weekday} · {d.time}
-            </p>
-            <Countdown iso={data.weddingISO} />
-          </div>
+          <p className="t03-small t03-gold">Ngày lành tháng tốt</p>
+          <p className="t03-bigdate">
+            {d.day}
+            <span>tháng {Number(d.month)}</span>
+            {d.year}
+          </p>
+          <p className="t03-sub">
+            {d.weekday} · {d.time}
+          </p>
+        </Reveal>
+        <Reveal>
+          <Countdown iso={data.weddingISO} />
         </Reveal>
       </section>
 
@@ -114,46 +79,44 @@ const Template03 = ({ data }: { data: WeddingData }) => {
           </div>
         </Reveal>
         <Reveal>
-          <Framed
-            src={bridge}
-            plaque="Claude Monet · Cây cầu Nhật Bản"
-            ratio="4 / 3.4"
-          />
-        </Reveal>
-        <Reveal>
-          <div className="t03-center">
+          <div className="t03-card">
             <p className="t03-small">Địa điểm</p>
             <h2 className="t03-title">{data.venueName}</h2>
-            <p className="t03-sub">{data.venueAddress}</p>
+            <p className="t03-muted">{data.venueAddress}</p>
             <VenueActions data={data} />
+          </div>
+        </Reveal>
+      </section>
+
+      <section
+        className="t03-leafband"
+        style={{ backgroundImage: `url(${leaf})` }}
+      >
+        <Reveal>
+          <div className="t03-card">
+            <h2 className="t03-title">Chương trình</h2>
+            <ol className="t03-steps">
+              {data.timeline.map((s) => (
+                <li key={s.time}>
+                  <b>{s.time}</b>
+                  <span>{s.label}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </Reveal>
       </section>
 
       <section className="t03-sec">
         <Reveal>
-          <h2 className="t03-title t03-center">Chương trình</h2>
+          <h2 className="t03-title t03-center">Khoảnh khắc</h2>
         </Reveal>
-        <ol className="t03-steps">
-          {data.timeline.map((s, i) => (
-            <Reveal key={s.time} delay={i * 120}>
-              <li>
-                <b>{s.time}</b>
-                <span>{s.label}</span>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
-
-      <section className="t03-sec t03-wall">
-        <Reveal>
-          <h2 className="t03-title t03-center">Phòng tranh của chúng mình</h2>
-        </Reveal>
-        <div className="t03-hang">
+        <div className="t03-album">
           {data.album.map((p, i) => (
             <Reveal key={p.key} variant="zoom" delay={i * 120}>
-              <Framed src={photoSrc(p)} plaque={`No. ${i + 1}`} ratio="3 / 4" />
+              <div className="t03-leaf">
+                <img src={photoSrc(p)} alt="" />
+              </div>
             </Reveal>
           ))}
         </div>
@@ -174,9 +137,10 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t03-foot">
-        <img src={lilies} alt="" />
+        <img src={tray} alt="" />
         <div>
-          <p className="t03-small">Cảm ơn bạn</p>
+          <span className="t03-hy">囍</span>
+          <p className="t03-small t03-gold">Hân hạnh đón tiếp</p>
           <h2>
             {data.groom}
             <i>&amp;</i>

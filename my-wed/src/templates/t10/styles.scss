@@ -1,467 +1,355 @@
+// Template 10: Nhẫn cưới. Ivory satin and champagne gold: a real photo of the wedding rings in their
+// box revealed through a widening circle; the date sits inside two interlocked gold rings over a
+// real close-up of gold bands; round photo frames.
 .t10-root {
-  --k-bg: #0f2a20;
-  --k-ink: #f1ece0;
-  --k-muted: #b7b39f;
-  --k-accent: #d4b06a;
-  --k-accent2: #8fb59a;
-  --k-line: rgba(212, 176, 106, 0.28);
-  --k-card: rgba(255, 255, 255, 0.06);
+  --k-bg: #fbf9f5;
+  --k-ink: #2b2a28;
+  --k-muted: #85807a;
+  --k-accent: #b0904f;
+  --k-accent2: #d8bd84;
+  --k-line: #ece6dc;
+  --k-card: #ffffff;
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --k-script: "Allura", "Great Vibes", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gold: linear-gradient(135deg, #9d7a3a, #ead29a 45%, #b38f4c 70%, #f3e2b6);
   padding: 0;
-  background: radial-gradient(circle at 50% 0%, #1c4636, #0f2a20 55%, #0a1d16);
+  background: var(--k-bg);
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
   font-size: 14px;
-  line-height: 1.75;
-  color-scheme: dark;
+  line-height: 1.8;
   overflow-x: hidden;
 
+  :where(h1, h2, h3, p, ol) {
+    margin: 0;
+  }
   img {
     display: block;
     max-width: 100%;
   }
-  h1,
-  h2,
-  h3,
-  p,
-  figure {
-    margin: 0;
+  i {
+    font-family: var(--k-script);
+    font-style: normal;
+    font-weight: 400;
   }
-  .k-submit {
-    color: #1a2a1f;
-  }
-  .k-chips button.on,
-  .k-cal-hit {
-    color: #1a2a1f;
-  }
-  .k-form input,
-  .k-form textarea {
-    background: rgba(255, 255, 255, 0.06);
-  }
-  .k-gift-card {
-    background: rgba(255, 255, 255, 0.06);
-  }
-  .k-actions button:active {
-    color: #1a2a1f;
+  .k-submit,
+  .k-chips button.on {
+    background: var(--gold);
+    border-color: transparent;
+    color: #2b2a28;
   }
 }
-.t10-script {
-  font-family: var(--k-script);
-  font-size: 46px;
-  line-height: 1.1;
-  color: var(--k-accent);
-}
-.t10-cap {
-  margin: 8px auto;
-  max-width: 280px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
+.t10-small {
+  font-size: 10.5px;
+  letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--k-muted);
-}
-
-// ---- intro ----
-.t10-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 24px;
-  background: radial-gradient(circle at 50% 35%, #174131, #0b2119 80%);
-  color: var(--k-ink);
-  text-align: center;
-  transition:
-    opacity 1s ease 0.8s,
-    visibility 0s linear 1.8s,
-    transform 1.2s ease 0.5s;
-}
-.t10-intro.t10-open {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-40px) scale(1.05);
-  pointer-events: none;
-}
-.t10-stamp {
-  position: absolute;
-  width: 54px;
-  height: 64px;
-  border: 3px solid #f1ece0;
-  background: linear-gradient(160deg, #8a6a3c, #5a4020);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-  animation: t10-drop 1.2s ease both;
-}
-.t10-s1 {
-  right: 22px;
-  top: 90px;
-  rotate: 8deg;
-}
-.t10-s2 {
-  right: 62px;
-  top: 108px;
-  rotate: -6deg;
-  animation-delay: 0.3s;
-}
-.t10-welcome {
-  font-size: 12px;
-  letter-spacing: 0.34em;
   color: var(--k-accent);
-  animation: t10-in 1.2s 0.2s both;
-
-  span {
-    display: block;
-    margin-top: 4px;
-    font-family: var(--k-script);
-    font-size: 54px;
-    letter-spacing: 0;
-    color: var(--k-accent);
-  }
 }
-.t10-seal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 104px;
-  height: 104px;
-  margin: 8px 0;
-  border: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e3b36a, #a8702d 72%);
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 5px rgba(255, 255, 255, 0.14);
-  cursor: pointer;
-  animation: t10-pulse 2.2s ease-in-out infinite;
-
-  svg {
-    width: 54px;
-    height: 54px;
-  }
+.t10-title {
+  font-family: var(--k-display);
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.3;
 }
-.t10-open .t10-seal {
-  animation: none;
-  transform: scale(0.2) rotate(50deg);
-  opacity: 0;
-  transition:
-    transform 0.7s ease,
-    opacity 0.7s ease;
-}
-.t10-invitee {
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  animation: t10-in 1.2s 0.8s both;
-
-  span {
-    display: block;
-    font-family: var(--k-script);
-    font-size: 40px;
-    letter-spacing: 0;
-    color: var(--k-accent);
-  }
-}
-.t10-hint {
-  font-size: 12px;
-  letter-spacing: 0.1em;
+.t10-muted {
+  margin: 6px 0 12px;
+  font-size: 12.5px;
   color: var(--k-muted);
 }
-
-.t10-body {
-  opacity: 0;
-  transition: opacity 1.4s ease 0.8s;
+.t10-center {
+  text-align: center;
 }
-.t10-on {
-  opacity: 1;
+.t10-sec {
+  display: grid;
+  gap: 26px;
+  padding: 50px 22px;
+}
+.t10-card {
+  padding: 26px 20px;
+  background: var(--k-card);
+  border: 1px solid var(--k-line);
+  box-shadow: 0 16px 34px rgba(80, 70, 50, 0.07);
+  text-align: center;
 }
 
-// ---- cover ----
-.t10-cover {
+// ---------- hero: the ring box revealed through a growing circle ----------
+.t10-hero {
   position: relative;
-  padding-bottom: 28px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 26px;
+  min-height: 100vh;
+  padding: 40px 22px 60px;
+  box-sizing: border-box;
+  text-align: center;
 }
-.t10-cover-photo {
-  height: 520px;
-  overflow: hidden;
-  border-radius: 0 0 200px 0;
-  animation: t10-reveal 1.6s 1s ease both;
+.t10-iris {
+  width: min(78vw, 310px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 6px;
+  background: var(--gold);
+  box-shadow: 0 26px 50px rgba(120, 95, 50, 0.25);
+  animation: t10-iris 1.8s cubic-bezier(0.3, 0.8, 0.2, 1) both;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: t10-zoom 16s ease-in-out infinite alternate;
+    object-position: 50% 35%;
+    border-radius: 50%;
+    animation: t10-settle 6s ease-out both;
   }
 }
-.t10-cover-names {
-  position: absolute;
-  top: 24px;
-  right: 20px;
-  z-index: 2;
-  text-align: right;
-  font-family: var(--k-display);
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.05;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
-  animation: t10-in 1.6s 1.6s both;
+.t10-hero-text {
+  animation: t10-up 1.2s ease 0.9s both;
 
-  i {
-    display: block;
-    font-family: var(--k-script);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-  }
-}
-.t10-story {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 14px 24px 0;
-}
-.t10-datecol {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-left: 1px solid var(--k-line);
-  padding-left: 14px;
-
-  b {
+  h1 {
+    margin: 12px 0 10px;
     font-family: var(--k-display);
-    font-size: 34px;
+    font-size: 44px;
     font-weight: 500;
-    line-height: 1.25;
-    color: var(--k-ink);
+    line-height: 1.08;
+
+    i {
+      display: block;
+      font-size: 38px;
+      background: var(--gold);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
   }
 }
+.t10-hero-date {
+  font-family: var(--k-display);
+  font-size: 20px;
+  letter-spacing: 0.34em;
+}
 
-// ---- invite ----
-.t10-invite {
-  padding: 30px 24px 40px;
-  text-align: center;
-}
-.t10-names {
-  margin: 14px 0 8px;
-  font-family: var(--k-display);
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 1.05;
-  color: var(--k-ink);
-
-  i {
-    display: block;
-    font-family: var(--k-script);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    color: var(--k-accent);
-  }
-}
-.t10-when {
-  font-family: var(--k-display);
-  font-size: 22px;
-  letter-spacing: 0.1em;
-}
-.t10-sm {
-  font-size: 16px;
-  color: var(--k-muted);
-}
-.t10-rule {
-  height: 1px;
-  margin: 22px auto 14px;
-  max-width: 220px;
-  background: var(--k-accent);
-}
-.t10-invite h3 {
-  margin: 4px 0;
-  font-family: var(--k-display);
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--k-accent);
-}
-.t10-addr {
-  margin: 0 auto 16px;
-  max-width: 270px;
-  font-size: 12px;
-  color: var(--k-muted);
-}
+// ---------- invitation ----------
 .t10-fam {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 18px;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 13px;
 
   div {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+  }
+  div + div {
+    border-left: 1px solid var(--k-line);
   }
   b {
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     color: var(--k-accent);
   }
 }
-
-// ---- destiny ----
-.t10-arch {
-  position: relative;
-  height: 420px;
-  margin: 0 22px;
-  overflow: hidden;
-  border-radius: 160px 8px 8px 8px;
+.t10-portrait {
+  width: 80%;
+  margin: 0 auto;
+  padding: 6px;
+  border-radius: 999px 999px 0 0;
+  background: var(--gold);
 
   img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 3 / 4.2;
     object-fit: cover;
-    animation: t10-zoom 18s ease-in-out infinite alternate;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(10, 29, 22, 0) 45%,
-      rgba(10, 29, 22, 0.75)
-    );
+    border-radius: 999px 999px 0 0;
   }
 }
-.t10-big {
+
+// ---------- dark band: date inside two interlocked rings ----------
+.t10-dark {
+  --k-ink: #f6eedc;
+  --k-muted: #cdbf9f;
+  --k-accent: #ead29a;
+  --k-line: rgba(234, 210, 154, 0.25);
+  display: grid;
+  gap: 26px;
+  padding: 60px 22px;
+  background: center / cover;
+  box-shadow: inset 0 0 0 2000px rgba(24, 20, 14, 0.72);
+  color: #f6eedc;
+  text-align: center;
+}
+.t10-rings {
+  position: relative;
+  width: 300px;
+  height: 190px;
+  margin: 0 auto;
+}
+.t10-ring {
   position: absolute;
-  left: 20px;
-  bottom: 16px;
-  z-index: 2;
-  font-size: 72px;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+  top: 0;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--gold) border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.9;
+}
+.t10-ring-l {
+  left: 0;
+  animation: t10-ring-l 1.6s ease both;
+}
+.t10-ring-r {
+  right: 0;
+  animation: t10-ring-r 1.6s ease both;
+}
+.t10-rings-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: var(--k-display);
+
+  b {
+    font-size: 46px;
+    font-weight: 500;
+    line-height: 1;
+    background: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  span {
+    font-size: 15px;
+    font-style: italic;
+  }
+}
+.t10-sub {
+  margin-top: 14px;
+  font-size: 12px;
+  letter-spacing: 0.24em;
 }
 
-.t10-time {
-  padding: 40px 0 24px;
+// ---------- timeline ----------
+.t10-steps {
+  list-style: none;
+  padding: 0;
 
-  .t10-script {
-    padding: 0 26px;
+  li {
+    display: grid;
+    grid-template-columns: 1fr 22px 1fr;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
   }
-  .k-wind-wrap {
-    margin-bottom: 24px;
+  b {
+    text-align: right;
+    font-family: var(--k-display);
+    font-size: 26px;
+    font-weight: 500;
+  }
+  i {
+    width: 16px;
+    height: 16px;
+    margin: auto;
+    border-radius: 50%;
+    border: 2px solid var(--k-accent2);
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 }
+
+// ---------- album in round gold frames ----------
 .t10-album {
-  padding: 24px 14px 20px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.t10-ringframe {
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 14px 28px rgba(120, 95, 50, 0.2);
 
-  .t10-script {
-    padding: 0 8px 12px;
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
   }
-  .k-mosaic {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 190px 140px 140px;
-    grid-template-areas:
-      "a a"
-      "b c"
-      "b d";
-    margin-bottom: 26px;
-  }
-  .k-m1 {
-    grid-area: a;
-    border-radius: 120px 120px 6px 6px;
-    overflow: hidden;
-  }
-  .k-m2 {
-    grid-area: b;
-  }
-  .k-m3 {
-    grid-area: c;
-  }
-  .k-m4 {
-    grid-area: d;
-  }
-}
-.t10-form {
-  padding: 28px 24px 8px;
-}
-.t10-gift {
-  padding: 26px 24px 56px;
-  text-align: center;
-}
-.t10-thanks {
-  margin-top: 30px;
-  font-family: var(--k-script);
-  font-size: 54px;
-  color: var(--k-accent);
 }
 
-@keyframes t10-in {
+// ---------- footer ----------
+.t10-foot {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 20px 22px 80px;
+  text-align: center;
+
+  h2 {
+    font-family: var(--k-display);
+    font-size: 34px;
+    font-weight: 500;
+
+    i {
+      margin: 0 8px;
+      color: var(--k-accent);
+    }
+  }
+}
+.t10-iris-sm {
+  width: 200px;
+  margin-bottom: 10px;
+  animation: none;
+}
+
+@keyframes t10-iris {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(50% at 50% 50%);
+  }
+}
+@keyframes t10-settle {
+  from {
+    transform: scale(1.25);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes t10-up {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes t10-drop {
+@keyframes t10-ring-l {
   from {
+    transform: translateX(-40px);
     opacity: 0;
-    transform: translateY(-30px) rotate(20deg);
   }
 }
-@keyframes t10-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.07);
-  }
-}
-@keyframes t10-reveal {
+@keyframes t10-ring-r {
   from {
+    transform: translateX(40px);
     opacity: 0;
-    transform: scale(1.05);
-  }
-}
-@keyframes t10-zoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
-}
-
-// ---- real photo (public domain, see docs/CREDITS.md) ----
-.t10-fern {
-  position: relative;
-  height: 170px;
-  margin-top: 30px;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: t10-zoom 18s ease-in-out infinite alternate;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      #0f2a20,
-      rgba(15, 42, 32, 0) 30%,
-      rgba(15, 42, 32, 0) 65%,
-      #0f2a20
-    );
   }
 }

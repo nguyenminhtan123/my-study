@@ -5,10 +5,9 @@ export const demoData: WeddingData = {
   ...base,
   groom: "Trọng Trí",
   bride: "Việt Hoa",
-  eventTitle: "Tiệc cưới Trọng Trí & Việt Hoa",
-  venueName: "WHITE PLACE",
-  venueAddress:
-    "Địa chỉ: 588 Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, TP. Hồ Chí Minh",
-  venueQuery: "White Place 588 Phạm Văn Đồng Thủ Đức",
-  dressColors: ["#ffffff", "#4a6b3a", "#b9c2ad"],
+  eventTitle: "Lễ thành hôn Trọng Trí & Việt Hoa",
+  venueName: "Tư gia nhà gái",
+  venueAddress: "Số 12 Ngõ 34 Phố Hàng Bạc, Hoàn Kiếm, Hà Nội",
+  venueQuery: "Hàng Bạc Hoàn Kiếm Hà Nội",
+  dressColors: ["#8e1b22", "#3f6b2a", "#d9a441", "#f8f1e3"],
 };

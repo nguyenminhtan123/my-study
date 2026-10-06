@@ -6,8 +6,8 @@ export const demoData: WeddingData = {
   groom: "Gia Huy",
   bride: "Bảo Ngọc",
   eventTitle: "Lễ thành hôn Gia Huy & Bảo Ngọc",
-  venueName: "Sunflower Farm Resort",
-  venueAddress: "Thôn Lạc Nghiệp, Ka Đô, Đơn Dương, Lâm Đồng",
-  venueQuery: "Ka Đô Đơn Dương Lâm Đồng",
-  dressColors: ["#d98c1f", "#f2c14e", "#fff6e5", "#5a5a2a"],
+  venueName: "Nhà hàng Ngọc Trai",
+  venueAddress: "Số 88 Đường Trần Phú, Nha Trang, Khánh Hòa",
+  venueQuery: "Trần Phú Nha Trang",
+  dressColors: ["#cfe3d3", "#f2c4c4", "#fffaf2", "#8a6b52"],
 };
