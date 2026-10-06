@@ -316,7 +316,6 @@
 }
 .t21-album {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 
   figure {
@@ -339,17 +338,6 @@
   }
   figcaption {
     font-size: 22px;
-  }
-  > :nth-child(1) {
-    grid-column: span 3;
-
-    figcaption {
-      font-size: 30px;
-    }
-
-    img {
-      aspect-ratio: 16 / 10;
-    }
   }
 }
 

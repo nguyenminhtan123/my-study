@@ -14,6 +14,7 @@ import {
   GiftCard,
   RsvpForm,
   VenueActions,
+  photoShape,
   photoSrc,
 } from "@/templates/_kit/sections";
 
@@ -112,9 +113,9 @@ const Template08 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <h2 className="t08-title t08-center">Khoảnh khắc</h2>
         </Reveal>
-        <div className="t08-album">
+        <div className="t08-album k-album">
           {data.album.map((p, i) => (
-            <Reveal key={p.key} delay={i * 120}>
+            <Reveal key={p.key} delay={i * 120} className={photoShape(p)}>
               <figure>
                 <img src={photoSrc(p)} alt="" />
                 <figcaption>

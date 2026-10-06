@@ -266,16 +266,10 @@
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
-    mask-image: radial-gradient(
-      ellipse 80% 85% at 50% 50%,
-      #000 70%,
-      transparent 100%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 80% 85% at 50% 50%,
-      #000 70%,
-      transparent 100%
-    );
+    padding: 5px;
+    border: 1px solid var(--k-line);
+    background: #fff;
+    box-sizing: border-box;
   }
   > :nth-child(even) {
     margin-top: 30px;

@@ -256,13 +256,6 @@
   .k-in img {
     filter: none;
   }
-  > :first-child {
-    grid-column: span 2;
-
-    img {
-      aspect-ratio: 4 / 3;
-    }
-  }
 }
 
 // ---------- footer ----------

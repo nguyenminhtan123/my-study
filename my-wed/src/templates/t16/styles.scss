@@ -269,19 +269,12 @@
 
 // ---------- mosaic ----------
 .t16-album .k-mosaic {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 200px 120px 200px;
+  gap: 10px;
 
-  .k-m1 {
-    grid-row: span 2;
-  }
-  .k-m4 {
-    grid-column: span 2;
-  }
   img {
     border-radius: 18px;
   }
-  .k-m1 img {
+  .k-port img {
     border-radius: 999px 999px 18px 18px;
   }
 }

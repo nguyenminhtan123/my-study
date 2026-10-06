@@ -140,3 +140,7 @@ Nguyên tắc mới (chủ shop chốt): concept của mỗi mẫu phải gợi 
 - `t24` Mưa cánh hoa: cánh hoa hồng thật phủ kín bìa, cánh hoa rơi khắp trang, vòng tròn trắng giữa trang.
 
 Còn lửng: `t16` Oải hương và `t18` Hoa đào cổ họa (có thể đổi ý thành tiệc cưới ngoài vườn oải hương / uyên ương trên cành đào nếu chủ shop muốn).
+
+## Cập nhật: album ảnh cưới theo hướng ảnh
+
+Album trong các mẫu dùng lưới chung `.k-album` + `photoShape(photo)` (trong `_kit`): ảnh ngang chiếm cả hàng, ảnh dọc đứng cặp đôi ngang nhau, khung cắt ưu tiên phần mặt (`object-position: 50% 30%`). Bỏ khung trái tim ở album mẫu 3 (cắt mất đầu), ảnh ngang ở mẫu 9/10 thành khung bo tròn thay vì hình tròn, mẫu 2 không lặp lại ảnh bìa, mẫu 23 bỏ viền mờ. Mẫu tự dựng album mới nên dùng `.k-album`.

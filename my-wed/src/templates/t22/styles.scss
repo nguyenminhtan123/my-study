@@ -333,18 +333,6 @@
     border: 1px solid rgba(217, 183, 122, 0.55);
     padding: 4px;
   }
-  > :nth-child(1) img {
-    border-radius: 999px 0 0 0;
-  }
-  > :nth-child(2) img {
-    border-radius: 0 999px 0 0;
-  }
-  > :nth-child(3) img {
-    border-radius: 0 0 0 999px;
-  }
-  > :nth-child(4) img {
-    border-radius: 0 0 999px 0;
-  }
 }
 
 // ---------- footer ----------
@@ -393,4 +381,14 @@
   fill: rgba(240, 217, 168, 0.12) !important;
   stroke: rgba(240, 217, 168, 0.7) !important;
   stroke-width: 1.2px;
+}
+
+// album: a dome over the first photo and an inverted dome under the last frame the set
+.t22-gallery {
+  > :first-child img {
+    border-radius: 999px 999px 0 0;
+  }
+  > :last-child img {
+    border-radius: 0 0 999px 999px;
+  }
 }
