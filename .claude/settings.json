@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["Bash(zmp login:*)", "Bash(zmp deploy:*)"]
+  }
+}

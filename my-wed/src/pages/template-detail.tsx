@@ -1,6 +1,6 @@
 import { Button, Page, useNavigate, useParams, useSnackbar } from "zmp-ui";
 
-import { buildOrderMessage, formatPrice, shopConfig } from "@/core/shop-config";
+import { buildOrderMessage, shopConfig } from "@/core/shop-config";
 import { openLink } from "@/core/utils/open-link";
 import { copyText } from "@/core/utils/wedding";
 import { getTemplate } from "@/templates";
@@ -47,14 +47,13 @@ function TemplateDetailPage() {
           type="button"
           className="gl-bar-back"
           aria-label="Quay lại danh sách mẫu"
-          onClick={() => navigate("/")}
+          onClick={() =>
+            navigate("/", { animate: true, direction: "backward" })
+          }
         >
           ‹
         </button>
-        <span className="gl-price gl-bar-price">
-          <s>{formatPrice(shopConfig.originalPrice)}</s>
-          <b>{formatPrice(shopConfig.salePrice)}</b>
-        </span>
+        <span className="gl-bar-name">{template.name}</span>
         <Button className="gl-bar-cta" onClick={handleChoose}>
           Chọn mẫu
         </Button>
