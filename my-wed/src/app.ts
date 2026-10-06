@@ -26,6 +26,12 @@ import "@fontsource/playfair-display/latin-400.css";
 import "@fontsource/playfair-display/vietnamese-400.css";
 import "@fontsource/playfair-display/latin-400-italic.css";
 import "@fontsource/playfair-display/vietnamese-400-italic.css";
+import "@fontsource/lora/latin-400.css";
+import "@fontsource/lora/vietnamese-400.css";
+import "@fontsource/lora/latin-400-italic.css";
+import "@fontsource/lora/vietnamese-400-italic.css";
+import "@fontsource/lora/latin-500.css";
+import "@fontsource/lora/vietnamese-500.css";
 // ZaUI stylesheet
 import "zmp-ui/zaui.css";
 // Tailwind stylesheet
@@ -33,7 +39,6 @@ import "@/css/tailwind.scss";
 // Your stylesheet
 import "@/css/app.scss";
 import "@/css/gallery.scss";
-
 
 // React core
 import React from "react";

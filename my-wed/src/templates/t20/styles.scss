@@ -1,0 +1,444 @@
+// Template 20: Hướng dương hoàng hôn. A real sunflower field at sunset; warm honey and cream, a
+// "sun" date badge with slowly turning rays, a swipeable photo reel, Playfair + Dancing Script.
+.t20-root {
+  --k-bg: #fff6e5;
+  --k-ink: #3b2a17;
+  --k-muted: #8c6f4c;
+  --k-accent: #c97a14;
+  --k-accent2: #e9a93a;
+  --k-line: #f0d9b0;
+  --k-card: #ffffff;
+  --k-display: "Playfair Display", "Times New Roman", Georgia, serif;
+  --k-script: "Dancing Script", Georgia, serif;
+  --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 0;
+  background: var(--k-bg);
+  color: var(--k-ink);
+  font-family: var(--k-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: hidden;
+
+  :where(h1, h2, h3, p, figure) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  i {
+    font-family: var(--k-script);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .k-form input,
+  .k-form textarea,
+  .k-form select {
+    border-color: #e9c27d;
+  }
+}
+.t20-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--k-accent);
+}
+.t20-title {
+  font-family: var(--k-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.25;
+
+  i {
+    display: block;
+    font-size: 30px;
+    color: var(--k-accent);
+  }
+}
+.t20-center {
+  text-align: center;
+}
+.t20-muted {
+  font-size: 13px;
+  color: var(--k-muted);
+}
+.t20-sec {
+  display: grid;
+  gap: 24px;
+  padding: 50px 20px;
+}
+.t20-card {
+  padding: 26px 20px;
+  border-radius: 26px;
+  background: var(--k-card);
+  box-shadow: 0 18px 40px rgba(150, 90, 20, 0.12);
+  text-align: center;
+}
+
+// ---------- hero ----------
+.t20-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 52% 50%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 236, 200, 0.55) 0%,
+      rgba(255, 236, 200, 0) 34%,
+      rgba(59, 42, 23, 0) 62%,
+      rgba(59, 42, 23, 0.45) 88%,
+      var(--k-bg) 100%
+    );
+  }
+}
+// the low sun glows and breathes
+.t20-glow {
+  position: absolute;
+  left: 58%;
+  top: 22%;
+  z-index: 1;
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 244, 210, 0.85),
+    rgba(255, 210, 120, 0.35) 35%,
+    rgba(255, 190, 90, 0) 70%
+  );
+  mix-blend-mode: screen;
+  animation: t20-breathe 5s ease-in-out infinite alternate;
+}
+.t20-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  z-index: 2;
+  padding: 0 20px;
+
+  h1 {
+    margin-top: 10px;
+    font-family: var(--k-display);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #4a2f12;
+
+    i {
+      display: block;
+      margin: 2px 0;
+      font-size: 34px;
+      font-weight: 400;
+      color: #b35f0c;
+    }
+  }
+}
+
+// ---------- the sun badge ----------
+.t20-sun-sec {
+  margin-top: -90px;
+  position: relative;
+  z-index: 3;
+}
+.t20-sun {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
+.t20-rays {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(233, 169, 58, 0.55) 0deg 6deg,
+    transparent 6deg 15deg
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 54%,
+    #000 56%,
+    #000 68%,
+    transparent 70%
+  );
+  -webkit-mask: radial-gradient(
+    circle,
+    transparent 54%,
+    #000 56%,
+    #000 68%,
+    transparent 70%
+  );
+  animation: t20-spin 40s linear infinite;
+}
+.t20-sun-face {
+  display: grid;
+  place-items: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffe3a3, #f2b544 60%, #d98c1f);
+  box-shadow:
+    0 16px 40px rgba(217, 140, 31, 0.45),
+    inset 0 -6px 14px rgba(150, 80, 0, 0.25);
+  color: #4a2f12;
+  line-height: 1.15;
+
+  b {
+    font-family: var(--k-display);
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  span {
+    font-family: var(--k-display);
+    font-size: 15px;
+  }
+  small {
+    font-size: 9.5px;
+    letter-spacing: 0.24em;
+  }
+}
+.t20-sun-sec .k-count {
+  gap: 8px;
+
+  div {
+    padding: 12px 0;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(150, 90, 20, 0.1);
+  }
+  div + div {
+    border-left: 0;
+  }
+}
+
+// ---------- invitation ----------
+.t20-invite .t20-title {
+  margin: 8px 0 18px;
+}
+.t20-fam {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 13px;
+
+  div {
+    display: grid;
+  }
+  div + div {
+    border-left: 1px solid var(--k-line);
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--k-accent);
+  }
+}
+
+// ---------- venue over the field ----------
+.t20-venue {
+  position: relative;
+  padding: 230px 20px 40px;
+
+  > img {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    object-position: 50% 85%;
+    mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 20%,
+      #000 65%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 20%,
+      #000 65%,
+      transparent
+    );
+  }
+  .k-reveal {
+    position: relative;
+  }
+  .t20-title {
+    margin: 6px 0;
+  }
+}
+
+// ---------- timeline cards ----------
+.t20-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  > .k-reveal > div {
+    display: grid;
+    justify-items: center;
+    padding: 18px 10px;
+    border-radius: 22px;
+    background: linear-gradient(170deg, #fff, #fff1d6);
+    box-shadow: 0 10px 24px rgba(150, 90, 20, 0.1);
+  }
+  em {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--k-accent2);
+    color: #fff;
+    font-style: normal;
+    font-weight: 500;
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 24px;
+    font-weight: 400;
+  }
+  span {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--k-muted);
+  }
+}
+
+// ---------- swipe reel ----------
+.t20-album {
+  padding-left: 0;
+  padding-right: 0;
+
+  .k-reveal {
+    padding: 0 20px;
+  }
+}
+.t20-reel {
+  display: flex;
+  gap: 14px;
+  padding: 6px 20px 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  figure {
+    flex: 0 0 72%;
+    scroll-snap-align: center;
+    padding: 8px 8px 30px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 16px 30px rgba(150, 90, 20, 0.16);
+  }
+  figure:nth-child(odd) {
+    transform: rotate(-1.5deg);
+  }
+  figure:nth-child(even) {
+    transform: rotate(1.5deg);
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+}
+
+// ---------- footer ----------
+.t20-foot {
+  position: relative;
+  height: 66vh;
+  min-height: 440px;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      var(--k-bg) 0%,
+      rgba(255, 246, 229, 0.3) 28%,
+      rgba(59, 42, 23, 0.55) 100%
+    );
+  }
+  div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14%;
+    z-index: 1;
+    color: #fff;
+  }
+  .t20-kicker {
+    color: #ffe3a3;
+  }
+  h2 {
+    margin-top: 6px;
+    font-family: var(--k-display);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-shadow: 0 2px 16px rgba(59, 42, 23, 0.5);
+
+    i {
+      display: block;
+      font-size: 28px;
+      font-weight: 400;
+      color: #ffe3a3;
+    }
+  }
+}
+
+@keyframes t20-breathe {
+  from {
+    transform: scale(0.9);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+@keyframes t20-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

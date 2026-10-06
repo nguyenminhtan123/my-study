@@ -93,3 +93,20 @@ Giữ nguyên t01–t10, thêm 3 mẫu mới theo xu hướng các ghim Pinteres
 ## Cập nhật: mẫu t14 · Lối vào lễ đường
 
 Cả mẫu dựng trên **một ảnh thật duy nhất**, đứng yên, không zoom (lối đi có bình hoa hồng hai bên, cuối đường là cổng voan trắng; rawpixel CC0). Khung hình: bình hoa rõ nét bên trái, lối đi chạy về cổng voan bên phải. Màn đầu là rèm vải thật (ảnh rawpixel CC0) nhuộm **đỏ** (không dùng trắng vì kiêng kỵ), treo trên thanh vàng, giữa là khung vòm kem viền vàng ghi tên cô dâu chú rể; bấm "Mở cửa lễ đường" thì rèm dồn nếp sang hai bên như rèm thật. Phía trên mỗi chặng là tiêu đề lớn (tên cặp đôi, tên chặng, số thứ tự 01/07…). Chuyển chặng: một đàn tim bay lượn theo gió từ trái sang phải, cuốn thẻ cũ nghiêng bay theo; cuối làn gió thẻ mới lướt vào từ phía kia (khoảng 1,7 giây, nút bị khóa trong lúc đó). Quay lại thì gió đổi chiều. Vuốt theo chiều gió (trái sang phải) để sang chặng sau, vuốt ngược để quay lại; vuốt lên/xuống vẫn dùng được (trừ khi đang cuộn nội dung trong thẻ). Tim nhỏ bay nhẹ suốt cảnh. Chỉ dùng transform/opacity nên mượt trên điện thoại. Thẻ của các chặng: lời mời, thời gian + đếm ngược, địa điểm, chương trình, ảnh, xác nhận tham dự, mừng cưới. Chặng cuối: ảnh cưới thật của cặp đôi (`photos.cover`) trong khung vòm, kèm tên và lời cảm ơn. Gallery có 14 mẫu.
+
+## Cập nhật: thêm mẫu t15–t24 (tự thiết kế)
+
+Mỗi mẫu xoay quanh một ảnh thật chủ đạo (hoa, cảnh vật, tranh cổ; nguồn CC0/phạm vi công cộng, xem `docs/CREDITS.md`) và giữ một phong cách thống nhất, không dùng hình vẽ hoạt hình. Tất cả đủ tính năng chung (đếm ngược, lịch, chỉ đường, lưu lịch, chương trình, album, xác nhận tham dự, mừng cưới).
+
+- `t15` Hỷ đỏ: mở phong bì gấm đỏ có dấu 囍, đèn lồng đỏ, giấy kem chữ đỏ viền vàng.
+- `t16` Oải hương: cánh đồng oải hương, khung vòm, dải ảnh nhành oải hương làm đường ngăn.
+- `t17` Lá phong mùa thu: rừng thu sương mù, lá phong thật "đặt" trên giấy, dải nâu trầm với số ngày rất lớn.
+- `t18` Hoa đào cổ họa: tranh lụa cổ, tên viết dọc, dấu son, album treo như tranh cuộn.
+- `t19` Đêm đầy sao: ảnh Ngân Hà, sao lấp lánh, sao băng, khung kính mờ.
+- `t20` Hướng dương: đồng hướng dương hoàng hôn, "mặt trời" ngày cưới có tia nắng xoay, album vuốt ngang.
+- `t21` Tạp chí mẫu đơn: bìa tạp chí "Love Story", các trang đánh số, chữ cái đầu dòng lớn.
+- `t22` Champagne: đen và vàng champagne, khung art-deco cắt góc, nền bokeh, bọt nổi.
+- `t23` Cúc họa mi: khung oval, viền vỏ sò, nền caro picnic, xanh lá và vàng bơ.
+- `t24` Thư tay thảo mộc: giấy cũ, tranh thực vật in lên giấy như mẫu ép hoa, thư viết tay, dấu bưu điện.
+
+Thêm font Lora (có bộ chữ tiếng Việt). Gallery có 24 mẫu.

@@ -43,6 +43,36 @@ import { demoData as demoData13 } from "@/templates/t13/demo-data";
 import Template14 from "@/templates/t14";
 import cover14 from "@/static/couple.jpeg";
 import { demoData as demoData14 } from "@/templates/t14/demo-data";
+import Template15 from "@/templates/t15";
+import cover15 from "@/static/album2.jpeg";
+import { demoData as demoData15 } from "@/templates/t15/demo-data";
+import Template16 from "@/templates/t16";
+import cover16 from "@/static/destiny.jpeg";
+import { demoData as demoData16 } from "@/templates/t16/demo-data";
+import Template17 from "@/templates/t17";
+import cover17 from "@/static/cover.jpg";
+import { demoData as demoData17 } from "@/templates/t17/demo-data";
+import Template18 from "@/templates/t18";
+import cover18 from "@/static/album1.jpeg";
+import { demoData as demoData18 } from "@/templates/t18/demo-data";
+import Template19 from "@/templates/t19";
+import cover19 from "@/static/album4.jpeg";
+import { demoData as demoData19 } from "@/templates/t19/demo-data";
+import Template20 from "@/templates/t20";
+import cover20 from "@/static/album3.jpeg";
+import { demoData as demoData20 } from "@/templates/t20/demo-data";
+import Template21 from "@/templates/t21";
+import cover21 from "@/static/couple.jpeg";
+import { demoData as demoData21 } from "@/templates/t21/demo-data";
+import Template22 from "@/templates/t22";
+import cover22 from "@/static/destiny.jpeg";
+import { demoData as demoData22 } from "@/templates/t22/demo-data";
+import Template23 from "@/templates/t23";
+import cover23 from "@/static/album2.jpeg";
+import { demoData as demoData23 } from "@/templates/t23/demo-data";
+import Template24 from "@/templates/t24";
+import cover24 from "@/static/album1.jpeg";
+import { demoData as demoData24 } from "@/templates/t24/demo-data";
 
 export interface TemplateEntry {
   id: string;
@@ -150,6 +180,76 @@ export const templates: TemplateEntry[] = [
     thumbnail: cover14,
     Component: Template14,
     demoData: demoData14,
+  },
+  {
+    id: "t15",
+    name: "Mẫu 15 · Hỷ đỏ",
+    thumbnail: cover15,
+    Component: Template15,
+    demoData: demoData15,
+  },
+  {
+    id: "t16",
+    name: "Mẫu 16 · Oải hương",
+    thumbnail: cover16,
+    Component: Template16,
+    demoData: demoData16,
+  },
+  {
+    id: "t17",
+    name: "Mẫu 17 · Lá phong mùa thu",
+    thumbnail: cover17,
+    Component: Template17,
+    demoData: demoData17,
+  },
+  {
+    id: "t18",
+    name: "Mẫu 18 · Hoa đào cổ họa",
+    thumbnail: cover18,
+    Component: Template18,
+    demoData: demoData18,
+  },
+  {
+    id: "t19",
+    name: "Mẫu 19 · Đêm đầy sao",
+    thumbnail: cover19,
+    Component: Template19,
+    demoData: demoData19,
+  },
+  {
+    id: "t20",
+    name: "Mẫu 20 · Hướng dương",
+    thumbnail: cover20,
+    Component: Template20,
+    demoData: demoData20,
+  },
+  {
+    id: "t21",
+    name: "Mẫu 21 · Tạp chí mẫu đơn",
+    thumbnail: cover21,
+    Component: Template21,
+    demoData: demoData21,
+  },
+  {
+    id: "t22",
+    name: "Mẫu 22 · Champagne",
+    thumbnail: cover22,
+    Component: Template22,
+    demoData: demoData22,
+  },
+  {
+    id: "t23",
+    name: "Mẫu 23 · Cúc họa mi",
+    thumbnail: cover23,
+    Component: Template23,
+    demoData: demoData23,
+  },
+  {
+    id: "t24",
+    name: "Mẫu 24 · Thư tay thảo mộc",
+    thumbnail: cover24,
+    Component: Template24,
+    demoData: demoData24,
   },
 ];
 

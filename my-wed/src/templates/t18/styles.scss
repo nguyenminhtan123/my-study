@@ -1,0 +1,342 @@
+// Template 18: Hoa đào cổ họa. A real antique silk painting (bird on a blossoming cherry branch,
+// Rijksmuseum) on matching rice-paper beige; names written vertically, a red seal, section labels
+// down the margin, album hung like scrolls, drifting blossom petals.
+.t18-root {
+  --k-bg: #e9d4b0;
+  --k-ink: #3b3a34;
+  --k-muted: #7d7062;
+  --k-accent: #b8323a;
+  --k-accent2: #9a7b55;
+  --k-line: rgba(59, 58, 52, 0.18);
+  --k-card: #f3e5c9;
+  --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --k-script: "Cormorant Garamond", Georgia, serif;
+  --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 0;
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(255, 245, 225, 0.5),
+      transparent 50%
+    ),
+    var(--k-bg);
+  color: var(--k-ink);
+  font-family: var(--k-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: hidden;
+
+  :where(h1, h2, h3, p, ol, figure) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  .k-form h3 {
+    font-style: italic;
+    font-size: 30px;
+    color: var(--k-ink);
+  }
+  .k-form input,
+  .k-form textarea,
+  .k-chips button,
+  .k-actions button {
+    border-radius: 2px;
+  }
+  .k-cal {
+    background: transparent;
+  }
+}
+.t18-seal {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 4px;
+  background: #b8323a;
+  box-shadow:
+    inset 0 0 0 2px #e9d4b0,
+    inset 0 0 0 3px #b8323a;
+  color: #f6e6cc;
+  font-family: var(--k-display);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  transform: rotate(-4deg);
+}
+
+// ---------- hero: painting on the right, names written vertically on the left ----------
+.t18-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 66%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 30% 50%;
+    mask-image: linear-gradient(90deg, transparent, #000 22%);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%);
+  }
+}
+.t18-names {
+  position: absolute;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  left: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+
+  h1 {
+    writing-mode: vertical-rl;
+    font-family: var(--k-display);
+    font-size: 46px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    color: var(--k-ink);
+    opacity: 0;
+    animation: t18-ink 1.6s ease forwards;
+
+    & + span + h1 {
+      animation-delay: 0.9s;
+    }
+  }
+}
+.t18-and {
+  writing-mode: vertical-rl;
+  font-family: var(--k-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--k-accent);
+  padding-top: 120px;
+  opacity: 0;
+  animation: t18-ink 1.2s ease 0.5s forwards;
+}
+.t18-hero-foot {
+  position: absolute;
+  left: 26px;
+  bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  p {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--k-muted);
+    line-height: 1.9;
+  }
+}
+
+// ---------- blocks with a vertical label ----------
+.t18-block {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 16px;
+  padding: 44px 22px 44px 14px;
+  border-top: 1px solid var(--k-line);
+}
+.t18-label {
+  writing-mode: vertical-rl;
+  font-family: var(--k-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--k-accent);
+}
+.t18-label-row {
+  writing-mode: horizontal-tb;
+  text-align: center;
+}
+.t18-body {
+  display: grid;
+  gap: 22px;
+}
+.t18-lead {
+  font-family: var(--k-display);
+  font-size: 21px;
+  font-style: italic;
+  line-height: 1.55;
+}
+.t18-fam {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 13px;
+
+  div {
+    display: grid;
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--k-accent2);
+  }
+}
+.t18-date {
+  font-family: var(--k-display);
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 0.9;
+
+  small {
+    margin-left: 10px;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--k-accent);
+  }
+}
+.t18-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--k-muted);
+}
+.t18-title {
+  font-family: var(--k-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.t18-steps {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--k-line);
+  }
+  b {
+    width: 64px;
+    font-family: var(--k-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--k-accent);
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- album as hanging scrolls ----------
+.t18-scrolls {
+  padding: 44px 18px 50px;
+  border-top: 1px solid var(--k-line);
+}
+.t18-scroll-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 16px;
+  margin-top: 26px;
+
+  > :nth-child(even) {
+    margin-top: 36px;
+  }
+}
+.t18-scroll {
+  position: relative;
+  padding: 16px 10px 22px;
+  background: #f4e8cf;
+  box-shadow: 0 18px 26px rgba(59, 58, 52, 0.2);
+  transform-origin: 50% 0;
+  animation: t18-sway 6s ease-in-out infinite alternate;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    height: 9px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #6d4b2f, #3e2a1a);
+  }
+  &::before {
+    top: -4px;
+  }
+  &::after {
+    bottom: -4px;
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+}
+
+// ---------- footer ----------
+.t18-foot {
+  position: relative;
+  height: 70vh;
+  min-height: 460px;
+  overflow: hidden;
+  border-top: 1px solid var(--k-line);
+
+  img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 72%;
+    object-fit: cover;
+    object-position: 50% 70%;
+    mask-image: linear-gradient(180deg, transparent, #000 35%);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 35%);
+  }
+  div {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    padding-top: 48px;
+  }
+  p {
+    font-family: var(--k-display);
+    font-style: italic;
+    font-size: 26px;
+  }
+}
+
+@keyframes t18-ink {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+@keyframes t18-sway {
+  from {
+    transform: rotate(-1.2deg);
+  }
+  to {
+    transform: rotate(1.2deg);
+  }
+}
+
+// leave room for the gallery price bar on the preview page
+.gl-bar ~ .t18-root .t18-hero-foot {
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}

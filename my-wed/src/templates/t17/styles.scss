@@ -1,0 +1,423 @@
+// Template 17: Lá phong mùa thu. A real misty autumn forest; real maple leaves laid on cream paper
+// (multiply blend so the white photo background disappears); rust, cream and deep brown, Lora.
+.t17-root {
+  --k-bg: #f4ead9;
+  --k-ink: #3a2418;
+  --k-muted: #8a6a55;
+  --k-accent: #a8481f;
+  --k-accent2: #c8692f;
+  --k-line: #e1cdb0;
+  --k-card: #fbf5ea;
+  --k-display: "Lora", Georgia, serif;
+  --k-script: "Lora", Georgia, serif;
+  --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 0;
+  background: var(--k-bg);
+  color: var(--k-ink);
+  font-family: var(--k-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: hidden;
+
+  :where(h1, h2, h3, p, ol, figure) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  i {
+    font-family: var(--k-display);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .k-form h3 {
+    font-style: italic;
+    font-size: 30px;
+  }
+}
+.t17-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--k-accent2);
+}
+.t17-title {
+  font-family: var(--k-display);
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--k-ink);
+}
+.t17-center {
+  text-align: center;
+}
+.t17-muted {
+  color: var(--k-muted);
+  font-size: 13px;
+}
+.t17-paper {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  padding: 56px 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(200, 105, 47, 0.08),
+      transparent 45%
+    ),
+    var(--k-bg);
+
+  > .k-reveal {
+    position: relative;
+  }
+}
+.t17-card {
+  padding: 26px 20px;
+  background: var(--k-card);
+  border: 1px solid var(--k-line);
+  border-radius: 4px;
+  box-shadow: 0 16px 34px rgba(58, 36, 24, 0.08);
+  text-align: center;
+}
+
+// ---------- hero: text sits in the fog at the top ----------
+.t17-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 38% 50%;
+    animation: t17-breath 16s ease-in-out infinite alternate;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(236, 226, 214, 0.92) 0%,
+      rgba(236, 226, 214, 0.55) 30%,
+      rgba(236, 226, 214, 0) 52%,
+      rgba(58, 36, 24, 0) 70%,
+      rgba(58, 36, 24, 0.75) 100%
+    );
+  }
+}
+.t17-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  z-index: 1;
+  padding: 0 26px;
+
+  .t17-kicker {
+    max-width: 230px;
+    letter-spacing: 0.24em;
+    line-height: 1.8;
+    color: var(--k-accent);
+  }
+  h1 {
+    margin-top: 18px;
+    font-family: var(--k-display);
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--k-ink);
+
+    i {
+      display: block;
+      margin: 4px 0 4px 60px;
+      font-size: 26px;
+      color: var(--k-accent);
+    }
+  }
+}
+.t17-hero-date {
+  position: absolute;
+  right: 26px;
+  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  z-index: 1;
+  font-family: var(--k-display);
+  font-size: 18px;
+  letter-spacing: 0.3em;
+  color: #f8ecd8;
+}
+
+// ---------- invitation ----------
+.t17-leaves {
+  position: absolute;
+  top: -70px;
+  right: -120px;
+  width: 230px;
+  mix-blend-mode: multiply;
+  transform: rotate(12deg);
+  opacity: 0.95;
+  pointer-events: none;
+}
+.t17-leaves-l {
+  top: auto;
+  right: auto;
+  bottom: -60px;
+  left: -90px;
+  transform: rotate(-150deg);
+}
+.t17-invite {
+  padding-top: 70px;
+
+  .t17-title {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+}
+.t17-fam {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  font-size: 13px;
+
+  div {
+    display: grid;
+    padding-left: 12px;
+    border-left: 2px solid var(--k-accent2);
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--k-accent);
+  }
+}
+.t17-portrait {
+  padding: 10px 10px 0;
+  background: #fffaf2;
+  box-shadow: 0 22px 40px rgba(58, 36, 24, 0.18);
+  transform: rotate(-2deg);
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  figcaption {
+    padding: 12px 0 14px;
+    font-family: var(--k-display);
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+    color: var(--k-muted);
+  }
+}
+
+// ---------- dark date band ----------
+.t17-dark {
+  --k-ink: #f4ead9;
+  --k-muted: #c9a98a;
+  --k-accent: #e3894e;
+  --k-line: rgba(244, 234, 217, 0.18);
+  display: grid;
+  gap: 30px;
+  padding: 60px 22px;
+  background:
+    radial-gradient(
+      circle at 0 100%,
+      rgba(200, 105, 47, 0.28),
+      transparent 50%
+    ),
+    #2e1c13;
+  color: #f4ead9;
+}
+.t17-big {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+
+  b {
+    font-family: var(--k-display);
+    font-size: 132px;
+    font-weight: 400;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #e3894e;
+  }
+  div {
+    display: grid;
+  }
+  span {
+    font-family: var(--k-display);
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  em {
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: #c9a98a;
+  }
+}
+
+// ---------- venue ----------
+.t17-venue {
+  text-align: center;
+
+  .t17-title {
+    margin: 6px 0;
+  }
+}
+.t17-band {
+  height: 220px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 92%;
+  }
+}
+
+// ---------- timeline ----------
+.t17-steps {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 44px 70px 1fr;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--k-line);
+  }
+  em {
+    font-family: var(--k-display);
+    font-size: 13px;
+    color: var(--k-accent2);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 22px;
+    font-weight: 400;
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--k-muted);
+  }
+}
+
+// ---------- album ----------
+.t17-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+
+  figure {
+    padding: 6px;
+    background: #fffaf2;
+    box-shadow: 0 14px 26px rgba(58, 36, 24, 0.14);
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+  > :nth-child(1) figure {
+    transform: rotate(-2deg);
+  }
+  > :nth-child(2) figure {
+    transform: rotate(2deg) translateY(24px);
+  }
+  > :nth-child(3) figure {
+    transform: rotate(1.5deg);
+  }
+  > :nth-child(4) figure {
+    transform: rotate(-1.5deg) translateY(24px);
+  }
+}
+.t17-album {
+  padding-bottom: 80px;
+}
+
+// ---------- footer ----------
+.t17-foot {
+  position: relative;
+  height: 64vh;
+  min-height: 440px;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      var(--k-bg) 0%,
+      rgba(244, 234, 217, 0.4) 30%,
+      rgba(46, 28, 19, 0.7) 100%
+    );
+  }
+  div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14%;
+    z-index: 1;
+    color: #f8ecd8;
+  }
+  .t17-kicker {
+    color: #f1c9a2;
+  }
+  h2 {
+    margin-top: 8px;
+    font-family: var(--k-display);
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.15;
+
+    i {
+      display: block;
+      font-size: 22px;
+      color: #f1c9a2;
+    }
+  }
+}
+
+@keyframes t17-breath {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1) translateY(-1%);
+  }
+}
+
+// leave room for the gallery price bar on the preview page
+.gl-bar ~ .t17-root .t17-hero-date {
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}

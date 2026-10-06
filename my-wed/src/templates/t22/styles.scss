@@ -1,0 +1,396 @@
+// Template 22: Champagne. Night-black and champagne gold, art-deco cut-corner frames; a real
+// champagne toast photo, real gold bokeh behind the countdown, rising bubbles.
+.t22-root {
+  --k-bg: #14100b;
+  --k-ink: #f3e6cc;
+  --k-muted: #b5a283;
+  --k-accent: #d9b77a;
+  --k-accent2: #f0d9a8;
+  --k-line: rgba(217, 183, 122, 0.3);
+  --k-card: rgba(255, 255, 255, 0.04);
+  --k-display: "Playfair Display", "Times New Roman", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
+  --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gold: linear-gradient(135deg, #b8904d, #f0d9a8 45%, #c89d59 70%, #f3e2bb);
+  padding: 0;
+  background: #14100b;
+  color: var(--k-ink);
+  font-family: var(--k-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: hidden;
+
+  :where(h1, h2, h3, p, ol) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  .k-form input,
+  .k-form textarea,
+  .k-form select {
+    border-radius: 0;
+    color: var(--k-ink);
+    border-color: rgba(217, 183, 122, 0.55);
+  }
+  .k-form input::placeholder,
+  .k-form textarea::placeholder {
+    color: #8c7c62;
+  }
+  .k-form h3 {
+    font-family: var(--k-display);
+    font-size: 28px;
+    letter-spacing: 0.3em;
+  }
+  .k-chips button,
+  .k-actions button {
+    border-radius: 0;
+  }
+  .k-submit,
+  .k-chips button.on {
+    border-radius: 0;
+    background: var(--gold);
+    border-color: transparent;
+    color: #14100b;
+  }
+  .k-gift-card {
+    background: transparent;
+  }
+  .k-cal-hit b {
+    color: #14100b;
+  }
+}
+.t22-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: var(--k-accent);
+}
+.t22-title {
+  font-family: var(--k-display);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+.t22-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--k-muted);
+}
+.t22-center {
+  text-align: center;
+}
+// gold line with a diamond in the middle
+.t22-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 170px;
+  margin: 16px auto;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+  }
+  i {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+}
+.t22-sec {
+  display: grid;
+  gap: 26px;
+  padding: 54px 20px;
+}
+// cut-corner art-deco frame (two nested gold outlines)
+.t22-deco {
+  --cut: 18px;
+  position: relative;
+  padding: 30px 22px;
+  text-align: center;
+  background: var(--gold);
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    background: #1a150e;
+    clip-path: inherit;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    z-index: 0;
+    border: 1px solid rgba(217, 183, 122, 0.45);
+    pointer-events: none;
+  }
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+  .t22-title {
+    margin-top: 6px;
+  }
+}
+
+// ---------- hero ----------
+.t22-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    animation: t22-settle 10s ease-out both;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(20, 16, 11, 0.1) 0%,
+      rgba(20, 16, 11, 0) 35%,
+      rgba(20, 16, 11, 0.8) 70%,
+      #14100b 92%
+    );
+  }
+}
+.t22-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  z-index: 1;
+  padding: 0 20px;
+
+  h1 {
+    margin-top: 14px;
+    font-family: var(--k-display);
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    line-height: 1.25;
+    text-transform: uppercase;
+    background: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    span {
+      display: block;
+      font-family: var(--k-script);
+      font-size: 38px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+}
+.t22-hero-date {
+  letter-spacing: 0.5em;
+  font-size: 13px;
+  color: var(--k-accent2);
+}
+
+// ---------- invitation ----------
+.t22-fam {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 13px;
+
+  div {
+    display: grid;
+  }
+  div + div {
+    border-left: 1px solid var(--k-line);
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--k-accent);
+  }
+}
+.t22-portrait {
+  width: 78%;
+  margin: 0 auto;
+  padding: 8px;
+  border: 1px solid rgba(217, 183, 122, 0.6);
+  border-radius: 999px 999px 0 0;
+
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4.2;
+    object-fit: cover;
+    border-radius: 999px 999px 0 0;
+  }
+}
+
+// ---------- bokeh countdown ----------
+.t22-bokeh {
+  --k-ink: #fff4dc;
+  display: grid;
+  gap: 26px;
+  padding: 70px 20px;
+  background: center / cover no-repeat;
+  text-align: center;
+  box-shadow: inset 0 0 0 2000px rgba(20, 16, 11, 0.55);
+
+  .k-count b {
+    color: #f6e3b8;
+  }
+}
+.t22-bigdate {
+  margin-top: 10px;
+  font-family: var(--k-display);
+  font-size: 84px;
+  line-height: 1;
+  background: var(--gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  span {
+    margin: 0 2px;
+    opacity: 0.6;
+  }
+}
+
+// ---------- timeline ----------
+.t22-steps {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr 22px 1fr;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+  }
+  b {
+    text-align: right;
+    font-family: var(--k-display);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--k-accent2);
+  }
+  i {
+    width: 10px;
+    height: 10px;
+    margin: auto;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px rgba(217, 183, 122, 0.7);
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- gallery ----------
+.t22-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border: 1px solid rgba(217, 183, 122, 0.55);
+    padding: 4px;
+  }
+  > :nth-child(1) img {
+    border-radius: 999px 0 0 0;
+  }
+  > :nth-child(2) img {
+    border-radius: 0 999px 0 0;
+  }
+  > :nth-child(3) img {
+    border-radius: 0 0 0 999px;
+  }
+  > :nth-child(4) img {
+    border-radius: 0 0 999px 0;
+  }
+}
+
+// ---------- footer ----------
+.t22-foot {
+  padding: 90px 20px 110px;
+  background: center / cover no-repeat;
+  box-shadow: inset 0 0 0 2000px rgba(20, 16, 11, 0.6);
+  text-align: center;
+
+  h2 {
+    margin-top: 14px;
+    font-family: var(--k-display);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    background: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    span {
+      display: block;
+      font-family: var(--k-script);
+      font-size: 34px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+}
+
+@keyframes t22-settle {
+  from {
+    transform: scale(1.12);
+    filter: brightness(0.6);
+  }
+  to {
+    transform: none;
+    filter: none;
+  }
+}
+
+// champagne bubbles: warm gold rims instead of grey
+.t22-root .k-drift-bubble svg {
+  fill: rgba(240, 217, 168, 0.12) !important;
+  stroke: rgba(240, 217, 168, 0.7) !important;
+  stroke-width: 1.2px;
+}
