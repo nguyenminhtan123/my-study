@@ -353,3 +353,20 @@
     opacity: 0;
   }
 }
+
+// album: portraits stay round, landscape photos become wide rounded panels
+.t10-album {
+  gap: 14px;
+
+  > .k-port .t10-ringframe img {
+    aspect-ratio: 1;
+  }
+  > .k-land .t10-ringframe {
+    width: 100%;
+    border-radius: 30px;
+
+    img {
+      border-radius: 25px;
+    }
+  }
+}

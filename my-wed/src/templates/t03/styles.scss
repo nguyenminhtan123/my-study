@@ -367,3 +367,15 @@
     transform: none;
   }
 }
+
+// album: rounded frames keep every face (the heart frame is only for the main portrait)
+.t03-album .t03-leaf {
+  clip-path: none;
+  border-radius: 16px;
+  padding: 4px;
+
+  img {
+    clip-path: none;
+    border-radius: 12px;
+  }
+}

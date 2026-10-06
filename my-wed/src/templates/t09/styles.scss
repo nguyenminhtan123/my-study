@@ -234,17 +234,6 @@
   .t09-circle {
     width: 100%;
   }
-  > :nth-child(2),
-  > :nth-child(4) {
-    margin-top: 40%;
-  }
-  > :nth-child(3),
-  > :nth-child(4) {
-    margin-top: -18%;
-  }
-  > :nth-child(4) {
-    margin-top: 22%;
-  }
 }
 
 // ---------- footer ----------
@@ -280,5 +269,22 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+// album: portraits stay round, landscape photos become wide rounded panels
+.t09-bubbles {
+  gap: 14px;
+
+  > .k-port .t09-circle img {
+    aspect-ratio: 1;
+  }
+  > .k-land .t09-circle {
+    width: 100%;
+    border-radius: 30px;
+
+    img {
+      border-radius: 25px;
+    }
   }
 }

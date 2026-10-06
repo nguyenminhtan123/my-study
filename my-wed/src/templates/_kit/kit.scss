@@ -455,3 +455,31 @@
     cursor: pointer;
   }
 }
+
+// Album grid that respects each photo's orientation: landscape photos take a full row, portrait
+// photos sit two side by side, faces stay in frame. Add `.k-album` to the grid and
+// `photoShape(photo)` to each item.
+.k-album {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: none;
+  align-items: start;
+
+  > .k-land {
+    grid-column: 1 / -1;
+  }
+  > .k-reveal img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  > .k-land img {
+    aspect-ratio: 3 / 2;
+  }
+}
+// keep portrait pairs level (overrides the older staggered offsets some templates had)
+.k-album.k-album.k-album > .k-reveal {
+  margin-top: 0;
+}

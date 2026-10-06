@@ -15,6 +15,12 @@ import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
 export const photoSrc = (photo: PhotoSlot) =>
   photo.src || buildPlaceholder(photo.label, photo.ratio);
 
+/** "k-land" for landscape photos (they take a full row in a `.k-album` grid), "k-port" otherwise. */
+export const photoShape = (photo: PhotoSlot) => {
+  const [w, h] = photo.ratio.split("/").map(Number);
+  return w > h ? "k-land" : "k-port";
+};
+
 /** Month grid (Monday first) with the wedding day highlighted by a heart. */
 export const CalendarCard = ({
   iso,
@@ -133,13 +139,13 @@ export const Dresscode = ({ colors }: { colors: string[] }) => (
 
 /** Four photos in a mosaic. Layout comes from each template's CSS (.k-m1 to .k-m4). */
 export const Mosaic = ({ photos }: { photos: PhotoSlot[] }) => (
-  <div className="k-mosaic">
+  <div className="k-mosaic k-album">
     {photos.slice(0, 4).map((photo, i) => (
       <Reveal
         key={photo.key}
         variant={i % 2 ? "right" : "left"}
         delay={i * 140}
-        className={`k-m${i + 1}`}
+        className={`k-m${i + 1} ${photoShape(photo)}`}
       >
         <img src={photoSrc(photo)} alt={photo.label} />
       </Reveal>
