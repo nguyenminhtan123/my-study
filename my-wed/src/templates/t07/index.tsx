@@ -3,154 +3,174 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t07/styles.scss";
 import { WeddingData } from "@/core/types";
+import satin from "@/static/t07-gold-drape.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
-import { IconCamera, IconDinner, IconRings } from "@/templates/_kit/icons";
 import {
   CalendarCard,
+  Countdown,
   GiftCard,
-  Mosaic,
   RsvpForm,
   VenueActions,
   photoSrc,
 } from "@/templates/_kit/sections";
 
-const Tag = () => (
-  <div className="t07-tag" aria-hidden="true">
-    <i />
-    <span />
-  </div>
+// a thin strip of the real satin photo with a moving sheen, used as a divider
+const Ribbon = () => (
+  <div className="t07-ribbon" style={{ backgroundImage: `url(${satin})` }} />
 );
 
 const Template07 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const strip = [
-    data.photos.couple,
-    data.album[0],
-    data.album[1],
-    data.photos.destiny,
-    data.album[2],
-    data.album[3],
-  ];
-  const steps = [
-    { t: data.timeline[0], Icon: IconCamera },
-    { t: data.timeline[1], Icon: IconRings },
-    { t: data.timeline[2], Icon: IconDinner },
-  ];
 
   return (
     <Page className="t07-root">
-      <Drifters kind="sparkle" count={8} color="#ffffff" opacity={0.9} />
+      <Drifters kind="sparkle" count={8} color="#e8cf8f" opacity={0.6} />
 
-      <section className="t07-cover">
+      <section
+        className="t07-hero"
+        style={{ backgroundImage: `url(${satin})` }}
+      >
+        <span className="t07-sheen" aria-hidden="true" />
         <div className="t07-arch">
-          <img src={photoSrc(data.photos.cover)} alt="" />
-        </div>
-        <h1 className="t07-names">
-          {data.groom}
-          <i>and</i>
-          {data.bride}
-        </h1>
-      </section>
-
-      <div className="t07-film" aria-hidden="true">
-        <div className="t07-film-track">
-          {[...strip, ...strip].map((photo, i) => (
-            <img key={i} src={photoSrc(photo)} alt="" />
-          ))}
-        </div>
-      </div>
-
-      <section className="t07-card">
-        <Tag />
-        <Reveal>
-          <h2 className="t07-names t07-small">
+          <p className="t07-small">Thiệp mời cưới</p>
+          <h1>
             {data.groom}
-            <i>and</i>
+            <i>&amp;</i>
             {data.bride}
-          </h2>
-          <p className="t07-cap">
-            Trân trọng kính mời bạn đến dự buổi tiệc chung vui cùng chúng tôi
+          </h1>
+          <span className="t07-rule" />
+          <p className="t07-arch-date">
+            {d.weekday}
+            <br />
+            <b>
+              {d.day}.{d.month}.{d.year}
+            </b>
           </p>
-          <div className="t07-event">
-            <span className="t07-chip">LỄ VU QUY</span>
-            <b>
-              {data.timeline[0].time} . {d.weekday}
-            </b>
-            <p>
-              {d.day} | {d.month} | {d.year}
-            </p>
-            <small>Tại tư gia nhà gái</small>
+        </div>
+      </section>
+
+      <section className="t07-sec t07-center">
+        <Reveal>
+          <p className="t07-small">Trân trọng kính mời</p>
+          <h2 className="t07-title">Đến dự lễ thành hôn của chúng mình</h2>
+        </Reveal>
+        <Reveal>
+          <div className="t07-fam">
+            <div>
+              <b>Nhà trai</b>
+              {data.families.groom.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
+            <div>
+              <b>Nhà gái</b>
+              {data.families.bride.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
           </div>
-          <div className="t07-event">
-            <span className="t07-chip">LỄ THÀNH HÔN</span>
-            <b>
-              {data.timeline[1].time} . {d.weekday}
-            </b>
-            <p>
-              {d.day} | {d.month} | {d.year}
-            </p>
-            <small>{data.venueName}</small>
-            <small>{data.venueAddress}</small>
+        </Reveal>
+        <Reveal variant="zoom">
+          <div className="t07-window">
+            <img src={photoSrc(data.photos.destiny)} alt="" />
           </div>
-          <VenueActions data={data} />
         </Reveal>
       </section>
 
-      <section className="t07-sd">
-        <Reveal variant="zoom">
-          <div className="t07-pola">
-            <img src={photoSrc(data.album[1])} alt="" />
-            <span>SAVE THE DATE</span>
+      <Ribbon />
+
+      <section className="t07-sec t07-center">
+        <Reveal>
+          <p className="t07-small">Save the date</p>
+          <p className="t07-bigdate">
+            {d.day}
+            <span>tháng {d.month}</span>
+            {d.year}
+          </p>
+          <p className="t07-sub">
+            {d.weekday} · {d.time}
+          </p>
+        </Reveal>
+        <Reveal>
+          <Countdown iso={data.weddingISO} />
+        </Reveal>
+        <Reveal>
+          <div className="t07-card">
+            <CalendarCard iso={data.weddingISO} />
+          </div>
+        </Reveal>
+      </section>
+
+      <Ribbon />
+
+      <section className="t07-sec">
+        <Reveal>
+          <div className="t07-card">
+            <p className="t07-small">Địa điểm</p>
+            <h2 className="t07-title">{data.venueName}</h2>
+            <p className="t07-sub">{data.venueAddress}</p>
+            <VenueActions data={data} />
           </div>
         </Reveal>
         <Reveal>
-          <p className="t07-script">Happy Wedding</p>
-          <CalendarCard iso={data.weddingISO} />
+          <h2 className="t07-title t07-center">Chương trình</h2>
         </Reveal>
-      </section>
-
-      <section className="t07-time">
-        <Tag />
-        <Reveal variant="left">
-          <h2 className="t07-script">Timeline</h2>
-        </Reveal>
-        <ul className="t07-steps">
-          {steps.map(({ t, Icon }, i) => (
-            <Reveal key={t.time} variant="right" delay={i * 220}>
+        <ol className="t07-steps">
+          {data.timeline.map((s, i) => (
+            <Reveal key={s.time} delay={i * 120}>
               <li>
-                <div>
-                  <b>{t.time}</b>
-                  <span>{t.label}</span>
-                </div>
-                <Icon />
+                <b>{s.time}</b>
+                <i />
+                <span>{s.label}</span>
               </li>
             </Reveal>
           ))}
-        </ul>
+        </ol>
       </section>
 
-      <section className="t07-album">
+      <Ribbon />
+
+      <section className="t07-sec">
         <Reveal>
-          <h2 className="t07-script">Album</h2>
+          <h2 className="t07-title t07-center">Khoảnh khắc</h2>
         </Reveal>
-        <Mosaic photos={data.album} />
+        <div className="t07-arches">
+          {data.album.map((p, i) => (
+            <Reveal key={p.key} variant="zoom" delay={i * 120}>
+              <div className="t07-window">
+                <img src={photoSrc(p)} alt="" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      <section className="t07-form">
+      <section className="t07-sec">
         <Reveal>
-          <RsvpForm data={data} />
+          <div className="t07-card">
+            <RsvpForm data={data} variant="select" title="Xác nhận tham dự" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t07-card">
+            <h2 className="t07-title t07-center">Mừng cưới</h2>
+            <GiftCard data={data} />
+          </div>
         </Reveal>
       </section>
 
-      <section className="t07-gift">
-        <Reveal>
-          <GiftCard data={data} />
-        </Reveal>
-        <Reveal variant="zoom">
-          <p className="t07-thanks">Thank you!</p>
-        </Reveal>
-      </section>
+      <footer className="t07-foot" style={{ backgroundImage: `url(${satin})` }}>
+        <span className="t07-sheen" aria-hidden="true" />
+        <div className="t07-arch t07-arch-sm">
+          <p className="t07-small">Thank you</p>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+        </div>
+      </footer>
     </Page>
   );
 };

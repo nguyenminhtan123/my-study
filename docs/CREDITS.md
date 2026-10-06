@@ -3,16 +3,8 @@
 Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mark** (phạm vi công cộng, dùng thương mại được, không bắt buộc ghi nguồn). Vẫn ghi lại để truy vết.
 | Tệp | Dùng ở | Nguồn |
 | --- | --- | --- |
-| `my-wed/src/static/lotus-pink.jpg` | Mẫu 3 (dải trên cùng) | rawpixel "Free pink lotus image" https://www.rawpixel.com/image/5912556/image-flower-public-domain-leaf (CC0) |
-| `my-wed/src/static/lotus-white.jpg` | Mẫu 3 (khu vực lịch) | StockSnap "Lotus Flower" của Free Nature Stock https://stocksnap.io/photo/lotus-flower-VC8IOCGVII (CC0) |
-| `my-wed/src/static/rose-dark.jpg` | Mẫu 4 (dải ảnh hoa hồng) | stocksnap "Red Roses" của Biel Morro https://stocksnap.io/photo/red-roses-3OL62OM8V9 (CC0 1.0) |
-| `my-wed/src/static/sea-wave.jpg` | Mẫu 5 (dải sóng biển) | stocksnap "Ocean Waves" của Matt Bango https://stocksnap.io/photo/ocean-waves-BXTIUT9WIH (CC0 1.0) |
-| `my-wed/src/static/starfish.jpg` | Mẫu 5 (khung tròn sao biển) | stocksnap "Starfish Beach" của fireskystudios.com https://stocksnap.io/photo/starfish-beach-8XKJV6A3N3 (CC0 1.0) |
 | `my-wed/src/static/hydrangea-white.jpg` | Mẫu 6 (dải trên cùng) | rawpixel "White hydrangea flowers" https://www.rawpixel.com/image/3301823/free-photo-image-new-zealand-summer-lilac-flowers (CC0 1.0) |
-| `my-wed/src/static/clover.jpg` | Mẫu 6 (khung tròn cỏ bốn lá) | rawpixel "" https://www.rawpixel.com/image/5936041/free-public-domain-cc0-photo (CC0 1.0) |
-| `my-wed/src/static/hydrangea-blue.jpg` | Mẫu 9 (dải trên cùng) | flickr "Hydrangea kaleidoscope" của J.M_photography #01 https://www.flickr.com/photos/66670330@N07/51289258315 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/fern-dark.jpg` | Mẫu 10 (dải lá dương xỉ) | flickr "Palm-leaf fern. NZ" của Bernard Spragg https://www.flickr.com/photos/88123769@N02/52675927969 (Public Domain Mark (phạm vi công cộng)) |
-| `my-wed/src/static/hydrangea-paper.jpg` | Mẫu 6 (mảng hoa giấy trên cùng) | Bản đổi tông trắng từ `hydrangea-white.jpg` (rawpixel, CC0) |
 | `my-wed/src/static/aisle.jpg` | Mẫu 14 (toàn bộ cảnh lối đi lễ đường) | rawpixel "Scene prepared wedding flower bouquets" https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird (CC0 1.0) |
 | `my-wed/src/static/curtain.jpg` | Mẫu 14 (rèm vải ở màn mở đầu) | rawpixel "Free white curtain image" https://www.rawpixel.com/image/5903743/photo-image-light-public-domain-shadow (CC0 1.0) |
 | `my-wed/src/static/t15-lanterns.jpg` | Mẫu 15 (ảnh chính, cuối trang) | CNY - red, red lanterns https://www.rawpixel.com/image/6075594/cny-red-red-lanterns (CC0 1.0) |
@@ -34,5 +26,18 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t24-paper.jpg` | Mẫu 24 (nền giấy) | Old paper texture background, simple của Teddy https://www.rawpixel.com/image/6153115/old-paper-texture-background-simple-design (CC0 1.0) |
 | `my-wed/src/static/t24-plate-yellow.jpg` | Mẫu 24 (tiêu bản 2) | Small fleabane (Pulicaria prostrata (Gil.) Aschers., Synonym: Pulicaria vulgaris) của mikkeldybdal.md https://www.flickr.com/photos/203835554@N06/55392046287 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/t24-plate-pink.jpg` | Mẫu 24 (tiêu bản 1, cuối trang) | Fireweed / Rosebay willowherb (Chamaenerium angustifolium (L.) Scop.) của mikkeldybdal.md https://www.flickr.com/photos/203835554@N06/55385187005 (Public Domain Mark (phạm vi công cộng)) |
+| `my-wed/src/static/t02-anemone-white.jpg` | Mẫu 2 (hoa chính, cuối trang; bản 600px, nền đã làm trắng) | Isolated Flower của Travel Photographer (stocksnap) https://stocksnap.io/photo/isolated-flower-6BZJ0UZKTH (CC0 1.0) |
+| `my-wed/src/static/t02-anemone-purple.jpg` | Mẫu 2 (hoa giữa trang; bản 600px, nền đã làm trắng) | Isolated Flower của Travel Photographer (stocksnap) https://stocksnap.io/photo/isolated-flower-WUZ3WRIZQD (CC0 1.0) |
+| `my-wed/src/static/t03-monet-lilies.jpg` | Mẫu 3 (ảnh chính, nền ngày cưới, cuối trang) | Water Lily Pond Claude Monet của artinstitutechicago (rawpixel) https://www.rawpixel.com/image/8961745/water-lily-pond-claude-monet (CC0 1.0) |
+| `my-wed/src/static/t03-monet-bridge.jpg` | Mẫu 3 (tranh ở phần địa điểm) | Water Lily Pond (1900) Claude của artinstitutechicago (rawpixel) https://www.rawpixel.com/image/547303/monet-water-lilies-and-bridge-painting (CC0 1.0) |
+| `my-wed/src/static/t04-wine.jpg` | Mẫu 4 (ảnh chính) | A glass of wine with broken glass của freestocks.org (flickr) https://www.flickr.com/photos/135396164@N05/32498911932 (CC0 1.0) |
+| `my-wed/src/static/t04-rose.jpg` | Mẫu 4 (hoa hồng, cuối trang) | S02-5198 dark red rose của webentwicklerin (flickr) https://www.flickr.com/photos/22435328@N03/49910515146 (CC0 1.0) |
+| `my-wed/src/static/t05-lagoon.jpg` | Mẫu 5 (ảnh chính) | Balos, Crete, Greece của pom'. (flickr) https://www.flickr.com/photos/146832554@N06/24921723967 (Public Domain Mark (phạm vi công cộng)) |
+| `my-wed/src/static/t05-water.jpg` | Mẫu 5 (nền đếm ngược, cuối trang) | Sea water Taormina-Messina-Sicilia-Italy - Creative Commons by gnuckx của gnuckx (flickr) https://www.flickr.com/photos/34409164@N06/4054213464 (CC0 1.0) |
+| `my-wed/src/static/t07-gold-drape.jpg` | Mẫu 7 (lụa nền, dải ngăn cách) | gold swag curtain của lisafree54 (flickr) https://www.flickr.com/photos/136594255@N06/23205557159 (CC0 1.0) |
+| `my-wed/src/static/t08-wheat.jpg` | Mẫu 8 (ảnh chính) | Free autumn wheat background (rawpixel) https://www.rawpixel.com/image/5923739/photo-image-background-wallpaper-public-domain (CC0 1.0) |
+| `my-wed/src/static/t08-wheat-sunset.jpg` | Mẫu 8 (ngày cưới, cuối trang) | Free autumn wheat background (rawpixel) https://www.rawpixel.com/image/5924308/photo-image-background-wallpaper-cloud (CC0 1.0) |
+| `my-wed/src/static/t09-hydrangea-blue2.jpg` | Mẫu 9 (ảnh chính, cuối trang) | Blue Hydrangea flowers, lush blooming (rawpixel) https://www.rawpixel.com/image/11189423/blue-hydrangea-flowers-lush-blooming (CC0 1.0) |
+| `my-wed/src/static/t09-hydrangea-purple.jpg` | Mẫu 9 (nền đếm ngược) | Free purple hydrangea image (rawpixel) https://www.rawpixel.com/image/5923163/photo-image-flower-public-domain-nature (CC0 1.0) |
 
 Ảnh đã được thu nhỏ và chuyển sang JPEG.

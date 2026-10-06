@@ -110,3 +110,18 @@ Mỗi mẫu xoay quanh một ảnh thật chủ đạo (hoa, cảnh vật, tranh
 - `t24` Thư tay thảo mộc: giấy cũ, tranh thực vật in lên giấy như mẫu ép hoa, thư viết tay, dấu bưu điện.
 
 Thêm font Lora (có bộ chữ tiếng Việt). Gallery có 24 mẫu.
+
+## Cập nhật: làm lại mẫu t02–t09
+
+Theo cùng nguyên tắc với t15–t24 (mỗi mẫu một ảnh thật chủ đạo, một phong cách, không hình vẽ). Giữ id và dữ liệu demo, tên viết hoa thường.
+
+- `t02` Tối giản: hoa anemone chụp trên nền trắng, lưới đánh số kiểu Thụy Sĩ, album đen trắng chuyển màu khi cuộn tới.
+- `t03` Hoa súng Monet: tranh hoa súng và cây cầu Nhật của Monet (phạm vi công cộng), khung mạ vàng có biển tên như phòng tranh.
+- `t04` Đỏ rượu vang: nền gần đen, ảnh rót rượu vang, hoa hồng đỏ thẫm phát sáng.
+- `t05` Biển xanh: vịnh nước xanh ngọc nhìn từ trên cao, nền mặt nước gợn sóng, ảnh hình viên sỏi đổi dáng.
+- `t06` Tú cầu lục bảo: tú cầu trắng, dải xanh lục bảo cắt chéo ở bìa (giữ ý mẫu chủ shop gửi), album cắt chéo.
+- `t07` Lụa vàng: lụa vàng thật có vệt sáng chạy, thiệp hình vòm màu ngà, khung ảnh vòm viền vàng.
+- `t08` Hoàng hôn lúa mì: bông lúa mì trên nền trời nhạt, đồng lúa lúc hoàng hôn, lịch trình dạng đường ngang.
+- `t09` Cẩm tú cầu: tú cầu xanh, đóa tròn kính mờ chứa tên, nền thảm tú cầu tím, lịch trình và album hình tròn.
+
+Đã xóa các ảnh cũ không còn dùng (lotus, rose-dark, sea-wave, starfish, hydrangea-paper, hydrangea-blue, clover). Ảnh đại diện trong gallery đã chụp lại.

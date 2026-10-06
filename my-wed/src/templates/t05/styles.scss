@@ -1,13 +1,15 @@
+// Template 05: Biển xanh. A real turquoise lagoon seen from above; real sunlit water ripples behind
+// the countdown and footer; white sand, turquoise and deep sea blue, rounded "pebble" cards.
 .t05-root {
-  --k-bg: #f2f8fa;
-  --k-ink: #1d3b4a;
-  --k-muted: #5c7f8f;
-  --k-accent: #1d5b78;
-  --k-accent2: #c6a15b;
-  --k-line: #cfe3ea;
+  --k-bg: #f7f4ec;
+  --k-ink: #0f3d4c;
+  --k-muted: #5f7f88;
+  --k-accent: #128a96;
+  --k-accent2: #35b5bd;
+  --k-line: #d7e7e6;
   --k-card: #ffffff;
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --k-script: "Allura", "Great Vibes", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding: 0;
   background: var(--k-bg);
@@ -15,407 +17,287 @@
   font-family: var(--k-body);
   font-weight: 300;
   font-size: 14px;
-  line-height: 1.75;
-  color-scheme: light;
+  line-height: 1.8;
   overflow-x: hidden;
 
+  :where(h1, h2, h3, p, ol) {
+    margin: 0;
+  }
   img {
     display: block;
     max-width: 100%;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  p,
-  figure {
-    margin: 0;
-  }
-}
-
-.t05-script {
-  font-family: var(--k-script);
-  font-size: 46px;
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--k-accent);
-}
-.t05-light {
-  color: #fff;
-}
-.t05-cap {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--k-muted);
-}
-
-// ---- waves (moving) ----
-.t05-waves {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 54px;
-  overflow: hidden;
-
-  svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-  }
-}
-.t05-w1 {
-  fill: rgba(29, 91, 120, 0.82);
-  animation: t05-wave 7s linear infinite;
-}
-.t05-w2 {
-  fill: rgba(191, 227, 238, 0.85);
-  bottom: -6px !important;
-  animation: t05-wave 10s linear infinite reverse;
-}
-@keyframes t05-wave {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-// ---- cover ----
-.t05-cover {
-  position: relative;
-  padding: 40px 26px 44px;
-  background: linear-gradient(180deg, #ecdcc2, #f4ead8);
-  text-align: center;
-  overflow: hidden;
-}
-.t05-couple-script {
-  margin-bottom: 14px;
-  font-family: var(--k-script);
-  font-size: 38px;
-  color: #c9ab76;
-  animation: t05-in 1.4s 0.2s both;
-}
-.t05-frame {
-  position: relative;
-  overflow: hidden;
-  border: 8px solid #fff;
-  box-shadow: 0 16px 40px rgba(60, 50, 30, 0.28);
-  animation: t05-in 1.6s 0.5s both;
-
-  > img {
-    width: 100%;
-    height: 460px;
-    object-fit: cover;
-    animation: t05-zoom 14s ease-in-out infinite alternate;
-  }
-}
-.t05-frame-waves {
-  height: 90px;
-}
-
-// ---- save the date ----
-.t05-std {
-  padding: 36px 24px 30px;
-  text-align: center;
-}
-.t05-cal {
-  position: relative;
-  max-width: 280px;
-  margin: 16px auto 26px;
-  padding-bottom: 54px;
-  background: #fff;
-  box-shadow: 0 12px 30px rgba(29, 91, 120, 0.2);
-  overflow: hidden;
-
-  .k-cal {
-    box-shadow: none;
-  }
-  .k-cal-month {
-    font-family: var(--k-display);
-  }
-}
-.t05-sea {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 54px;
-  background: linear-gradient(180deg, #4f8fa8, #1d5b78);
-
-  .t05-waves {
-    height: 30px;
-    bottom: auto;
-    top: 0;
-  }
-}
-.t05-names {
-  font-family: var(--k-display);
-  font-size: 34px;
-  font-weight: 500;
-  line-height: 1.1;
-  color: var(--k-accent2);
-
   i {
-    display: block;
     font-family: var(--k-script);
     font-style: normal;
-    font-size: 32px;
-    color: var(--k-accent);
+    font-weight: 400;
   }
 }
-
-// ---- invitation ----
-.t05-invite {
-  padding: 24px 24px 40px;
-  text-align: center;
-
-  h3 {
-    margin: 4px 0;
-    font-family: var(--k-display);
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--k-accent2);
-  }
-}
-.t05-when {
-  margin-top: 8px;
-  font-family: var(--k-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+.t05-small {
+  font-size: 10.5px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
   color: var(--k-accent);
 }
-.t05-addr {
-  margin: 0 auto 16px;
-  max-width: 280px;
-  font-size: 12px;
+.t05-title {
+  font-family: var(--k-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.t05-sub {
+  margin: 6px 0 12px;
+  font-size: 12.5px;
   color: var(--k-muted);
 }
+.t05-center {
+  text-align: center;
+}
+.t05-sec {
+  display: grid;
+  gap: 26px;
+  padding: 52px 22px;
+}
+.t05-card {
+  padding: 26px 20px;
+  border-radius: 32px;
+  background: var(--k-card);
+  box-shadow: 0 18px 40px rgba(15, 61, 76, 0.1);
+  text-align: center;
+}
+
+// ---------- hero ----------
+.t05-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+    animation: t05-drift 20s ease-in-out infinite alternate;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 32%,
+      rgba(247, 244, 236, 0) 66%,
+      var(--k-bg) 98%
+    );
+  }
+}
+.t05-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  z-index: 1;
+  padding: 0 22px;
+
+  .t05-small {
+    color: var(--k-ink);
+  }
+  h1 {
+    margin: 10px 0 14px;
+    font-family: var(--k-display);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.05;
+
+    i {
+      display: block;
+      font-size: 38px;
+      font-weight: 400;
+      color: var(--k-accent);
+    }
+  }
+}
+.t05-pill {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 0.3em;
+  font-size: 13px;
+}
+
+// ---------- invitation ----------
 .t05-fam {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 18px;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 13px;
 
   div {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+  }
+  div + div {
+    border-left: 1px solid var(--k-line);
   }
   b {
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     color: var(--k-accent);
   }
 }
-
-// ---- couple pair ----
-.t05-pair {
-  position: relative;
-  padding: 26px 18px 84px;
-  background: #fff;
+// an organic pebble-shaped photo that slowly changes shape
+.t05-pebble {
+  width: 88%;
+  margin: 0 auto;
   overflow: hidden;
+  border-radius: 58% 42% 46% 54% / 44% 52% 48% 56%;
+  box-shadow: 0 24px 46px rgba(15, 61, 76, 0.2);
+  animation: t05-morph 9s ease-in-out infinite alternate;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
 }
-.t05-pair-photos {
+
+// ---------- water band ----------
+.t05-water {
+  padding: 70px 22px;
+  background: center / 160% auto;
+  animation: t05-ripple 18s linear infinite alternate;
+}
+.t05-glass {
+  padding: 28px 18px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(15, 61, 76, 0.2);
+}
+.t05-bigdate {
+  margin-top: 6px;
+  font-family: var(--k-display);
+  font-size: 76px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--k-accent);
+
+  span {
+    margin: 0 6px;
+    color: var(--k-accent2);
+  }
+}
+
+// ---------- timeline on sand ----------
+.t05-sand {
+  background: linear-gradient(180deg, var(--k-bg), #efe7d6);
+}
+.t05-tide {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(15, 61, 76, 0.08);
+  }
+  > :nth-child(even) li {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--k-accent);
+  }
+  span {
+    flex: 1;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- album ----------
+.t05-album {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 
-  figure {
-    background: #fff;
-    border: 1px solid var(--k-line);
-    padding: 6px 6px 0;
-    box-shadow: 0 8px 22px rgba(29, 91, 120, 0.15);
-  }
   img {
     width: 100%;
-    height: 230px;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
+    border-radius: 26px;
   }
-  figcaption {
-    padding: 6px 0;
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--k-muted);
+  > :nth-child(even) {
+    margin-top: 30px;
   }
 }
-.t05-pair-names {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 10px;
+
+// ---------- footer ----------
+.t05-foot {
+  padding: 110px 22px 120px;
+  background: center / cover;
+  box-shadow: inset 0 0 0 2000px rgba(15, 61, 76, 0.28);
   text-align: center;
-  font-family: var(--k-script);
-  font-size: 30px;
-  color: var(--k-accent2);
-}
+  color: #fff;
 
-// ---- story ----
-.t05-story {
-  position: relative;
-  padding: 44px 26px 26px;
-  text-align: right;
-  overflow: hidden;
-}
-.t05-story-list {
-  margin-top: 14px;
-
-  div {
-    margin-bottom: 22px;
+  .t05-small {
+    color: #e6fbfb;
   }
-  b {
+  h2 {
+    margin-top: 10px;
     font-family: var(--k-display);
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--k-accent2);
-  }
-  h4 {
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    font-weight: 500;
-  }
-  p {
-    margin-left: auto;
-    max-width: 240px;
-    font-size: 12px;
-    color: var(--k-muted);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    text-shadow: 0 2px 14px rgba(15, 61, 76, 0.5);
+
+    i {
+      display: block;
+      font-size: 34px;
+      font-weight: 400;
+    }
   }
 }
 
-// ---- timeline / countdown / album ----
-.t05-time {
-  padding: 30px 0 30px;
-  background: linear-gradient(180deg, var(--k-bg), #e6f1f5);
-
-  .t05-script {
-    padding: 0 26px;
-  }
-  .k-wind-wrap {
-    margin: 0 0 24px;
-  }
-}
-.t05-count {
-  padding: 34px 20px 36px;
-  text-align: center;
-  background: #e6f1f5;
-
-  .k-count {
-    margin-top: 12px;
-  }
-}
-.t05-album {
-  padding: 34px 14px 28px;
-  background: linear-gradient(180deg, #1d5b78, #144560);
-
-  .t05-script {
-    padding: 0 8px 14px;
-  }
-  .k-mosaic {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 150px 130px;
-    grid-template-areas:
-      "a b c"
-      "a d d";
-  }
-  .k-m1 {
-    grid-area: a;
-  }
-  .k-m2 {
-    grid-area: b;
-  }
-  .k-m3 {
-    grid-area: c;
-  }
-  .k-m4 {
-    grid-area: d;
-  }
-}
-
-.t05-form {
-  padding: 36px 24px 8px;
-}
-.t05-gift {
-  padding: 26px 24px 56px;
-  text-align: center;
-}
-.t05-thanks {
-  margin-top: 34px;
-  font-family: var(--k-script);
-  font-size: 54px;
-  color: var(--k-accent2);
-}
-
-@keyframes t05-in {
+@keyframes t05-drift {
   from {
-    opacity: 0;
-    transform: translateY(22px);
+    transform: scale(1.08) translateX(-2%);
   }
   to {
-    opacity: 1;
-    transform: none;
+    transform: scale(1.08) translateX(2%);
   }
 }
-@keyframes t05-zoom {
+@keyframes t05-morph {
+  to {
+    border-radius: 44% 56% 58% 42% / 56% 44% 56% 44%;
+  }
+}
+@keyframes t05-ripple {
   from {
-    transform: scale(1);
+    background-position: 0% 40%;
   }
   to {
-    transform: scale(1.1);
-  }
-}
-@keyframes t05-float {
-  from {
-    transform: translateY(0) rotate(0);
-  }
-  to {
-    transform: translateY(-8px) rotate(8deg);
-  }
-}
-
-// ---- real photos (CC0, see docs/CREDITS.md) ----
-.t05-star {
-  position: absolute;
-  width: 92px;
-  height: 92px;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 8px 20px rgba(80, 60, 20, 0.3);
-  animation: t05-float 6s ease-in-out infinite alternate;
-}
-.t05-star-a {
-  right: 14px;
-  bottom: 14px;
-}
-.t05-star-b {
-  left: 14px;
-  top: 30px;
-}
-.t05-wave-photo {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 96px;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: t05-zoom 14s ease-in-out infinite alternate;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0) 70%);
+    background-position: 100% 60%;
   }
 }
