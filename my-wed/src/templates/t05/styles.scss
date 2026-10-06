@@ -161,7 +161,7 @@
   overflow: hidden;
   border-radius: 58% 42% 46% 54% / 44% 52% 48% 56%;
   box-shadow: 0 24px 46px rgba(15, 61, 76, 0.2);
-  animation: t05-morph 9s ease-in-out infinite alternate;
+  animation: t05-morph 7s ease-in-out infinite alternate;
 
   img {
     width: 100%;
@@ -172,9 +172,22 @@
 
 // ---------- water band ----------
 .t05-water {
+  position: relative;
+  overflow: hidden;
   padding: 70px 22px;
-  background: center / 160% auto;
-  animation: t05-ripple 18s linear infinite alternate;
+  background: center / cover;
+
+  // the same photo on a larger layer that drifts slowly, like moving water
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    background: inherit;
+    animation: t05-ripple 18s ease-in-out infinite alternate;
+  }
+  > * {
+    position: relative;
+  }
 }
 .t05-glass {
   padding: 28px 18px;
@@ -289,15 +302,18 @@
   }
 }
 @keyframes t05-morph {
+  from {
+    transform: translateY(-5px) rotate(-1.5deg);
+  }
   to {
-    border-radius: 44% 56% 58% 42% / 56% 44% 56% 44%;
+    transform: translateY(5px) rotate(1.5deg);
   }
 }
 @keyframes t05-ripple {
   from {
-    background-position: 0% 40%;
+    transform: translate(-6%, -3%) scale(1.05);
   }
   to {
-    background-position: 100% 60%;
+    transform: translate(6%, 3%) scale(1.05);
   }
 }

@@ -284,7 +284,17 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     cursor: pointer;
-    animation: t14-pulse 2.4s ease-in-out infinite;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid var(--k-ink);
+      animation: t14-pulse 2.4s ease-out infinite;
+      pointer-events: none;
+    }
   }
 }
 .t14-gate-open .t14-gate-text {
@@ -579,12 +589,13 @@
 }
 
 @keyframes t14-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(74, 47, 54, 0.25);
+  from {
+    opacity: 0.45;
+    transform: scale(1);
   }
-  50% {
-    box-shadow: 0 0 0 10px rgba(74, 47, 54, 0);
+  to {
+    opacity: 0;
+    transform: scale(1.18, 1.5);
   }
 }
 

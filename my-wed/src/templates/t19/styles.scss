@@ -372,12 +372,12 @@
 
 @keyframes t19-glow {
   from {
-    opacity: 0.55;
-    box-shadow: 0 0 6px 2px rgba(255, 200, 110, 0.4);
+    opacity: 0.5;
+    transform: scale(0.85);
   }
   to {
     opacity: 1;
-    box-shadow: 0 0 16px 6px rgba(255, 200, 110, 0.7);
+    transform: scale(1.05);
   }
 }
 @keyframes t19-dusk {
