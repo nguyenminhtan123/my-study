@@ -1,18 +1,21 @@
-// Template 08: Hoàng hôn vàng. Airy and warm: real wheat ears against a pale sky, a real wheat
-// field at sunset for the date; wheat gold and soft sky blue on cream, a horizontal timeline track.
+// Template 08: Uyên ương. Mandarin ducks pair for life: an antique naturalist plate of a mandarin
+// pair (public domain) on matching aged paper, a real mandarin duck on the water behind the date;
+// teal, rust orange and sepia, plate captions, oval frames.
 .t08-root {
-  --k-bg: #fbf6ec;
-  --k-ink: #43351f;
-  --k-muted: #8e7c60;
-  --k-accent: #b07a2a;
-  --k-accent2: #7fa2b8;
-  --k-line: #ecdfc4;
-  --k-card: #fffdf8;
+  --k-bg: #efe4d0;
+  --k-ink: #33291d;
+  --k-muted: #7d6b55;
+  --k-accent: #2f6f6a;
+  --k-accent2: #c96a2e;
+  --k-line: #d9c8aa;
+  --k-card: #f8f0e1;
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --k-script: "Great Vibes", Georgia, serif;
+  --k-script: "Allura", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding: 0;
-  background: var(--k-bg);
+  background:
+    radial-gradient(circle at 10% 0, rgba(255, 250, 238, 0.6), transparent 45%),
+    var(--k-bg);
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
@@ -20,7 +23,7 @@
   line-height: 1.8;
   overflow-x: hidden;
 
-  :where(h1, h2, h3, p, ol) {
+  :where(h1, h2, h3, p, ol, figure) {
     margin: 0;
   }
   img {
@@ -35,15 +38,16 @@
 }
 .t08-small {
   font-size: 10.5px;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--k-accent);
 }
 .t08-title {
   font-family: var(--k-display);
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 1.2;
+  font-style: italic;
+  line-height: 1.25;
 }
 .t08-muted {
   margin: 6px 0 12px;
@@ -60,85 +64,78 @@
 }
 .t08-card {
   padding: 26px 20px;
-  border-radius: 20px;
   background: var(--k-card);
-  box-shadow: 0 16px 36px rgba(120, 90, 40, 0.1);
+  border: 1px solid var(--k-line);
+  box-shadow: 0 14px 30px rgba(60, 45, 25, 0.1);
   text-align: center;
 }
 
-// ---------- hero ----------
+// ---------- hero: the plate on paper ----------
 .t08-hero {
-  position: relative;
-  height: 100vh;
-  min-height: 620px;
-  overflow: hidden;
-
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 40% 50%;
-    animation: t08-sway 9s ease-in-out infinite alternate;
-    transform-origin: 50% 100%;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(240, 246, 250, 0.82) 0%,
-      rgba(240, 246, 250, 0.35) 32%,
-      rgba(251, 246, 236, 0) 55%,
-      rgba(251, 246, 236, 0) 78%,
-      var(--k-bg) 100%
-    );
-  }
-}
-.t08-hero-text {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(60px + env(safe-area-inset-top, 0px));
-  z-index: 1;
-  padding: 0 24px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 18px;
+  min-height: 100vh;
+  padding: calc(40px + env(safe-area-inset-top, 0px)) 20px 50px;
+  box-sizing: border-box;
   text-align: center;
 
   h1 {
-    margin-top: 12px;
     font-family: var(--k-display);
-    font-size: 50px;
+    font-size: 46px;
     font-weight: 500;
     line-height: 1.05;
-    color: #3a2c17;
+    animation: t08-in 1.4s ease 0.6s both;
 
     i {
       display: block;
-      font-size: 40px;
-      color: var(--k-accent);
+      font-size: 42px;
+      color: var(--k-accent2);
     }
   }
 }
-.t08-hero-date {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
-  z-index: 1;
-  font-family: var(--k-display);
-  font-size: 22px;
-  letter-spacing: 0.24em;
-  text-align: center;
+.t08-plate {
+  width: calc(100% + 40px);
+  margin: 0 -20px;
+  animation: t08-in 1.6s ease both;
 
-  span {
-    margin: 0 6px;
-    color: var(--k-accent);
+  img {
+    width: 100%;
+    // feather the plate's edges into the page paper
+    mask-image: radial-gradient(
+      ellipse 72% 70% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 72% 70% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
   }
+  figcaption {
+    margin-top: -6px;
+    font-family: var(--k-display);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--k-muted);
+  }
+}
+.t08-hero-date {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--k-muted);
 }
 
 // ---------- invitation ----------
+.t08-lead {
+  margin-bottom: 14px;
+  font-family: var(--k-display);
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1.45;
+}
 .t08-fam {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -156,208 +153,168 @@
     font-weight: 500;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--k-accent);
+    color: var(--k-accent2);
   }
 }
-.t08-photo {
-  overflow: hidden;
-  border-radius: 200px 200px 20px 20px;
-  box-shadow: 0 22px 44px rgba(120, 90, 40, 0.2);
-
-  img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-  }
-}
-
-// ---------- sunset band ----------
-.t08-sunset {
-  position: relative;
-  height: 420px;
-  overflow: hidden;
-  text-align: center;
-  color: #fff8ea;
-
-  > img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 0%;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(90, 45, 10, 0.35) 0%,
-      rgba(90, 45, 10, 0.15) 45%,
-      rgba(251, 246, 236, 0) 80%,
-      var(--k-bg) 100%
-    );
-  }
-  .k-reveal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 9%;
-    z-index: 1;
-    text-shadow: 0 2px 12px rgba(80, 40, 0, 0.6);
-  }
-  .t08-small {
-    color: #fff1d0;
-  }
-}
-.t08-bigdate {
-  font-family: var(--k-display);
-  font-size: 96px;
-  font-weight: 500;
-  line-height: 1;
-  text-shadow: 0 4px 24px rgba(80, 40, 0, 0.5);
-}
-.t08-sub {
-  font-size: 12px;
-  letter-spacing: 0.24em;
-}
-
-// ---------- horizontal timeline ----------
-.t08-track {
-  list-style: none;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 0;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 12%;
-    right: 12%;
-    top: 7px;
-    height: 1px;
-    background: var(--k-accent);
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 1.6s ease 0.3s;
-  }
-  li {
-    display: grid;
-    justify-items: center;
-    gap: 6px;
-    text-align: center;
-  }
-  i {
-    position: relative;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: var(--k-bg);
-    box-shadow: inset 0 0 0 2px var(--k-accent);
-  }
-  b {
-    font-family: var(--k-display);
-    font-size: 22px;
-    font-weight: 600;
-  }
-  span {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--k-muted);
-  }
-}
-.k-in .t08-track::before {
-  transform: scaleX(1);
-}
-
-// ---------- album ----------
-.t08-album {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+.t08-oval {
+  width: 80%;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--k-accent);
 
   img {
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
-    border-radius: 14px;
+    border-radius: 50%;
+    filter: sepia(0.15);
   }
-  > :first-child {
-    grid-column: span 3;
+}
 
-    img {
-      aspect-ratio: 16 / 10;
-    }
+// ---------- date over the pond ----------
+.t08-pond {
+  position: relative;
+  padding: 230px 22px 50px;
+
+  > img {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    object-position: 45% 50%;
+    mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 18%,
+      #000 70%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent,
+      #000 18%,
+      #000 70%,
+      transparent
+    );
+  }
+  .k-reveal {
+    position: relative;
+  }
+}
+.t08-bigdate {
+  margin: 6px 0 2px;
+  font-family: var(--k-display);
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--k-accent);
+
+  em {
+    margin: 0 4px;
+    font-style: normal;
+    color: var(--k-accent2);
+  }
+}
+
+// ---------- timeline ----------
+.t08-steps {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 40px 80px 1fr;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--k-line);
+  }
+  em {
+    font-family: var(--k-display);
+    font-size: 15px;
+    color: var(--k-accent2);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 24px;
+    font-weight: 500;
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- album as plates ----------
+.t08-album {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 12px;
+
+  figure {
+    padding: 8px 8px 4px;
+    background: var(--k-card);
+    border: 1px solid var(--k-line);
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    filter: sepia(0.12);
+  }
+  figcaption {
+    font-family: var(--k-display);
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    color: var(--k-muted);
   }
 }
 
 // ---------- footer ----------
 .t08-foot {
-  position: relative;
-  height: 62vh;
-  min-height: 430px;
-  overflow: hidden;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 10px 20px 80px;
   text-align: center;
 
   img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 0%;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      var(--k-bg) 0%,
-      rgba(251, 246, 236, 0) 18%,
-      rgba(90, 45, 10, 0.3) 45%,
-      rgba(90, 45, 10, 0.1) 100%
+    width: calc(100% + 40px);
+    max-width: none;
+    margin: 0 -20px;
+    mask-image: radial-gradient(
+      ellipse 72% 70% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 72% 70% at 50% 50%,
+      #000 70%,
+      transparent 100%
     );
   }
-  div {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 20%;
-    z-index: 1;
-    color: #fff8ea;
-  }
-  .t08-small {
-    color: #fff1d0;
-  }
   h2 {
-    margin-top: 6px;
     font-family: var(--k-display);
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 500;
-    line-height: 1.1;
-    text-shadow: 0 2px 16px rgba(80, 40, 0, 0.5);
 
     i {
-      display: block;
-      font-size: 34px;
+      margin: 0 8px;
+      color: var(--k-accent2);
     }
   }
 }
 
-// leave room for the gallery bar on the preview page
-.gl-bar ~ .t08-root .t08-hero-date {
-  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
-}
-
-@keyframes t08-sway {
+@keyframes t08-in {
   from {
-    transform: scale(1.06) rotate(-0.6deg);
+    opacity: 0;
+    transform: translateY(14px);
   }
   to {
-    transform: scale(1.06) rotate(0.6deg);
+    opacity: 1;
+    transform: none;
   }
 }

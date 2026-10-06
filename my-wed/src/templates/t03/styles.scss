@@ -1,16 +1,17 @@
-// Template 03: Sen trắng. Claude Monet's water lilies (public-domain paintings) as the whole mood:
-// canvas-coloured page, pictures hung in gilt frames with small plaques, soft teal and lily pink.
+// Template 03: Trầu cau. The Vietnamese betrothal: a real red tray of betel quids, real heart-shaped
+// betel leaves; deep red, leaf green and gold on cream; photos in leaf-shaped frames; 囍 seal.
 .t03-root {
-  --k-bg: #f1eee4;
-  --k-ink: #2f3d38;
-  --k-muted: #77807a;
-  --k-accent: #4f7a6f;
-  --k-accent2: #c98c9a;
-  --k-line: #dcd6c4;
-  --k-card: #faf8f1;
-  --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --k-bg: #f8f1e3;
+  --k-ink: #3a1d17;
+  --k-muted: #86655a;
+  --k-accent: #8e1b22;
+  --k-accent2: #3f6b2a;
+  --k-line: #e6d4b8;
+  --k-card: #fffaf0;
+  --k-display: "Playfair Display", "Times New Roman", Georgia, serif;
   --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gold: #d9a441;
   padding: 0;
   background: var(--k-bg);
   color: var(--k-ink);
@@ -20,7 +21,7 @@
   line-height: 1.8;
   overflow-x: hidden;
 
-  :where(h1, h2, h3, p, ol, figure) {
+  :where(h1, h2, h3, p, ol) {
     margin: 0;
   }
   img {
@@ -39,14 +40,17 @@
   text-transform: uppercase;
   color: var(--k-accent);
 }
+.t03-gold {
+  color: #f1cf7e;
+}
 .t03-title {
   font-family: var(--k-display);
   font-size: 27px;
-  font-weight: 500;
-  font-style: italic;
+  font-weight: 400;
   line-height: 1.3;
+  color: var(--k-accent);
 }
-.t03-sub {
+.t03-muted {
   margin: 6px 0 12px;
   font-size: 12.5px;
   color: var(--k-muted);
@@ -57,54 +61,60 @@
 .t03-sec {
   display: grid;
   gap: 26px;
-  padding: 52px 22px;
+  padding: 50px 22px;
 }
 .t03-card {
   padding: 26px 20px;
   background: var(--k-card);
   border: 1px solid var(--k-line);
-  box-shadow: 0 16px 34px rgba(47, 61, 56, 0.08);
+  box-shadow:
+    inset 0 0 0 5px var(--k-card),
+    inset 0 0 0 6px rgba(217, 164, 65, 0.55),
+    0 14px 30px rgba(90, 20, 20, 0.08);
   text-align: center;
 }
-
-// ---------- gilt frame ----------
-.t03-framed {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-
-  figcaption {
-    padding: 3px 12px;
-    background: linear-gradient(135deg, #cbb27a, #f1e2b4 50%, #b8995a);
-    font-family: var(--k-display);
-    font-size: 12px;
-    font-style: italic;
-    color: #3d3420;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  }
+.t03-hy {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f6d98f, #c9963f 60%, #9a6c22);
+  color: #8e1022;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(60, 5, 10, 0.35);
 }
-.t03-gilt {
-  width: 100%;
-  padding: 10px;
-  background: linear-gradient(
-    135deg,
-    #a8874a,
-    #f0dca6 30%,
-    #b9954f 55%,
-    #e8d095 80%,
-    #9c7c3f
+// heart-shaped like a betel leaf: rounded top lobes, pointed tip at the bottom
+.t03-leaf {
+  overflow: hidden;
+  border-radius: 50% 50% 50% 50% / 42% 42% 58% 58%;
+  clip-path: polygon(
+    50% 100%,
+    12% 70%,
+    0 38%,
+    4% 16%,
+    22% 2%,
+    50% 8%,
+    78% 2%,
+    96% 16%,
+    100% 38%,
+    88% 70%
   );
-  box-shadow:
-    0 18px 30px rgba(47, 61, 56, 0.25),
-    inset 0 0 0 2px rgba(80, 60, 20, 0.35);
+  background: var(--k-accent2);
+  padding: 6px;
 
   img {
     width: 100%;
+    aspect-ratio: 1 / 1.05;
     object-fit: cover;
-    border: 12px solid #f6f2e6;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
+    clip-path: inherit;
   }
+}
+.t03-sec > .k-reveal > .t03-leaf {
+  width: 82%;
+  margin: 0 auto;
 }
 
 // ---------- hero ----------
@@ -114,24 +124,27 @@
   min-height: 620px;
   overflow: hidden;
   text-align: center;
+  color: #fff4dc;
 
-  img {
+  > img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: t03-pan 24s ease-in-out infinite alternate;
+    object-position: 38% 50%;
+    animation: t03-zoom 14s ease-out both;
   }
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      ellipse 70% 32% at 50% 52%,
-      rgba(246, 243, 232, 0.88),
-      rgba(246, 243, 232, 0.55) 60%,
-      rgba(246, 243, 232, 0) 100%
+    background: linear-gradient(
+      180deg,
+      rgba(40, 10, 8, 0.15) 0%,
+      rgba(40, 10, 8, 0.1) 35%,
+      rgba(110, 16, 22, 0.88) 72%,
+      #6e1016 100%
     );
   }
 }
@@ -139,33 +152,45 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  bottom: 8%;
   z-index: 1;
-  transform: translateY(-50%);
-  padding: 0 24px;
+  padding: 0 22px;
 
+  .t03-small {
+    margin-top: 16px;
+    color: #f1cf7e;
+  }
   h1 {
-    margin: 10px 0;
+    margin: 10px 0 12px;
     font-family: var(--k-display);
-    font-size: 46px;
-    font-weight: 500;
+    font-size: 42px;
+    font-weight: 400;
     line-height: 1.1;
-    color: var(--k-ink);
 
     i {
       display: block;
-      font-size: 40px;
-      color: var(--k-accent2);
+      font-size: 36px;
+      color: #f1cf7e;
     }
   }
 }
 .t03-hero-date {
-  font-family: var(--k-display);
-  font-size: 18px;
-  letter-spacing: 0.32em;
+  display: inline-block;
+  padding: 5px 18px;
+  border-top: 1px solid rgba(241, 207, 126, 0.6);
+  border-bottom: 1px solid rgba(241, 207, 126, 0.6);
+  letter-spacing: 0.4em;
+  font-size: 13px;
 }
 
 // ---------- invitation ----------
+.t03-quote {
+  margin-bottom: 8px;
+  font-family: var(--k-display);
+  font-size: 24px;
+  font-style: italic;
+  color: var(--k-accent2);
+}
 .t03-fam {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -187,88 +212,108 @@
   }
 }
 
-// ---------- date over the painting ----------
-.t03-band {
-  padding: 70px 22px;
-  background: center / cover no-repeat;
-}
-.t03-glass {
-  padding: 28px 18px;
-  background: rgba(246, 243, 232, 0.82);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+// ---------- red date band ----------
+.t03-red {
+  --k-ink: #fff4dc;
+  --k-muted: #f1cf7e;
+  --k-accent: #f6d98f;
+  --k-line: rgba(241, 207, 126, 0.35);
+  display: grid;
+  gap: 24px;
+  padding: 56px 22px;
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgba(255, 200, 140, 0.18),
+      transparent 60%
+    ),
+    #7e1219;
+  color: #fff4dc;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(30, 50, 40, 0.25);
 }
 .t03-bigdate {
-  margin-top: 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
   font-family: var(--k-display);
-  font-size: 52px;
-  font-weight: 500;
-  line-height: 1.1;
-  color: var(--k-accent);
+  font-size: 54px;
+  line-height: 1;
+  color: #f6d98f;
+
+  span {
+    font-size: 18px;
+    font-style: italic;
+  }
+}
+.t03-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0.24em;
 }
 
-// ---------- timeline ----------
+// ---------- timeline over betel leaves ----------
+.t03-leafband {
+  padding: 60px 22px;
+  background: center / cover;
+
+  .t03-card {
+    background: rgba(255, 250, 240, 0.92);
+  }
+}
 .t03-steps {
   list-style: none;
   padding: 0;
-  display: grid;
-  gap: 10px;
+  margin-top: 14px;
 
   li {
     display: grid;
-    grid-template-columns: 84px 1fr;
-    align-items: center;
-    padding: 12px 18px;
-    background: var(--k-card);
-    border-left: 3px solid var(--k-accent2);
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--k-line);
   }
   b {
+    text-align: right;
     font-family: var(--k-display);
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 400;
     color: var(--k-accent);
   }
   span {
+    align-self: center;
+    text-align: left;
     font-size: 12px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
   }
 }
 
-// ---------- gallery wall ----------
-.t03-wall {
-  background:
-    linear-gradient(rgba(79, 122, 111, 0.1), rgba(79, 122, 111, 0.1)),
-    var(--k-bg);
-}
-.t03-hang {
+// ---------- album ----------
+.t03-album {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px 16px;
+  gap: 12px;
 
   > :nth-child(even) {
-    margin-top: 34px;
+    margin-top: 30px;
   }
-  .t03-gilt {
-    padding: 6px;
-
-    img {
-      border-width: 7px;
-    }
+  .t03-leaf {
+    padding: 4px;
   }
 }
 
 // ---------- footer ----------
 .t03-foot {
   position: relative;
-  height: 60vh;
-  min-height: 420px;
+  height: 66vh;
+  min-height: 440px;
   overflow: hidden;
   text-align: center;
+  color: #fff4dc;
 
-  img {
+  > img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -282,36 +327,43 @@
     background: linear-gradient(
       180deg,
       var(--k-bg) 0%,
-      rgba(241, 238, 228, 0.6) 35%,
-      rgba(241, 238, 228, 0.15) 100%
+      rgba(110, 16, 22, 0.3) 30%,
+      rgba(110, 16, 22, 0.9) 100%
     );
   }
   div {
     position: absolute;
     left: 0;
     right: 0;
-    top: 20%;
+    bottom: 12%;
     z-index: 1;
   }
+  .t03-small {
+    margin-top: 14px;
+  }
   h2 {
-    margin-top: 8px;
+    margin-top: 6px;
     font-family: var(--k-display);
-    font-size: 36px;
-    font-weight: 500;
+    font-size: 34px;
+    font-weight: 400;
 
     i {
-      display: block;
-      font-size: 32px;
-      color: var(--k-accent2);
+      margin: 0 8px;
+      color: #f1cf7e;
     }
   }
 }
 
-@keyframes t03-pan {
+// leave room for the gallery bar on the preview page
+.gl-bar ~ .t03-root .t03-hero-text {
+  bottom: calc(80px + 6%);
+}
+
+@keyframes t03-zoom {
   from {
-    transform: scale(1.15) translate(-3%, 0);
+    transform: scale(1.12);
   }
   to {
-    transform: scale(1.15) translate(3%, -2%);
+    transform: none;
   }
 }

@@ -99,7 +99,7 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t03",
-    name: "Mẫu 3 · Hoa súng Monet",
+    name: "Mẫu 3 · Trầu cau",
     thumbnail: thumb03,
     Component: Template03,
     demoData: demoData03,
@@ -134,7 +134,7 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t08",
-    name: "Mẫu 8 · Hoàng hôn lúa mì",
+    name: "Mẫu 8 · Uyên ương",
     thumbnail: thumb08,
     Component: Template08,
     demoData: demoData08,
@@ -148,7 +148,7 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t10",
-    name: "Mẫu 10 · Rừng tối",
+    name: "Mẫu 10 · Nhẫn cưới",
     thumbnail: thumb10,
     Component: Template10,
     demoData: demoData10,
@@ -197,7 +197,7 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t17",
-    name: "Mẫu 17 · Lá phong mùa thu",
+    name: "Mẫu 17 · Bó hoa cô dâu",
     thumbnail: thumb17,
     Component: Template17,
     demoData: demoData17,
@@ -211,14 +211,14 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t19",
-    name: "Mẫu 19 · Đêm đầy sao",
+    name: "Mẫu 19 · Tiệc cưới lung linh",
     thumbnail: thumb19,
     Component: Template19,
     demoData: demoData19,
   },
   {
     id: "t20",
-    name: "Mẫu 20 · Hướng dương",
+    name: "Mẫu 20 · Bánh cưới",
     thumbnail: thumb20,
     Component: Template20,
     demoData: demoData20,
@@ -239,14 +239,14 @@ export const templates: TemplateEntry[] = [
   },
   {
     id: "t23",
-    name: "Mẫu 23 · Cúc họa mi",
+    name: "Mẫu 23 · Váy cưới ren",
     thumbnail: thumb23,
     Component: Template23,
     demoData: demoData23,
   },
   {
     id: "t24",
-    name: "Mẫu 24 · Thư tay thảo mộc",
+    name: "Mẫu 24 · Mưa cánh hoa",
     thumbnail: thumb24,
     Component: Template24,
     demoData: demoData24,

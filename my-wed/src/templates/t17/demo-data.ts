@@ -6,8 +6,8 @@ export const demoData: WeddingData = {
   groom: "Đức Huy",
   bride: "Phương Linh",
   eventTitle: "Lễ thành hôn Đức Huy & Phương Linh",
-  venueName: "Nhà hàng Mùa Thu",
+  venueName: "Trung tâm Tiệc cưới Hoa Hồng",
   venueAddress: "Số 27 Đường Thanh Niên, Ba Đình, Hà Nội",
   venueQuery: "Thanh Niên Ba Đình Hà Nội",
-  dressColors: ["#8c3b1f", "#c8692f", "#e8c9a0", "#3a2418"],
+  dressColors: ["#f3c9b8", "#e8a6a0", "#fff7f2", "#7d8a6a"],
 };

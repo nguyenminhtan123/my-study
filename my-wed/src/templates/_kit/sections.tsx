@@ -326,3 +326,27 @@ export const GiftCard = ({ data }: { data: WeddingData }) => {
     </div>
   );
 };
+
+/** "Nhà trai / Nhà gái" columns. Styling comes from the template via `className`. */
+export const Families = ({
+  data,
+  className,
+}: {
+  data: WeddingData;
+  className: string;
+}) => (
+  <div className={className}>
+    <div>
+      <b>Nhà trai</b>
+      {data.families.groom.map((p) => (
+        <span key={p}>{p}</span>
+      ))}
+    </div>
+    <div>
+      <b>Nhà gái</b>
+      {data.families.bride.map((p) => (
+        <span key={p}>{p}</span>
+      ))}
+    </div>
+  </div>
+);

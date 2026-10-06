@@ -6,8 +6,8 @@ export const demoData: WeddingData = {
   groom: "Minh Quân",
   bride: "Khánh Vy",
   eventTitle: "Lễ thành hôn Minh Quân & Khánh Vy",
-  venueName: "Sky Garden Rooftop",
-  venueAddress: "Tầng 25, Số 9 Đường Lê Duẩn, Quận 1, TP. Hồ Chí Minh",
+  venueName: "Garden Ballroom",
+  venueAddress: "Số 9 Đường Lê Duẩn, Quận 1, TP. Hồ Chí Minh",
   venueQuery: "Lê Duẩn Quận 1",
-  dressColors: ["#0f1a3a", "#3b4f8a", "#e3c58c", "#f2efe8"],
+  dressColors: ["#d9a0a6", "#7f8f6a", "#f6ead7", "#3a2a24"],
 };

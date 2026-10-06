@@ -3,11 +3,11 @@ import { demoData as base } from "@/templates/t01/demo-data";
 
 export const demoData: WeddingData = {
   ...base,
-  groom: "Tae Hyun",
+  groom: "Hoàng Nam",
   bride: "Vân Anh",
-  eventTitle: "Tiệc cưới Tae Hyun & Vân Anh",
-  venueName: "Champa Island",
-  venueAddress: "Sảnh Lakshmi, 304 Đường 2/4, P. Bắc Nha Trang, Khánh Hòa",
-  venueQuery: "Champa Island Nha Trang",
-  dressColors: ["#f5e9d3", "#c9a35a", "#8a6a3a"],
+  eventTitle: "Lễ thành hôn Hoàng Nam & Vân Anh",
+  venueName: "Nhà hàng Uyên Ương",
+  venueAddress: "Số 25 Đường Ven Hồ Tây, Tây Hồ, Hà Nội",
+  venueQuery: "Hồ Tây Hà Nội",
+  dressColors: ["#2f6f6a", "#c96a2e", "#f2e8d5", "#3b3326"],
 };

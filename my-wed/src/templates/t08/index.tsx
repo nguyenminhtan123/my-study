@@ -3,13 +3,14 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t08/styles.scss";
 import { WeddingData } from "@/core/types";
-import sunset from "@/static/t08-wheat-sunset.jpg";
-import wheat from "@/static/t08-wheat.jpg";
-import { Drifters, Reveal } from "@/templates/_kit/anim";
+import duck from "@/static/t08-mandarin-duck.jpg";
+import pair from "@/static/t08-mandarin-painting.jpg";
+import { Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   CalendarCard,
   Countdown,
+  Families,
   GiftCard,
   RsvpForm,
   VenueActions,
@@ -21,78 +22,63 @@ const Template08 = ({ data }: { data: WeddingData }) => {
 
   return (
     <Page className="t08-root">
-      <Drifters kind="sparkle" count={10} color="#f3d79a" opacity={0.75} />
-
       <section className="t08-hero">
-        <img src={wheat} alt="" />
-        <div className="t08-hero-text">
-          <p className="t08-small">Mùa lúa chín · chúng mình cưới</p>
-          <h1>
-            {data.groom}
-            <i>&amp;</i>
-            {data.bride}
-          </h1>
-        </div>
+        <p className="t08-small">Như đôi uyên ương · trọn đời bên nhau</p>
+        <figure className="t08-plate">
+          <img src={pair} alt="" />
+          <figcaption>Pl. I · Aix galericulata</figcaption>
+        </figure>
+        <h1>
+          {data.groom}
+          <i>&amp;</i>
+          {data.bride}
+        </h1>
         <p className="t08-hero-date">
-          {d.day}
-          <span>/</span>
-          {d.month}
-          <span>/</span>
-          {d.year}
+          {d.weekday} · {d.day}.{d.month}.{d.year}
         </p>
       </section>
 
       <section className="t08-sec t08-center">
         <Reveal>
-          <p className="t08-small">Trân trọng kính mời</p>
-          <h2 className="t08-title">
-            Cùng chúng mình đón
-            <br />
-            buổi chiều đẹp nhất
-          </h2>
+          <p className="t08-lead">
+            Uyên ương chọn một bạn đời và ở bên nhau suốt đời. Chúng mình cũng
+            vậy.
+          </p>
+          <p className="t08-small">
+            Trân trọng kính mời bạn đến dự lễ thành hôn
+          </p>
         </Reveal>
         <Reveal>
-          <div className="t08-fam">
-            <div>
-              <b>Nhà trai</b>
-              {data.families.groom.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-            <div>
-              <b>Nhà gái</b>
-              {data.families.bride.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-          </div>
+          <Families data={data} className="t08-fam" />
         </Reveal>
         <Reveal variant="zoom">
-          <div className="t08-photo">
-            <img src={photoSrc(data.photos.cover)} alt="" />
+          <div className="t08-oval">
+            <img src={photoSrc(data.photos.couple)} alt="" />
           </div>
         </Reveal>
       </section>
 
-      <section className="t08-sunset">
-        <img src={sunset} alt="" />
+      <section className="t08-pond">
+        <img src={duck} alt="" />
         <Reveal>
-          <div className="t08-sunset-text">
-            <p className="t08-small">Save the date</p>
+          <div className="t08-card t08-float">
+            <p className="t08-small">Ngày chung đôi</p>
             <p className="t08-bigdate">
-              {d.day}.{d.month}
+              {d.day}
+              <em>·</em>
+              {d.month}
+              <em>·</em>
+              {d.year}
             </p>
-            <p className="t08-sub">
-              {d.weekday} · {d.time} · {d.year}
+            <p className="t08-muted">
+              {d.weekday} · {d.time}
             </p>
+            <Countdown iso={data.weddingISO} />
           </div>
         </Reveal>
       </section>
 
       <section className="t08-sec">
-        <Reveal>
-          <Countdown iso={data.weddingISO} />
-        </Reveal>
         <Reveal>
           <div className="t08-card">
             <CalendarCard iso={data.weddingISO} />
@@ -106,23 +92,20 @@ const Template08 = ({ data }: { data: WeddingData }) => {
             <VenueActions data={data} />
           </div>
         </Reveal>
-      </section>
-
-      <section className="t08-sec">
         <Reveal>
-          <h2 className="t08-title t08-center">Lịch trình</h2>
+          <h2 className="t08-title t08-center">Chương trình</h2>
         </Reveal>
-        <Reveal variant="fade">
-          <ol className="t08-track">
-            {data.timeline.map((s) => (
-              <li key={s.time}>
-                <i />
+        <ol className="t08-steps">
+          {data.timeline.map((s, i) => (
+            <Reveal key={s.time} delay={i * 120}>
+              <li>
+                <em>{["I", "II", "III", "IV"][i] ?? i + 1}</em>
                 <b>{s.time}</b>
                 <span>{s.label}</span>
               </li>
-            ))}
-          </ol>
-        </Reveal>
+            </Reveal>
+          ))}
+        </ol>
       </section>
 
       <section className="t08-sec">
@@ -131,8 +114,13 @@ const Template08 = ({ data }: { data: WeddingData }) => {
         </Reveal>
         <div className="t08-album">
           {data.album.map((p, i) => (
-            <Reveal key={p.key} variant="zoom" delay={i * 120}>
-              <img src={photoSrc(p)} alt="" />
+            <Reveal key={p.key} delay={i * 120}>
+              <figure>
+                <img src={photoSrc(p)} alt="" />
+                <figcaption>
+                  Pl. {["II", "III", "IV", "V"][i] ?? i + 2}
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </div>
@@ -141,7 +129,7 @@ const Template08 = ({ data }: { data: WeddingData }) => {
       <section className="t08-sec">
         <Reveal>
           <div className="t08-card">
-            <RsvpForm data={data} title="Xác nhận tham dự" />
+            <RsvpForm data={data} variant="select" title="Xác nhận tham dự" />
           </div>
         </Reveal>
         <Reveal>
@@ -153,15 +141,13 @@ const Template08 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t08-foot">
-        <img src={sunset} alt="" />
-        <div>
-          <p className="t08-small">Cảm ơn bạn</p>
-          <h2>
-            {data.groom}
-            <i>&amp;</i>
-            {data.bride}
-          </h2>
-        </div>
+        <img src={pair} alt="" />
+        <p className="t08-small">Cảm ơn bạn</p>
+        <h2>
+          {data.groom}
+          <i>&amp;</i>
+          {data.bride}
+        </h2>
       </footer>
     </Page>
   );

@@ -125,3 +125,18 @@ Theo cùng nguyên tắc với t15–t24 (mỗi mẫu một ảnh thật chủ �
 - `t09` Cẩm tú cầu: tú cầu xanh, đóa tròn kính mờ chứa tên, nền thảm tú cầu tím, lịch trình và album hình tròn.
 
 Đã xóa các ảnh cũ không còn dùng (lotus, rose-dark, sea-wave, starfish, hydrangea-paper, hydrangea-blue, clover). Ảnh đại diện trong gallery đã chụp lại.
+
+## Cập nhật: concept phải là chủ đề cưới
+
+Nguyên tắc mới (chủ shop chốt): concept của mỗi mẫu phải gợi đến đám cưới (biểu tượng cưới, không chỉ là ảnh đẹp). 8 mẫu không hợp đã thay concept, giữ id:
+
+- `t03` Trầu cau: tráp trầu cau đỏ, lá trầu hình tim làm khung ảnh, dấu 囍, "Miếng trầu là đầu câu chuyện".
+- `t08` Uyên ương: tranh cổ đôi uyên ương (phạm vi công cộng) trên giấy cũ, uyên ương bơi trên hồ, chú thích kiểu sách vạn vật.
+- `t10` Nhẫn cưới: hộp nhẫn trên lụa lộ ra qua vòng tròn mở rộng, ngày cưới nằm trong hai chiếc nhẫn lồng nhau, khung ảnh tròn viền vàng.
+- `t17` Bó hoa cô dâu: bó hoa hồng đào và tú cầu trắng, ruy băng satin, khung vòm.
+- `t19` Tiệc cưới lung linh: bàn tiệc dài dưới tán đèn, nến, dây đèn sáng lấp lánh, lịch trình viết như thực đơn.
+- `t20` Bánh cưới: bánh cưới hai tầng hoa hồng, viền kem gợn sóng, lịch trình xếp như các tầng bánh.
+- `t23` Váy cưới ren: lưng váy cưới ren và tóc kết ngọc trai, lớp voan trắng vén lên khi mở, dải ren ngăn cách.
+- `t24` Mưa cánh hoa: cánh hoa hồng thật phủ kín bìa, cánh hoa rơi khắp trang, vòng tròn trắng giữa trang.
+
+Còn lửng: `t16` Oải hương và `t18` Hoa đào cổ họa (có thể đổi ý thành tiệc cưới ngoài vườn oải hương / uyên ương trên cành đào nếu chủ shop muốn).

@@ -1,22 +1,17 @@
-// Template 23: Cúc họa mi. Fresh and light, like Hà Nội in daisy season: real daisy photos, an
-// oval hero frame, scalloped photo edges, picnic gingham bands, leaf green and butter yellow.
+// Template 23: Voan cô dâu. White on white: a real photo of a bride's tulle veil, a real lace bodice
+// close-up used as lace trim between sections; a sheer veil that lifts off the cover on load;
+// ivory, warm grey and champagne, italic serif, lots of air.
 .t23-root {
-  --k-bg: #fbfaf3;
-  --k-ink: #2f3a2a;
-  --k-muted: #77806c;
-  --k-accent: #4b6b3c;
-  --k-accent2: #e0b42e;
-  --k-line: #dfe5d2;
+  --k-bg: #fdfcfa;
+  --k-ink: #3f3a36;
+  --k-muted: #8f8780;
+  --k-accent: #a8916c;
+  --k-accent2: #c9b79c;
+  --k-line: #ece6de;
   --k-card: #ffffff;
-  --k-display: "Lora", Georgia, serif;
-  --k-script: "Dancing Script", Georgia, serif;
+  --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
-  // scalloped edge mask (circles along every side)
-  --scallop:
-    radial-gradient(circle at 50% 50%, #000 70%, transparent 71%) 0 0 / 22px
-      22px round,
-    linear-gradient(#000, #000) 11px 11px / calc(100% - 22px) calc(100% - 22px)
-      no-repeat;
   padding: 0;
   background: var(--k-bg);
   color: var(--k-ink);
@@ -26,7 +21,7 @@
   line-height: 1.8;
   overflow-x: hidden;
 
-  :where(h1, h2, h3, p, ol) {
+  :where(h1, h2, h3, p, ol, figure) {
     margin: 0;
   }
   img {
@@ -36,121 +31,148 @@
   i {
     font-family: var(--k-script);
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
   }
   .k-drift svg {
-    filter: drop-shadow(0 1px 2px rgba(75, 107, 60, 0.35));
+    filter: drop-shadow(0 1px 2px rgba(120, 100, 80, 0.35));
+  }
+  .k-submit,
+  .k-chips button.on {
+    background: var(--k-ink);
+    border-color: var(--k-ink);
   }
 }
-.t23-kicker {
+.t23-small {
   font-size: 10.5px;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.44em;
   text-transform: uppercase;
   color: var(--k-accent);
 }
 .t23-title {
   font-family: var(--k-display);
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 400;
   font-style: italic;
   line-height: 1.3;
 }
+.t23-muted {
+  margin: 6px 0 12px;
+  font-size: 12.5px;
+  color: var(--k-muted);
+}
 .t23-center {
   text-align: center;
 }
-.t23-muted {
-  font-size: 13px;
-  color: var(--k-muted);
-}
 .t23-sec {
   display: grid;
-  gap: 24px;
-  padding: 50px 20px;
+  gap: 26px;
+  padding: 50px 24px;
 }
 .t23-card {
   padding: 26px 20px;
-  border-radius: 28px;
   background: var(--k-card);
-  border: 1.5px dashed #c9d6b6;
+  border: 1px solid var(--k-line);
   text-align: center;
+  box-shadow: 0 14px 34px rgba(90, 80, 70, 0.06);
 }
-.t23-gingham {
-  height: 26px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(169, 194, 139, 0.55) 0 13px,
-      transparent 13px 26px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(169, 194, 139, 0.55) 0 13px,
-      transparent 13px 26px
-    ),
-    #fff;
-}
-.t23-scallop {
-  -webkit-mask: var(--scallop);
-  mask: var(--scallop);
-
-  img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-  }
+.t23-lace {
+  height: 70px;
+  background: 4% 70% / 320% auto;
+  filter: grayscale(1) brightness(1.12) contrast(0.95);
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
 }
 
 // ---------- hero ----------
 .t23-hero {
-  display: grid;
-  justify-items: center;
-  gap: 16px;
-  min-height: 100vh;
-  padding: calc(46px + env(safe-area-inset-top, 0px)) 20px 40px;
-  box-sizing: border-box;
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
   text-align: center;
+
+  > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    filter: brightness(1.05) saturate(0.85);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(253, 252, 250, 0) 30%,
+      rgba(253, 252, 250, 0.75) 62%,
+      var(--k-bg) 88%
+    );
+  }
+}
+// sheer tulle: soft vertical folds, lifts up and away
+.t23-sheer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   background:
-    radial-gradient(circle at 50% 38%, #fff, transparent 60%), var(--k-bg);
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0 14px,
+      rgba(255, 255, 255, 0.35) 22px,
+      rgba(255, 255, 255, 0) 32px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0.85)
+    );
+  transform-origin: 50% 0;
+  animation: t23-lift 2.6s cubic-bezier(0.6, 0, 0.3, 1) 0.6s both;
+  pointer-events: none;
+}
+.t23-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9%;
+  z-index: 2;
+  padding: 0 22px;
 
   h1 {
-    font-family: var(--k-script);
-    font-size: 50px;
-    font-weight: 600;
+    margin: 10px 0 12px;
+    font-family: var(--k-display);
+    font-size: 46px;
+    font-weight: 400;
+    font-style: italic;
     line-height: 1.05;
-    color: var(--k-accent);
 
     i {
       display: block;
-      font-size: 34px;
-      color: var(--k-accent2);
+      font-style: normal;
+      font-size: 38px;
+      color: var(--k-accent);
     }
-  }
-}
-.t23-oval {
-  position: relative;
-  width: 72%;
-  max-width: 290px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -10px;
-    border: 1.5px solid var(--k-accent);
-    border-radius: 50%;
-    animation: t23-wobble 7s ease-in-out infinite alternate;
-  }
-  img {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 24px 50px rgba(75, 107, 60, 0.25);
   }
 }
 .t23-hero-date {
   font-family: var(--k-display);
-  font-size: 20px;
-  letter-spacing: 0.3em;
+  font-size: 18px;
+  letter-spacing: 0.4em;
 }
 
 // ---------- invitation ----------
@@ -163,7 +185,7 @@
     display: grid;
   }
   div + div {
-    border-left: 1.5px dashed #c9d6b6;
+    border-left: 1px solid var(--k-line);
   }
   b {
     margin-bottom: 4px;
@@ -174,73 +196,33 @@
     color: var(--k-accent);
   }
 }
-
-// ---------- daisy field band with scalloped top and bottom ----------
-.t23-field {
-  height: 240px;
-  overflow: hidden;
-  -webkit-mask:
-    radial-gradient(circle at 50% 0, #000 70%, transparent 71%) 0 0 / 24px 14px
-      repeat-x,
-    radial-gradient(circle at 50% 100%, #000 70%, transparent 71%) 0 100% / 24px
-      14px repeat-x,
-    linear-gradient(#000, #000) 0 7px / 100% calc(100% - 14px) no-repeat;
-  mask:
-    radial-gradient(circle at 50% 0, #000 70%, transparent 71%) 0 0 / 24px 14px
-      repeat-x,
-    radial-gradient(circle at 50% 100%, #000 70%, transparent 71%) 0 100% / 24px
-      14px repeat-x,
-    linear-gradient(#000, #000) 0 7px / 100% calc(100% - 14px) no-repeat;
+.t23-portrait {
+  width: 84%;
+  margin: 0 auto;
 
   img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
-    animation: t23-pan 16s ease-in-out infinite alternate;
+    border-radius: 200px 200px 0 0;
   }
 }
 
 // ---------- date ----------
 .t23-bigdate {
-  margin-top: 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
   font-family: var(--k-display);
-  font-size: 88px;
+  font-size: 58px;
   line-height: 1;
-  color: var(--k-accent);
 
   span {
-    display: block;
-    font-family: var(--k-script);
-    font-size: 30px;
-    color: var(--k-accent2);
-  }
-}
-// countdown as little daisy centres
-.t23-count .k-count {
-  gap: 8px;
-
-  div {
-    display: grid;
-    place-content: center;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      #fff3c4 0 55%,
-      #f2c84b 56% 62%,
-      #fff 63%
-    );
-    box-shadow: 0 8px 18px rgba(75, 107, 60, 0.15);
-  }
-  div + div {
-    border-left: 0;
-  }
-  b {
-    font-size: 24px;
-    color: var(--k-ink);
-  }
-  span {
-    font-size: 8.5px;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--k-accent);
   }
 }
 
@@ -248,49 +230,55 @@
 .t23-steps {
   list-style: none;
   padding: 0;
-  display: grid;
-  gap: 12px;
+  text-align: center;
 
   li {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: #fff;
-    border: 1.5px dashed #c9d6b6;
+    display: grid;
+    padding: 12px 0;
+  }
+  li + li {
+    border-top: 1px solid var(--k-line);
   }
   b {
-    display: grid;
-    place-items: center;
-    width: 64px;
-    height: 34px;
-    border-radius: 999px;
-    background: var(--k-accent);
-    color: #fff;
-    font-weight: 500;
-    font-size: 14px;
+    font-family: var(--k-display);
+    font-size: 28px;
+    font-weight: 400;
+    font-style: italic;
   }
   span {
-    font-size: 12px;
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
+    color: var(--k-muted);
   }
 }
 
-// ---------- album ----------
-.t23-green {
-  --k-ink: #fbfaf3;
-  background: #4b6b3c;
-  color: #fbfaf3;
-}
+// ---------- album: soft-edged like seen through tulle ----------
 .t23-album {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 
+  figure {
+    position: relative;
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    mask-image: radial-gradient(
+      ellipse 80% 85% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 85% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+  }
   > :nth-child(even) {
-    margin-top: 26px;
+    margin-top: 30px;
   }
 }
 
@@ -302,12 +290,13 @@
   overflow: hidden;
   text-align: center;
 
-  img {
+  > img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 6% 60%;
   }
   &::after {
     content: "";
@@ -316,45 +305,50 @@
     background: linear-gradient(
       180deg,
       var(--k-bg) 0%,
-      var(--k-bg) 22%,
-      rgba(251, 250, 243, 0.85) 40%,
-      rgba(251, 250, 243, 0) 70%
+      rgba(253, 252, 250, 0.2) 35%,
+      rgba(253, 252, 250, 0.2) 65%,
+      var(--k-bg) 100%
     );
   }
   div {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 8%;
+    left: 50%;
+    top: 50%;
     z-index: 1;
+    width: 260px;
+    padding: 26px 16px;
+    transform: translate(-50%, -50%);
+    background: rgba(253, 252, 250, 0.86);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
   h2 {
+    margin-top: 6px;
     font-family: var(--k-display);
-    font-size: 30px;
+    font-size: 36px;
     font-weight: 400;
     font-style: italic;
 
     i {
       display: block;
-      font-size: 34px;
+      font-style: normal;
       color: var(--k-accent);
     }
   }
 }
 
-@keyframes t23-wobble {
-  from {
-    transform: rotate(-4deg) scale(1.01);
-  }
-  to {
-    transform: rotate(4deg) scale(0.99);
-  }
+// leave room for the gallery bar on the preview page
+.gl-bar ~ .t23-root .t23-hero-text {
+  bottom: calc(80px + 6%);
 }
-@keyframes t23-pan {
+
+@keyframes t23-lift {
   from {
-    transform: scale(1.1) translateX(-3%);
+    transform: none;
+    opacity: 1;
   }
   to {
-    transform: scale(1.1) translateX(3%);
+    transform: translateY(-105%) scaleY(0.6);
+    opacity: 0;
   }
 }
