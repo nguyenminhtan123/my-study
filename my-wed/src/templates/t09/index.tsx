@@ -3,18 +3,14 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t09/styles.scss";
 import { WeddingData } from "@/core/types";
-import hydrangea from "@/static/hydrangea-blue.jpg";
+import blue from "@/static/t09-hydrangea-blue2.jpg";
+import purple from "@/static/t09-hydrangea-purple.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
-  IconCamera,
-  IconDinner,
-  IconMusic,
-  IconRings,
-} from "@/templates/_kit/icons";
-import {
+  CalendarCard,
+  Countdown,
   GiftCard,
-  Mosaic,
   RsvpForm,
   VenueActions,
   photoSrc,
@@ -22,129 +18,144 @@ import {
 
 const Template09 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const mono = `${data.groom.charAt(0)}&${data.bride.charAt(0)}`;
-  const steps = [
-    { t: data.timeline[0], Icon: IconCamera },
-    { t: data.timeline[1], Icon: IconRings },
-    { t: data.timeline[2], Icon: IconDinner },
-    { t: data.timeline[3], Icon: IconMusic },
-  ];
 
   return (
     <Page className="t09-root">
-      <Drifters kind="petal" count={12} color="#c8cbe6" opacity={0.9} />
+      <Drifters kind="petal" count={12} color="#b7a9e6" opacity={0.7} />
 
-      <section className="t09-cover">
-        <div className="t09-hydra">
-          <img src={hydrangea} alt="" />
-        </div>
-        <div className="t09-mono">{mono}</div>
-        <div className="t09-torn">
-          <img src={photoSrc(data.photos.cover)} alt="" />
-        </div>
-        <p className="t09-cover-names">
-          {data.groom} &amp; {data.bride}
-          <span>
-            {d.day}.{d.month}.{d.year}
-          </span>
-        </p>
-      </section>
-
-      <section className="t09-invite">
-        <Reveal>
-          <p className="t09-cap">Thân mời đến dự lễ thành hôn của chúng tôi!</p>
-          <h2>
+      <section className="t09-hero">
+        <img src={blue} alt="" />
+        <div className="t09-bloom">
+          <p className="t09-small">We're getting married</p>
+          <h1>
             {data.groom}
-            <i>&</i>
+            <i>&amp;</i>
             {data.bride}
-          </h2>
-          <p className="t09-cap">Được tổ chức vào lúc</p>
-          <div className="t09-paper">
-            <b>
-              {d.time} | {d.weekday}
-            </b>
-            <span>
-              {d.day} . {d.month} . {d.year}
-            </span>
-          </div>
-          <p className="t09-cap">Địa điểm</p>
-          <h3>{data.venueName}</h3>
-          <p className="t09-addr">{data.venueAddress}</p>
-          <VenueActions data={data} />
-        </Reveal>
+          </h1>
+          <p className="t09-bloom-date">
+            {d.day} · {d.month} · {d.year}
+          </p>
+        </div>
       </section>
 
-      <section className="t09-env">
-        <Reveal variant="fade">
-          <div className="t09-envelope">
-            <div className="t09-letter">
-              <img src={photoSrc(data.photos.couple)} alt="" />
-              <img src={photoSrc(data.album[0])} alt="" />
+      <section className="t09-sec t09-center">
+        <Reveal>
+          <p className="t09-small">Trân trọng kính mời</p>
+          <h2 className="t09-title">Đến dự lễ thành hôn của chúng mình</h2>
+        </Reveal>
+        <Reveal>
+          <div className="t09-fam">
+            <div>
+              <b>Nhà trai</b>
+              {data.families.groom.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
             </div>
-            <div className="t09-back" />
-            <div className="t09-front" />
-            <div className="t09-flap" />
-            <div className="t09-seal">{mono}</div>
+            <div>
+              <b>Nhà gái</b>
+              {data.families.bride.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
           </div>
         </Reveal>
-        <Reveal>
-          <p className="t09-script">Save the Date</p>
-        </Reveal>
-      </section>
-
-      <section className="t09-story">
-        <img src={photoSrc(data.album[2])} alt="" />
-        <Reveal className="t09-story-text">
-          <p className="t09-script t09-white">The Story of Love</p>
-          <div>
-            <i>Cô dâu</i>
-            <b>{data.bride}</b>
-          </div>
-          <div>
-            <i>Chú rể</i>
-            <b>{data.groom}</b>
+        <Reveal variant="zoom">
+          <div className="t09-circle">
+            <img src={photoSrc(data.photos.cover)} alt="" />
           </div>
         </Reveal>
       </section>
 
-      <section className="t09-album">
+      <section
+        className="t09-carpet"
+        style={{ backgroundImage: `url(${purple})` }}
+      >
         <Reveal>
-          <h2 className="t09-script">The Album</h2>
+          <div className="t09-glass">
+            <p className="t09-small">Save the date</p>
+            <p className="t09-bigdate">
+              {d.day}
+              <span>/</span>
+              {d.month}
+              <span>/</span>
+              {d.year.slice(2)}
+            </p>
+            <p className="t09-sub">
+              {d.weekday} · {d.time}
+            </p>
+            <Countdown iso={data.weddingISO} />
+          </div>
         </Reveal>
-        <Mosaic photos={data.album} />
       </section>
 
-      <section className="t09-time">
+      <section className="t09-sec">
         <Reveal>
-          <h2 className="t09-cap t09-tl">TIMELINE</h2>
+          <div className="t09-card">
+            <CalendarCard iso={data.weddingISO} />
+          </div>
         </Reveal>
-        <div className="t09-row">
-          {steps.map(({ t, Icon }, i) => (
-            <Reveal key={t.time} variant="zoom" delay={i * 200}>
-              <div className="t09-step">
-                <Icon />
-                <b>{t.time}</b>
-                <span>{t.label}</span>
+        <Reveal>
+          <div className="t09-card">
+            <p className="t09-small">Địa điểm</p>
+            <h2 className="t09-title">{data.venueName}</h2>
+            <p className="t09-sub">{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
+        </Reveal>
+        <Reveal>
+          <h2 className="t09-title t09-center">Chương trình</h2>
+        </Reveal>
+        <div className="t09-steps">
+          {data.timeline.map((s, i) => (
+            <Reveal key={s.time} variant="zoom" delay={i * 120}>
+              <div>
+                <b>{s.time}</b>
+                <span>{s.label}</span>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="t09-form">
+      <section className="t09-sec t09-mist">
         <Reveal>
-          <RsvpForm data={data} />
+          <h2 className="t09-title t09-center">Khoảnh khắc</h2>
+        </Reveal>
+        <div className="t09-bubbles">
+          {data.album.map((p, i) => (
+            <Reveal key={p.key} variant="zoom" delay={i * 140}>
+              <div className="t09-circle">
+                <img src={photoSrc(p)} alt="" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="t09-sec">
+        <Reveal>
+          <div className="t09-card">
+            <RsvpForm data={data} title="Xác nhận tham dự" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t09-card">
+            <h2 className="t09-title t09-center">Mừng cưới</h2>
+            <GiftCard data={data} />
+          </div>
         </Reveal>
       </section>
 
-      <section className="t09-gift">
-        <Reveal>
-          <GiftCard data={data} />
-        </Reveal>
-        <Reveal variant="zoom">
-          <p className="t09-thanks">Thank you!</p>
-        </Reveal>
-      </section>
+      <footer className="t09-foot" style={{ backgroundImage: `url(${blue})` }}>
+        <div className="t09-bloom t09-bloom-sm">
+          <p className="t09-small">Thank you</p>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+        </div>
+      </footer>
     </Page>
   );
 };

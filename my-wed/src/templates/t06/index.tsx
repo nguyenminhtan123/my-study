@@ -3,238 +3,156 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t06/styles.scss";
 import { WeddingData } from "@/core/types";
-import reliefImg from "@/static/hydrangea-paper.jpg";
+import hydrangea from "@/static/hydrangea-white.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
-import { IconPin } from "@/templates/_kit/icons";
-import { GiftCard, RsvpForm, photoSrc } from "@/templates/_kit/sections";
-import { openLink } from "@/core/utils/open-link";
-import { buildMapUrl } from "@/core/utils/wedding";
-
-/** Fine line-art olive sprig used as a divider: leaves are placed along a cubic curve. */
-const Sprig = ({ className = "" }: { className?: string }) => {
-  const P = [
-    [6, 24],
-    [60, 6],
-    [130, 40],
-    [194, 16],
-  ];
-  const at = (t: number) => {
-    const u = 1 - t;
-    const x =
-      u ** 3 * P[0][0] +
-      3 * u * u * t * P[1][0] +
-      3 * u * t * t * P[2][0] +
-      t ** 3 * P[3][0];
-    const y =
-      u ** 3 * P[0][1] +
-      3 * u * u * t * P[1][1] +
-      3 * u * t * t * P[2][1] +
-      t ** 3 * P[3][1];
-    return [x, y];
-  };
-  const leaf = "M0 0 C4 -3 10 -3 14 0 C10 3 4 3 0 0Z";
-  return (
-    <svg
-      className={`t06-sprig ${className}`}
-      viewBox="0 0 200 48"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 24 C60 6 130 40 194 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-      />
-      {Array.from({ length: 9 }, (_, i) => {
-        const t = 0.1 + i * 0.1;
-        const [x, y] = at(t);
-        const a = -30 + i * 4;
-        return (
-          <g key={i}>
-            <path
-              d={leaf}
-              transform={`translate(${x} ${y}) rotate(${a - 55})`}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.9"
-            />
-            <path
-              d={leaf}
-              transform={`translate(${x} ${y}) rotate(${a + 55})`}
-              fill="currentColor"
-              opacity="0.18"
-              stroke="currentColor"
-              strokeWidth="0.6"
-            />
-          </g>
-        );
-      })}
-    </svg>
-  );
-};
+import {
+  CalendarCard,
+  Countdown,
+  GiftCard,
+  RsvpForm,
+  VenueActions,
+  photoSrc,
+} from "@/templates/_kit/sections";
 
 const Template06 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const mono = `${data.groom.charAt(0)}${data.bride.charAt(0)}`;
-  const album = [data.album[0], data.album[1], data.album[2], data.album[3]];
 
   return (
     <Page className="t06-root">
-      <Drifters kind="petal" count={7} color="#ffffff" opacity={0.95} />
+      <Drifters kind="petal" count={9} color="#ffffff" opacity={0.9} />
 
-      {/* cover: white relief, monogram, photo band with diagonal torn edges */}
+      {/* cover: white hydrangeas on top, an emerald band cut on the diagonal, the couple below */}
       <section className="t06-cover">
-        <div className="t06-relief">
-          <img src={reliefImg} alt="" />
-        </div>
-        <div className="t06-mono">
-          <span>{mono}</span>
-          <i />
-        </div>
-        <div className="t06-torn-wrap">
-          <div className="t06-torn">
-            <img src={photoSrc(data.photos.cover)} alt="" />
-          </div>
-        </div>
-        <p className="t06-cover-names">
-          {data.groom} <em>&amp;</em> {data.bride}
-          <span>
-            {d.day} . {d.month} . {d.year}
-          </span>
-        </p>
-      </section>
-
-      {/* invitation */}
-      <section className="t06-invite">
-        <Reveal>
-          <p className="t06-eyebrow">
-            Thân mời đến dự lễ thành hôn của chúng tôi
-          </p>
-          <h2>
+        <img className="t06-flowers" src={hydrangea} alt="" />
+        <div className="t06-band">
+          <p className="t06-small">Save the date</p>
+          <h1>
             {data.groom}
-            <em>&amp;</em>
+            <i>&amp;</i>
             {data.bride}
-          </h2>
-          <Sprig />
-          <p className="t06-eyebrow">Được tổ chức vào lúc</p>
-          <div className="t06-card">
-            <b>{d.time}</b>
-            <span>{d.weekday}</span>
-            <small>
-              {d.day} . {d.month} . {d.year}
-            </small>
-          </div>
-          <p className="t06-eyebrow">Địa điểm</p>
-          <h3>{data.venueName}</h3>
-          <p className="t06-addr">{data.venueAddress}</p>
-          <button
-            type="button"
-            className="t06-direction"
-            onClick={() => openLink(buildMapUrl(data.venueQuery))}
-          >
-            <IconPin /> Chỉ đường
-          </button>
-        </Reveal>
+          </h1>
+          <p className="t06-band-date">
+            {d.day} · {d.month} · {d.year}
+          </p>
+        </div>
+        <img className="t06-couple" src={photoSrc(data.photos.couple)} alt="" />
       </section>
 
-      {/* envelope with polaroids and wax seal */}
-      <section className="t06-env">
-        <Reveal variant="fade">
-          <div className="t06-envelope">
-            <div className="t06-back" />
-            <div className="t06-flap" />
-            <img
-              className="t06-pola t06-pola1"
-              src={photoSrc(data.photos.couple)}
-              alt=""
-            />
-            <img
-              className="t06-pola t06-pola2"
-              src={photoSrc(data.album[0])}
-              alt=""
-            />
-            <div className="t06-front" />
-            <div className="t06-wax">
-              <span>{mono}</span>
+      <section className="t06-sec t06-center">
+        <Reveal>
+          <p className="t06-small t06-green">Trân trọng kính mời</p>
+          <h2 className="t06-title">Lễ thành hôn của chúng mình</h2>
+        </Reveal>
+        <Reveal>
+          <div className="t06-fam">
+            <div>
+              <b>Nhà trai</b>
+              {data.families.groom.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
+            <div>
+              <b>Nhà gái</b>
+              {data.families.bride.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
             </div>
           </div>
         </Reveal>
       </section>
 
-      {/* wide photo */}
-      <section className="t06-wide">
-        <img src={photoSrc(data.album[1])} alt="" />
+      <section className="t06-emerald">
+        <img src={hydrangea} alt="" />
         <Reveal>
-          <p className="t06-save">
-            Save the <em>date</em>
+          <p className="t06-small">Ngày chung đôi</p>
+          <p className="t06-bigdate">
+            {d.day}
+            <em>.</em>
+            {d.month}
+            <em>.</em>
+            {d.year}
           </p>
+          <p className="t06-sub">
+            {d.weekday} · {d.time}
+          </p>
+        </Reveal>
+        <Reveal>
+          <Countdown iso={data.weddingISO} />
         </Reveal>
       </section>
 
-      {/* couple frames */}
-      <section className="t06-frames">
-        <Reveal variant="left" className="t06-fr t06-fr-groom">
-          <img src={photoSrc(data.photos.couple)} alt="" />
-          <p>
-            <em>Chú rể</em>
-            {data.groom}
-          </p>
-        </Reveal>
-        <Reveal variant="right" delay={160} className="t06-fr t06-fr-bride">
-          <img src={photoSrc(data.photos.destiny)} alt="" />
-          <p>
-            <em>Cô dâu</em>
-            {data.bride}
-          </p>
-        </Reveal>
-      </section>
-
-      {/* album */}
-      <section className="t06-album">
+      <section className="t06-sec">
         <Reveal>
-          <h2 className="t06-album-title">
-            The <em>album</em>
-          </h2>
-        </Reveal>
-        <div className="t06-collage">
-          <div className="t06-col">
-            {album.map((photo, i) => (
-              <Reveal key={photo.key} variant="left" delay={i * 120}>
-                <img
-                  src={photoSrc(photo)}
-                  alt=""
-                  className={`t06-ph t06-ph${i + 1}`}
-                />
-              </Reveal>
-            ))}
+          <div className="t06-card">
+            <CalendarCard iso={data.weddingISO} />
           </div>
-          <Reveal variant="right" className="t06-big">
-            <img src={photoSrc(data.photos.cover)} alt="" />
-            <p>
-              Whispers
-              <span>of affection</span>
-            </p>
-          </Reveal>
+        </Reveal>
+        <Reveal>
+          <div className="t06-card">
+            <p className="t06-small t06-green">Địa điểm</p>
+            <h2 className="t06-title">{data.venueName}</h2>
+            <p className="t06-muted">{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
+        </Reveal>
+        <Reveal>
+          <h2 className="t06-title t06-center">Chương trình</h2>
+        </Reveal>
+        <ol className="t06-steps">
+          {data.timeline.map((s, i) => (
+            <Reveal key={s.time} delay={i * 120}>
+              <li>
+                <b>{s.time}</b>
+                <span>{s.label}</span>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </section>
+
+      <section className="t06-slant">
+        <Reveal>
+          <h2 className="t06-title t06-center">Khoảnh khắc</h2>
+        </Reveal>
+        <div className="t06-album">
+          {data.album.map((p, i) => (
+            <Reveal
+              key={p.key}
+              variant={i % 2 ? "right" : "left"}
+              delay={i * 100}
+            >
+              <img src={photoSrc(p)} alt="" />
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section className="t06-form">
-        <Sprig className="t06-sprig-sm" />
+      <section className="t06-sec">
         <Reveal>
-          <RsvpForm data={data} variant="select" title="Xác nhận tham dự" />
+          <div className="t06-card">
+            <RsvpForm data={data} title="Xác nhận tham dự" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t06-card">
+            <h2 className="t06-title t06-center">Mừng cưới</h2>
+            <GiftCard data={data} />
+          </div>
         </Reveal>
       </section>
 
-      <section className="t06-gift">
-        <Reveal>
-          <GiftCard data={data} />
-        </Reveal>
-      </section>
-      <section className="t06-end">
-        <img src={photoSrc(data.album[3])} alt="" />
-        <p>Thank you</p>
-      </section>
+      <footer className="t06-foot">
+        <img src={hydrangea} alt="" />
+        <div>
+          <p className="t06-small">Thank you</p>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+        </div>
+      </footer>
     </Page>
   );
 };

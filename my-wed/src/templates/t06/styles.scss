@@ -1,691 +1,297 @@
-// Template 6: emerald and mist, quiet editorial layout (diagonal torn photo band, white relief, line-art sprigs).
+// Template 06: Tú cầu trắng & xanh lục bảo. Real white hydrangeas, an emerald band cut on the
+// diagonal across the cover (kept from the owner's reference), the couple's photo slanted below,
+// ivory paper and emerald blocks.
 .t06-root {
-  --k-bg: #f4f7f4;
-  --k-ink: #173d2e;
-  --k-muted: #6f8a7a;
-  --k-accent: #17503a;
-  --k-accent2: #3f7a5c;
-  --k-line: #d4e1d8;
-  --k-card: #fbfcfa;
+  --k-bg: #f7f5ee;
+  --k-ink: #1f2e28;
+  --k-muted: #6f7c74;
+  --k-accent: #1f5a45;
+  --k-accent2: #b89a5c;
+  --k-line: #dfe2d6;
+  --k-card: #ffffff;
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --k-script: "Cormorant Garamond", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --emerald: #1f5a45;
   padding: 0;
-  background-color: var(--k-bg);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .06 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  background: var(--k-bg);
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
   font-size: 14px;
   line-height: 1.8;
-  color-scheme: light;
   overflow-x: hidden;
 
+  :where(h1, h2, h3, p, ol) {
+    margin: 0;
+  }
   img {
     display: block;
     max-width: 100%;
   }
-  :where(h1, h2, h3, p, figure) {
-    margin: 0;
-  }
-  em {
-    font-family: var(--k-display);
-    font-style: italic;
+  i {
+    font-family: var(--k-script);
+    font-style: normal;
     font-weight: 400;
-  }
-  .k-form h3 {
-    font-family: var(--k-display);
-    font-size: 30px;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--k-accent);
-  }
-  .k-form input,
-  .k-form textarea,
-  .k-form select {
-    border: 0;
-    border-bottom: 1px solid #a9c1b2;
-    border-radius: 0;
-    background-color: transparent;
-    padding: 11px 2px;
-    font-size: 13px;
-  }
-  .k-form textarea {
-    border: 1px solid #a9c1b2;
-    padding: 10px 12px;
-  }
-  .k-submit {
-    border-radius: 0;
-    background: var(--k-accent);
-    letter-spacing: 0.28em;
-    font-size: 12px;
-  }
-  .k-chips button.on {
-    background: var(--k-accent);
   }
 }
-.t06-eyebrow {
+.t06-small {
   font-size: 10.5px;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.42em;
   text-transform: uppercase;
+  color: #e9e2c9;
+}
+.t06-green {
+  color: var(--k-accent);
+}
+.t06-title {
+  font-family: var(--k-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.t06-muted {
+  margin: 6px 0 12px;
+  font-size: 12.5px;
   color: var(--k-muted);
 }
-.t06-sprig {
-  display: block;
-  width: 170px;
-  margin: 14px auto 18px;
-  color: var(--k-accent2);
+.t06-center {
+  text-align: center;
 }
-.t06-sprig-sm {
-  width: 130px;
-  margin-bottom: 4px;
+.t06-sec {
+  display: grid;
+  gap: 26px;
+  padding: 52px 22px;
+}
+.t06-card {
+  padding: 26px 20px;
+  background: var(--k-card);
+  border-top: 3px solid var(--emerald);
+  box-shadow: 0 16px 34px rgba(31, 46, 40, 0.08);
+  text-align: center;
 }
 
-// ---- cover ----
+// ---------- cover ----------
 .t06-cover {
   position: relative;
-  padding-top: 196px;
-  padding-bottom: 56px;
-  background: linear-gradient(180deg, #fbfdfc, var(--k-bg) 420px);
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  background: var(--emerald);
 }
-.t06-relief {
+.t06-flowers {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 52%;
+  object-fit: cover;
+  object-position: 50% 60%;
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 0 100%);
+  animation: t06-settle 2s ease-out both;
+}
+.t06-couple {
+  position: absolute;
+  inset: auto 0 0;
+  width: 100%;
+  height: 46%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+  animation: t06-settle 2s ease-out 0.3s both;
+}
+.t06-band {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 100%;
-  height: 270px;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 28% 18%;
-    animation: t06-zoom 20s ease-in-out infinite alternate;
-    transform-origin: 30% 20%;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.5) 0%,
-      rgba(255, 255, 255, 0.5) 50%,
-      rgba(251, 253, 252, 0.97) 94%
-    );
-  }
-}
-.t06-mono {
-  position: absolute;
-  left: 50%;
-  top: 150px;
-  z-index: 4;
-  width: 160px;
-  margin-left: -80px;
-  text-align: center;
-  color: var(--k-accent);
-  animation: t06-rise 1.4s 0.3s both;
-
-  span {
-    display: block;
-    font-family: var(--k-display);
-    font-size: 64px;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0.12em;
-    padding-left: 0.12em;
-  }
-  i {
-    display: block;
-    width: 1px;
-    height: 34px;
-    margin: 8px auto 0;
-    background: currentColor;
-    opacity: 0.55;
-    transform-origin: top;
-    animation: t06-grow 1.6s 0.9s ease both;
-  }
-}
-.t06-torn-wrap {
-  position: relative;
-  filter: drop-shadow(0 -4px 2px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 8px 10px rgba(30, 60, 45, 0.18));
-  animation: t06-reveal 1.6s 0.4s ease both;
-}
-.t06-torn {
-  height: 470px;
-  overflow: hidden;
-  clip-path: polygon(
-    0% 71px,
-    5% 70px,
-    10% 61px,
-    15% 60px,
-    20% 58px,
-    25% 50px,
-    30% 48px,
-    35% 46px,
-    40% 45px,
-    45% 36px,
-    50% 35px,
-    55% 34px,
-    60% 25px,
-    65% 24px,
-    70% 22px,
-    75% 20px,
-    80% 12px,
-    85% 11px,
-    90% 9px,
-    95% 1px,
-    100% 0px,
-    100% calc(100% - 68px),
-    95% calc(100% - 66px),
-    90% calc(100% - 65px),
-    85% calc(100% - 56px),
-    80% calc(100% - 55px),
-    75% calc(100% - 54px),
-    70% calc(100% - 52px),
-    65% calc(100% - 44px),
-    60% calc(100% - 42px),
-    55% calc(100% - 40px),
-    50% calc(100% - 32px),
-    45% calc(100% - 30px),
-    40% calc(100% - 29px),
-    35% calc(100% - 28px),
-    30% calc(100% - 19px),
-    25% calc(100% - 18px),
-    20% calc(100% - 16px),
-    15% calc(100% - 8px),
-    10% calc(100% - 6px),
-    5% calc(100% - 4px),
-    0% calc(100% - 3px)
-  );
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 62%;
-    animation: t06-zoom 16s ease-in-out infinite alternate;
-  }
-}
-.t06-cover-names {
-  position: relative;
-  margin: 10px 0 0;
-  padding: 0 26px 0 0;
-  text-align: right;
-  font-family: var(--k-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--k-accent);
-
-  em {
-    color: var(--k-accent2);
-    font-size: 20px;
-  }
-  span {
-    display: block;
-    margin-top: 2px;
-    font-family: var(--k-body);
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.32em;
-    color: var(--k-muted);
-  }
-}
-
-// ---- invitation ----
-.t06-invite {
-  padding: 36px 28px 56px;
+  right: 0;
+  // centred in the emerald strip and tilted to follow its slope
+  top: 45.5%;
+  z-index: 1;
+  padding: 0 16px;
+  color: #fbf8ee;
+  transform: rotate(-13deg);
   text-align: center;
 
-  h2 {
-    margin: 18px 0 0;
+  h1 {
+    margin: 4px 0;
     font-family: var(--k-display);
-    font-size: 44px;
-    font-weight: 400;
+    font-size: 34px;
+    white-space: nowrap;
+    font-weight: 500;
     line-height: 1.05;
-    letter-spacing: 0.04em;
-    color: var(--k-accent);
 
-    em {
-      display: block;
-      margin: 2px 0;
+    i {
+      margin: 0 8px;
       font-size: 30px;
       color: var(--k-accent2);
     }
   }
-  h3 {
-    margin: 10px 0 2px;
-    font-family: var(--k-display);
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
 }
-.t06-card {
-  margin: 14px auto 30px;
-  max-width: 250px;
-  padding: 20px 16px 16px;
-  background: #fff;
-  border: 1px solid var(--k-line);
-  box-shadow: 0 14px 30px rgba(23, 80, 58, 0.1);
+.t06-band-date {
+  letter-spacing: 0.4em;
+  font-size: 12.5px;
+  color: #e9e2c9;
+}
 
-  b {
-    display: block;
-    font-family: var(--k-display);
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--k-accent);
+// ---------- invitation ----------
+.t06-fam {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 13px;
+
+  div {
+    display: grid;
   }
-  span {
-    display: block;
-    margin-top: 6px;
-    font-size: 11px;
+  div + div {
+    border-left: 1px solid var(--k-line);
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-  }
-  small {
-    display: block;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid var(--k-line);
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    color: var(--k-muted);
-  }
-}
-.t06-addr {
-  margin: 0 auto 22px;
-  max-width: 270px;
-  font-family: var(--k-display);
-  font-style: italic;
-  font-size: 15px;
-  color: var(--k-muted);
-}
-.t06-direction {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 26px;
-  border: 1px solid var(--k-accent);
-  background: transparent;
-  color: var(--k-accent);
-  font: inherit;
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    background 0.3s,
-    color 0.3s;
-
-  &:active {
-    background: var(--k-accent);
-    color: #fff;
-  }
-}
-
-// ---- envelope ----
-.t06-env {
-  padding: 60px 34px 10px;
-}
-.t06-envelope {
-  position: relative;
-  height: 210px;
-}
-.t06-back {
-  position: absolute;
-  inset: 0;
-  background: #174a34;
-  border-radius: 3px;
-  box-shadow: 0 20px 34px rgba(20, 60, 40, 0.34);
-}
-.t06-flap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -70px;
-  height: 70px;
-  background: linear-gradient(180deg, #123b29, #174a34);
-  clip-path: polygon(50% 0, 0 100%, 100% 100%);
-  z-index: 1;
-}
-.t06-pola {
-  position: absolute;
-  z-index: 2;
-  width: 46%;
-  height: 150px;
-  padding: 6px;
-  background: #fff;
-  object-fit: cover;
-  box-sizing: border-box;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
-  transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s;
-}
-.t06-pola1 {
-  left: 8%;
-  top: 40px;
-  rotate: -7deg;
-  transform: translateY(70px);
-}
-.t06-pola2 {
-  right: 8%;
-  top: 22px;
-  rotate: 6deg;
-  transform: translateY(80px);
-}
-.k-in .t06-pola {
-  transform: translateY(-34px);
-}
-.t06-front {
-  position: absolute;
-  inset: 40px 0 0 0;
-  z-index: 3;
-  background: linear-gradient(180deg, #1c5a3d, #153f2c);
-  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
-  border-radius: 0 0 3px 3px;
-}
-.t06-wax {
-  position: absolute;
-  left: 50%;
-  top: 86px;
-  z-index: 5;
-  width: 54px;
-  height: 54px;
-  margin-left: -27px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e6c982, #9c7a34 78%);
-  box-shadow:
-    0 5px 10px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 4px rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: t06-shine 3.6s ease-in-out infinite;
-
-  span {
-    font-family: var(--k-display);
-    font-size: 21px;
-    font-style: italic;
-    color: #fff6dd;
-    letter-spacing: 0.04em;
-  }
-}
-
-// ---- wide photo ----
-.t06-wide {
-  position: relative;
-  margin-top: 40px;
-
-  img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    clip-path: polygon(
-      0 5%,
-      8% 0,
-      20% 5%,
-      34% 1%,
-      50% 5%,
-      66% 0,
-      80% 5%,
-      92% 1%,
-      100% 5%,
-      100% 100%,
-      0 100%
-    );
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 40% 0 0 0;
-    background: linear-gradient(
-      180deg,
-      rgba(10, 30, 20, 0),
-      rgba(10, 30, 20, 0.5)
-    );
-    pointer-events: none;
-  }
-  .k-reveal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 26px;
-    z-index: 2;
-  }
-}
-.t06-save {
-  text-align: center;
-  font-family: var(--k-display);
-  font-size: 34px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
-
-  em {
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-size: 40px;
-  }
-}
-
-// ---- couple frames ----
-.t06-frames {
-  position: relative;
-  height: 470px;
-  margin: 40px 16px 0;
-}
-.t06-fr {
-  position: absolute;
-  padding: 8px 8px 4px;
-  background: #fff;
-  box-shadow: 0 14px 30px rgba(23, 80, 58, 0.16);
-
-  img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-  p {
-    padding: 12px 0 6px;
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
     color: var(--k-accent);
   }
-  em {
-    display: block;
-    font-size: 22px;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--k-muted);
-  }
-}
-.t06-fr-groom {
-  left: 0;
-  top: 120px;
-  width: 52%;
-  rotate: -2deg;
-}
-.t06-fr-bride {
-  right: 0;
-  top: 0;
-  width: 56%;
-  rotate: 2deg;
-  z-index: 2;
-
-  img {
-    height: 290px;
-  }
 }
 
-// ---- album ----
-.t06-album {
-  padding: 34px 16px 30px;
+// ---------- emerald date block with flowers on top ----------
+.t06-emerald {
+  --k-ink: #fbf8ee;
+  --k-muted: #c9d6cc;
+  --k-accent: #e3d3a6;
+  --k-line: rgba(251, 248, 238, 0.2);
+  display: grid;
+  gap: 26px;
+  padding: 0 22px 60px;
+  background: var(--emerald);
+  color: #fbf8ee;
+  text-align: center;
+
+  > img {
+    width: calc(100% + 44px);
+    max-width: none;
+    height: 200px;
+    margin: 0 -22px;
+    object-fit: cover;
+    object-position: 50% 30%;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  }
 }
-.t06-album-title {
-  margin-bottom: 18px;
-  text-align: right;
+.t06-bigdate {
+  margin-top: 6px;
   font-family: var(--k-display);
-  font-size: 40px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #8aa595;
+  font-size: 58px;
+  font-weight: 500;
+  line-height: 1;
 
   em {
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 44px;
+    margin: 0 2px;
+    font-style: normal;
     color: var(--k-accent2);
   }
 }
-.t06-collage {
+.t06-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #c9d6cc;
+}
+
+// ---------- timeline ----------
+.t06-steps {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--k-line);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--k-accent);
+  }
+  span {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- slanted album ----------
+.t06-slant {
   display: grid;
-  grid-template-columns: 0.8fr 1.3fr;
-  gap: 8px;
+  gap: 26px;
+  padding: 70px 22px;
+  background: #e9eee8;
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
 }
-.t06-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.t06-ph {
-  width: 100%;
-  object-fit: cover;
-  border: 3px solid #fff;
-  box-shadow: 0 6px 14px rgba(23, 80, 58, 0.14);
-  box-sizing: border-box;
-}
-.t06-ph1 {
-  height: 190px;
-}
-.t06-ph2,
-.t06-ph3 {
-  height: 100px;
-}
-.t06-ph4 {
-  height: 150px;
-}
-.t06-big {
-  position: relative;
+.t06-album {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 
   img {
     width: 100%;
-    height: 440px;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
-    border: 3px solid #fff;
-    box-shadow: 0 6px 14px rgba(23, 80, 58, 0.14);
-    box-sizing: border-box;
   }
-  p {
+  > :nth-child(odd) img {
+    clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 100%);
+  }
+  > :nth-child(even) img {
+    clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 100%);
+  }
+}
+
+// ---------- footer ----------
+.t06-foot {
+  position: relative;
+  height: 62vh;
+  min-height: 430px;
+  overflow: hidden;
+  background: var(--emerald);
+  text-align: center;
+
+  img {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 66%;
+    object-fit: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+  }
+  div {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    padding: 10px 8px;
-    background: rgba(255, 255, 255, 0.92);
+    bottom: 12%;
+    color: #fbf8ee;
+  }
+  h2 {
+    margin-top: 6px;
     font-family: var(--k-display);
-    font-size: 18px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
 
-    span {
-      display: block;
-      font-size: 13px;
-      font-style: italic;
-      letter-spacing: 0.1em;
-      text-transform: none;
-      color: var(--k-muted);
+    i {
+      margin: 0 8px;
+      color: var(--k-accent2);
     }
   }
 }
 
-.t06-form {
-  padding: 22px 28px 8px;
-  text-align: center;
-}
-.t06-gift {
-  padding: 30px 28px 34px;
-}
-.t06-end {
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 230px;
-    object-fit: cover;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(10, 30, 20, 0),
-      rgba(10, 30, 20, 0.6)
-    );
-  }
-  p {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 22px;
-    z-index: 2;
-    text-align: center;
-    font-family: var(--k-display);
-    font-style: italic;
-    font-size: 40px;
-    color: #fff;
-  }
-}
-
-@keyframes t06-zoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
-}
-@keyframes t06-rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes t06-grow {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-@keyframes t06-reveal {
+@keyframes t06-settle {
   from {
     opacity: 0;
     transform: scale(1.06);
   }
-}
-@keyframes t06-shine {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.22);
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

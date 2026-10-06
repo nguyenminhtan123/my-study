@@ -3,12 +3,14 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t08/styles.scss";
 import { WeddingData } from "@/core/types";
+import sunset from "@/static/t08-wheat-sunset.jpg";
+import wheat from "@/static/t08-wheat.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
+  CalendarCard,
   Countdown,
   GiftCard,
-  Mosaic,
   RsvpForm,
   VenueActions,
   photoSrc,
@@ -16,144 +18,151 @@ import {
 
 const Template08 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const mono = `${data.groom.charAt(0)}${data.bride.charAt(0)}`;
 
   return (
     <Page className="t08-root">
-      <Drifters kind="sparkle" count={14} color="#e9c987" opacity={0.85} />
+      <Drifters kind="sparkle" count={10} color="#f3d79a" opacity={0.75} />
 
-      <section className="t08-cover">
-        <img src={photoSrc(data.photos.cover)} alt="" />
-        <div className="t08-sun" />
-        <div className="t08-cover-text">
+      <section className="t08-hero">
+        <img src={wheat} alt="" />
+        <div className="t08-hero-text">
+          <p className="t08-small">Mùa lúa chín · chúng mình cưới</p>
           <h1>
             {data.groom}
-            <i>and</i>
+            <i>&amp;</i>
             {data.bride}
           </h1>
-          <p>
-            {d.day} . {d.month} . {d.year}
-          </p>
         </div>
+        <p className="t08-hero-date">
+          {d.day}
+          <span>/</span>
+          {d.month}
+          <span>/</span>
+          {d.year}
+        </p>
       </section>
 
-      <section className="t08-std">
-        <div className="t08-grid">
-          {[data.album[0], data.album[1], data.album[2], data.album[3]].map(
-            (photo, i) => (
-              <Reveal
-                key={photo.key}
-                variant="zoom"
-                delay={i * 130}
-                className={`t08-g${i + 1}`}
-              >
-                <img src={photoSrc(photo)} alt="" />
-              </Reveal>
-            ),
-          )}
-          <div className="t08-datebox">
-            <small>SAVE THE DATE</small>
-            <b>{d.day}</b>
-            <b>{d.month}</b>
-            <b>{d.year.slice(2)}</b>
-            <small>
-              {data.groom} &amp; {data.bride}
-            </small>
-          </div>
-        </div>
-      </section>
-
-      <section className="t08-invite">
+      <section className="t08-sec t08-center">
         <Reveal>
-          <div className="t08-ring">
-            <span>{mono.charAt(0)}</span>
-            <span>{mono.charAt(1)}</span>
-          </div>
-          <p className="t08-cap">
-            Trân trọng kính mời quý khách đến dự buổi tiệc chung vui cùng gia
-            đình chúng tôi
-          </p>
-          <p className="t08-cap">Tại nhà hàng tiệc cưới</p>
-          <h2 className="t08-venue">{data.venueName}</h2>
-          <p className="t08-addr">{data.venueAddress}</p>
-          <div className="t08-cells">
-            <span>{d.weekday}</span>
-            <span>
-              {d.day} . {d.month} . {d.year}
-            </span>
-            <span>{d.time}</span>
-          </div>
-          <VenueActions data={data} />
+          <p className="t08-small">Trân trọng kính mời</p>
+          <h2 className="t08-title">
+            Cùng chúng mình đón
+            <br />
+            buổi chiều đẹp nhất
+          </h2>
         </Reveal>
-      </section>
-
-      <section className="t08-dream">
-        <div className="t08-letters" aria-label="Dream">
-          {["D", "R", "E", "A", "M"].map((ch, i) => (
-            <Reveal key={ch} variant="left" delay={i * 160}>
-              <span>{ch}</span>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal className="t08-dream-text">
-          <p>
-            Some dreams are meant to last forever, just like true love. When two
-            hearts stay faithful through every season, forever becomes more than
-            a promise.
-          </p>
+        <Reveal>
+          <div className="t08-fam">
+            <div>
+              <b>Nhà trai</b>
+              {data.families.groom.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
+            <div>
+              <b>Nhà gái</b>
+              {data.families.bride.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
+            </div>
+          </div>
         </Reveal>
         <Reveal variant="zoom">
-          <div className="t08-pola">
-            <img src={photoSrc(data.photos.couple)} alt="" />
-            <span>LOVE FOREVER</span>
+          <div className="t08-photo">
+            <img src={photoSrc(data.photos.cover)} alt="" />
           </div>
         </Reveal>
-        <div className="t08-lines">
-          {["Two hearts", "One journey", "A lifetime of love"].map(
-            (line, i) => (
-              <Reveal key={line} delay={i * 450}>
-                <i />
-                <p>{line}</p>
-              </Reveal>
-            ),
-          )}
-          <Reveal delay={1500}>
-            <span className="t08-heart">♥</span>
-          </Reveal>
-        </div>
       </section>
 
-      <section className="t08-album">
+      <section className="t08-sunset">
+        <img src={sunset} alt="" />
         <Reveal>
-          <h2 className="t08-script">Endless Romance</h2>
+          <div className="t08-sunset-text">
+            <p className="t08-small">Save the date</p>
+            <p className="t08-bigdate">
+              {d.day}.{d.month}
+            </p>
+            <p className="t08-sub">
+              {d.weekday} · {d.time} · {d.year}
+            </p>
+          </div>
         </Reveal>
-        <Mosaic photos={data.album} />
       </section>
 
-      <section className="t08-count">
+      <section className="t08-sec">
         <Reveal>
           <Countdown iso={data.weddingISO} />
         </Reveal>
-      </section>
-
-      <section className="t08-form">
         <Reveal>
-          <RsvpForm data={data} />
+          <div className="t08-card">
+            <CalendarCard iso={data.weddingISO} />
+          </div>
         </Reveal>
-      </section>
-
-      <section className="t08-gift">
         <Reveal>
-          <GiftCard data={data} />
+          <div className="t08-card">
+            <p className="t08-small">Địa điểm</p>
+            <h2 className="t08-title">{data.venueName}</h2>
+            <p className="t08-muted">{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
         </Reveal>
       </section>
 
-      <section className="t08-thanks">
-        <img src={photoSrc(data.photos.destiny)} alt="" />
-        <Reveal variant="zoom" className="t08-thanks-text">
-          <p className="t08-script">Thank you!</p>
+      <section className="t08-sec">
+        <Reveal>
+          <h2 className="t08-title t08-center">Lịch trình</h2>
+        </Reveal>
+        <Reveal variant="fade">
+          <ol className="t08-track">
+            {data.timeline.map((s) => (
+              <li key={s.time}>
+                <i />
+                <b>{s.time}</b>
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ol>
         </Reveal>
       </section>
+
+      <section className="t08-sec">
+        <Reveal>
+          <h2 className="t08-title t08-center">Khoảnh khắc</h2>
+        </Reveal>
+        <div className="t08-album">
+          {data.album.map((p, i) => (
+            <Reveal key={p.key} variant="zoom" delay={i * 120}>
+              <img src={photoSrc(p)} alt="" />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="t08-sec">
+        <Reveal>
+          <div className="t08-card">
+            <RsvpForm data={data} title="Xác nhận tham dự" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t08-card">
+            <h2 className="t08-title t08-center">Mừng cưới</h2>
+            <GiftCard data={data} />
+          </div>
+        </Reveal>
+      </section>
+
+      <footer className="t08-foot">
+        <img src={sunset} alt="" />
+        <div>
+          <p className="t08-small">Cảm ơn bạn</p>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+        </div>
+      </footer>
     </Page>
   );
 };

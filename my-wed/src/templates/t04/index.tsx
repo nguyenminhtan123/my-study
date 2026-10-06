@@ -1,183 +1,167 @@
-import { useState } from "react";
 import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t04/styles.scss";
 import { WeddingData } from "@/core/types";
-import roseDark from "@/static/rose-dark.jpg";
-import { Drifters, Reveal } from "@/templates/_kit/anim";
+import rose from "@/static/t04-rose.jpg";
+import wine from "@/static/t04-wine.jpg";
+import { Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
   CalendarCard,
-  Dresscode,
+  Countdown,
   GiftCard,
   RsvpForm,
   VenueActions,
-  WindingTimeline,
   photoSrc,
 } from "@/templates/_kit/sections";
 
-const initials = (a: string, b: string) =>
-  `${a.trim().charAt(0)}&${b.trim().charAt(0)}`;
-
 const Template04 = ({ data }: { data: WeddingData }) => {
-  const [opened, setOpened] = useState(false);
   const d = dateParts(data.weddingISO);
 
   return (
     <Page className="t04-root">
-      <div className={`t04-intro ${opened ? "t04-open" : ""}`}>
-        <Drifters kind="heart" count={9} color="#e7b7ae" opacity={0.6} />
-        <p className="t04-intro-pre">TRÂN TRỌNG KÍNH MỜI</p>
-        <h1 className="t04-intro-names">
-          {data.groom}
-          <i>&</i>
-          {data.bride}
-        </h1>
-        <button
-          type="button"
-          className="t04-seal"
-          aria-label="Mở thiệp"
-          onClick={() => setOpened(true)}
-        >
-          {initials(data.groom, data.bride)}
-        </button>
-        <p className="t04-intro-hint">Chạm vào dấu sáp để mở thiệp</p>
-      </div>
+      <section className="t04-hero">
+        <img src={wine} alt="" />
+        <div className="t04-hero-text">
+          <p className="t04-small">A toast to forever</p>
+          <h1>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h1>
+          <span className="t04-line" />
+          <p className="t04-hero-date">
+            {d.day} · {d.month} · {d.year}
+          </p>
+        </div>
+      </section>
 
-      <div className={`t04-body ${opened ? "t04-body-on" : ""}`}>
-        <Drifters kind="petal" count={10} color="#b0243a" opacity={0.55} />
-
-        <section className="t04-cover">
-          <img src={photoSrc(data.photos.cover)} alt="" />
-          <div className="t04-cover-text">
-            <span>SAVE</span>
-            <i>the</i>
-            <span>DATE</span>
-            <p>
-              {data.groom} &amp; {data.bride}
-            </p>
-          </div>
-        </section>
-
-        <section className="t04-card">
-          <Reveal variant="zoom">
-            <div className="t04-mono">{initials(data.groom, data.bride)}</div>
-            <p className="t04-en">
-              We step into a new chapter together, hand in hand, ready to build
-              our home and embrace a lifetime of love.
-            </p>
-          </Reveal>
-          <Reveal className="t04-strip">
-            <img src={photoSrc(data.photos.couple)} alt="" />
-            <img src={photoSrc(data.album[0])} alt="" />
-            <img src={photoSrc(data.album[1])} alt="" />
-            <span>
-              {d.day} . {d.month} . {d.year.slice(2)}
-            </span>
-          </Reveal>
-          <Reveal>
-            <CalendarCard iso={data.weddingISO} monthClass="t04-month" />
-          </Reveal>
-          <Reveal className="t04-families">
+      <section className="t04-sec t04-center">
+        <Reveal>
+          <p className="t04-small">Trân trọng kính mời</p>
+          <h2 className="t04-title">
+            Đến dự buổi tiệc
+            <br />
+            mừng lễ thành hôn
+          </h2>
+        </Reveal>
+        <Reveal>
+          <div className="t04-fam">
             <div>
-              <b>NHÀ GÁI</b>
-              {data.families.bride.map((p) => (
-                <span key={p}>{p}</span>
-              ))}
-            </div>
-            <div>
-              <b>NHÀ TRAI</b>
+              <b>Nhà trai</b>
               {data.families.groom.map((p) => (
                 <span key={p}>{p}</span>
               ))}
             </div>
-          </Reveal>
-        </section>
-
-        <div className="t04-band t04-band-sm">
-          <img src={roseDark} alt="" />
-        </div>
-
-        <section className="t04-invite">
-          <Reveal>
-            <h2>
-              {data.groom}
-              <i>&</i>
-              {data.bride}
-            </h2>
-            <p className="t04-when">
-              {d.time}, {d.weekday}
-            </p>
-            <div className="t04-bigdate">
-              <span>THÁNG {d.month}</span>
-              <b>{d.day}</b>
-              <span>NĂM {d.year}</span>
+            <div>
+              <b>Nhà gái</b>
+              {data.families.bride.map((p) => (
+                <span key={p}>{p}</span>
+              ))}
             </div>
-            <p className="t04-cap">Tại địa điểm</p>
-            <h3>{data.venueName}</h3>
-            <p className="t04-addr">{data.venueAddress}</p>
-            <VenueActions data={data} />
-          </Reveal>
-        </section>
-
-        <div className="t04-band">
-          <img src={roseDark} alt="" />
-        </div>
-
-        <section className="t04-time">
-          <Reveal variant="left">
-            <h2 className="t04-title">Timeline</h2>
-          </Reveal>
-          <WindingTimeline steps={data.timeline} />
-          <Reveal variant="left">
-            <h2 className="t04-title">Dresscode</h2>
-          </Reveal>
-          <Dresscode colors={data.dressColors} />
-        </section>
-
-        <section className="t04-moments">
-          <Reveal className="t04-moments-title">
-            <h2>Our Moments</h2>
-            <p>A collection of memories we&apos;ve shared together</p>
-          </Reveal>
-          <div className="t04-collage">
-            {data.album.slice(0, 3).map((photo, i) => (
-              <Reveal
-                key={photo.key}
-                variant={i % 2 ? "right" : "left"}
-                delay={i * 150}
-                className={`t04-pol t04-pol${i + 1}`}
-              >
-                <img src={photoSrc(photo)} alt={photo.label} />
-              </Reveal>
-            ))}
           </div>
-        </section>
+        </Reveal>
+        <Reveal variant="zoom">
+          <div className="t04-portrait">
+            <img src={photoSrc(data.photos.destiny)} alt="" />
+          </div>
+        </Reveal>
+      </section>
 
-        <section className="t04-form">
-          <Reveal>
-            <RsvpForm data={data} />
-          </Reveal>
-        </section>
+      <section className="t04-sec t04-rose-sec">
+        <Reveal variant="zoom">
+          <div className="t04-rose">
+            <img src={rose} alt="" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <p className="t04-small t04-center">Save the date</p>
+          <p className="t04-bigdate">
+            <span>{d.day}</span>
+            <em>tháng {Number(d.month)}</em>
+            <span>{d.year}</span>
+          </p>
+          <p className="t04-sub t04-center">
+            {d.weekday} · {d.time}
+          </p>
+        </Reveal>
+        <Reveal>
+          <Countdown iso={data.weddingISO} />
+        </Reveal>
+      </section>
 
-        <section className="t04-gift">
-          <Reveal>
+      <section className="t04-sec">
+        <Reveal>
+          <div className="t04-card">
+            <CalendarCard iso={data.weddingISO} />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t04-card">
+            <p className="t04-small">Địa điểm</p>
+            <h2 className="t04-title">{data.venueName}</h2>
+            <p className="t04-sub">{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
+        </Reveal>
+        <Reveal>
+          <h2 className="t04-title t04-center">Chương trình</h2>
+        </Reveal>
+        <ol className="t04-steps">
+          {data.timeline.map((s, i) => (
+            <Reveal key={s.time} delay={i * 120}>
+              <li>
+                <b>{s.time}</b>
+                <span>{s.label}</span>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </section>
+
+      <section className="t04-sec">
+        <Reveal>
+          <h2 className="t04-title t04-center">Khoảnh khắc</h2>
+        </Reveal>
+        <div className="t04-album">
+          {data.album.map((p, i) => (
+            <Reveal
+              key={p.key}
+              variant={i % 2 ? "right" : "left"}
+              delay={i * 100}
+            >
+              <img src={photoSrc(p)} alt="" />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="t04-sec">
+        <Reveal>
+          <div className="t04-card">
+            <RsvpForm data={data} variant="select" title="Xác nhận tham dự" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t04-card">
+            <h2 className="t04-title t04-center">Mừng cưới</h2>
             <GiftCard data={data} />
-          </Reveal>
-        </section>
+          </div>
+        </Reveal>
+      </section>
 
-        <section className="t04-thanks">
-          <img src={photoSrc(data.photos.destiny)} alt="" />
-          <Reveal variant="zoom" className="t04-thanks-text">
-            <p>
-              Hẹn gặp bạn trong ngày đặc biệt nhất của chúng mình. Sẽ thật hạnh
-              phúc khi có bạn ở đó.
-            </p>
-            <h2>Thank you!</h2>
-          </Reveal>
-        </section>
-      </div>
+      <footer className="t04-foot">
+        <img src={rose} alt="" />
+        <div>
+          <p className="t04-small">With love</p>
+          <h2>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h2>
+        </div>
+      </footer>
     </Page>
   );
 };

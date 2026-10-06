@@ -3,8 +3,8 @@ import { demoData as base } from "@/templates/t01/demo-data";
 
 export const demoData: WeddingData = {
   ...base,
-  groom: "PHẠM QUÂN",
-  bride: "HOÀI THU",
+  groom: "Phạm Quân",
+  bride: "Hoài Thu",
   eventTitle: "Tiệc cưới Phạm Quân & Hoài Thu",
   venueName: "CHAMPA ISLAND",
   venueAddress: "Sảnh Lakshmi, 304 Đường 2/4, P. Bắc Nha Trang, Khánh Hòa",

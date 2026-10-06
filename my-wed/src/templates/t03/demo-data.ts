@@ -3,8 +3,8 @@ import { demoData as base } from "@/templates/t01/demo-data";
 
 export const demoData: WeddingData = {
   ...base,
-  groom: "TRỌNG TRÍ",
-  bride: "VIỆT HOA",
+  groom: "Trọng Trí",
+  bride: "Việt Hoa",
   eventTitle: "Tiệc cưới Trọng Trí & Việt Hoa",
   venueName: "WHITE PLACE",
   venueAddress:

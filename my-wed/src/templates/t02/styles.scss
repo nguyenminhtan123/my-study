@@ -1,345 +1,319 @@
+// Template 02: Tối giản. White space, black type, a Swiss-style numbered grid and one accent: real
+// anemone flowers photographed on white (they sit on the white page with no frame).
 .t02-root {
-  --paper: #fdfbf7;
-  --ink: #2b2926;
-  --muted: #7a746b;
-  --gold: #b08d57;
-  --line: #e6dfd3;
-  --serif: "Cormorant Garamond", "Times New Roman", Georgia, serif;
-  --sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --k-bg: #fcfcfa;
+  --k-ink: #141414;
+  --k-muted: #7a7a76;
+  --k-accent: #4b3f86;
+  --k-accent2: #4b3f86;
+  --k-line: #e3e3de;
+  --k-card: #fcfcfa;
+  --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --k-script: "Cormorant Garamond", Georgia, serif;
+  --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
+  background: #fff;
+  color: var(--k-ink);
+  font-family: var(--k-body);
   font-weight: 300;
   font-size: 14px;
   line-height: 1.8;
-  color-scheme: light;
+  overflow-x: hidden;
 
+  :where(h1, h2, h3, p, ol) {
+    margin: 0;
+  }
   img {
     display: block;
     max-width: 100%;
   }
-
-  h1,
-  h2,
-  h3 {
-    margin: 0;
-    font-family: var(--serif);
-    font-weight: 500;
-    letter-spacing: 0.02em;
+  .k-form h3 {
+    font-style: italic;
+    font-size: 28px;
+    color: var(--k-ink);
   }
+  .k-form input,
+  .k-form textarea,
+  .k-form select,
+  .k-chips button,
+  .k-actions button,
+  .k-submit {
+    border-radius: 0;
+  }
+  .k-submit,
+  .k-chips button.on {
+    background: var(--k-ink);
+    border-color: var(--k-ink);
+  }
+  .k-actions {
+    justify-content: flex-start;
+  }
+  .k-count {
+    text-align: left;
 
-  p {
-    margin: 0;
+    div {
+      padding-left: 10px;
+    }
+    b {
+      color: var(--k-ink);
+      font-weight: 400;
+      font-size: 36px;
+    }
   }
 }
-
-.t02-root .t02-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.32em;
+.t02-small {
+  font-size: 10.5px;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 400;
+  color: var(--k-muted);
+}
+.t02-muted {
+  margin: 6px 0 14px;
+  font-size: 13px;
+  color: var(--k-muted);
 }
 
-.t02-root .t02-muted {
-  color: var(--muted);
-}
-
-.t02-root .t02-center {
-  text-align: center;
-}
-
+// ---------- hero ----------
 .t02-hero {
   position: relative;
-  height: 640px;
+  height: 100vh;
+  min-height: 620px;
   overflow: hidden;
-  animation: t02-fade 1.4s ease both;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 45%,
-      rgba(20, 16, 10, 0.62)
-    );
-  }
 }
-
+.t02-hero-flower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 54%;
+  object-fit: cover;
+  object-position: 22% 30%;
+  animation: t02-bloom 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
 .t02-hero-text {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 44px;
-  z-index: 1;
-  text-align: center;
-  color: #fff;
-
-  .t02-eyebrow {
-    color: rgba(255, 255, 255, 0.85);
-  }
+  left: 24px;
+  right: 24px;
+  bottom: 22%;
 
   h1 {
-    margin: 10px 0 6px;
-    font-size: 46px;
+    margin-top: 14px;
+    display: grid;
+    font-family: var(--k-display);
+    font-size: 54px;
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1;
+    letter-spacing: -0.01em;
 
     span {
-      display: block;
-      font-size: 22px;
-      font-style: italic;
-      color: #e6cfa3;
+      animation: t02-rise 1.2s ease both 0.4s;
+    }
+    span:last-child {
+      animation-delay: 0.7s;
+    }
+    em {
+      margin: 6px 0 6px 4px;
+      font-size: 30px;
+      color: var(--k-accent);
+      animation: t02-rise 1.2s ease both 0.55s;
     }
   }
-
-  .t02-date {
-    letter-spacing: 0.3em;
-    font-size: 13px;
-  }
 }
-
-.t02-section {
-  padding: 56px 28px 8px;
-
-  h2 {
-    margin: 8px 0 12px;
-    font-size: 30px;
-  }
-
-  h3 {
-    margin: 6px 0 4px;
-    font-size: 24px;
-  }
-}
-
-.t02-count {
+.t02-hero-foot {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: calc(36px + env(safe-area-inset-bottom, 0px));
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 28px 0 8px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--k-ink);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.7;
 
-  div {
-    padding: 16px 0;
-    display: flex;
-    flex-direction: column;
-
-    & + div {
-      border-left: 1px solid var(--line);
-    }
+  p:last-child {
+    text-align: right;
   }
+}
 
-  b {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 500;
-    color: var(--gold);
-    line-height: 1.1;
-  }
+// ---------- numbered parts ----------
+.t02-part {
+  display: grid;
+  gap: 22px;
+  padding: 44px 24px;
+}
+.t02-part-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--k-ink);
 
   span {
     font-size: 11px;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
+    color: var(--k-accent);
+  }
+  h2 {
+    font-family: var(--k-display);
+    font-size: 26px;
+    font-weight: 400;
+    font-style: italic;
   }
 }
-
-.t02-rule {
-  width: 40px;
-  height: 1px;
-  background: var(--gold);
-  margin: 36px auto 28px;
+.k-in .t02-part-head {
+  animation: t02-rule 1s ease both;
 }
-
-.t02-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 22px;
+.t02-lead {
+  font-family: var(--k-display);
+  font-size: 24px;
+  line-height: 1.4;
 }
-
-.t02-root button {
-  font-family: var(--sans);
-  cursor: pointer;
-}
-
-.t02-actions button,
-.t02-card button,
-.t02-choice button {
-  padding: 10px 18px;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.t02-choice button.on {
-  background: var(--gold);
-  color: #fff;
-}
-
-.t02-families {
+.t02-fam {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  text-align: center;
+  font-size: 13px;
+
+  div {
+    display: grid;
+  }
+  b {
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
 }
-
-.t02-timeline {
-  list-style: none;
-  margin: 28px 0 0;
-  padding: 0 0 0 0;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 6px;
-    bottom: 6px;
-    width: 1px;
-    background: var(--line);
-  }
-
-  li {
-    position: relative;
-    padding: 12px 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--paper);
-    width: 160px;
-    margin: 0 auto;
-    z-index: 1;
-  }
+.t02-date {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
 
   b {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--gold);
+    font-family: var(--k-display);
+    font-size: 140px;
+    font-weight: 300;
+    line-height: 0.78;
   }
-
-  span {
+  div {
+    display: grid;
+    padding-bottom: 4px;
     font-size: 12px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 }
+.t02-pair {
+  width: 100%;
+  margin: 10px 0;
+}
+.t02-venue {
+  font-family: var(--k-display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.t02-steps {
+  list-style: none;
+  padding: 0;
 
+  li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--k-line);
+  }
+  b {
+    font-family: var(--k-display);
+    font-size: 24px;
+    font-weight: 400;
+  }
+  span {
+    align-self: center;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+}
+// black and white until it scrolls in, then colour
 .t02-album {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  margin-top: 24px;
 
   img {
     width: 100%;
-    height: 220px;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
+    filter: grayscale(1);
+    transition: filter 1.6s ease 0.4s;
   }
-
-  img:first-child {
+  .k-in img {
+    filter: none;
+  }
+  > :first-child {
     grid-column: span 2;
-    height: 260px;
+
+    img {
+      aspect-ratio: 4 / 3;
+    }
   }
 }
 
-.t02-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 22px;
-
-  input {
-    padding: 12px 0;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    background: transparent;
-    font: inherit;
-    text-align: center;
-    color: var(--ink);
-    outline: none;
-  }
-
-  small {
-    color: #b3443a;
-  }
-}
-
-.t02-choice {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 14px 0;
-}
-
-.t02-root .t02-primary {
-  padding: 13px 20px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--ink);
-  color: #fff;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.t02-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin: 18px 0 0;
-  padding: 24px 16px;
-  border: 1px solid var(--line);
-  background: #fff;
-
-  img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-  }
-
-  b {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-  }
-
-  button {
-    margin-top: 8px;
-  }
-}
-
+// ---------- footer ----------
 .t02-foot {
-  padding: 64px 28px 56px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 10px 24px 70px;
   text-align: center;
 
+  img {
+    width: 80%;
+  }
   h2 {
+    font-family: var(--k-display);
     font-size: 30px;
-    font-style: italic;
     font-weight: 400;
+
+    em {
+      color: var(--k-accent);
+    }
   }
 }
 
-@keyframes t02-fade {
+// leave room for the gallery bar on the preview page
+.gl-bar ~ .t02-root .t02-hero-foot {
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+
+@keyframes t02-bloom {
   from {
     opacity: 0;
+    transform: scale(0.94) rotate(-3deg);
   }
   to {
     opacity: 1;
+    transform: none;
+  }
+}
+@keyframes t02-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes t02-rule {
+  from {
+    border-bottom-color: transparent;
   }
 }
