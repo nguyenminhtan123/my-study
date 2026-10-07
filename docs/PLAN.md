@@ -152,3 +152,8 @@ Album trong các mẫu dùng lưới chung `.k-album` + `photoShape(photo)` (tro
 ## Cập nhật: thanh dưới trang xem mẫu
 
 Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới chỉ còn nút quay lại, tên mẫu và nút "Xem toàn màn hình": bấm thì thanh trượt xuống, mẫu được hiển thị trọn màn hình (các mẫu bỏ phần chừa chỗ cho thanh qua selector `.gl-bar:not(.gl-bar-off) ~ ...`), còn lại một nút tròn nổi nền đen mờ ở giữa phía dưới để mở thanh lại. Lựa chọn ẩn/hiện được giữ khi chuyển giữa các mẫu.
+
+## Cập nhật: phong bì và thứ tự gallery
+
+- Phong bì (t01, t11, t15): nắp lật bằng `scaleY(-1)` (2D) thay cho `rotateX(180deg)`. Safari trên iPhone bỏ qua z-index với lớp xoay 3D nên nắp lật đè lên lá thư. Lá thư ở t11/t15 rút lên rồi ra hẳn phía trước để tên hiện trọn. Mẫu mới có phong bì: không dùng xoay 3D cho phần cần xếp lớp.
+- Thứ tự gallery (chủ shop chọn): 1, 3, 10, 11, 15, 19, 22, 23, 24 lên đầu, các mẫu khác theo số sau đó (sắp trong `templates/index.ts`).

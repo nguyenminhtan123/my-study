@@ -141,8 +141,9 @@
     letter-spacing: 0.3em;
   }
 }
+// the letter slides up out of the pocket, then comes to the front
 .t11-env-open .t11-letter {
-  transform: translateY(-30px);
+  animation: t11-letter 1.6s cubic-bezier(0.3, 0.7, 0.2, 1) 0.4s both;
 }
 .t11-env-front {
   top: 0;
@@ -161,11 +162,15 @@
   transform-origin: top;
   transition:
     transform 0.9s ease,
-    z-index 0s linear 0.45s;
+    z-index 0s linear 0.45s,
+    opacity 0.5s ease 0.7s;
 }
+// flat 2D flip (no 3D): iOS Safari ignores z-index for 3D-rotated layers
 .t11-env-open .t11-env-flap {
-  transform: rotateX(180deg);
+  transform: scaleY(-1);
   z-index: 0;
+  // once open it would sit over the names above, so it fades away
+  opacity: 0;
 }
 .t11-wax {
   position: absolute;
@@ -400,5 +405,23 @@
   }
   to {
     transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+@keyframes t11-letter {
+  0% {
+    transform: none;
+    z-index: 1;
+  }
+  55% {
+    transform: translateY(-34px);
+    z-index: 1;
+  }
+  56% {
+    z-index: 4;
+  }
+  100% {
+    transform: translateY(-14px) scale(1.04);
+    z-index: 4;
   }
 }

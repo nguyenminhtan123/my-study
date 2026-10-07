@@ -83,6 +83,7 @@ export interface TemplateEntry {
 }
 
 export const templates: TemplateEntry[] = [
+  // shown first in the gallery (owner's picks), then the rest in number order
   {
     id: "t01",
     name: "Mẫu 1",
@@ -91,18 +92,67 @@ export const templates: TemplateEntry[] = [
     demoData: demoData01,
   },
   {
-    id: "t02",
-    name: "Mẫu 2 · Tối giản",
-    thumbnail: thumb02,
-    Component: Template02,
-    demoData: demoData02,
-  },
-  {
     id: "t03",
     name: "Mẫu 3 · Trầu cau",
     thumbnail: thumb03,
     Component: Template03,
     demoData: demoData03,
+  },
+  {
+    id: "t10",
+    name: "Mẫu 10 · Nhẫn cưới",
+    thumbnail: thumb10,
+    Component: Template10,
+    demoData: demoData10,
+  },
+  {
+    id: "t11",
+    name: "Mẫu 11 · Đỏ rượu & kem",
+    thumbnail: thumb11,
+    Component: Template11,
+    demoData: demoData11,
+  },
+  {
+    id: "t15",
+    name: "Mẫu 15 · Hỷ đỏ",
+    thumbnail: thumb15,
+    Component: Template15,
+    demoData: demoData15,
+  },
+  {
+    id: "t19",
+    name: "Mẫu 19 · Tiệc cưới lung linh",
+    thumbnail: thumb19,
+    Component: Template19,
+    demoData: demoData19,
+  },
+  {
+    id: "t22",
+    name: "Mẫu 22 · Champagne",
+    thumbnail: thumb22,
+    Component: Template22,
+    demoData: demoData22,
+  },
+  {
+    id: "t23",
+    name: "Mẫu 23 · Váy cưới ren",
+    thumbnail: thumb23,
+    Component: Template23,
+    demoData: demoData23,
+  },
+  {
+    id: "t24",
+    name: "Mẫu 24 · Mưa cánh hoa",
+    thumbnail: thumb24,
+    Component: Template24,
+    demoData: demoData24,
+  },
+  {
+    id: "t02",
+    name: "Mẫu 2 · Tối giản",
+    thumbnail: thumb02,
+    Component: Template02,
+    demoData: demoData02,
   },
   {
     id: "t04",
@@ -147,20 +197,6 @@ export const templates: TemplateEntry[] = [
     demoData: demoData09,
   },
   {
-    id: "t10",
-    name: "Mẫu 10 · Nhẫn cưới",
-    thumbnail: thumb10,
-    Component: Template10,
-    demoData: demoData10,
-  },
-  {
-    id: "t11",
-    name: "Mẫu 11 · Đỏ rượu & kem",
-    thumbnail: thumb11,
-    Component: Template11,
-    demoData: demoData11,
-  },
-  {
     id: "t12",
     name: "Mẫu 12 · Xanh rêu & kem",
     thumbnail: thumb12,
@@ -180,13 +216,6 @@ export const templates: TemplateEntry[] = [
     thumbnail: thumb14,
     Component: Template14,
     demoData: demoData14,
-  },
-  {
-    id: "t15",
-    name: "Mẫu 15 · Hỷ đỏ",
-    thumbnail: thumb15,
-    Component: Template15,
-    demoData: demoData15,
   },
   {
     id: "t16",
@@ -210,13 +239,6 @@ export const templates: TemplateEntry[] = [
     demoData: demoData18,
   },
   {
-    id: "t19",
-    name: "Mẫu 19 · Tiệc cưới lung linh",
-    thumbnail: thumb19,
-    Component: Template19,
-    demoData: demoData19,
-  },
-  {
     id: "t20",
     name: "Mẫu 20 · Bánh cưới",
     thumbnail: thumb20,
@@ -229,27 +251,6 @@ export const templates: TemplateEntry[] = [
     thumbnail: thumb21,
     Component: Template21,
     demoData: demoData21,
-  },
-  {
-    id: "t22",
-    name: "Mẫu 22 · Champagne",
-    thumbnail: thumb22,
-    Component: Template22,
-    demoData: demoData22,
-  },
-  {
-    id: "t23",
-    name: "Mẫu 23 · Váy cưới ren",
-    thumbnail: thumb23,
-    Component: Template23,
-    demoData: demoData23,
-  },
-  {
-    id: "t24",
-    name: "Mẫu 24 · Mưa cánh hoa",
-    thumbnail: thumb24,
-    Component: Template24,
-    demoData: demoData24,
   },
 ];
 
