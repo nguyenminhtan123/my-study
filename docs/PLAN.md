@@ -130,7 +130,7 @@ Theo cùng nguyên tắc với t15–t24 (mỗi mẫu một ảnh thật chủ �
 
 Nguyên tắc mới (chủ shop chốt): concept của mỗi mẫu phải gợi đến đám cưới (biểu tượng cưới, không chỉ là ảnh đẹp). 8 mẫu không hợp đã thay concept, giữ id:
 
-- `t03` Trầu cau: tráp trầu cau đỏ, lá trầu hình tim làm khung ảnh, dấu 囍, "Miếng trầu là đầu câu chuyện".
+- `t03` Trầu cau: tráp trầu cau đỏ, ảnh cưới trong khung trái tim viền vàng có dấu 囍 ở đáy, "Miếng trầu là đầu câu chuyện".
 - `t08` Uyên ương: tranh cổ đôi uyên ương (phạm vi công cộng) trên giấy cũ, uyên ương bơi trên hồ, chú thích kiểu sách vạn vật.
 - `t10` Nhẫn cưới: hộp nhẫn trên lụa lộ ra qua vòng tròn mở rộng, ngày cưới nằm trong hai chiếc nhẫn lồng nhau, khung ảnh tròn viền vàng.
 - `t17` Bó hoa cô dâu: bó hoa hồng đào và tú cầu trắng, ruy băng satin, khung vòm.
