@@ -543,6 +543,6 @@
 }
 
 // leave room for the gallery price bar on the preview page
-.gl-bar ~ .t15-root .t15-env-hint {
+.gl-bar:not(.gl-bar-off) ~ .t15-root .t15-env-hint {
   bottom: calc(110px + env(safe-area-inset-bottom, 0px));
 }

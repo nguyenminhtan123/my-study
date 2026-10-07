@@ -148,3 +148,7 @@ Album trong các mẫu dùng lưới chung `.k-album` + `photoShape(photo)` (tro
 ## Cập nhật: rà animation toàn bộ mẫu
 
 Đã kiểm tra tự động cả 24 mẫu (cuộn hết trang): không phần tử nào bị kẹt ẩn. Quy ước: hiệu ứng **lặp liên tục** chỉ dùng `transform`/`opacity` (đổ bóng, vị trí nền, bo góc, filter chỉ dùng cho hiệu ứng chạy một lần). Đã sửa các vòng lặp nặng ở t04 (quầng sáng hoa hồng), t05 (ảnh sỏi, nền nước), t07 (vệt sáng lụa, dải lụa), t14 (nút mở cửa), t19 (bóng đèn). Máy bật "giảm chuyển động" thì mọi hiệu ứng của mẫu dừng ở trạng thái cuối (`_kit/kit.scss`). t01 giữ nguyên (mẫu gốc của chủ shop).
+
+## Cập nhật: thanh dưới trang xem mẫu
+
+Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới chỉ còn nút quay lại, tên mẫu và nút "Xem toàn màn hình": bấm thì thanh trượt xuống, mẫu được hiển thị trọn màn hình (các mẫu bỏ phần chừa chỗ cho thanh qua selector `.gl-bar:not(.gl-bar-off) ~ ...`), còn lại một tay kéo nhỏ ⌃ ở giữa mép dưới để mở thanh lại. Lựa chọn ẩn/hiện được giữ khi chuyển giữa các mẫu.

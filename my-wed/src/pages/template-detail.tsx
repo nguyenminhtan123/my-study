@@ -1,14 +1,16 @@
-import { Button, Page, useNavigate, useParams, useSnackbar } from "zmp-ui";
+import { useState } from "react";
+import { Button, Page, useNavigate, useParams } from "zmp-ui";
 
-import { buildOrderMessage, shopConfig } from "@/core/shop-config";
-import { openLink } from "@/core/utils/open-link";
-import { copyText } from "@/core/utils/wedding";
 import { getTemplate } from "@/templates";
+
+// Whether the bottom bar is tucked away; kept across previews so a viewer who prefers the full
+// view keeps it while browsing templates.
+let barHidden = false;
 
 function TemplateDetailPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
-  const { openSnackbar } = useSnackbar();
+  const [hidden, setHidden] = useState(barHidden);
   const template = getTemplate(id);
 
   if (!template) {
@@ -24,25 +26,18 @@ function TemplateDetailPage() {
     );
   }
 
-  const handleChoose = async () => {
-    const message = buildOrderMessage(template.name, template.id);
-    const copied = await copyText(message);
-    openSnackbar({
-      text: copied ? "Đã sao chép tin nhắn, dán gửi shop qua Zalo" : message,
-      type: "success",
-      duration: 4000,
-    });
-    if (shopConfig.ownerZaloPhone) {
-      openLink(`https://zalo.me/${shopConfig.ownerZaloPhone}`);
-    }
+  const toggle = (next: boolean) => {
+    barHidden = next;
+    setHidden(next);
   };
 
   const { Component, demoData } = template;
 
   return (
     <>
-      {/* Kept before the template so `.gl-bar ~ .wd-page` can pad the template. */}
-      <div className="gl-bar">
+      {/* Kept before the template so `.gl-bar:not(.gl-bar-off) ~ ...` can pad the template
+          while the bar is showing; hiding the bar gives the template the full screen. */}
+      <div className={`gl-bar ${hidden ? "gl-bar-off" : ""}`}>
         <button
           type="button"
           className="gl-bar-back"
@@ -54,10 +49,22 @@ function TemplateDetailPage() {
           ‹
         </button>
         <span className="gl-bar-name">{template.name}</span>
-        <Button className="gl-bar-cta" onClick={handleChoose}>
-          Chọn mẫu
-        </Button>
+        <button
+          type="button"
+          className="gl-bar-hide"
+          onClick={() => toggle(true)}
+        >
+          Xem toàn màn hình ⌄
+        </button>
       </div>
+      <button
+        type="button"
+        className={`gl-peek ${hidden ? "gl-peek-on" : ""}`}
+        aria-label="Hiện thanh điều hướng"
+        onClick={() => toggle(false)}
+      >
+        ⌃
+      </button>
       <Component data={demoData} />
     </>
   );

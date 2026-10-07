@@ -572,7 +572,7 @@
 }
 
 // leave room for the gallery price bar on the preview page
-.gl-bar ~ .t14-root {
+.gl-bar:not(.gl-bar-off) ~ .t14-root {
   .t14-nav {
     bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   }

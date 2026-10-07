@@ -116,12 +116,59 @@
   text-overflow: ellipsis;
 }
 
-.gl-bar-cta {
+.gl-bar-hide {
   flex: none;
-  background: #a6242d;
+  padding: 8px 14px;
+  border: 1px solid #ead8d2;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  color: #3b2224;
+}
+
+// tucked away: slides below the screen; a small tab stays to bring it back
+.gl-bar {
+  transition: transform 0.35s ease;
+}
+.gl-bar-off {
+  transform: translateY(110%);
+  pointer-events: none;
+}
+.gl-peek {
+  // a small pull tab on the bottom edge, out of the way of template buttons
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 100;
+  width: 64px;
+  height: 20px;
+  margin-left: -32px;
+  padding: 0 0 env(safe-area-inset-bottom, 0px);
+  box-sizing: content-box;
+  border: 0;
+  border-radius: 12px 12px 0 0;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 15px;
+  line-height: 20px;
+  color: #3b2224;
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease 0.2s,
+    transform 0.3s ease 0.2s;
+}
+.gl-peek-on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 // Keep the end of the template clear of the fixed bar.
-.gl-bar ~ .zaui-page {
+.gl-bar:not(.gl-bar-off) ~ .zaui-page {
   padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 }
