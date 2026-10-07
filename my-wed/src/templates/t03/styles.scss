@@ -379,3 +379,60 @@
     border-radius: 12px;
   }
 }
+
+// ---------- heart portrait with the 囍 seal ----------
+.t03-heart {
+  position: relative;
+  width: 86%;
+  margin: 0 auto 26px;
+  filter: drop-shadow(0 18px 26px rgba(110, 16, 22, 0.25));
+  animation: t03-beat 3.2s ease-in-out infinite;
+}
+// gold rim = the heart filled with gold, the photo is the same heart a little smaller
+.t03-heart-frame {
+  aspect-ratio: 100 / 95;
+  padding: 7px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    #b8862e,
+    #f3d48a 40%,
+    #c9963f 65%,
+    #f6dc9c
+  );
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 95'%3E%3Cpath d='M50 92C24 74 3 56 3 30C3 14 15 3 29 3C39 3 46 9 50 17C54 9 61 3 71 3C85 3 97 14 97 30C97 56 76 74 50 92Z'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 95'%3E%3Cpath d='M50 92C24 74 3 56 3 30C3 14 15 3 29 3C39 3 46 9 50 17C54 9 61 3 71 3C85 3 97 14 97 30C97 56 76 74 50 92Z'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 95'%3E%3Cpath d='M50 92C24 74 3 56 3 30C3 14 15 3 29 3C39 3 46 9 50 17C54 9 61 3 71 3C85 3 97 14 97 30C97 56 76 74 50 92Z'/%3E%3C/svg%3E")
+      center / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 95'%3E%3Cpath d='M50 92C24 74 3 56 3 30C3 14 15 3 29 3C39 3 46 9 50 17C54 9 61 3 71 3C85 3 97 14 97 30C97 56 76 74 50 92Z'/%3E%3C/svg%3E")
+      center / 100% 100% no-repeat;
+  }
+}
+.t03-heart-hy {
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  width: 62px;
+  height: 62px;
+  margin-left: -31px;
+  font-size: 32px;
+  border: 3px solid #fbf3e3;
+}
+
+@keyframes t03-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.025);
+  }
+}
