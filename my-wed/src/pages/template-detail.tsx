@@ -3,6 +3,25 @@ import { Button, Page, useNavigate, useParams } from "zmp-ui";
 
 import { getTemplate } from "@/templates";
 
+const Chevron = ({ up = false }: { up?: boolean }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    aria-hidden="true"
+    style={{ transform: up ? "rotate(180deg)" : undefined }}
+  >
+    <path
+      d="M6 9l6 6 6-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 // Whether the bottom bar is tucked away; kept across previews so a viewer who prefers the full
 // view keeps it while browsing templates.
 let barHidden = false;
@@ -54,7 +73,7 @@ function TemplateDetailPage() {
           className="gl-bar-hide"
           onClick={() => toggle(true)}
         >
-          Xem toàn màn hình ⌄
+          Xem toàn màn hình <Chevron />
         </button>
       </div>
       <button
@@ -63,7 +82,7 @@ function TemplateDetailPage() {
         aria-label="Hiện thanh điều hướng"
         onClick={() => toggle(false)}
       >
-        ⌃
+        <Chevron up />
       </button>
       <Component data={demoData} />
     </>

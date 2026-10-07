@@ -706,3 +706,14 @@
     transform: translateY(6px) rotate(12deg) scale(0.9);
   }
 }
+
+// full-screen preview: lift the nav above the round "show bar" button
+.gl-bar.gl-bar-off ~ .t14-root {
+  .t14-nav {
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+  }
+  .t14-card,
+  .t14-finale {
+    bottom: calc(126px + env(safe-area-inset-bottom, 0px));
+  }
+}
