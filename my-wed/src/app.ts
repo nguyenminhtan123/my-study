@@ -34,6 +34,18 @@ import "@fontsource/lora/latin-400-italic.css";
 import "@fontsource/lora/vietnamese-400-italic.css";
 import "@fontsource/lora/latin-500.css";
 import "@fontsource/lora/vietnamese-500.css";
+import "@fontsource/fahkwang/latin-300.css";
+import "@fontsource/fahkwang/vietnamese-300.css";
+import "@fontsource/fahkwang/latin-400.css";
+import "@fontsource/fahkwang/vietnamese-400.css";
+import "@fontsource/quicksand/latin-400.css";
+import "@fontsource/quicksand/vietnamese-400.css";
+import "@fontsource/quicksand/latin-500.css";
+import "@fontsource/quicksand/vietnamese-500.css";
+import "@fontsource/ephesis/latin-400.css";
+import "@fontsource/ephesis/vietnamese-400.css";
+import "@fontsource/mea-culpa/latin-400.css";
+import "@fontsource/mea-culpa/vietnamese-400.css";
 // ZaUI stylesheet
 import "zmp-ui/zaui.css";
 // Tailwind stylesheet

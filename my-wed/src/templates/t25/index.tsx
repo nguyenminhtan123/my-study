@@ -6,7 +6,7 @@ import "@/templates/t25/styles.scss";
 import { PhotoSlot, WeddingData } from "@/core/types";
 import { Reveal } from "@/templates/_kit/anim";
 import { dateParts, lunarDate } from "@/templates/_kit/date";
-import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
+import { TIMELINE_ICONS } from "@/templates/_kit/icons";
 import {
   CalendarCard,
   Countdown,
@@ -143,10 +143,7 @@ const Template25 = ({ data }: { data: WeddingData }) => {
             {data.families.bride.map((p) => (
               <p key={p}>{p}</p>
             ))}
-            <p className="t25-fam-who">
-              Cô dâu
-              <span>{data.bride}</span>
-            </p>
+            <p className="t25-fam-who">Cô dâu : {data.bride}</p>
           </Reveal>
         </div>
         <div className="t25-fam t25-fam-flip">
@@ -158,10 +155,7 @@ const Template25 = ({ data }: { data: WeddingData }) => {
             {data.families.groom.map((p) => (
               <p key={p}>{p}</p>
             ))}
-            <p className="t25-fam-who">
-              Chú rể
-              <span>{data.groom}</span>
-            </p>
+            <p className="t25-fam-who">Chú rể : {data.groom}</p>
           </Reveal>
         </div>
       </section>
@@ -195,9 +189,9 @@ const Template25 = ({ data }: { data: WeddingData }) => {
             {guest || "Quý khách"}
           </p>
           <p className="t25-lead">
-            Đến dự bữa tiệc thân mật
+            Đến dự Bữa Tiệc thân mật
             <br />
-            cùng gia đình chúng tôi vào lúc
+            cùng Gia Đình chúng tôi vào lúc
           </p>
         </Reveal>
 
@@ -236,9 +230,7 @@ const Template25 = ({ data }: { data: WeddingData }) => {
 
         <Reveal>
           <div className="t25-venue">
-            <p className="t25-venue-label">
-              <IconPin /> Địa chỉ dự tiệc
-            </p>
+            <p className="t25-venue-label">Địa chỉ dự tiệc</p>
             <h3>{data.venueName}</h3>
             <p>{data.venueAddress}</p>
             <VenueActions data={data} />
