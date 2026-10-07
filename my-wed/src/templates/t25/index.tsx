@@ -3,256 +3,366 @@ import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t25/styles.scss";
-import { WeddingData } from "@/core/types";
-import { Reveal, useSeconds } from "@/templates/_kit/anim";
-import { dateParts } from "@/templates/_kit/date";
+import { PhotoSlot, WeddingData } from "@/core/types";
+import { Reveal } from "@/templates/_kit/anim";
+import { dateParts, lunarDate } from "@/templates/_kit/date";
+import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
 import {
-  Families,
+  CalendarCard,
+  Countdown,
   GiftCard,
   RsvpForm,
   VenueActions,
+  photoShape,
   photoSrc,
   useGuestName,
 } from "@/templates/_kit/sections";
 
-// month grid, Sunday first, with the wedding day filled in
-const MonthGrid = ({ iso }: { iso: string }) => {
-  const date = new Date(iso);
-  const y = date.getFullYear();
-  const m = date.getMonth();
-  const offset = new Date(y, m, 1).getDay();
-  const total = new Date(y, m + 1, 0).getDate();
-  const cells = [
-    ...Array.from({ length: offset }, () => 0),
-    ...Array.from({ length: total }, (_, i) => i + 1),
-  ];
-  return (
-    <div className="t25-cal">
-      {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map((d, i) => (
-        <b key={d} className={i === 0 ? "t25-sun" : ""}>
-          {d}
-        </b>
-      ))}
-      {cells.map((v, i) => (
-        <span
-          key={i}
-          className={`${v === date.getDate() ? "t25-hit" : ""} ${i % 7 === 0 ? "t25-sun" : ""}`}
-        >
-          {v || ""}
-        </span>
-      ))}
-    </div>
+// "CHỦ NHẬT" -> "Chủ Nhật", "ĐÓN KHÁCH" -> "Đón Khách"
+const titleCase = (s: string) =>
+  s
+    .toLowerCase()
+    .split(" ")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+
+// a hand-drawn flourish under each signature, drawn in as it scrolls into view
+const Flourish = () => (
+  <svg viewBox="0 0 160 30" aria-hidden="true">
+    <path pathLength={1} d="M4 22 C40 30 70 6 98 12 S146 26 156 8" />
+  </svg>
+);
+
+// small pink blossom that sits on the seam between the cover and the page
+const Blossom = () => (
+  <svg viewBox="0 0 60 60" aria-hidden="true">
+    {[0, 72, 144, 216, 288].map((r) => (
+      <path
+        key={r}
+        transform={`rotate(${r} 30 30)`}
+        d="M30 30 C22 22 22 8 30 6 C38 8 38 22 30 30Z"
+      />
+    ))}
+    <circle cx="30" cy="30" r="3.4" />
+  </svg>
+);
+
+// album rows alternate 3 then 2 portraits (as in a printed album); never leave one photo alone
+const rowSizes = (n: number) => {
+  const rows: number[] = [];
+  for (let left = n, i = 0; left > 0; i++) {
+    const size = Math.min(i % 2 ? 2 : 3, left);
+    rows.push(size);
+    left -= size;
+  }
+  const last = rows.length - 1;
+  if (rows[last] === 1 && last > 0) {
+    if (rows[last - 1] === 3) rows.splice(last - 1, 2, 2, 2);
+    else rows.splice(last - 1, 2, 3);
+  }
+  return rows.reduce<number[]>(
+    (all, size) => all.concat(Array<number>(size).fill(size)),
+    [],
   );
 };
 
+const Photo = ({
+  photo,
+  className = "",
+}: {
+  photo: PhotoSlot;
+  className?: string;
+}) => (
+  <div className={`t25-photo ${className}`}>
+    <img src={photoSrc(photo)} alt={photo.label} />
+  </div>
+);
+
 const Template25 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
-  const t = useSeconds(data.weddingISO);
+  const lunar = lunarDate(data.weddingISO);
   const guest = useGuestName();
-  const photos = [data.photos.cover, ...data.album, data.photos.destiny];
-  const [current, setCurrent] = useState(0);
-  const short = (n: string) => n.trim().split(/\s+/).pop();
+  const [rsvpOpen, setRsvpOpen] = useState(false);
+  const [giftOpen, setGiftOpen] = useState(false);
+  const { photos, album } = data;
+  const [lead, ...rest] = album;
+  const portraits = rest.filter((p) => photoShape(p) === "k-port");
+  const perRow = rowSizes(portraits.length);
 
   return (
     <Page className="t25-root">
-      {/* black cover with huge type */}
-      <section className="t25-cover">
-        <h1 aria-label="forever">
-          <span>for</span>
-          <span>
-            ever<i>.</i>
-          </span>
-        </h1>
-        <div className="t25-cover-names">
-          <span>{data.groom}</span>
-          <span>{data.bride}</span>
+      {/* ---------- cover ---------- */}
+      <section className="t25-hero">
+        <img className="t25-hero-img" src={photoSrc(photos.cover)} alt="" />
+        <div className="t25-hero-text">
+          <p className="t25-hero-date">
+            {d.day}.{d.month}.{d.year}
+          </p>
+          <p className="t25-quote">
+            “Chúng mình đã cùng nhau đi qua nhiều thăng trầm để nhận ra rằng
+            được ở bên nhau là điều quý giá nhất. Hôm nay, trước sự chứng kiến
+            của mọi người, chúng mình nhẹ nhàng gọi nhau bằng hai tiếng Vợ –
+            Chồng.”
+          </p>
         </div>
+        <span className="t25-blossom">
+          <Blossom />
+        </span>
       </section>
 
-      <section className="t25-sec t25-center">
-        <Reveal>
-          <p className="t25-kicker">Invitation</p>
-          <h2 className="t25-title">
-            {guest ? `Thân mời ${guest}` : "Lời mời chân thành"}
-          </h2>
-        </Reveal>
-        <Reveal>
-          <p className="t25-body">
-            Hôm nay không chỉ là ngày cưới,
-            <br />
-            mà là ngày chúng mình viết tiếp hành trình đã bắt đầu từ rất lâu.
-            <br />
-            <br />
-            Rất hân hạnh được chào đón {guest || "bạn"}.
-          </p>
-        </Reveal>
-        <Reveal variant="zoom">
-          <img
-            className="t25-photo"
-            src={photoSrc(data.photos.destiny)}
-            alt=""
-          />
-        </Reveal>
-      </section>
-
-      <section className="t25-sec t25-center">
-        <Reveal>
-          <p className="t25-kicker">Wedding info</p>
-          <h2 className="t25-title">Thông tin lễ cưới</h2>
-        </Reveal>
-        <Reveal>
-          <Families data={data} className="t25-fam" />
-        </Reveal>
-        <Reveal>
-          <p className="t25-caps">
-            Trân trọng báo tin
-            <br />
-            lễ thành hôn của con chúng tôi
-          </p>
-          <p className="t25-names">
-            {data.groom}
-            <span>&amp;</span>
-            {data.bride}
-          </p>
-        </Reveal>
-        <Reveal>
-          <p className="t25-kicker">Wedding invitation</p>
-          <h2 className="t25-title">
-            {guest ? `Trân trọng kính mời ${guest}` : "Trân trọng kính mời"}
-          </h2>
-          <p className="t25-caps t25-gap">Lễ thành hôn</p>
-          <p className="t25-time">{d.time}</p>
-          <div className="t25-date">
-            <span>{d.weekday}</span>
-            <b>{d.day}</b>
-            <span>Tháng {d.month}</span>
-          </div>
-          <p className="t25-year">{d.year}</p>
-        </Reveal>
-      </section>
-
-      {/* "Two hearts / one story" over the photo */}
-      <section className="t25-story">
-        <Reveal>
-          <p className="t25-script">Two Hearts</p>
-          <img src={photoSrc(data.photos.cover)} alt="" />
-          <p className="t25-serif">ONE STORY</p>
-          <div className="t25-years">
-            <span>{Number(d.year) - 3}</span>
-            <i />
-            <span>{d.year}</span>
-          </div>
-        </Reveal>
-        <Reveal>
-          <p className="t25-stamp">
-            {d.year}.{d.month}.{d.day}
-          </p>
-          <p className="t25-body">
-            {d.weekday.toLowerCase().replace(/^./, (c) => c.toUpperCase())},{" "}
-            {d.time}
-          </p>
-          <MonthGrid iso={data.weddingISO} />
-          <div className="t25-count">
-            {[
-              [t.days, "ngày"],
-              [t.hours, "giờ"],
-              [t.minutes, "phút"],
-              [t.seconds, "giây"],
-            ].map(([v, l], i) => (
-              <div key={l}>
-                {i > 0 && <em>:</em>}
-                <small>{l}</small>
-                <b>{v}</b>
+      {/* ---------- signatures ---------- */}
+      <section className="t25-sec t25-sign">
+        <div className="t25-sign-row">
+          {[data.bride, data.groom].map((name, i) => (
+            <Reveal key={name} variant={i ? "right" : "left"} delay={i * 200}>
+              <div className="t25-sig">
+                <span className="t25-sig-hand">{name.split(" ").pop()}</span>
+                <Flourish />
+                <b>{name}</b>
               </div>
-            ))}
-          </div>
-          <p className="t25-body">
-            Còn {t.days} ngày nữa là đến đám cưới của {short(data.groom)} và{" "}
-            {short(data.bride)}.
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="t25-sec t25-center">
-        <Reveal>
-          <p className="t25-kicker">Location</p>
-          <h2 className="t25-title">Địa điểm tổ chức</h2>
-          <p className="t25-place">{data.venueName}</p>
-          <p className="t25-body">{data.venueAddress}</p>
-          <VenueActions data={data} />
-        </Reveal>
-        <Reveal>
-          <ol className="t25-steps">
-            {data.timeline.map((s) => (
-              <li key={s.time}>
-                <b>{s.time}</b>
-                <span>{s.label}</span>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </section>
-
-      {/* gallery: one large photo + thumbnails to switch */}
-      <section className="t25-gallery">
-        <Reveal>
-          <p className="t25-kicker">Gallery</p>
-          <h2 className="t25-title">Khoảnh khắc của chúng mình</h2>
-        </Reveal>
-        <Reveal>
-          <div className="t25-stage">
-            {photos.map((p, i) => (
-              <img
-                key={p.key}
-                src={photoSrc(p)}
-                alt=""
-                className={i === current ? "on" : ""}
-              />
-            ))}
-          </div>
-          <div className="t25-thumbs">
-            {photos.map((p, i) => (
-              <button
-                key={p.key}
-                type="button"
-                className={i === current ? "on" : ""}
-                onClick={() => setCurrent(i)}
-                aria-label={`Ảnh ${i + 1}`}
-              >
-                <img src={photoSrc(p)} alt="" />
-              </button>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="t25-sec">
-        <Reveal>
-          <p className="t25-kicker t25-center">R.S.V.P.</p>
-          <RsvpForm data={data} variant="select" title="Xác nhận tham dự" />
-        </Reveal>
-        <Reveal>
-          <p className="t25-kicker t25-center">Account</p>
-          <h2 className="t25-title t25-center">Mừng cưới</h2>
-          <GiftCard data={data} />
-        </Reveal>
-      </section>
-
-      <footer className="t25-foot">
-        <img src={photoSrc(data.album[0])} alt="" />
-        <div>
-          <p>Cảm ơn bạn đã ghé thăm tấm thiệp nhỏ này.</p>
-          <p>
-            Sự hiện diện và lời chúc của bạn
-            <br />
-            là món quà ý nghĩa nhất với chúng mình.
-          </p>
-          <p>
-            With love,
-            <br />
-            {short(data.groom)} &amp; {short(data.bride)}
-          </p>
+            </Reveal>
+          ))}
         </div>
+        <Reveal>
+          <p className="t25-lead">
+            Một hành trình mới của chúng mình
+            <br />
+            bắt đầu từ hôm nay
+          </p>
+        </Reveal>
+      </section>
+
+      {/* ---------- families ---------- */}
+      <section className="t25-fams">
+        <div className="t25-fam">
+          <Reveal variant="left" className="t25-fam-pic">
+            <Photo photo={photos.bride} />
+          </Reveal>
+          <Reveal variant="fade" delay={200} className="t25-fam-info">
+            <h3>Nhà Gái</h3>
+            {data.families.bride.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+            <p className="t25-fam-who">
+              Cô dâu
+              <span>{data.bride}</span>
+            </p>
+          </Reveal>
+        </div>
+        <div className="t25-fam t25-fam-flip">
+          <Reveal variant="right" className="t25-fam-pic">
+            <Photo photo={photos.groom} />
+          </Reveal>
+          <Reveal variant="fade" delay={200} className="t25-fam-info">
+            <h3>Nhà Trai</h3>
+            {data.families.groom.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+            <p className="t25-fam-who">
+              Chú rể
+              <span>{data.groom}</span>
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- invitation ---------- */}
+      <section className="t25-sec t25-invite">
+        <Reveal variant="fade">
+          <hr className="t25-dots" />
+        </Reveal>
+        <Reveal>
+          <h2 className="t25-script">Thiệp Mời</h2>
+          <p className="t25-sub">
+            Tham dự lễ cưới {data.groom} &amp; {data.bride}
+          </p>
+        </Reveal>
+        <div className="t25-trio">
+          {album.slice(0, 3).map((p, i) => (
+            <Reveal
+              key={p.key}
+              variant={i === 1 ? "zoom" : "up"}
+              delay={i * 160}
+            >
+              <Photo photo={p} />
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal>
+          <p className="t25-caps">Trân trọng kính mời</p>
+          <p className={`t25-guest ${guest ? "t25-guest-named" : ""}`}>
+            {guest || "Quý khách"}
+          </p>
+          <p className="t25-lead">
+            Đến dự bữa tiệc thân mật
+            <br />
+            cùng gia đình chúng tôi vào lúc
+          </p>
+        </Reveal>
+
+        <Reveal variant="zoom">
+          <div className="t25-date">
+            <p className="t25-date-wd">{titleCase(d.weekday)}</p>
+            <div className="t25-date-row">
+              <span>{d.time.replace(":", "h")}</span>
+              <b>{d.day}</b>
+              <span>Năm {d.year}</span>
+            </div>
+            <p className="t25-date-m">Tháng {Number(d.month)}</p>
+            <p className="t25-date-lunar">
+              (Tức ngày {lunar.day} tháng {lunar.leap ? "nhuận " : ""}
+              {lunar.month} năm {lunar.yearName})
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="t25-steps">
+          {data.timeline.map((s, i) => {
+            const Icon = TIMELINE_ICONS[(i * 2 + 1) % TIMELINE_ICONS.length];
+            return (
+              <Reveal key={s.time} delay={i * 140}>
+                <div className="t25-step">
+                  <Icon />
+                  <div>
+                    <b>{s.time.replace(":", "h")}</b>
+                    <span>{titleCase(s.label)}</span>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <Reveal>
+          <div className="t25-venue">
+            <p className="t25-venue-label">
+              <IconPin /> Địa chỉ dự tiệc
+            </p>
+            <h3>{data.venueName}</h3>
+            <p>{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ---------- calendar over a photo ---------- */}
+      <section className="t25-night">
+        <img className="t25-night-img" src={photoSrc(photos.night)} alt="" />
+        <div className="t25-night-body">
+          <Reveal variant="right">
+            <p className="t25-night-title">Wedding</p>
+          </Reveal>
+          <Reveal variant="fade" delay={200}>
+            <CalendarCard iso={data.weddingISO} />
+          </Reveal>
+          <Reveal delay={300}>
+            <div className="t25-left">
+              <span className="t25-left-hand">Chỉ còn…</span>
+              <Countdown iso={data.weddingISO} />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- RSVP ---------- */}
+      <section className="t25-sec t25-rsvp">
+        <Reveal>
+          <p className="t25-note">
+            Chúng mình rất mong sự hiện diện của bạn để cùng nhau chung vui, sẻ
+            chia niềm hạnh phúc và lưu lại những khoảnh khắc đáng nhớ trong ngày
+            cưới. Đừng quên để lại xác nhận tham dự để chúng mình chuẩn bị chu
+            đáo hơn!
+          </p>
+        </Reveal>
+        <Reveal variant="fade" className="t25-env-wrap">
+          <div className="t25-env" aria-hidden="true">
+            <span className="t25-env-flap" />
+            <span className="t25-env-seal">囍</span>
+          </div>
+          <div className="t25-card">
+            <p className="t25-caps">R.S.V.P.</p>
+            <h3>Xác nhận tham dự</h3>
+            <p>
+              Vui lòng xác nhận tham dự để chúng mình chuẩn bị lễ cưới được
+              thuận lợi và trọn vẹn nhất.
+            </p>
+            <button
+              type="button"
+              className="t25-btn"
+              onClick={() => setRsvpOpen((v) => !v)}
+            >
+              {rsvpOpen ? "Thu gọn" : "Gửi xác nhận"}
+            </button>
+          </div>
+        </Reveal>
+        {rsvpOpen && (
+          <div className="t25-panel">
+            <RsvpForm data={data} title="Phản hồi của bạn" />
+          </div>
+        )}
+      </section>
+
+      {/* ---------- gift ---------- */}
+      <section className="t25-sec t25-giftsec">
+        <Reveal variant="zoom">
+          <button
+            type="button"
+            className="t25-giftbtn"
+            onClick={() => setGiftOpen((v) => !v)}
+          >
+            <span className="t25-giftenv" aria-hidden="true">
+              <i className="t25-giftletter">
+                <em>♥</em>
+              </i>
+              <i className="t25-giftfront" />
+            </span>
+            <span className="t25-giftlabel">Gửi quà mừng</span>
+          </button>
+        </Reveal>
+        {giftOpen && (
+          <div className="t25-panel">
+            <GiftCard data={data} />
+          </div>
+        )}
+      </section>
+
+      {/* ---------- album ---------- */}
+      <section className="t25-album-sec">
+        <Reveal variant="left">
+          <h2 className="t25-album-title">
+            Album ảnh cưới <span />
+          </h2>
+        </Reveal>
+        {lead && (
+          <Reveal variant="zoom" className="t25-album-lead">
+            <Photo photo={lead} />
+          </Reveal>
+        )}
+        <div className="t25-album k-album">
+          {rest.map((p, i) => (
+            <Reveal
+              key={p.key}
+              variant="zoom"
+              delay={(i % 3) * 120}
+              className={`${photoShape(p)} t25-w${perRow[portraits.indexOf(p)] ?? 1}`}
+            >
+              <img src={photoSrc(p)} alt={p.label} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <footer className="t25-thanks">
+        <img src={photoSrc(photos.thanks)} alt="" />
+        <Reveal variant="fade" className="t25-thanks-text">
+          <p>Trân trọng</p>
+          <i>&amp;</i>
+          <p>Biết ơn!</p>
+          <span>
+            {data.groom} · {data.bride}
+          </span>
+        </Reveal>
       </footer>
     </Page>
   );
