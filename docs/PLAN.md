@@ -151,4 +151,4 @@ Album trong các mẫu dùng lưới chung `.k-album` + `photoShape(photo)` (tro
 
 ## Cập nhật: thanh dưới trang xem mẫu
 
-Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới chỉ còn nút quay lại, tên mẫu và nút "Xem toàn màn hình": bấm thì thanh trượt xuống, mẫu được hiển thị trọn màn hình (các mẫu bỏ phần chừa chỗ cho thanh qua selector `.gl-bar:not(.gl-bar-off) ~ ...`), còn lại một tay kéo nhỏ ⌃ ở giữa mép dưới để mở thanh lại. Lựa chọn ẩn/hiện được giữ khi chuyển giữa các mẫu.
+Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới chỉ còn nút quay lại, tên mẫu và nút "Xem toàn màn hình": bấm thì thanh trượt xuống, mẫu được hiển thị trọn màn hình (các mẫu bỏ phần chừa chỗ cho thanh qua selector `.gl-bar:not(.gl-bar-off) ~ ...`), còn lại một nút tròn nổi nền đen mờ ở giữa phía dưới để mở thanh lại. Lựa chọn ẩn/hiện được giữ khi chuyển giữa các mẫu.
