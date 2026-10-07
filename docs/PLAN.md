@@ -157,3 +157,11 @@ Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới ch�
 
 - Phong bì (t01, t11, t15): nắp lật bằng `scaleY(-1)` (2D) thay cho `rotateX(180deg)`. Safari trên iPhone bỏ qua z-index với lớp xoay 3D nên nắp lật đè lên lá thư. Lá thư ở t11/t15 rút lên rồi ra hẳn phía trước để tên hiện trọn. Mẫu mới có phong bì: không dùng xoay 3D cho phần cần xếp lớp.
 - Thứ tự gallery (chủ shop chọn): 1, 3, 10, 11, 15, 19, 22, 23, 24 lên đầu, các mẫu khác theo số sau đó (sắp trong `templates/index.ts`).
+
+## Cập nhật: mẫu t25, t26 (lấy ý tưởng từ 2 mẫu ngaychungdoi.com chủ shop gửi)
+
+Chỉ lấy ý tưởng bố cục, tự dựng bằng ảnh demo và thiết kế riêng.
+- `t25` Forever: bìa đen chữ "for ever." cực đậm (Be Vietnam Pro 800), thân trắng nhấn xanh rêu, "Two Hearts / One Story" chồng lên ảnh, lịch tháng, đếm ngược "Còn N ngày nữa…", album ảnh lớn + dải ảnh nhỏ bấm để đổi, ảnh cuối trang mép gợn sóng.
+- `t26` Phong bì hồng: phong bì đỏ dấu sáp kẹp ảnh cưới, chạm để mở rồi tự cuộn xuống; đếm ngược trên ảnh, ngày cưới chữ lớn, "Marry me? / Yes! I do", thẻ cô dâu/chú rể, lịch có tim trên ảnh, lịch trình có tim, ảnh đóng khung chữ dọc, khung xác nhận hình vòm.
+
+Tính năng mới: **tên khách trong lời mời** (`useGuestName` trong `_kit/sections.tsx`), đọc `?khach=Tên` từ link (cả phần sau dấu #). Đang dùng ở t25, t26.

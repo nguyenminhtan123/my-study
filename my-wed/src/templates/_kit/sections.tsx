@@ -356,3 +356,18 @@ export const Families = ({
     </div>
   </div>
 );
+
+/**
+ * Guest name for a personal invitation, from the link: `?khach=Em%20Hi%E1%BB%81n` (also read
+ * from the hash part, which is where the mini app router keeps its own query). Empty when absent.
+ */
+export const useGuestName = () => {
+  const [name] = useState(() => {
+    if (typeof window === "undefined") return "";
+    const read = (q: string) => new URLSearchParams(q).get("khach") ?? "";
+    const hash = window.location.hash;
+    const fromHash = hash.includes("?") ? read(hash.slice(hash.indexOf("?"))) : "";
+    return (read(window.location.search) || fromHash).trim().slice(0, 60);
+  });
+  return name;
+};
