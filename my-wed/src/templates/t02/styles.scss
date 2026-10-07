@@ -281,7 +281,7 @@
 }
 
 // leave room for the gallery bar on the preview page
-.gl-bar ~ .t02-root .t02-hero-foot {
+.gl-bar:not(.gl-bar-off) ~ .t02-root .t02-hero-foot {
   bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 

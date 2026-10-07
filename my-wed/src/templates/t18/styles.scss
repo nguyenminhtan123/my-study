@@ -337,6 +337,6 @@
 }
 
 // leave room for the gallery price bar on the preview page
-.gl-bar ~ .t18-root .t18-hero-foot {
+.gl-bar:not(.gl-bar-off) ~ .t18-root .t18-hero-foot {
   bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }

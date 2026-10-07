@@ -125,7 +125,7 @@
   letter-spacing: 0.3em;
 }
 // leave room for the gallery bar on the preview page
-.gl-bar ~ .t09-root .t09-hero .t09-bloom {
+.gl-bar:not(.gl-bar-off) ~ .t09-root .t09-hero .t09-bloom {
   bottom: calc(120px + env(safe-area-inset-bottom, 0px));
 }
 

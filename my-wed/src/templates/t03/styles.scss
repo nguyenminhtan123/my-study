@@ -355,7 +355,7 @@
 }
 
 // leave room for the gallery bar on the preview page
-.gl-bar ~ .t03-root .t03-hero-text {
+.gl-bar:not(.gl-bar-off) ~ .t03-root .t03-hero-text {
   bottom: calc(80px + 6%);
 }
 

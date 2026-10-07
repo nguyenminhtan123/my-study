@@ -406,6 +406,6 @@
 }
 
 // leave room for the gallery price bar on the preview page
-.gl-bar ~ .t21-root .t21-cover {
+.gl-bar:not(.gl-bar-off) ~ .t21-root .t21-cover {
   padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
