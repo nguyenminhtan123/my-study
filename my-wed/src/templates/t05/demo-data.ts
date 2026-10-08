@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "Sảnh Lakshmi, 304 Đường 2/4, P. Bắc Nha Trang, Khánh Hòa",
   venueQuery: "Champa Island Nha Trang",
   dressColors: ["#1d5b78", "#4f8fa8", "#bfe3ee", "#f0d9a0", "#ffffff"],
+  music: "yeu-em-hon-moi-ngay",
 };

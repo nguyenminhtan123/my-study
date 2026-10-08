@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "Số 4 Đường Xuân Diệu, Tây Hồ, Hà Nội",
   venueQuery: "Xuân Diệu Tây Hồ Hà Nội",
   dressColors: ["#d6455d", "#f7c6cf", "#ffffff", "#5b2a33"],
+  music: "yeu-em-hon-moi-ngay",
 };
