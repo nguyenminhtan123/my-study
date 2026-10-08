@@ -176,6 +176,70 @@
   pointer-events: auto;
 }
 
+// Music disc: floats bottom-right, above the bar while it shows, near the corner when hidden.
+.gl-music {
+  position: fixed;
+  right: 12px;
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  transition: bottom 0.35s ease;
+
+  svg {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+  // a slash across the note while the music is off
+  &::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transform: rotate(-45deg);
+    transition: transform 0.25s ease;
+  }
+}
+.gl-bar.gl-bar-off ~ .gl-music {
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+}
+// dashed ring that turns like a record while the song plays
+.gl-music-disc {
+  position: absolute;
+  inset: 4px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gl-music-on {
+  &::after {
+    transform: rotate(-45deg) scaleX(0);
+  }
+  .gl-music-disc {
+    opacity: 1;
+    animation: gl-spin 6s linear infinite;
+  }
+}
+@keyframes gl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 // Keep the end of the template clear of the fixed bar.
 .gl-bar:not(.gl-bar-off) ~ .zaui-page {
   padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));

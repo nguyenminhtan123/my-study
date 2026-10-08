@@ -17,7 +17,8 @@
   "scripts": {
     "login": "zmp login",
     "start": "zmp start",
-    "deploy": "zmp deploy"
+    "deploy": "zmp deploy",
+    "music": "node scripts/music.mjs"
   },
   "dependencies": {
     "@fontsource/allura": "^5.3.0",
@@ -44,6 +45,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
+    "ffmpeg-static": "^5.3.0",
     "postcss": "^8.4.38",
     "postcss-cli": "^8.3.1",
     "postcss-preset-env": "^6.7.0",

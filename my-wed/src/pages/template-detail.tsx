@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Page, useNavigate, useParams } from "zmp-ui";
 
+import MusicPlayer from "@/components/music-player";
 import { getTemplate } from "@/templates";
 
 const Chevron = ({ up = false }: { up?: boolean }) => (
@@ -84,6 +85,7 @@ function TemplateDetailPage() {
       >
         <Chevron up />
       </button>
+      <MusicPlayer song={demoData.music} />
       <Component data={demoData} />
     </>
   );

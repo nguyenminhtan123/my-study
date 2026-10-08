@@ -36,3 +36,7 @@ Thumbs.db
 
 # Production build
 www/
+
+# Songs (copyrighted; kept on the owner's machine only, see scripts/music.mjs)
+music-src/
+src/static/music/
