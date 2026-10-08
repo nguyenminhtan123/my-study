@@ -60,4 +60,5 @@ export const demoData: WeddingData = {
     { time: "18:30", label: "KHAI TIỆC" },
     { time: "19:00", label: "TIỆC NHẠC" },
   ] as TimelineStep[],
+  music: "ngay-dau-tien",
 };

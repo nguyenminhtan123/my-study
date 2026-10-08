@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "Số 142/18 Đường Cộng Hòa, Tân Bình, TP. Hồ Chí Minh",
   venueQuery: "Cộng Hòa Tân Bình",
   dressColors: ["#14100b", "#d9b77a", "#f3e6cc", "#6b5434"],
+  music: "yeu-em-hon-moi-ngay",
 };

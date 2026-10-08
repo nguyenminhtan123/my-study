@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "Số 88 Đường Trần Phú, Nha Trang, Khánh Hòa",
   venueQuery: "Trần Phú Nha Trang",
   dressColors: ["#cfe3d3", "#f2c4c4", "#fffaf2", "#8a6b52"],
+  music: "yeu-em-hon-moi-ngay",
 };

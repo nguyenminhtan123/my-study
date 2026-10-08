@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "Số 27 Đường Thanh Niên, Ba Đình, Hà Nội",
   venueQuery: "Thanh Niên Ba Đình Hà Nội",
   dressColors: ["#f3c9b8", "#e8a6a0", "#fff7f2", "#7d8a6a"],
+  music: "yeu-em-hon-moi-ngay",
 };

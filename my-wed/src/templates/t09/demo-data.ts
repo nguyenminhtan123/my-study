@@ -10,4 +10,5 @@ export const demoData: WeddingData = {
   venueAddress: "16 Tôn Đản, Lộc Thọ, Nha Trang, Khánh Hòa",
   venueQuery: "Maple Hotel Apartment 16 Tôn Đản Nha Trang",
   dressColors: ["#ffffff", "#8a8fc7", "#2b2f6b"],
+  music: "yeu-em-hon-moi-ngay",
 };
