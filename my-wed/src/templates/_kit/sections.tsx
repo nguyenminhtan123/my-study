@@ -2,7 +2,13 @@ import { FormEvent, ReactNode, useState } from "react";
 import { useSnackbar } from "zmp-ui";
 
 import { GiftSide, PhotoSlot, TimelineStep, WeddingData } from "@/core/types";
-import { buildPlaceholder, copyText } from "@/core/utils/wedding";
+import { openLink } from "@/core/utils/open-link";
+import {
+  buildCalendarUrl,
+  buildMapUrl,
+  buildPlaceholder,
+  copyText,
+} from "@/core/utils/wedding";
 import { Reveal, useSeconds } from "@/templates/_kit/anim";
 import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
 
@@ -147,28 +153,30 @@ export const Mosaic = ({ photos }: { photos: PhotoSlot[] }) => (
   </div>
 );
 
-/**
- * Venue action. Zalo's review rejects links that leave the mini app (Google Maps, Google Calendar),
- * so guests copy the address and paste it into their own map app.
- */
-export const VenueActions = ({ data }: { data: WeddingData }) => {
-  const { openSnackbar } = useSnackbar();
-  const copy = async () => {
-    const copied = await copyText(data.venueAddress);
-    openSnackbar({
-      text: copied ? "Đã sao chép địa chỉ" : data.venueAddress,
-      type: "success",
-      duration: 2500,
-    });
-  };
-  return (
-    <div className="k-actions">
-      <button type="button" onClick={copy}>
-        <IconPin /> Sao chép địa chỉ
-      </button>
-    </div>
-  );
-};
+export const VenueActions = ({ data }: { data: WeddingData }) => (
+  <div className="k-actions">
+    <button
+      type="button"
+      onClick={() => openLink(buildMapUrl(data.venueQuery))}
+    >
+      <IconPin /> Chỉ đường
+    </button>
+    <button
+      type="button"
+      onClick={() =>
+        openLink(
+          buildCalendarUrl(
+            data.eventTitle,
+            data.calendarDates,
+            data.venueQuery,
+          ),
+        )
+      }
+    >
+      Lưu vào lịch
+    </button>
+  </div>
+);
 
 const Chips = ({
   options,
@@ -358,9 +366,7 @@ export const useGuestName = () => {
     if (typeof window === "undefined") return "";
     const read = (q: string) => new URLSearchParams(q).get("khach") ?? "";
     const hash = window.location.hash;
-    const fromHash = hash.includes("?")
-      ? read(hash.slice(hash.indexOf("?")))
-      : "";
+    const fromHash = hash.includes("?") ? read(hash.slice(hash.indexOf("?"))) : "";
     return (read(window.location.search) || fromHash).trim().slice(0, 60);
   });
   return name;
