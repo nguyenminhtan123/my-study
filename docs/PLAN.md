@@ -168,5 +168,5 @@ Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn 
 ## Cập nhật: nhạc nền
 
 - Nút đĩa nhạc tròn ở góc phải dưới trang xem mẫu (`components/music-player.tsx`). Điện thoại chỉ cho phát tiếng sau một lần chạm, nên nhạc bắt đầu ở lần chạm đầu tiên vào trang; người xem tắt thì giữ tắt khi xem mẫu khác; tự dừng khi app chạy nền hoặc rời trang.
-- Bài hát có bản quyền, repo public, nên file nhạc chỉ nằm trên máy chủ repo: thả bản gốc vào `my-wed/music-src/`, chạy `npm run music` (tự nén mono 64 kbps, đều âm lượng, khoảng 0,5 MB/phút) ra `my-wed/src/static/music/`. Cả hai thư mục nằm trong `.gitignore`; bản deploy từ máy chủ repo sẽ có nhạc.
+- File nhạc đã nén nằm trong `my-wed/src/static/music/` và được commit (chủ repo mua bài). Bản gốc để ở `my-wed/music-src/` (gitignore); `npm run music` nén mono 64 kbps, đều âm lượng. Nhạc mẫu cắt đoạn điệp khúc (ví dụ "Ngày Đầu Tiên": 0:51 đến 2:36, 0,8 MB) rồi phát lặp.
 - Chọn bài: `music` trong dữ liệu thiệp (tên file không đuôi, ví dụ `ngay-dau-tien`); không có thì dùng bài đầu tiên theo tên; không có bài nào thì không hiện nút.
