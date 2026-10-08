@@ -164,3 +164,9 @@ Bỏ nút "Chọn mẫu" (khách liên hệ shop ngoài app). Thanh dưới ch�
 Bỏ hai mẫu thử t25/t26, làm một mẫu t25 theo thiệp tham khảo chủ repo gửi (chỉ lấy bố cục, không lấy ảnh hay hình vẽ của họ). Nền vải lanh màu be, chữ nâu ca cao, điểm hồng phấn. Thứ tự: ảnh bìa toàn màn hình có ngày cưới và lời dẫn, chữ ký tay hai bạn, khối Nhà Gái/Nhà Trai so le với ảnh, "Thiệp Mời" và ba ảnh, lời mời có tên khách (`?khach=` trên link, không có thì hiện "Quý khách"), khối ngày giờ kèm ngày âm lịch (`lunarDate` trong `_kit/date.ts`), giờ đón khách/khai tiệc, địa chỉ, lịch tháng và đếm ngược trên ảnh tối, phong bì với thẻ xác nhận tham dự trượt ra, quà mừng, album kiểu sách ảnh (hàng 3 rồi hàng 2), ảnh cuối "Trân trọng & Biết ơn". Dùng ảnh demo sẵn có, không thêm ảnh mới.
 
 Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn phí có tiếng Việt): Fahkwang cho gần như mọi dòng chữ (thay Mallong), Quicksand cho đoạn văn, Ephesis cho chữ viết tay ("Thiệp Mời", "Wedding"), Mea Culpa cho chữ ký, Playfair Display cho ngày lớn. Nguyên tắc: một font chủ đạo, đừng trộn nhiều font serif.
+
+## Cập nhật: nhạc nền
+
+- Nút đĩa nhạc tròn ở góc phải dưới trang xem mẫu (`components/music-player.tsx`). Điện thoại chỉ cho phát tiếng sau một lần chạm, nên nhạc bắt đầu ở lần chạm đầu tiên vào trang; người xem tắt thì giữ tắt khi xem mẫu khác; tự dừng khi app chạy nền hoặc rời trang.
+- Bài hát có bản quyền, repo public, nên file nhạc chỉ nằm trên máy chủ repo: thả bản gốc vào `my-wed/music-src/`, chạy `npm run music` (tự nén mono 64 kbps, đều âm lượng, khoảng 0,5 MB/phút) ra `my-wed/src/static/music/`. Cả hai thư mục nằm trong `.gitignore`; bản deploy từ máy chủ repo sẽ có nhạc.
+- Chọn bài: `music` trong dữ liệu thiệp (tên file không đuôi, ví dụ `ngay-dau-tien`); không có thì dùng bài đầu tiên theo tên; không có bài nào thì không hiện nút.

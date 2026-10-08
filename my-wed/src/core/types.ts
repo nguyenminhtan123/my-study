@@ -40,4 +40,6 @@ export interface WeddingData {
   photos: Record<string, PhotoSlot>;
   album: PhotoSlot[];
   timeline: TimelineStep[];
+  /** Background song: a file name in src/static/music without .mp3 (e.g. "ngay-dau-tien"). */
+  music?: string;
 }
