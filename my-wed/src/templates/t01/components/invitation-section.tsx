@@ -1,10 +1,11 @@
-import { Box, Button, Icon, Text, useSnackbar } from "zmp-ui";
+import { Box, Button, Icon, Text } from "zmp-ui";
 
 import Reveal from "@/templates/t01/components/reveal";
 import PhotoFrame from "@/templates/t01/components/photo-frame";
 import { useCountdown } from "@/core/hooks/use-countdown";
 import { useWeddingData } from "@/core/wedding-context";
-import { copyText } from "@/core/utils/wedding";
+import { openLink } from "@/core/utils/open-link";
+import { buildCalendarUrl, buildMapUrl } from "@/core/utils/wedding";
 
 const FamilyColumn = ({
   title,
@@ -23,16 +24,6 @@ const FamilyColumn = ({
 
 const InvitationSection = () => {
   const data = useWeddingData();
-  const { openSnackbar } = useSnackbar();
-  // Zalo's review rejects links that leave the mini app, so guests copy the address instead.
-  const copyAddress = async () => {
-    const copied = await copyText(data.venueAddress);
-    openSnackbar({
-      text: copied ? "Đã sao chép địa chỉ" : data.venueAddress,
-      type: "success",
-      duration: 2500,
-    });
-  };
   const countdown = useCountdown(data.weddingISO);
 
   return (
@@ -95,9 +86,25 @@ const InvitationSection = () => {
             variant="tertiary"
             size="small"
             prefixIcon={<Icon icon="zi-location" />}
-            onClick={copyAddress}
+            onClick={() => openLink(buildMapUrl(data.venueQuery))}
           >
-            Sao chép địa chỉ
+            Chỉ đường
+          </Button>
+          <Button
+            variant="tertiary"
+            size="small"
+            prefixIcon={<Icon icon="zi-calendar" />}
+            onClick={() =>
+              openLink(
+                buildCalendarUrl(
+                  data.eventTitle,
+                  data.calendarDates,
+                  data.venueQuery,
+                ),
+              )
+            }
+          >
+            Lưu vào lịch
           </Button>
         </Box>
       </Reveal>

@@ -171,8 +171,3 @@ Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn 
 - File nhạc đã nén nằm trong `my-wed/src/static/music/` và được commit (chủ repo mua bài). Bản gốc để ở `my-wed/music-src/` (gitignore); `npm run music` nén mono 64 kbps, đều âm lượng. Nhạc mẫu cắt đoạn điệp khúc (ví dụ "Ngày Đầu Tiên": 0:51 đến 2:36, 0,8 MB) rồi phát lặp.
 - Chọn bài: `music` trong dữ liệu thiệp (tên file không đuôi, ví dụ `ngay-dau-tien`); không có thì dùng bài đầu tiên theo tên; không có bài nào thì không hiện nút.
 - Gán bài theo không khí mẫu: "Yêu Em Hơn Mỗi Ngày" (Andiez; cắt 0:45 đến 1:47: câu "Yêu em hơn mỗi ngày" và điệp khúc, trước đoạn rap) cho các mẫu tươi trẻ t05, t09, t16, t17, t20, t22, t24; các mẫu còn lại (cổ điển, trang trọng, truyền thống) dùng "Ngày Đầu Tiên" (mặc định, đặt trong dữ liệu t01).
-
-## Cập nhật: kiểm duyệt Zalo (lần 1 bị từ chối)
-
-- Zalo cấm điều hướng ra liên kết bên thứ 3 chưa được duyệt (mục 4.1, https://go.zalo.me/cskiemduyetZMA). Đã bỏ "Lưu vào lịch" (Google Calendar) và "Chỉ đường" (Google Maps); thay bằng nút "Sao chép địa chỉ". Đã xóa `openLink`, `buildMapUrl`, `buildCalendarUrl`. **Quy tắc: không thêm bất kỳ liên kết nào mở ra ngoài mini app.**
-- Tên app "Thiệp Cưới Z" bị từ chối vì là từ khóa chung: chủ repo cần tạo ticket đổi tên gắn với chủ thể sở hữu (thương hiệu/tên riêng).
