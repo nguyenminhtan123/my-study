@@ -37,6 +37,5 @@ Thumbs.db
 # Production build
 www/
 
-# Songs (copyrighted; kept on the owner's machine only, see scripts/music.mjs)
+# Original songs before `npm run music` compresses them into src/static/music/
 music-src/
-src/static/music/
