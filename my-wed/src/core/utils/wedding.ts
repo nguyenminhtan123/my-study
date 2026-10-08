@@ -20,18 +20,6 @@ export const computeCountdown = (
   };
 };
 
-export const buildMapUrl = (query: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-
-export const buildCalendarUrl = (
-  title: string,
-  dates: string,
-  location: string,
-) =>
-  `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    title,
-  )}&dates=${dates}&location=${encodeURIComponent(location)}`;
-
 export const buildPlaceholder = (label: string, ratio: string) => {
   const [w, h] = ratio.split("/").map(Number);
   const width = 600;
