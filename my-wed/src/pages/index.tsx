@@ -37,7 +37,7 @@ function GalleryPage() {
     <Page className="gl-page">
       <header className="gl-head">
         <h1>Thiệp cưới online</h1>
-        <p>Chọn mẫu bạn thích, chúng mình thiết kế thiệp riêng cho bạn.</p>
+        <p>Xem trước các mẫu thiệp cưới online và chọn mẫu bạn yêu thích.</p>
       </header>
       <div className="gl-grid">
         {templates.map((template) => (
