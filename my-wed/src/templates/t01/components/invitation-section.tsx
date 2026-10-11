@@ -5,7 +5,7 @@ import PhotoFrame from "@/templates/t01/components/photo-frame";
 import { useCountdown } from "@/core/hooks/use-countdown";
 import { useWeddingData } from "@/core/wedding-context";
 import { openLink } from "@/core/utils/open-link";
-import { buildCalendarUrl, buildMapUrl } from "@/core/utils/wedding";
+import { buildMapUrl } from "@/core/utils/wedding";
 
 const FamilyColumn = ({
   title,
@@ -89,22 +89,6 @@ const InvitationSection = () => {
             onClick={() => openLink(buildMapUrl(data.venueQuery))}
           >
             Chỉ đường
-          </Button>
-          <Button
-            variant="tertiary"
-            size="small"
-            prefixIcon={<Icon icon="zi-calendar" />}
-            onClick={() =>
-              openLink(
-                buildCalendarUrl(
-                  data.eventTitle,
-                  data.calendarDates,
-                  data.venueQuery,
-                ),
-              )
-            }
-          >
-            Lưu vào lịch
           </Button>
         </Box>
       </Reveal>

@@ -3,12 +3,7 @@ import { useSnackbar } from "zmp-ui";
 
 import { GiftSide, PhotoSlot, TimelineStep, WeddingData } from "@/core/types";
 import { openLink } from "@/core/utils/open-link";
-import {
-  buildCalendarUrl,
-  buildMapUrl,
-  buildPlaceholder,
-  copyText,
-} from "@/core/utils/wedding";
+import { buildMapUrl, buildPlaceholder, copyText } from "@/core/utils/wedding";
 import { Reveal, useSeconds } from "@/templates/_kit/anim";
 import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
 
@@ -160,20 +155,6 @@ export const VenueActions = ({ data }: { data: WeddingData }) => (
       onClick={() => openLink(buildMapUrl(data.venueQuery))}
     >
       <IconPin /> Chỉ đường
-    </button>
-    <button
-      type="button"
-      onClick={() =>
-        openLink(
-          buildCalendarUrl(
-            data.eventTitle,
-            data.calendarDates,
-            data.venueQuery,
-          ),
-        )
-      }
-    >
-      Lưu vào lịch
     </button>
   </div>
 );
@@ -366,7 +347,9 @@ export const useGuestName = () => {
     if (typeof window === "undefined") return "";
     const read = (q: string) => new URLSearchParams(q).get("khach") ?? "";
     const hash = window.location.hash;
-    const fromHash = hash.includes("?") ? read(hash.slice(hash.indexOf("?"))) : "";
+    const fromHash = hash.includes("?")
+      ? read(hash.slice(hash.indexOf("?")))
+      : "";
     return (read(window.location.search) || fromHash).trim().slice(0, 60);
   });
   return name;
