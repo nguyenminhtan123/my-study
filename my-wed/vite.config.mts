@@ -7,7 +7,7 @@ export default () => {
   return defineConfig({
     root: "./src",
     // env files live next to package.json (my-wed/.env, my-wed/.env.local); only VITE_* reach the app
-    envDir: "..",
+    envDir: process.cwd(),
     base: "",
     plugins: [zaloMiniApp(), react()],
     build: {
