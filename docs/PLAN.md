@@ -230,3 +230,8 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
 - [x] Xác nhận tham dự/lời chúc gửi vào DB (có ô đồng ý), admin xem và xuất Excel.
 - [-] Trang Chính sách bảo mật trong Mini App: chủ repo quyết định chưa làm (lần duyệt trước không bị yêu cầu).
 - [ ] Deploy admin lên Vercel (chủ repo).
+
+### Giá bán (chủ repo chốt)
+- Trọn gói một thiệp **149.000đ** (ghi giá gốc 249.000đ), đủ mọi tính năng, làm hộ, không chia gói.
+- Thêm: thiệp thứ 2 cho tiệc bên còn lại +49.000đ · làm gấp 24 giờ +50.000đ · giữ thiệp kỷ niệm vĩnh viễn +49.000đ (mặc định thiệp có ngày hết hạn) · thiết kế riêng theo concept +200.000đ.
+- Giá chỉ ở ảnh báo giá / admin, không hiển thị trong Mini App.
