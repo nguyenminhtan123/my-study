@@ -213,7 +213,8 @@
     transition: transform 0.25s ease;
   }
 }
-.gl-bar.gl-bar-off ~ .gl-music {
+.gl-bar.gl-bar-off ~ .gl-music,
+.gl-music-corner {
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
 }
 // dashed ring that turns like a record while the song plays
@@ -243,4 +244,54 @@
 // Keep the end of the template clear of the fixed bar.
 .gl-bar:not(.gl-bar-off) ~ .zaui-page {
   padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+
+// ---------- real invitation: loading / not found ----------
+.iv-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: #faf6f2;
+  color: #4a3530;
+  text-align: center;
+}
+.iv-box {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  max-width: 320px;
+
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #8a7570;
+  }
+}
+.iv-spin {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #ead8d2;
+  border-top-color: #b07a7a;
+  border-radius: 50%;
+  animation: iv-spin 0.9s linear infinite;
+}
+@keyframes iv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.iv-btn {
+  margin-top: 8px;
+  padding: 10px 20px;
+  border: 1px solid #d9c3b5;
+  border-radius: 999px;
+  background: #fff;
+  color: #4a3530;
+  font: inherit;
+  font-size: 14px;
 }

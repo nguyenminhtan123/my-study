@@ -6,6 +6,8 @@ import react from "@vitejs/plugin-react";
 export default () => {
   return defineConfig({
     root: "./src",
+    // env files live next to package.json (my-wed/.env, my-wed/.env.local); only VITE_* reach the app
+    envDir: "..",
     base: "",
     plugins: [zaloMiniApp(), react()],
     build: {
