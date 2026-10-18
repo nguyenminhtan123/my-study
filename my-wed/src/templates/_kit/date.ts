@@ -8,15 +8,17 @@ const WEEKDAYS = [
   "THỨ BẢY",
 ];
 
+/** Wedding date and time as shown on the invitation, always in Vietnam time (UTC+7) so a guest
+ * abroad sees the same "17:00, Thứ Sáu" as everyone else. */
 export const dateParts = (iso: string) => {
-  const d = new Date(iso);
+  const d = new Date(new Date(iso).getTime() + 7 * 3600 * 1000);
   const pad = (v: number) => String(v).padStart(2, "0");
   return {
-    day: pad(d.getDate()),
-    month: pad(d.getMonth() + 1),
-    year: String(d.getFullYear()),
-    time: `${pad(d.getHours())}:${pad(d.getMinutes())}`,
-    weekday: WEEKDAYS[d.getDay()],
+    day: pad(d.getUTCDate()),
+    month: pad(d.getUTCMonth() + 1),
+    year: String(d.getUTCFullYear()),
+    time: `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`,
+    weekday: WEEKDAYS[d.getUTCDay()],
   };
 };
 

@@ -2,6 +2,11 @@ import { Box, Text } from "zmp-ui";
 
 import FallingHearts from "@/templates/t01/components/falling-hearts";
 import { useWeddingData } from "@/core/wedding-context";
+import { dateParts } from "@/templates/_kit/date";
+
+// "Minh Khôi" -> "K": the given name's first letter, for the wax seal
+const initial = (name: string) =>
+  (name.trim().split(/\s+/).pop() ?? "").charAt(0).toUpperCase();
 
 interface EnvelopeIntroProps {
   opened: boolean;
@@ -10,6 +15,7 @@ interface EnvelopeIntroProps {
 
 const EnvelopeIntro = ({ opened, onOpen }: EnvelopeIntroProps) => {
   const data = useWeddingData();
+  const d = dateParts(data.weddingISO);
 
   return (
     <Box
@@ -28,8 +34,12 @@ const EnvelopeIntro = ({ opened, onOpen }: EnvelopeIntroProps) => {
       <Box className="wd-env" onClick={() => onOpen()}>
         <Box className="wd-env-back" />
         <Box className="wd-letter">
-          <b>Tân &amp; Trang</b>
-          <small>30 . 10 . 2026</small>
+          <b>
+            {data.groom} &amp; {data.bride}
+          </b>
+          <small>
+            {d.day} . {d.month} . {d.year}
+          </small>
         </Box>
         <Box className="wd-env-front" />
         <Box className="wd-flap" />
@@ -39,7 +49,7 @@ const EnvelopeIntro = ({ opened, onOpen }: EnvelopeIntroProps) => {
           aria-label="Mở thiệp"
           onClick={() => onOpen()}
         >
-          T&amp;T
+          {initial(data.groom)}&amp;{initial(data.bride)}
         </button>
       </Box>
       <Text className="wd-intro-hint">Chạm vào dấu sáp để mở thiệp</Text>

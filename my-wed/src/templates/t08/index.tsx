@@ -12,14 +12,17 @@ import {
   Countdown,
   Families,
   GiftCard,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
   photoSrc,
+  useGuestName,
 } from "@/templates/_kit/sections";
 
 const Template08 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  const guest = useGuestName();
 
   return (
     <Page className="t08-root">
@@ -37,6 +40,7 @@ const Template08 = ({ data }: { data: WeddingData }) => {
         <p className="t08-hero-date">
           {d.weekday} · {d.day}.{d.month}.{d.year}
         </p>
+        <LunarNote iso={data.weddingISO} />
       </section>
 
       <section className="t08-sec t08-center">
@@ -46,7 +50,7 @@ const Template08 = ({ data }: { data: WeddingData }) => {
             vậy.
           </p>
           <p className="t08-small">
-            Trân trọng kính mời bạn đến dự lễ thành hôn
+            Trân trọng kính mời {guest || "bạn"} đến dự lễ thành hôn
           </p>
         </Reveal>
         <Reveal>

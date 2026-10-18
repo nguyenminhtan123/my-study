@@ -11,10 +11,12 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
   photoSrc,
+  useGuestName,
 } from "@/templates/_kit/sections";
 
 const initial = (name: string) => name.trim().split(/\s+/).pop()?.[0] ?? "";
@@ -31,6 +33,7 @@ const Block = ({ label, children }: { label: string; children: ReactNode }) => (
 
 const Template18 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  const guest = useGuestName();
   const seal = (
     <span className="t18-seal">
       {initial(data.groom)}
@@ -64,7 +67,7 @@ const Template18 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <p className="t18-lead">
             Như cánh đào đợi xuân, chúng mình đã đợi ngày này. Trân trọng kính
-            mời bạn đến chung vui.
+            mời {guest || "bạn"} đến chung vui.
           </p>
         </Reveal>
         <Reveal>
@@ -94,6 +97,7 @@ const Template18 = ({ data }: { data: WeddingData }) => {
           <p className="t18-sub">
             {d.weekday} · {d.time} · {d.year}
           </p>
+          <LunarNote iso={data.weddingISO} />
         </Reveal>
         <Reveal>
           <Countdown iso={data.weddingISO} />

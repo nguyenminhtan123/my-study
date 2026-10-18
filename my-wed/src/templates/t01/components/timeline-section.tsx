@@ -32,7 +32,9 @@ const TimelineSection = () => {
           className="wd-tl"
           viewBox="0 0 340 570"
           role="img"
-          aria-label="Lịch trình ngày cưới: 17:00 đón khách, 18:00 lễ cưới, 18:30 khai tiệc, 19:00 tiệc nhạc"
+          aria-label={`Lịch trình ngày cưới: ${data.timeline
+            .map((s) => `${s.time} ${s.label.toLowerCase()}`)
+            .join(", ")}`}
         >
           <path
             className="wd-tl-line"

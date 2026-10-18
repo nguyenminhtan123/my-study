@@ -12,6 +12,8 @@ import {
   Countdown,
   Dresscode,
   GiftCard,
+  GuestName,
+  LunarNote,
   Mosaic,
   RsvpForm,
   VenueActions,
@@ -51,6 +53,7 @@ const Template16 = ({ data }: { data: WeddingData }) => {
       <section className="t16-sec t16-invite">
         <Reveal>
           <p className="t16-kicker">Trân trọng kính mời</p>
+          <GuestName />
           <h2 className="t16-title">
             Lễ thành hôn <i>của chúng mình</i>
           </h2>
@@ -91,6 +94,7 @@ const Template16 = ({ data }: { data: WeddingData }) => {
               <br />
               {d.time}
             </span>
+            <LunarNote iso={data.weddingISO} />
           </div>
         </Reveal>
       </section>

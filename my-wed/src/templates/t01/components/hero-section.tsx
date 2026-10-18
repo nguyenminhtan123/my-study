@@ -3,9 +3,11 @@ import { Box, Text } from "zmp-ui";
 import Reveal from "@/templates/t01/components/reveal";
 import PhotoFrame from "@/templates/t01/components/photo-frame";
 import { useWeddingData } from "@/core/wedding-context";
+import { dateParts } from "@/templates/_kit/date";
 
 const HeroSection = () => {
   const data = useWeddingData();
+  const d = dateParts(data.weddingISO);
 
   return (
     <Box className="wd-hero">
@@ -26,12 +28,15 @@ const HeroSection = () => {
             được viết bằng tin yêu, kiên nhẫn và niềm vui khi tìm thấy nhau.
           </Text>
         </Box>
-        <Box className="wd-date-stack" aria-label="Ngày 30 tháng 10 năm 2026">
-          <b>30</b>
+        <Box
+          className="wd-date-stack"
+          aria-label={`Ngày ${d.day} tháng ${d.month} năm ${d.year}`}
+        >
+          <b>{d.day}</b>
           <i />
-          <b>10</b>
+          <b>{d.month}</b>
           <i />
-          <b>26</b>
+          <b>{d.year.slice(-2)}</b>
         </Box>
       </Reveal>
     </Box>

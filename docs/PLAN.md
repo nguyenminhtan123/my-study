@@ -219,3 +219,12 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
   - Dữ liệu cá nhân lưu ở nước ngoài theo luật bảo vệ dữ liệu cá nhân của Việt Nam: chỉ thu tối thiểu (tên, có đến không, lời chúc), xóa khi thiệp hết hạn.
   - Ảnh khách cung cấp: chủ repo kiểm tra trước khi đăng (thỏa thuận 1.3).
   - Tốc độ tải (5.3): dữ liệu và ảnh tải qua mạng nên phải có màn hình chờ và ảnh nén để LCP < 2,5 giây.
+
+### Tiến độ v2
+- [x] Supabase (project "Thiep cuoi z", Sydney): schema, phân quyền, tắt tự đăng ký, thiệp thử `thu-nghiem-7k2p`.
+- [x] Mini App đọc `?thiep=`; màn hình chờ / không tìm thấy / lỗi mạng; nhạc riêng theo link.
+- [x] Tên khách mời (`?khach=`) và ngày âm lịch ở cả 25 mẫu (thành phần chung `GuestName`, `LunarNote`).
+- [x] Mẫu 1 lấy tên, ngày, giờ từ dữ liệu (trước đây viết cứng "Tân & Trang", 30/10/2026).
+- [x] Ngày giờ cưới luôn hiện theo giờ Việt Nam, kể cả khi khách mở ở nước ngoài.
+- [ ] Admin web (Vercel): đăng nhập, tạo/sửa thiệp, tải ảnh, link theo tên khách.
+- [ ] Gửi xác nhận tham dự/lời chúc vào DB, xuất Excel, trang Chính sách bảo mật.
