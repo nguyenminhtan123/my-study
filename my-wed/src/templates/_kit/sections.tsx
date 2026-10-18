@@ -6,6 +6,7 @@ import { GiftSide, PhotoSlot, TimelineStep, WeddingData } from "@/core/types";
 import { openLink } from "@/core/utils/open-link";
 import { buildMapUrl, buildPlaceholder, copyText } from "@/core/utils/wedding";
 import { Reveal, useSeconds } from "@/templates/_kit/anim";
+import { lunarDate } from "@/templates/_kit/date";
 import { IconPin, TIMELINE_ICONS } from "@/templates/_kit/icons";
 
 export const photoSrc = (photo: PhotoSlot) =>
@@ -25,17 +26,21 @@ export const CalendarCard = ({
   iso: string;
   monthClass?: string;
 }) => {
-  const date = new Date(iso);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
-  const total = new Date(year, month + 1, 0).getDate();
+  // the wedding day in Vietnam time, whatever the viewer's time zone
+  const date = new Date(new Date(iso).getTime() + 7 * 3600 * 1000);
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  const day = date.getUTCDate();
+  const offset = (new Date(Date.UTC(year, month, 1)).getUTCDay() + 6) % 7;
+  const total = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
   const cells: (number | null)[] = [
     ...Array.from({ length: offset }, () => null),
     ...Array.from({ length: total }, (_, i) => i + 1),
   ];
-  const monthName = date.toLocaleString("en-US", { month: "long" });
+  const monthName = date.toLocaleString("en-US", {
+    month: "long",
+    timeZone: "UTC",
+  });
 
   return (
     <div className="k-cal">
@@ -343,4 +348,39 @@ export const Families = ({
 export const useGuestName = () => {
   const [name] = useState(() => readParam("khach").slice(0, 60));
   return name;
+};
+
+/** The invited guest's name from the link, shown under "Trân trọng kính mời". Nothing when absent. */
+export const GuestName = ({
+  className = "",
+  prefix = "",
+}: {
+  className?: string;
+  /** e.g. "Kính gửi" under a "Trân trọng báo tin" line */
+  prefix?: string;
+}) => {
+  const name = useGuestName();
+  if (!name) return null;
+  return (
+    <p className={`k-guest ${className}`}>
+      {prefix ? `${prefix} ${name}` : name}
+    </p>
+  );
+};
+
+/** "(Tức ngày 12 tháng 11 năm Bính Ngọ)" under the wedding date. */
+export const LunarNote = ({
+  iso,
+  className = "",
+}: {
+  iso: string;
+  className?: string;
+}) => {
+  const l = lunarDate(iso);
+  return (
+    <p className={`k-lunar ${className}`}>
+      (Tức ngày {l.day} tháng {l.leap ? "nhuận " : ""}
+      {l.month} năm {l.yearName})
+    </p>
+  );
 };

@@ -10,6 +10,8 @@ import {
   Countdown,
   Dresscode,
   GiftCard,
+  GuestName,
+  LunarNote,
   RsvpForm,
   VenueActions,
   WindingTimeline,
@@ -57,6 +59,7 @@ const Template11 = ({ data }: { data: WeddingData }) => {
       <section className="t11-cream t11-invite">
         <Reveal>
           <p className="t11-eyebrow t11-dark">Trân trọng kính mời</p>
+          <GuestName />
           <div className="t11-stamp">
             <img src={photoSrc(data.photos.couple)} alt="" />
           </div>
@@ -66,6 +69,7 @@ const Template11 = ({ data }: { data: WeddingData }) => {
           <p className="t11-when">
             {d.weekday} · {d.time}
           </p>
+          <LunarNote iso={data.weddingISO} />
           <p className="t11-big">
             {d.day}.{d.month}.{d.year}
           </p>

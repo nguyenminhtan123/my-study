@@ -11,6 +11,8 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  GuestName,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
@@ -50,6 +52,7 @@ const Template22 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <div className="t22-deco">
             <p className="t22-kicker">Trân trọng kính mời</p>
+            <GuestName />
             <h2 className="t22-title">Quý khách đến dự tiệc cưới</h2>
             <Rule />
             <div className="t22-fam">
@@ -91,6 +94,7 @@ const Template22 = ({ data }: { data: WeddingData }) => {
           <p className="t22-sub">
             {d.weekday} · {d.time}
           </p>
+          <LunarNote iso={data.weddingISO} />
         </Reveal>
         <Reveal>
           <Countdown iso={data.weddingISO} />

@@ -16,9 +16,11 @@ import { dateParts } from "@/templates/_kit/date";
 import {
   Countdown,
   GiftCard,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoSrc,
+  useGuestName,
 } from "@/templates/_kit/sections";
 
 interface Stop {
@@ -57,6 +59,7 @@ const Heart = ({ tone }: { tone: number }) => (
 
 const Template14 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  const guest = useGuestName();
   const [entered, setEntered] = useState(false);
   const [gust, setGust] = useState(0); // bumps on every move so the hearts replay
   const [dir, setDir] = useState(1); // 1 = forward (wind blows left to right), -1 = back
@@ -74,7 +77,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
       body: (
         <>
           <p className="t14-eyebrow">
-            Trân trọng kính mời bạn đến dự lễ thành hôn của
+            Trân trọng kính mời {guest || "bạn"} đến dự lễ thành hôn của
           </p>
           <h2 className="t14-names">
             {data.groom}
@@ -105,6 +108,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
           <p className="t14-eyebrow">
             {d.weekday} · {d.time}
           </p>
+          <LunarNote iso={data.weddingISO} />
           <p className="t14-big">
             {d.day}
             <span>.</span>

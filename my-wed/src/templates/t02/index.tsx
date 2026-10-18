@@ -12,10 +12,12 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
   photoSrc,
+  useGuestName,
 } from "@/templates/_kit/sections";
 
 // numbered section: hairline that draws in, number, label
@@ -41,6 +43,7 @@ const Part = ({
 
 const Template02 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  const guest = useGuestName();
 
   return (
     <Page className="t02-root">
@@ -71,7 +74,8 @@ const Template02 = ({ data }: { data: WeddingData }) => {
       <Part no="01" label="Lời mời">
         <Reveal>
           <p className="t02-lead">
-            Trân trọng kính mời bạn đến dự lễ thành hôn của chúng mình.
+            Trân trọng kính mời {guest || "bạn"} đến dự lễ thành hôn của chúng
+            mình.
           </p>
         </Reveal>
         <Reveal>
@@ -102,6 +106,7 @@ const Template02 = ({ data }: { data: WeddingData }) => {
               <span>
                 {d.weekday} · {d.time}
               </span>
+              <LunarNote iso={data.weddingISO} />
             </div>
           </div>
         </Reveal>

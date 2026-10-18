@@ -10,6 +10,8 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  GuestName,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
@@ -43,6 +45,7 @@ const Template06 = ({ data }: { data: WeddingData }) => {
       <section className="t06-sec t06-center">
         <Reveal>
           <p className="t06-small t06-green">Trân trọng kính mời</p>
+          <GuestName />
           <h2 className="t06-title">Lễ thành hôn của chúng mình</h2>
         </Reveal>
         <Reveal>
@@ -77,6 +80,7 @@ const Template06 = ({ data }: { data: WeddingData }) => {
           <p className="t06-sub">
             {d.weekday} · {d.time}
           </p>
+          <LunarNote iso={data.weddingISO} />
         </Reveal>
         <Reveal>
           <Countdown iso={data.weddingISO} />

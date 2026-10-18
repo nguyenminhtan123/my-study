@@ -15,6 +15,8 @@ import {
   CalendarCard,
   Dresscode,
   GiftCard,
+  GuestName,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
@@ -51,12 +53,14 @@ const Template12 = ({ data }: { data: WeddingData }) => {
             <img src={photoSrc(data.photos.couple)} alt="" />
           </div>
           <p className="t12-small">Save the date</p>
+          <GuestName prefix="Kính mời" />
           <p className="t12-bigdate">
             {d.day} <span>{d.month}</span> {d.year}
           </p>
           <p className="t12-small">
             {d.weekday} · {d.time}
           </p>
+          <LunarNote iso={data.weddingISO} />
         </Reveal>
       </section>
 

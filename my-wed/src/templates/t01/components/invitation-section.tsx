@@ -4,6 +4,8 @@ import Reveal from "@/templates/t01/components/reveal";
 import PhotoFrame from "@/templates/t01/components/photo-frame";
 import { useCountdown } from "@/core/hooks/use-countdown";
 import { useWeddingData } from "@/core/wedding-context";
+import { dateParts, lunarDate } from "@/templates/_kit/date";
+import { useGuestName } from "@/templates/_kit/sections";
 import { openLink } from "@/core/utils/open-link";
 import { buildMapUrl } from "@/core/utils/wedding";
 
@@ -24,6 +26,9 @@ const FamilyColumn = ({
 
 const InvitationSection = () => {
   const data = useWeddingData();
+  const d = dateParts(data.weddingISO);
+  const lunar = lunarDate(data.weddingISO);
+  const guest = useGuestName();
   const countdown = useCountdown(data.weddingISO);
 
   return (
@@ -32,7 +37,8 @@ const InvitationSection = () => {
       <Box className="wd-invite">
         <Reveal>
           <Text className="wd-lead">
-            Kính mời bạn đến chung vui
+            Kính mời {guest ? <b className="wd-guest">{guest}</b> : "bạn"} đến
+            chung vui
             <br />
             lễ cưới của chúng mình
           </Text>
@@ -45,9 +51,19 @@ const InvitationSection = () => {
           </Box>
         </Reveal>
         <Reveal delay={250}>
-          <Text className="wd-when">17:00, THỨ SÁU</Text>
+          <Text className="wd-when">
+            {d.time}, {d.weekday}
+          </Text>
           <Text className="wd-date-line">
-            30<span>|</span>10<span>|</span>2026
+            {d.day}
+            <span>|</span>
+            {d.month}
+            <span>|</span>
+            {d.year}
+          </Text>
+          <Text className="wd-lunar">
+            (Tức ngày {lunar.day} tháng {lunar.leap ? "nhuận " : ""}
+            {lunar.month} năm {lunar.yearName})
           </Text>
         </Reveal>
         <Reveal delay={350}>

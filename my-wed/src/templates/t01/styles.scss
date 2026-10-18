@@ -980,3 +980,18 @@
     display: none;
   }
 }
+
+// guest name from the link (?khach=) and the lunar date line
+.wd-guest {
+  font-family: var(--serif);
+  text-transform: none;
+  font-weight: 600;
+  color: var(--rose);
+}
+.wd-lunar {
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-style: italic;
+  opacity: 0.7;
+}

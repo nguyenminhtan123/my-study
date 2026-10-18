@@ -10,6 +10,8 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  GuestName,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
@@ -48,12 +50,14 @@ const Template07 = ({ data }: { data: WeddingData }) => {
               {d.day}.{d.month}.{d.year}
             </b>
           </p>
+          <LunarNote iso={data.weddingISO} />
         </div>
       </section>
 
       <section className="t07-sec t07-center">
         <Reveal>
           <p className="t07-small">Trân trọng kính mời</p>
+          <GuestName />
           <h2 className="t07-title">Đến dự lễ thành hôn của chúng mình</h2>
         </Reveal>
         <Reveal>

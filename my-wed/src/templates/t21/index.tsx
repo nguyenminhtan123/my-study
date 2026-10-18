@@ -12,10 +12,12 @@ import {
   CalendarCard,
   Countdown,
   GiftCard,
+  LunarNote,
   RsvpForm,
   VenueActions,
   photoShape,
   photoSrc,
+  useGuestName,
 } from "@/templates/_kit/sections";
 
 // a magazine "page" heading: running number, rule, title
@@ -30,6 +32,7 @@ const PageHead = ({ no, title }: { no: string; title: ReactNode }) => (
 
 const Template21 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  const guest = useGuestName();
 
   return (
     <Page className="t21-root">
@@ -62,9 +65,9 @@ const Template21 = ({ data }: { data: WeddingData }) => {
         <PageHead no="01" title="Lời mời" />
         <Reveal>
           <p className="t21-drop">
-            Trân trọng kính mời bạn đến dự lễ thành hôn của {data.groom} và{" "}
-            {data.bride}. Sự hiện diện của bạn là niềm vinh hạnh cho gia đình
-            chúng tôi.
+            Trân trọng kính mời {guest || "bạn"} đến dự lễ thành hôn của{" "}
+            {data.groom} và {data.bride}. Sự hiện diện của bạn là niềm vinh hạnh
+            cho gia đình chúng tôi.
           </p>
         </Reveal>
         <Reveal>
@@ -104,6 +107,7 @@ const Template21 = ({ data }: { data: WeddingData }) => {
               <em>
                 {d.weekday} · {d.time}
               </em>
+              <LunarNote iso={data.weddingISO} />
             </div>
           </div>
         </Reveal>
