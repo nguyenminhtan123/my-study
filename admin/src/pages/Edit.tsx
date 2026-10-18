@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
 
 import { MIN_ALBUM, PHOTO_LABELS, SONGS, TEMPLATES } from "../catalog";
 import {
@@ -57,6 +57,14 @@ const EditPage = ({ code: editCode }: { code?: string }) => {
   const [loading, setLoading] = useState(!!editCode);
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState("");
+  const strip = useRef<HTMLDivElement>(null);
+
+  // keep the chosen template in view in the sideways strip (phones)
+  useEffect(() => {
+    strip.current
+      ?.querySelector(".tpl.on")
+      ?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [templateId, loading]);
 
   useEffect(() => {
     if (!editCode) return;
@@ -238,7 +246,10 @@ const EditPage = ({ code: editCode }: { code?: string }) => {
       )}
 
       <Section title="1. Mẫu thiệp">
-        <div className="templates">
+        <p className="muted small only-mobile">
+          Đang chọn: <b>{template?.name}</b> · vuốt ngang để xem các mẫu
+        </p>
+        <div className="templates" ref={strip}>
           {TEMPLATES.map((t) => (
             <button
               key={t.id}
@@ -566,7 +577,10 @@ const EditPage = ({ code: editCode }: { code?: string }) => {
 
       <div className="savebar">
         {missing.length > 0 && (
-          <p className="warn small">Còn thiếu: {missing.join(", ")}</p>
+          <details className="warn small">
+            <summary>Còn thiếu {missing.length} mục</summary>
+            {missing.join(", ")}
+          </details>
         )}
         {msg && <p className={msg.startsWith("Lỗi") ? "error" : "ok"}>{msg}</p>}
         <div className="row">

@@ -1,4 +1,4 @@
-import { APP_ID, MIN_ALBUM, TEMPLATES } from "./catalog";
+import { APP_ID, MIN_ALBUM, PHOTO_LABELS, TEMPLATES } from "./catalog";
 import { supabase } from "./supabase";
 
 // Mirrors WeddingData in my-wed/src/core/types.ts (what the templates render).
@@ -150,7 +150,7 @@ export const missingFor = (templateId: string, d: WeddingData) => {
   if (!d.venueAddress.trim()) out.push("địa chỉ");
   const t = TEMPLATES.find((x) => x.id === templateId);
   for (const slot of t?.photos ?? [])
-    if (!d.photos[slot]?.src) out.push(`ảnh "${slot}"`);
+    if (!d.photos[slot]?.src) out.push(PHOTO_LABELS[slot] ?? slot);
   if (d.album.length < MIN_ALBUM) out.push(`album (ít nhất ${MIN_ALBUM} ảnh)`);
   if (d.timeline.some((s) => !s.time || !s.label))
     out.push("lịch trình (đủ 4 mục)");
@@ -196,12 +196,10 @@ export const uploadPhoto = async (
 ) => {
   const { blob, width, height } = await compressImage(file);
   const path = `${code}/${key}-${Date.now()}.jpg`;
-  const { error } = await supabase.storage
-    .from("media")
-    .upload(path, blob, {
-      contentType: "image/jpeg",
-      cacheControl: "31536000",
-    });
+  const { error } = await supabase.storage.from("media").upload(path, blob, {
+    contentType: "image/jpeg",
+    cacheControl: "31536000",
+  });
   if (error) throw error;
   const src = supabase.storage.from("media").getPublicUrl(path).data.publicUrl;
   const g = gcd(width, height) || 1;
@@ -211,12 +209,10 @@ export const uploadPhoto = async (
 /** Uploads a customer's own song (mp3) and returns its public link. */
 export const uploadSong = async (code: string, file: File) => {
   const path = `${code}/song-${Date.now()}.mp3`;
-  const { error } = await supabase.storage
-    .from("media")
-    .upload(path, file, {
-      contentType: "audio/mpeg",
-      cacheControl: "31536000",
-    });
+  const { error } = await supabase.storage.from("media").upload(path, file, {
+    contentType: "audio/mpeg",
+    cacheControl: "31536000",
+  });
   if (error) throw error;
   return supabase.storage.from("media").getPublicUrl(path).data.publicUrl;
 };

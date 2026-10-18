@@ -100,7 +100,26 @@ const RsvpsPage = ({ code }: { code: string }) => {
           >
             Xuất Excel
           </button>
-          <table className="table">
+          <div className="rsvp-cards only-mobile">
+            {rows.map((r) => (
+              <article key={r.id} className="card rsvp-card">
+                <div className="row between">
+                  <b>{r.guest_name}</b>
+                  <span
+                    className={`badge ${r.attending ? "active" : "expired"}`}
+                  >
+                    {r.attending ? `Đến · ${r.party_size} người` : "Không đến"}
+                  </span>
+                </div>
+                {r.message && <p className="wish">{r.message}</p>}
+                <p className="muted small">
+                  {r.side ? `${SIDE[r.side]} · ` : ""}
+                  {when(r.created_at)}
+                </p>
+              </article>
+            ))}
+          </div>
+          <table className="table only-desktop">
             <thead>
               <tr>
                 <th>Tên</th>
