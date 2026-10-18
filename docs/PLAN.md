@@ -176,3 +176,49 @@ Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn 
 
 - Zalo cấm điều hướng ra liên kết bên thứ 3 chưa được chấp thuận (mục 4.1, https://go.zalo.me/cskiemduyetZMA). Đã bỏ "Lưu vào lịch" (Google Calendar). "Chỉ đường" (Google Maps) giữ lại theo quyết định của chủ repo; nếu lần duyệt sau bị bắt thì đổi sang "Sao chép địa chỉ".
 - Tên app "Thiệp Cưới Z" bị từ chối vì là từ khóa chung; chủ repo xử lý đổi tên qua ticket.
+
+## Kế hoạch v2: thiệp thật cho từng khách
+
+### Đã chốt (chủ repo)
+- Sản lượng dự kiến 50–100 thiệp/tháng, giá 120.000đ/thiệp. Chủ repo tự nhập dữ liệu cho khách (chưa làm khách tự điền).
+- 1 Mini App duy nhất. Link có `?thiep=<mã>` thì hiện thiệp của cặp đó (đúng mẫu họ chọn); không có thì hiện gallery như hiện tại. Thêm `&khach=<tên>` để ghi tên khách mời.
+- Dữ liệu lưu Supabase. Admin là web riêng deploy trên Vercel, có đăng nhập (chỉ chủ repo).
+- Xác nhận tham dự và lời chúc lưu vào DB; admin có nút xuất Excel theo từng thiệp để gửi lại cho cô dâu chú rể.
+
+### Thiết kế
+- **Mẫu ≠ thiệp.** Mẫu (`templates/tNN`) chỉ là giao diện, nhận `data` từ ngoài; `demo-data.ts` giữ cho gallery. Thiệp là 1 dòng trong DB: `{ mã, mẫu, data (JSON đúng kiểu WeddingData), trạng thái, ngày hết hạn }`. Một mẫu phục vụ nhiều cặp cùng lúc; cưới xong chỉ thiệp hết hạn, mẫu dùng tiếp.
+- **Bảng DB:** `invitations` (mã ngẫu nhiên khó đoán, vd `khoi-ngoc-7k2p`, để người lạ không dò được thiệp khác), `rsvps` (mã thiệp, tên khách, tham dự, số người, bên nào, lời chúc, thời gian). Ảnh và nhạc trong Supabase Storage.
+- **Phân quyền (RLS):** Mini App dùng anon key, chỉ được *đọc 1 thiệp theo mã* (không liệt kê được) và *thêm* RSVP (không đọc được RSVP của người khác). Admin đọc/ghi tất cả sau khi đăng nhập. Service key không bao giờ nằm trong repo hay trong Mini App.
+- **Khóa Supabase trong Mini App:** URL + anon key để ở file env riêng (vd `my-wed/.env.local`, thêm vào `.gitignore`), không đụng `my-wed/.env`.
+- **Vòng đời thiệp:** Nháp → Đang dùng → sau ngày cưới ~30 ngày chuyển "Lưu niệm" (chỉ còn ảnh và lời cảm ơn) → hết hạn thì xóa ảnh để tiết kiệm dung lượng. Có thể bán thêm gói giữ vĩnh viễn.
+
+### Chi phí ước tính (Supabase)
+- 1 thiệp ≈ 15 ảnh × ~150 KB ≈ 2–3 MB; 1 lượt mở thiệp ≈ 2–3 MB băng thông.
+- 100 thiệp/tháng × ~200–300 lượt mở ≈ 50–90 GB băng thông/tháng: vượt gói miễn phí (~5 GB) → cần gói Pro ~25 USD/tháng (~250 GB băng thông, 100 GB lưu trữ, không bị tạm dừng). Doanh thu 6–12 triệu/tháng nên chi phí này ~5–10%.
+- Giai đoạn đầu (vài thiệp) dùng gói miễn phí được; lên Pro khi bắt đầu bán đều. Ảnh phải nén khi tải lên (admin tự nén).
+
+### Lộ trình
+0. **Chủ repo chuẩn bị:** tạo project Supabase (chọn vùng Singapore), tài khoản Vercel, xử lý ticket đổi tên app.
+1. **Mini App đọc thiệp:** đọc `?thiep=`, lấy dữ liệu từ Supabase, hiện đúng mẫu; màn hình chờ khi tải; trang "thiệp không tồn tại/đã hết hạn". Đưa tên khách mời (`khach=`) và ngày âm lịch về tất cả mẫu (hiện mới có ở t25).
+2. **Admin web (Vercel):** đăng nhập; danh sách thiệp; tạo/sửa thiệp (chọn mẫu có ảnh xem trước, điền thông tin, tải ảnh tự nén, chọn nhạc); xem trước; tạo link thiệp + dán danh sách khách mời ra link riêng từng người.
+3. **Xác nhận tham dự thật:** form lưu vào DB (có dòng đồng ý chia sẻ thông tin); trong gallery form chỉ là mẫu (ghi rõ, không lưu); admin xem danh sách và xuất Excel; trang Chính sách bảo mật trong Mini App.
+4. **Rà chính sách và gửi duyệt:** sửa các điểm ở mục dưới, tạo 1 thiệp mẫu thật cho người duyệt xem, viết mô tả phiên bản.
+5. **Sau này (chưa tính):** khách tự điền/tự sửa, bán sỉ cho studio.
+
+### Rà chính sách Zalo cho thiết kế v2
+Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/zalo-mini-app-censorship-policy/) và [Thỏa thuận nhà phát triển](https://mini.zalo.me/documents/zalo-mini-app-developer-program-agreement):
+- **Ổn:**
+  - Nội dung tải từ máy chủ theo link là bình thường; tính năng cố định như lúc duyệt (thỏa thuận 7.3 cấm *bật/tắt tính năng ẩn để lách duyệt*, không cấm đổi nội dung). Ghi rõ trong mô tả phiên bản và gửi kèm link thiệp mẫu cho người duyệt.
+  - Admin là web riêng, Mini App không có link nào trỏ sang admin (4.1). Giá và thanh toán chỉ ở admin/chuyển khoản, Mini App không hiển thị giá, không có nút mua (mục 8).
+  - Không bắt đăng nhập, không xin quyền (mục 6).
+- **Phải làm:**
+  - **Lời chúc chỉ gửi riêng cho cô dâu chú rể** (qua file Excel), **không hiện công khai** trên thiệp. Một bức tường lời chúc ai cũng thấy là tính năng kiểu mạng xã hội, mục 4.6 cấm.
+  - **RSVP là dữ liệu cá nhân:** form phải nói rõ thông tin gửi cho ai, dùng làm gì, có ô đồng ý; Mini App phải có trang Chính sách bảo mật ghi tên app và người chịu trách nhiệm (4.8, mục 7, thỏa thuận 7.5).
+  - **Không lấy dữ liệu từ Zalo** (tên, số điện thoại tài khoản Zalo qua API): thỏa thuận 7.5 cấm nhận dữ liệu cá nhân từ nền tảng về máy chủ ở ngoài Việt Nam, mà Supabase ở Singapore. Khách mời tự gõ tên vào form.
+  - Gallery xem thử không được giả vờ gửi RSVP (5.1 cấm tính năng ở trạng thái demo): ghi rõ "thiệp mẫu".
+  - Đổi "Chỉ đường" (Google Maps) thành "Sao chép địa chỉ" trước khi gửi duyệt (4.1).
+- **Rủi ro còn lại:**
+  - Nhạc có bản quyền (thỏa thuận 7.4).
+  - Dữ liệu cá nhân lưu ở nước ngoài theo luật bảo vệ dữ liệu cá nhân của Việt Nam: chỉ thu tối thiểu (tên, có đến không, lời chúc), xóa khi thiệp hết hạn.
+  - Ảnh khách cung cấp: chủ repo kiểm tra trước khi đăng (thỏa thuận 1.3).
+  - Tốc độ tải (5.3): dữ liệu và ảnh tải qua mạng nên phải có màn hình chờ và ảnh nén để LCP < 2,5 giây.
