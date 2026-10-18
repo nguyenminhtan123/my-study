@@ -1,6 +1,7 @@
 import { FormEvent, ReactNode, useState } from "react";
 import { useSnackbar } from "zmp-ui";
 
+import { submitRsvp } from "@/core/invitations";
 import { readParam } from "@/core/params";
 import { GiftSide, PhotoSlot, TimelineStep, WeddingData } from "@/core/types";
 import { openLink } from "@/core/utils/open-link";
@@ -188,6 +189,34 @@ const Chips = ({
   </div>
 );
 
+/**
+ * Consent line under the RSVP form of a real invitation: what is sent and to whom.
+ * Required before a guest's details are stored.
+ */
+export const RsvpConsent = ({
+  checked,
+  onChange,
+  error,
+  className = "k-consent",
+}: {
+  checked: boolean;
+  onChange: (value: boolean) => void;
+  error?: boolean;
+  className?: string;
+}) => (
+  <label className={`${className} ${error ? "k-consent-error" : ""}`}>
+    <input
+      type="checkbox"
+      checked={checked}
+      onChange={(event) => onChange(event.target.checked)}
+    />
+    <span>
+      Tôi đồng ý gửi tên, lời chúc và thông tin tham dự cho cô dâu chú rể (chỉ
+      hai bạn xem được).
+    </span>
+  </label>
+);
+
 export const RsvpForm = ({
   data,
   title = "Xác nhận tham dự",
@@ -197,21 +226,52 @@ export const RsvpForm = ({
   title?: ReactNode;
   variant?: "chips" | "select";
 }) => {
-  const [name, setName] = useState("");
+  // real invitation (link with ?thiep=): the answer is stored for the couple; gallery: just a sample
+  const [code] = useState(() => readParam("thiep").toLowerCase());
+  const [name, setName] = useState(() => readParam("khach").slice(0, 80));
   const [message, setMessage] = useState("");
   const [attend, setAttend] = useState("Sẽ tham dự");
   const [plus, setPlus] = useState("Đi một mình");
   const [side, setSide] = useState("Khách của chú rể");
+  const [consent, setConsent] = useState(false);
   const [error, setError] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState("");
   const [done, setDone] = useState(false);
 
-  const submit = (event: FormEvent) => {
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
     if (!name.trim()) {
       setError(true);
       return;
     }
-    setDone(true);
+    if (!code) {
+      setDone(true);
+      return;
+    }
+    if (!consent) {
+      setConsentError(true);
+      return;
+    }
+    setSending(true);
+    setFailed("");
+    try {
+      const ok = await submitRsvp(code, {
+        guestName: name,
+        attending: attend === "Sẽ tham dự",
+        partySize: plus === "Đi cùng người thân" ? 2 : 1,
+        side: side === "Khách của cô dâu" ? "bride" : "groom",
+        message,
+        consent,
+      });
+      if (ok) setDone(true);
+      else setFailed("Thiệp đã ngừng nhận phản hồi.");
+    } catch {
+      setFailed("Chưa gửi được, bạn thử lại sau ít phút nhé.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (done) {
@@ -279,8 +339,19 @@ export const RsvpForm = ({
           />
         </>
       )}
-      <button type="submit" className="k-submit">
-        Xác nhận
+      {code && (
+        <RsvpConsent
+          checked={consent}
+          error={consentError}
+          onChange={(v) => {
+            setConsent(v);
+            setConsentError(false);
+          }}
+        />
+      )}
+      {failed && <small>{failed}</small>}
+      <button type="submit" className="k-submit" disabled={sending}>
+        {sending ? "Đang gửi…" : "Xác nhận"}
       </button>
     </form>
   );

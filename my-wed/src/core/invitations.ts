@@ -59,4 +59,40 @@ export const mergeInvitationData = (
   families: { ...base.families, ...own.families },
   gifts: { ...base.gifts, ...own.gifts },
   photos: { ...base.photos, ...own.photos },
+  // some templates place album[0..3] at fixed spots: repeat the couple's own photos rather than
+  // show sample photos (or break) when fewer were uploaded
+  album: fillAlbum(own.album, base.album),
 });
+
+const fillAlbum = (
+  own: WeddingData["album"] | undefined,
+  base: WeddingData["album"],
+) => {
+  if (!own?.length) return base;
+  if (own.length >= 4) return own;
+  return Array.from({ length: 4 }, (_, i) => ({
+    ...own[i % own.length],
+    key: `${own[i % own.length].key}-${i}`,
+  }));
+};
+
+export interface RsvpInput {
+  guestName: string;
+  attending: boolean;
+  partySize: number;
+  side: "groom" | "bride" | "";
+  message: string;
+  consent: boolean;
+}
+
+/** Sends a guest's RSVP + wish for the invitation `code`. False when the invitation is closed. */
+export const submitRsvp = (code: string, r: RsvpInput) =>
+  rpc<boolean>("submit_rsvp", {
+    p_code: code,
+    p_guest_name: r.guestName.trim().slice(0, 80),
+    p_attending: r.attending,
+    p_party_size: r.partySize,
+    p_side: r.side,
+    p_message: r.message.trim().slice(0, 1000),
+    p_consent: r.consent,
+  });

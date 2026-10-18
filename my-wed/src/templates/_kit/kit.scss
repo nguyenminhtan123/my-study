@@ -516,3 +516,26 @@
   text-transform: none;
   opacity: 0.75;
 }
+
+// consent line under the RSVP form of a real invitation
+.k-consent {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+
+  input {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin: 2px 0 0;
+    accent-color: var(--k-accent);
+  }
+}
+.k-consent-error {
+  color: #c0392b;
+  opacity: 1;
+}
