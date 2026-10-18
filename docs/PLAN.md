@@ -228,5 +228,5 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
 - [x] Ngày giờ cưới luôn hiện theo giờ Việt Nam, kể cả khi khách mở ở nước ngoài.
 - [x] Admin web (`admin/`, deploy Vercel): đăng nhập, danh sách, tạo/sửa thiệp (chọn mẫu, ảnh tự nén, album, mừng cưới, nhạc), link theo tên khách, xóa thiệp kèm ảnh.
 - [x] Xác nhận tham dự/lời chúc gửi vào DB (có ô đồng ý), admin xem và xuất Excel.
-- [ ] Trang Chính sách bảo mật trong Mini App.
+- [-] Trang Chính sách bảo mật trong Mini App: chủ repo quyết định chưa làm (lần duyệt trước không bị yêu cầu).
 - [ ] Deploy admin lên Vercel (chủ repo).
