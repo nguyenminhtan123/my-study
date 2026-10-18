@@ -6,7 +6,7 @@ import {
   ZMPRouter,
 } from "zmp-ui";
 
-import GalleryPage from "@/pages/index";
+import HomePage from "@/pages/home";
 import TemplateDetailPage from "@/pages/template-detail";
 
 const Layout = () => {
@@ -15,7 +15,7 @@ const Layout = () => {
       <SnackbarProvider>
         <ZMPRouter>
           <AnimationRoutes>
-            <Route path="/" element={<GalleryPage />}></Route>
+            <Route path="/" element={<HomePage />}></Route>
             <Route
               path="/template/:id"
               element={<TemplateDetailPage />}

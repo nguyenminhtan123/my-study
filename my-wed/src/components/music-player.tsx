@@ -25,7 +25,14 @@ const Note = () => (
  * the song starts on the viewer's first tap anywhere (unless they turned it off before); it pauses
  * while the app is in the background and stops when the page closes.
  */
-const MusicPlayer = ({ song }: { song?: string }) => {
+const MusicPlayer = ({
+  song,
+  corner = false,
+}: {
+  song?: string;
+  /** no preview bar on the page: sit in the bottom corner */
+  corner?: boolean;
+}) => {
   const url = musicUrl(song);
   const audio = useRef<HTMLAudioElement | null>(null);
   const button = useRef<HTMLButtonElement>(null);
@@ -111,7 +118,7 @@ const MusicPlayer = ({ song }: { song?: string }) => {
     <button
       ref={button}
       type="button"
-      className={`gl-music ${playing ? "gl-music-on" : ""}`}
+      className={`gl-music ${corner ? "gl-music-corner" : ""} ${playing ? "gl-music-on" : ""}`}
       aria-label={playing ? "Tắt nhạc" : "Bật nhạc"}
       aria-pressed={playing}
       onClick={toggle}

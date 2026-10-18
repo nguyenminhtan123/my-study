@@ -1,6 +1,7 @@
 import { FormEvent, ReactNode, useState } from "react";
 import { useSnackbar } from "zmp-ui";
 
+import { readParam } from "@/core/params";
 import { GiftSide, PhotoSlot, TimelineStep, WeddingData } from "@/core/types";
 import { openLink } from "@/core/utils/open-link";
 import { buildMapUrl, buildPlaceholder, copyText } from "@/core/utils/wedding";
@@ -338,19 +339,8 @@ export const Families = ({
   </div>
 );
 
-/**
- * Guest name for a personal invitation, from the link: `?khach=Em%20Hi%E1%BB%81n` (also read
- * from the hash part, which is where the mini app router keeps its own query). Empty when absent.
- */
+/** Guest name for a personal invitation, from the link: `?khach=Em%20Hi%E1%BB%81n`. Empty when absent. */
 export const useGuestName = () => {
-  const [name] = useState(() => {
-    if (typeof window === "undefined") return "";
-    const read = (q: string) => new URLSearchParams(q).get("khach") ?? "";
-    const hash = window.location.hash;
-    const fromHash = hash.includes("?")
-      ? read(hash.slice(hash.indexOf("?")))
-      : "";
-    return (read(window.location.search) || fromHash).trim().slice(0, 60);
-  });
+  const [name] = useState(() => readParam("khach").slice(0, 60));
   return name;
 };
