@@ -14,6 +14,11 @@ npm run dev
 ```
 
 ## Deploy lên Vercel
+
+Đã deploy: **https://thiep-cuoi-admin.vercel.app** (project `thiep-cuoi-admin`, Root Directory `admin`).
+`.vercelignore` ở gốc repo giới hạn file gửi lên (chỉ `admin/` và ảnh thumbnail mẫu).
+
+Cách tạo lại từ đầu:
 1. vercel.com → **Add New → Project** → chọn repo `my-study`.
 2. **Root Directory**: `admin` (Framework tự nhận là Vite).
 3. **Environment Variables**: thêm `VITE_SUPABASE_URL` và `VITE_SUPABASE_ANON_KEY` (lấy trong `my-wed/.env.local`).

@@ -1,0 +1,13 @@
+# Vercel deploys only the admin web (Root Directory: admin) plus the template thumbnails it shows.
+/*
+!/admin
+!/my-wed
+/my-wed/*
+!/my-wed/src
+/my-wed/src/*
+!/my-wed/src/static
+/my-wed/src/static/*
+!/my-wed/src/static/thumbs
+/admin/node_modules
+/admin/dist
+/admin/.env.local
