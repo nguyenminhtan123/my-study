@@ -65,21 +65,21 @@ const GuestsPage = ({ code }: { code: string }) => {
         )}
         {copied && <span className="ok small">Đã copy {copied}</span>}
       </div>
-      <table className="table">
-        <tbody>
-          {guests.map((g) => (
-            <tr key={g}>
-              <td>{g}</td>
-              <td className="small code">{invitationLink(code, g)}</td>
-              <td>
-                <button onClick={() => copy(invitationLink(code, g), g)}>
-                  Copy
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="links">
+        {guests.map((g) => (
+          <div key={g} className="link-row">
+            <div>
+              <b>{g}</b>
+              <span className="small code muted">
+                {invitationLink(code, g)}
+              </span>
+            </div>
+            <button onClick={() => copy(invitationLink(code, g), g)}>
+              Copy
+            </button>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

@@ -355,3 +355,168 @@ button:disabled {
 section > textarea {
   margin: 8px 0;
 }
+
+/* ---------- guest links ---------- */
+.links {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.link-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.link-row > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.link-row .code {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.link-row button {
+  flex: none;
+}
+.rsvp-cards {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.rsvp-card p {
+  margin: 6px 0 0;
+}
+.rsvp-card .wish {
+  white-space: pre-wrap;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.only-mobile {
+  display: none;
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 640px) {
+  /* 16px inputs stop iOS from zooming in on focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 11px 12px;
+  }
+  button,
+  .button {
+    min-height: 42px;
+    justify-content: center;
+  }
+  h2 {
+    font-size: 19px;
+  }
+  .only-mobile {
+    display: block;
+  }
+  .only-desktop {
+    display: none;
+  }
+  .shell {
+    padding: 0 12px calc(130px + env(safe-area-inset-bottom));
+  }
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg);
+    padding: 10px 0;
+    margin-bottom: 14px;
+  }
+  .top .muted {
+    display: none;
+  }
+  .card {
+    padding: 14px 12px;
+    border-radius: 10px;
+  }
+
+  /* list: actions as a 2x2 grid of full-width buttons */
+  .item {
+    display: grid;
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .actions > * {
+    width: 100%;
+  }
+
+  /* templates: one sideways strip instead of a 25-card grid */
+  .templates {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 8px;
+    margin: 0 -12px;
+    padding: 2px 12px 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tpl {
+    flex: 0 0 92px;
+    scroll-snap-align: center;
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+  .timeline .row {
+    flex-wrap: nowrap;
+  }
+  .timeline .row input[type="time"] {
+    width: 112px;
+    flex: none;
+  }
+  .slots,
+  .album {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .album figcaption button {
+    min-height: 32px;
+    padding: 2px 6px;
+  }
+  .colors input {
+    width: 44px;
+  }
+
+  /* save bar pinned to the bottom of the screen */
+  .savebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+    justify-items: stretch;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 16px rgba(60, 40, 30, 0.08);
+  }
+  .savebar .row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .savebar .row > :only-child {
+    grid-column: 1 / -1;
+  }
+
+  .login {
+    margin: 8vh 12px;
+  }
+}
