@@ -226,5 +226,7 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
 - [x] Tên khách mời (`?khach=`) và ngày âm lịch ở cả 25 mẫu (thành phần chung `GuestName`, `LunarNote`).
 - [x] Mẫu 1 lấy tên, ngày, giờ từ dữ liệu (trước đây viết cứng "Tân & Trang", 30/10/2026).
 - [x] Ngày giờ cưới luôn hiện theo giờ Việt Nam, kể cả khi khách mở ở nước ngoài.
-- [ ] Admin web (Vercel): đăng nhập, tạo/sửa thiệp, tải ảnh, link theo tên khách.
-- [ ] Gửi xác nhận tham dự/lời chúc vào DB, xuất Excel, trang Chính sách bảo mật.
+- [x] Admin web (`admin/`, deploy Vercel): đăng nhập, danh sách, tạo/sửa thiệp (chọn mẫu, ảnh tự nén, album, mừng cưới, nhạc), link theo tên khách, xóa thiệp kèm ảnh.
+- [x] Xác nhận tham dự/lời chúc gửi vào DB (có ô đồng ý), admin xem và xuất Excel.
+- [ ] Trang Chính sách bảo mật trong Mini App.
+- [ ] Deploy admin lên Vercel (chủ repo).
