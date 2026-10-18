@@ -174,7 +174,7 @@ Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn 
 
 ## Cập nhật: kiểm duyệt Zalo (lần 1 bị từ chối)
 
-- Zalo cấm điều hướng ra liên kết bên thứ 3 chưa được chấp thuận (mục 4.1, https://go.zalo.me/cskiemduyetZMA). Đã bỏ "Lưu vào lịch" (Google Calendar). "Chỉ đường" (Google Maps) giữ lại theo quyết định của chủ repo; nếu lần duyệt sau bị bắt thì đổi sang "Sao chép địa chỉ".
+- Zalo cấm điều hướng ra liên kết bên thứ 3 chưa được chấp thuận (mục 4.1, https://go.zalo.me/cskiemduyetZMA). Đã bỏ "Lưu vào lịch" (Google Calendar). "Chỉ đường" (Google Maps) giữ lại: mở bên trong Mini App vẫn hợp lệ (chủ repo xác nhận). App đã được duyệt.
 - Tên app "Thiệp Cưới Z" bị từ chối vì là từ khóa chung; chủ repo xử lý đổi tên qua ticket.
 
 ## Kế hoạch v2: thiệp thật cho từng khách
