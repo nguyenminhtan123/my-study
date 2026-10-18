@@ -201,8 +201,8 @@ Font t25 (theo thiệp tham khảo, thay font thương mại bằng font miễn 
 0. **Chủ repo chuẩn bị:** tạo project Supabase (chọn vùng Singapore), tài khoản Vercel, xử lý ticket đổi tên app.
 1. **Mini App đọc thiệp:** đọc `?thiep=`, lấy dữ liệu từ Supabase, hiện đúng mẫu; màn hình chờ khi tải; trang "thiệp không tồn tại/đã hết hạn". Đưa tên khách mời (`khach=`) và ngày âm lịch về tất cả mẫu (hiện mới có ở t25).
 2. **Admin web (Vercel):** đăng nhập; danh sách thiệp; tạo/sửa thiệp (chọn mẫu có ảnh xem trước, điền thông tin, tải ảnh tự nén, chọn nhạc); xem trước; tạo link thiệp + dán danh sách khách mời ra link riêng từng người.
-3. **Xác nhận tham dự thật:** form lưu vào DB (có dòng đồng ý chia sẻ thông tin); trong gallery form chỉ là mẫu (ghi rõ, không lưu); admin xem danh sách và xuất Excel; trang Chính sách bảo mật trong Mini App.
-4. **Rà chính sách và gửi duyệt:** sửa các điểm ở mục dưới, tạo 1 thiệp mẫu thật cho người duyệt xem, viết mô tả phiên bản.
+3. **Xác nhận tham dự và lời chúc thật:** form gửi qua API lưu vào DB (có dòng đồng ý chia sẻ thông tin); admin xem danh sách và xuất Excel; trang Chính sách bảo mật trong Mini App.
+4. **Rà chính sách và gửi bản cập nhật:** tạo 1 thiệp mẫu thật cho người duyệt xem, viết mô tả phiên bản.
 5. **Sau này (chưa tính):** khách tự điền/tự sửa, bán sỉ cho studio.
 
 ### Rà chính sách Zalo cho thiết kế v2
@@ -212,11 +212,8 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
   - Admin là web riêng, Mini App không có link nào trỏ sang admin (4.1). Giá và thanh toán chỉ ở admin/chuyển khoản, Mini App không hiển thị giá, không có nút mua (mục 8).
   - Không bắt đăng nhập, không xin quyền (mục 6).
 - **Phải làm:**
-  - **Lời chúc chỉ gửi riêng cho cô dâu chú rể** (qua file Excel), **không hiện công khai** trên thiệp. Một bức tường lời chúc ai cũng thấy là tính năng kiểu mạng xã hội, mục 4.6 cấm.
-  - **RSVP là dữ liệu cá nhân:** form phải nói rõ thông tin gửi cho ai, dùng làm gì, có ô đồng ý; Mini App phải có trang Chính sách bảo mật ghi tên app và người chịu trách nhiệm (4.8, mục 7, thỏa thuận 7.5).
-  - **Không lấy dữ liệu từ Zalo** (tên, số điện thoại tài khoản Zalo qua API): thỏa thuận 7.5 cấm nhận dữ liệu cá nhân từ nền tảng về máy chủ ở ngoài Việt Nam, mà Supabase ở Singapore. Khách mời tự gõ tên vào form.
-  - Gallery xem thử không được giả vờ gửi RSVP (5.1 cấm tính năng ở trạng thái demo): ghi rõ "thiệp mẫu".
-  - Đổi "Chỉ đường" (Google Maps) thành "Sao chép địa chỉ" trước khi gửi duyệt (4.1).
+  - Lời chúc và xác nhận tham dự gửi qua API, lưu vào DB; chỉ cô dâu chú rể nhận (admin xuất Excel). Không hiện lời chúc công khai trên thiệp (tường lời chúc ai cũng thấy là tính năng kiểu mạng xã hội, mục 4.6).
+  - Form RSVP có dòng đồng ý chia sẻ thông tin; Mini App có trang Chính sách bảo mật (4.8, mục 7).
 - **Rủi ro còn lại:**
   - Nhạc có bản quyền (thỏa thuận 7.4).
   - Dữ liệu cá nhân lưu ở nước ngoài theo luật bảo vệ dữ liệu cá nhân của Việt Nam: chỉ thu tối thiểu (tên, có đến không, lời chúc), xóa khi thiệp hết hạn.
