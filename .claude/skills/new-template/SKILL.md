@@ -1,49 +1,67 @@
 ---
 name: new-template
-description: Build a new wedding-invitation template (tNN) for the my-wed gallery from a design image. Use when the user provides a design image and asks to create, add, or make a new template/mẫu thiệp. Follows a fixed process (tokens, sections, build, screenshot compare) so results match the image and don't drift.
+description: Create a new wedding-invitation template (tNN) for the my-wed gallery, design first: the owner picks a design group and story, Claude writes a short brief, renders a mockup image of the phone screens, and only after the owner approves the mockup builds the template code. Use when the user asks to create, add, or make a new template/mẫu thiệp (with or without a design image), or to redo an existing template's design.
 ---
 
-# new-template
+# new-template (v2: design first)
 
-Turn one design image into one template in `my-wed/src/templates/tNN/`. Follow the steps in order. Do not skip the screenshot comparison. Do not deploy: deploying only happens when the user says so.
+The previous version (build straight from a design image) is archived in `docs/archive/new-template-skill-v1.md`.
+Read `docs/design-guide.md` before step 1: it holds the design groups, the 5 layers, colour and type rules, and the 10-point check.
 
-## Preconditions (check first, stop and tell the user if any fails)
+Talk to the owner in Vietnamese. Never deploy. Commit only after the owner approves the finished template.
 
-1. The target structure exists: `my-wed/src/core/` (shared hooks, utils, types) and `my-wed/src/templates/` (with `index.ts` registry). If not, the restructure is not done yet. Stop and say so; do not build a template in the old layout.
-2. The user gave a design image (long screenshot or per-section images). If not, ask for it.
-3. Pick the next free id (`t02`, `t03`, ...) from `templates/index.ts`. Confirm the id with the user only if they named one.
+## Preconditions
 
-## Scope rules (these prevent drift)
+1. `my-wed/src/core/` and `my-wed/src/templates/index.ts` exist (shared data contract and registry).
+2. Pick the next free id from `templates/index.ts`.
+3. The dev server can run (`cd my-wed && npx zmp start -nF -P 3100`) for steps 4–5.
 
-- A template is only UI: its own JSX, its own SCSS, its own demo data. Nothing else.
-- Never edit `src/core/`. If the design needs a feature the core does not have, do not add it: list it in the final report and ask.
-- Every template must implement the shared template contract (the `WeddingData` type from `core/`), so all templates get the same features: countdown, map directions, add to calendar, RSVP, gift accounts, album, timeline. If the design has no place for a feature, say so in the report; do not silently drop it.
-- Use real text from the design only as demo data. Never invent extra sections.
-- Fonts: prefer `@fontsource/*` packages already installed; if the design uses another font, add the matching `@fontsource` package and tell the user.
-- Images: the user supplies photos. Until then use placeholders (`buildPlaceholder`), never hotlink external images.
+## Step 0: the owner chooses (one question round)
 
-## Process
+If the owner already named a group/story (e.g. "mẫu sen hồng truyền thống") or gave a design image, derive the choices and skip the questions it answers. Otherwise ask with AskUserQuestion, one round, up to 4 questions:
 
-1. **Read the image carefully.** Look at every section top to bottom.
-2. **Write tokens first** in `templates/tNN/styles.scss` as CSS variables scoped to the template root (e.g. `.tNN-root { --c-bg; --c-ink; --c-accent; --font-display; --font-body; --radius; --space-* }`). Sample colors from the image; state any guess as a guess in the report.
-3. **List sections** in order with the shared feature each maps to (write this list in the report, one line each).
-4. **Build section by section** in `templates/tNN/index.tsx`, reusing hooks from `core/`. Keep each section a small component in the same folder.
-5. **Register** the template in `templates/index.ts` (id, display name, thumbnail, demo data).
-6. **Verify**: run `npm run typecheck`/`tsc` style checks the repo uses, then start the app (`zmp start` or the Vite dev server), open the template route with Playwright at **390px width**, take a full-page screenshot into the scratchpad, and compare it side by side with the design image.
-7. **Fix differences, at most 2 rounds.** Priorities: layout and spacing, then type, then color, then decoration. Stop after 2 rounds even if small differences remain; list them.
+1. **Nhóm thiết kế**: A. Truyền thống nền sáng / B. Tranh phong cảnh / C. Hoa lá tràn mép / D. Nền tối ánh kim (E. Mảng màu via "Other").
+2. **Câu chuyện**: 3 suggestions from the chosen group in the design guide (pick ones not used by an existing template; check `templates/index.ts` names).
+3. **Màu chủ đạo**: 3 muted options fitting the story (name + hex).
+4. **Mở đầu**: cửa mở / phong bì / rèm / không có, or a new idea that fits the story. Prefer one no other template uses.
 
-## Acceptance
+Questions 2–3 depend on 1; if the group is not known yet, ask question 1 alone first.
 
-- Typecheck passes, no console errors on load.
-- The 390px screenshot matches the design's structure, spacing and palette closely; remaining differences are listed.
-- All shared features present or explicitly reported as missing.
-- `git status` shows changes only under `templates/tNN/` and the registry file.
+## Step 1: design brief (short, in the reply)
 
-## Final report (keep it short)
+About 10 lines, all decided, no options:
+- Story in one sentence; group.
+- Palette with hex and shares (background %, main %, accent %), per the guide's colour rules.
+- Fonts: names, titles, small caps label (installed `@fontsource` families; adding one is allowed, say so).
+- Layer 1, first screen: layout described in one or two lines.
+- Layer 2, section frame style. Layer 3, background. Layer 4, the art at divider, gift, footer. Layer 5, album style.
+- Intro: how it opens.
+- Art list: each piece and its source (code / public-domain / AI), per guide section 6.
 
-- Template id and files created.
-- Section list with mapped features.
-- Screenshot path and the remaining differences.
-- Anything guessed (colors, fonts) and anything that needs the user (missing feature, fonts, photos).
+## Step 2: mockup image, then STOP for review
 
-Do not commit, push, or deploy unless the user asks.
+1. Copy `my-wed/scripts/design/mockup-starter.html` to `my-wed/design/tNN/mockup.html` and draw the 8 screens in plain HTML/CSS: intro closed, first screen, families and names, date and venue, album, calendar/countdown/programme, RSVP and gift, thanks. Use the demo photos in `src/static/`, the brief's tokens and fonts, real Vietnamese text from the demo data.
+2. Art: make the code-drawn pieces now (SVG inline or files in `design/tNN/art/`). Public-domain pictures: download into `design/tNN/art/`, note the source. Missing art: a `.todo-art` box with a label, never a random image.
+3. Render: `cd my-wed && node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg`. Look at it yourself, fix obvious problems once.
+4. Measure: `python3 scripts/design/palette.py <scratchpad>/tNN-mockup.jpg`; fix colours that miss the targets.
+5. Send the image to the owner (SendUserFile) with the brief and a 10-point score (guide section 8), short.
+6. **Stop and wait.** Do not write template code until the owner approves the mockup. Apply their comments to the mockup and re-send as many rounds as they want.
+
+## Step 3: build (after approval only)
+
+- Files: `templates/tNN/index.tsx`, `styles.scss`, `demo-data.ts`; art in `src/static/tNN/` (compressed: JPEG/WebP, keep each under ~200 KB); thumbnail `src/static/thumbs/tNN.jpg` (360x640, from the first screen).
+- Copy the mockup's tokens into `styles.scss` unchanged. Reuse `_kit` (Reveal, CalendarCard, Countdown, RsvpForm, GiftCard, VenueActions, GuestName, LunarNote, photoSrc).
+- All shared features from the guide's section 7 are present, in that order. Never edit `src/core/`; if the design needs a core change, ask.
+- Register in `templates/index.ts` at the end of the list.
+- `npx -y -p typescript@5.6.3 tsc --noEmit -p .` must pass.
+
+## Step 4: check against the mockup
+
+1. `node scripts/design/shots.mjs tNN <scratchpad>/tNN` gives a strip in the same layout as the mockup. Compare the two; fix differences, at most 2 rounds (layout, then type, then colour, then decoration).
+2. `python3 scripts/design/palette.py <scratchpad>/tNN/tNN-strip.jpg` and the 10-point check again.
+
+## Step 5: video and hand-off
+
+1. `node scripts/design/video.mjs tNN <scratchpad>/tNN.mp4 28` (9:16, 1080x1920).
+2. Send the video and the strip. Report in a few lines: what was built, the score, anything left (art still missing, guesses).
+3. When the owner approves: commit on `main`, push, then sync `claude/commit-folder-to-repo-lnvcke` (see CLAUDE.md). Do not commit the mockup image; `design/tNN/mockup.html` and its code-drawn art may be committed.

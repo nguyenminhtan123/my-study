@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  Starter for a template mockup (step 2 of the new-template skill). Copy it to
+  my-wed/design/tNN/mockup.html, fill each .screen, then render:
+    node scripts/design/mockup.mjs design/tNN/mockup.html <out.jpg>
+  Screens are static pictures of the phone at 390x844, read left to right like a storyboard:
+  intro closed, intro opened (first screen), then the page as the guest scrolls.
+  Photos: the demo photos in src/static (paths relative to design/tNN/). Art: files in design/tNN/art/.
+  Mark art that does not exist yet with .todo-art and a short label, never with a random image.
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <!-- fonts from node_modules (the sandboxed browser has no internet); add other @fontsource families the same way -->
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-600.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-600.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-300.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-300.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-500.css" />
+    <style>
+      :root {
+        /* design tokens: copy them unchanged into the template's styles.scss after approval */
+        --bg: #f7f0e4;
+        --ink: #4a1418;
+        --main: #9e1b24;
+        --accent: #c9a35b;
+        --display: "Cormorant Garamond", Georgia, serif;
+        --script: "Great Vibes", Georgia, serif;
+        --caps: "Be Vietnam Pro", system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #e9e6e1;
+      }
+      .board {
+        display: flex;
+        gap: 18px;
+        width: max-content;
+        padding: 18px;
+        background: #e9e6e1;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        height: 844px;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--display);
+        text-align: center;
+      }
+      .label {
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        z-index: 9;
+        padding: 2px 8px;
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font: 500 11px var(--caps);
+      }
+      .todo-art {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed rgba(0, 0, 0, 0.3);
+        color: rgba(0, 0, 0, 0.5);
+        font: 12px var(--caps);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <section class="screen"><span class="label">1 · Mở đầu (đóng)</span></section>
+      <section class="screen"><span class="label">2 · Màn hình đầu</span></section>
+      <section class="screen"><span class="label">3 · Hai họ & tên</span></section>
+      <section class="screen"><span class="label">4 · Ngày giờ & địa điểm</span></section>
+      <section class="screen"><span class="label">5 · Album</span></section>
+      <section class="screen"><span class="label">6 · Lịch & đếm ngược & lịch trình</span></section>
+      <section class="screen"><span class="label">7 · Xác nhận & quà mừng</span></section>
+      <section class="screen"><span class="label">8 · Lời cảm ơn (chân trang)</span></section>
+    </div>
+  </body>
+</html>

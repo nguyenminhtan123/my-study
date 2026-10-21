@@ -42,3 +42,6 @@ music-src/
 
 # Supabase keys for the app (see src/core/invitations.ts)
 .env.local
+
+# Cached zmp-ui icon font for the design scripts
+scripts/design/.cache/
