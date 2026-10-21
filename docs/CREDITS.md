@@ -43,3 +43,22 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t23-gown.jpg` | Mẫu 23 (ảnh chính) | Groom wraps arm bride's back (rawpixel) https://www.rawpixel.com/image/3283244/free-photo-image-wedding-hair-accessory (CC0 1.0) |
 
 Ảnh đã được thu nhỏ và chuyển sang JPEG.
+
+## Mẫu 28 · Đèn lồng Hội An (`my-wed/design/t28/art/`, sau này chép sang `src/static/t28/`)
+
+Ảnh CC0 / phạm vi công cộng (dùng thương mại, không bắt buộc ghi nguồn):
+
+| Tệp | Dùng ở | Nguồn |
+| --- | --- | --- |
+| `fan-peony.webp` | Quạt xoè ở phần mở đầu (đã tách nền) | "Peony", tranh quạt, The Metropolitan Museum of Art (Open Access), qua rawpixel https://www.rawpixel.com/image/9087437/peony (CC0 1.0) |
+| `bougain-watercolor.webp` | Cành hoa giấy ở các góc (đã tách nền) | Bougainvillea. Watercolour by Sydney Parkinson, Swallowtail Garden Seeds (flickr) https://www.flickr.com/photos/97123293@N07/16835673006 (CC0 1.0) |
+| `bougain-red.webp` | Hoa giấy in mờ (đã tách nền) | Bougainvillea (1866), Swallowtail Garden Seeds (flickr) https://www.flickr.com/photos/97123293@N07/28103163243 (Public Domain Mark) |
+
+Ảnh **CC BY 2.0**: dùng thương mại được, **bắt buộc ghi tên tác giả** (giữ bảng này; nếu cần, thêm dòng "Ảnh minh hoạ: ..." trong thiệp). Đã chỉnh sửa (tách nền, cắt, nén):
+
+| Tệp | Dùng ở | Nguồn |
+| --- | --- | --- |
+| `lanterns-cluster.webp` | Chùm đèn lồng ở màn hình đầu, cuối trang | "Hoi An - Lanterns" của Blowing Puffer Fish https://www.flickr.com/photos/83128028@N00/34213499465 (CC BY 2.0) |
+| `lantern-single.webp` | Đèn lồng nhỏ: đường chia, lịch, album, quà mừng | "Hoi An lanterns on the river" của Bex.Walton https://www.flickr.com/photos/7831824@N04/26401492244 (CC BY 2.0) |
+| `hoian-river.jpg` | Phố cổ ven sông ở chân trang | "Hoi An." của Nguyen Duc Loi https://www.flickr.com/photos/85675121@N04/12810913854 (CC BY 2.0) |
+| `hoian-house.jpg` | Nhà cổ trong khung vòm ở phần địa điểm | "Colonial style ancient building in the Hoi An old quarter" của shankar s. https://www.flickr.com/photos/77742560@N06/31685342901 (CC BY 2.0) |
