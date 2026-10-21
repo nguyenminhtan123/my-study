@@ -1,8 +1,9 @@
 <!doctype html>
 <!--
-  t28 · Đèn lồng Hội An. Mockup for review (new-template step 2).
-  Group A (truyền thống nền sáng). Afternoon in the old town: lime-washed yellow walls, strings of
-  silk lanterns, bougainvillea, yin-yang roof tiles. Intro: a folded paper fan that spreads open.
+  t28 · Đèn lồng Hội An. Mockup v2 for review (new-template step 2).
+  Group A (truyền thống nền sáng). Afternoon in the old town: lime-washed yellow walls, real Hội An
+  silk lanterns, bougainvillea in old botanical watercolour, a painted peony fan that spreads open.
+  Art: photos and public-domain paintings cut out (sources in docs/CREDITS.md), wall texture generated.
   Render: node scripts/design/mockup.mjs design/t28/mockup.html <out.jpg>
 -->
 <html lang="vi">
@@ -12,14 +13,10 @@
     <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-500.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-500.css" />
-    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-600.css" />
-    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-600.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-400-italic.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400-italic.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/latin-400.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/vietnamese-400.css" />
-    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-400.css" />
-    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-400.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-500.css" />
     <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-500.css" />
     <style>
@@ -28,7 +25,6 @@
         --ink: #6e2b2b;
         --main: #9a3b3b;
         --gold: #c39a52;
-        --rose: #c27a7c;
         --muted: #8f6a55;
         --display: "Cormorant Garamond", Georgia, serif;
         --script: "Great Vibes", Georgia, serif;
@@ -72,9 +68,11 @@
       h2,
       h3 {
         margin: 0;
+        position: relative;
       }
-      svg {
-        display: block;
+      .abs {
+        position: absolute;
+        pointer-events: none;
       }
       .caps {
         font: 500 10px/1.7 var(--caps);
@@ -122,25 +120,35 @@
         font-weight: 400;
         line-height: 1;
       }
-      .ghost {
-        position: absolute;
-        opacity: 0.07;
-        pointer-events: none;
+      /* divider: hairline, one small real lantern, hairline */
+      .divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        width: 90px;
+        border-top: 1px solid var(--gold);
+      }
+      .divider img {
+        width: 22px;
       }
       .photo-arch {
         position: relative;
-        width: 230px;
-        height: 300px;
         margin: 0 auto;
         padding: 7px;
         border: 1px solid var(--gold);
-        border-radius: 115px 115px 4px 4px;
+        border-radius: 999px 999px 4px 4px;
       }
       .photo-arch img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 108px 108px 2px 2px;
+        border-radius: 999px 999px 2px 2px;
       }
       .pola {
         position: absolute;
@@ -153,6 +161,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+      .pin {
+        position: absolute;
+        z-index: 3;
+        width: 6px;
+        height: 20px;
+        border-radius: 2px;
+        background: #a77d4f;
       }
       .field {
         margin: 0 auto 16px;
@@ -189,14 +205,13 @@
         margin: 0 auto;
         row-gap: 4px;
         font-size: 16px;
-        color: var(--ink);
       }
       .cal i {
-        font: 500 8.5px var(--caps);
-        letter-spacing: 0.15em;
-        font-style: normal;
-        color: var(--main);
         padding-bottom: 6px;
+        font: 500 8.5px var(--caps);
+        font-style: normal;
+        letter-spacing: 0.15em;
+        color: var(--main);
       }
       .cal span {
         position: relative;
@@ -221,13 +236,13 @@
         color: var(--muted);
       }
       .steps {
-        width: 250px;
+        width: 240px;
         margin: 0 auto;
         text-align: left;
       }
       .steps div {
         display: grid;
-        grid-template-columns: 70px 22px 1fr;
+        grid-template-columns: 70px 20px 1fr;
         align-items: center;
         height: 36px;
       }
@@ -236,122 +251,94 @@
         font-weight: 500;
         color: var(--main);
       }
+      .steps i {
+        width: 7px;
+        height: 7px;
+        background: var(--gold);
+        transform: rotate(45deg);
+      }
       .steps span {
         font-size: 16px;
+      }
+      /* the painted fan: leaf 973x450 with its pivot 124px below the leaf; scaled to 360px wide */
+      .fan {
+        position: relative;
+        width: 360px;
+        height: 230px;
+        margin: 0 auto;
+      }
+      .fan img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 360px;
+        filter: drop-shadow(0 10px 12px rgba(90, 50, 20, 0.25));
+      }
+      .fan svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 360px;
+        height: 230px;
+        overflow: visible;
+      }
+      .fan.closed img {
+        -webkit-mask: conic-gradient(from -5deg at 180px 212px, #000 0 10deg, transparent 10deg);
+        mask: conic-gradient(from -5deg at 180px 212px, #000 0 10deg, transparent 10deg);
       }
     </style>
   </head>
   <body>
-    <!-- shared art, all drawn in code -->
-    <svg width="0" height="0" style="position: absolute">
-      <defs>
-        <radialGradient id="g-red" cx="0.4" cy="0.38" r="0.7">
-          <stop offset="0" stop-color="#e2876b" />
-          <stop offset="0.45" stop-color="#b14a40" />
-          <stop offset="1" stop-color="#7a2b2a" />
-        </radialGradient>
-        <radialGradient id="g-gold" cx="0.4" cy="0.38" r="0.7">
-          <stop offset="0" stop-color="#f3d28d" />
-          <stop offset="0.5" stop-color="#d0a456" />
-          <stop offset="1" stop-color="#9c7434" />
-        </radialGradient>
-        <radialGradient id="g-rose" cx="0.4" cy="0.38" r="0.7">
-          <stop offset="0" stop-color="#ecb2a5" />
-          <stop offset="0.5" stop-color="#c47f7c" />
-          <stop offset="1" stop-color="#8f4f50" />
-        </radialGradient>
-        <radialGradient id="g-glow">
-          <stop offset="0" stop-color="#ffb46a" stop-opacity="0.45" />
-          <stop offset="1" stop-color="#ffb46a" stop-opacity="0" />
-        </radialGradient>
-        <linearGradient id="g-fan" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#8e3434" />
-          <stop offset="0.5" stop-color="#a94540" />
-          <stop offset="1" stop-color="#8e3434" />
-        </linearGradient>
-        <symbol id="lantern-red" viewBox="0 0 80 132"><use href="#lantern-body" fill="url(#g-red)" /></symbol>
-        <symbol id="lantern-gold" viewBox="0 0 80 132"><use href="#lantern-body" fill="url(#g-gold)" /></symbol>
-        <symbol id="lantern-rose" viewBox="0 0 80 132"><use href="#lantern-body" fill="url(#g-rose)" /></symbol>
-        <g id="lantern-body">
-          <circle cx="40" cy="58" r="50" fill="url(#g-glow)" />
-          <line x1="40" y1="0" x2="40" y2="15" stroke="#6b4a2f" stroke-width="1" />
-          <rect x="28" y="14" width="24" height="7" rx="2" fill="#b98a3e" />
-          <ellipse cx="40" cy="58" rx="31" ry="38" />
-          <g fill="none" stroke="#5a1a18" stroke-opacity="0.28" stroke-width="1">
-            <ellipse cx="40" cy="58" rx="21" ry="38" />
-            <ellipse cx="40" cy="58" rx="10" ry="38" />
-            <line x1="40" y1="20" x2="40" y2="96" />
-          </g>
-          <rect x="30" y="94" width="20" height="6" rx="2" fill="#b98a3e" />
-          <g stroke="#b98a3e" stroke-width="1.1">
-            <line x1="40" y1="100" x2="40" y2="128" />
-            <line x1="38" y1="106" x2="35" y2="127" />
-            <line x1="42" y1="106" x2="45" y2="127" />
-          </g>
-          <circle cx="40" cy="106" r="2.6" fill="#b98a3e" />
-        </g>
-        <!-- song cửa: wooden lattice strip used as the section divider -->
-        <pattern id="lattice" width="24" height="16" patternUnits="userSpaceOnUse">
-          <rect x="0.5" y="0.5" width="23" height="15" fill="none" stroke="#9a3b3b" stroke-opacity="0.55" />
-          <rect x="6" y="4.5" width="12" height="7" fill="none" stroke="#9a3b3b" stroke-opacity="0.55" />
-          <line x1="12" y1="0" x2="12" y2="4.5" stroke="#9a3b3b" stroke-opacity="0.55" />
-          <line x1="12" y1="11.5" x2="12" y2="16" stroke="#9a3b3b" stroke-opacity="0.55" />
-        </pattern>
-      </defs>
-    </svg>
-
     <div class="board">
-      <!-- 1 · intro: folded fan -->
+      <!-- 1 · intro: the fan, folded -->
       <section class="screen">
-        <div class="string" data-y="0" data-n="7" data-ghost="1"></div>
-        <p class="caps" style="margin-top: 210px">Thiệp mời cưới</p>
-        <p style="margin-top: 8px; font-size: 30px; font-style: italic; color: var(--main)">Đức Minh &amp; Khánh Linh</p>
-        <svg viewBox="0 0 120 300" style="width: 130px; margin: 30px auto 0; transform: rotate(-12deg); filter: drop-shadow(0 12px 14px rgba(90, 30, 20, 0.3))">
-          <polygon points="38,8 82,8 64,232 56,232" fill="url(#g-fan)" />
-          <g stroke="#c39a52" stroke-width="1.6">
-            <line x1="38" y1="8" x2="56" y2="232" /><line x1="49" y1="8" x2="58" y2="232" />
-            <line x1="60" y1="8" x2="60" y2="232" /><line x1="71" y1="8" x2="62" y2="232" />
-            <line x1="82" y1="8" x2="64" y2="232" />
-          </g>
-          <circle cx="60" cy="228" r="5" fill="#c39a52" />
-          <g stroke="#c39a52" stroke-width="1.2">
-            <line x1="60" y1="232" x2="60" y2="290" /><line x1="58" y1="240" x2="54" y2="288" /><line x1="62" y1="240" x2="66" y2="288" />
-          </g>
-          <circle cx="60" cy="244" r="3.5" fill="#9a3b3b" />
-        </svg>
-        <p class="caps" style="margin-top: 40px; color: var(--muted)">Chạm để mở quạt</p>
-        <span class="label">1 · Mở đầu: quạt đang gập</span>
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 170px; left: -60px; top: -90px; opacity: 0.4; transform: scaleX(-1)" />
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 210px; right: -70px; top: -60px; opacity: 0.35" />
+        <p class="caps" style="margin-top: 230px">Thiệp mời cưới</p>
+        <p style="margin-top: 8px; font-size: 32px; font-style: italic; color: var(--main)">Đức Minh &amp; Khánh Linh</p>
+        <div class="fan closed" style="margin-top: 60px; transform: rotate(-10deg)" data-ribs="closed">
+          <img src="art/fan-peony.webp" alt="" />
+        </div>
+        <p class="caps" style="margin-top: 30px; color: var(--muted)">Chạm để mở quạt</p>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 190px; right: -40px; bottom: -40px; transform: rotate(-10deg)" />
+        <span class="label">1 · Mở đầu: quạt tranh đang gập</span>
       </section>
 
       <!-- 2 · the fan spreads open -->
       <section class="screen">
-        <div class="string" data-y="0" data-n="7" data-ghost="1"></div>
-        <svg id="fan" viewBox="0 0 400 230" style="width: 390px; margin-top: 230px; filter: drop-shadow(0 14px 16px rgba(90, 30, 20, 0.28))"></svg>
-        <p class="caps" style="margin-top: 26px">Lễ thành hôn</p>
-        <p style="margin-top: 6px; font-size: 22px; letter-spacing: 0.2em; color: var(--main)">26 · 12 · 2026</p>
-        <span class="label">2 · Chạm vào: quạt xoè ra nửa vòng tròn</span>
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 170px; left: -60px; top: -90px; opacity: 0.4; transform: scaleX(-1)" />
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 210px; right: -70px; top: -60px; opacity: 0.35" />
+        <div class="fan" style="margin-top: 250px" data-ribs="open">
+          <img src="art/fan-peony.webp" alt="" />
+        </div>
+        <p class="caps" style="margin-top: 30px">Lễ thành hôn</p>
+        <p style="margin-top: 6px; font-size: 34px; color: var(--main)">Đức Minh <i style="color: var(--gold)">&amp;</i> Khánh Linh</p>
+        <p style="margin-top: 6px; font-size: 20px; letter-spacing: 0.2em; color: var(--muted)">26 · 12 · 2026</p>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 190px; right: -40px; bottom: -40px; transform: rotate(-10deg)" />
+        <span class="label">2 · Chạm vào: quạt xoè ra</span>
       </section>
 
       <!-- 3 · first screen -->
       <section class="screen">
-        <div class="string" data-y="-6" data-n="6" data-big="1"></div>
-        <p class="caps" style="margin-top: 182px">Lễ thành hôn</p>
-        <h1 class="names" style="margin-top: 10px">Đức Minh</h1>
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 300px; right: -70px; top: -70px" />
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 170px; left: -70px; top: -110px; transform: scaleX(-1) rotate(-4deg)" />
+        <p class="caps" style="margin-top: 300px">Lễ thành hôn</p>
+        <h1 class="names" style="margin-top: 8px">Đức Minh</h1>
         <p class="amp">&amp;</p>
         <h1 class="names">Khánh Linh</h1>
-        <div class="dateline" style="margin-top: 20px">
+        <div class="dateline" style="margin-top: 16px">
           <span style="text-align: right">Thứ bảy</span><b style="font-size: 44px">26</b><span style="text-align: left">Tháng 12<br />2026</span>
         </div>
-        <div class="photo-arch" style="margin-top: 24px; height: 270px">
+        <div class="photo-arch" style="margin-top: 24px; width: 200px; height: 236px">
           <img src="../../src/static/cover.jpg" alt="" />
         </div>
-        <div class="bougain" data-x="250" data-y="560" data-flip="0" style="position: absolute; inset: 0"></div>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 200px; left: -70px; bottom: -60px; transform: scaleX(-1) rotate(-8deg)" />
         <span class="label">3 · Màn hình đầu</span>
       </section>
 
       <!-- 4 · families, names, invitation -->
       <section class="screen">
-        <svg class="ghost" viewBox="0 0 80 132" style="width: 300px; right: -120px; top: 120px"><use href="#lantern-red" /></svg>
+        <img class="abs" src="art/bougain-red.webp" alt="" style="width: 240px; right: -110px; top: -40px; opacity: 0.18; filter: saturate(0.7)" />
         <p class="caps" style="margin-top: 70px; padding: 0 40px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
         <div style="display: flex; justify-content: center; gap: 22px; margin-top: 26px; font-size: 17px; line-height: 1.6">
           <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -363,65 +350,66 @@
         <p class="amp" style="margin: 4px 0">&amp;</p>
         <h2 class="names" style="font-size: 44px">Khánh Linh</h2>
         <p class="role">ÚT NỮ</p>
-        <svg viewBox="0 0 300 16" style="width: 300px; margin: 40px auto 0"><rect width="300" height="16" fill="url(#lattice)" /></svg>
-        <p class="caps" style="margin-top: 34px">Trân trọng kính mời</p>
+        <div class="divider" style="margin-top: 36px"><img src="art/lantern-single.webp" alt="" /></div>
+        <p class="caps" style="margin-top: 30px">Trân trọng kính mời</p>
         <p style="margin-top: 6px; font-family: var(--script); font-size: 40px; color: var(--main)">Anh Huy &amp; người thương</p>
         <p style="margin-top: 8px; font-size: 18px; font-style: italic">tới dự bữa tiệc chung vui<br />cùng gia đình chúng tôi</p>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 150px; left: -60px; bottom: -30px; transform: scaleX(-1)" />
         <span class="label">4 · Hai họ, tên, lời mời</span>
       </section>
 
-      <!-- 5 · date and venue -->
+      <!-- 5 · date and venue, an old-town house in an arch -->
       <section class="screen">
-        <div class="string" data-y="-20" data-n="5"></div>
-        <p class="caps" style="margin-top: 150px">Tiệc cưới diễn ra vào lúc</p>
+        <p class="caps" style="margin-top: 60px">Tiệc cưới diễn ra vào lúc</p>
         <p style="margin-top: 8px; font-size: 26px; letter-spacing: 0.06em; color: var(--main)">17 giờ 30</p>
-        <div class="dateline" style="margin-top: 18px">
+        <div class="dateline" style="margin-top: 16px">
           <span style="text-align: right">Thứ bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span>
         </div>
         <p style="margin-top: 14px; font-size: 15px; font-style: italic" class="muted">(Tức ngày 18 tháng 11 năm Bính Ngọ)</p>
-        <svg viewBox="0 0 300 16" style="width: 300px; margin: 44px auto 0"><rect width="300" height="16" fill="url(#lattice)" /></svg>
-        <p class="caps" style="margin-top: 40px">Địa điểm</p>
-        <h3 style="margin-top: 10px; font-size: 27px; font-weight: 500; color: var(--main)">Trung tâm tiệc cưới An Phúc</h3>
-        <p style="margin: 8px 40px 0; font-size: 16px" class="muted">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
-        <p class="caps" style="margin-top: 22px; display: inline-block; border-bottom: 1px solid var(--main); padding-bottom: 2px">Chỉ đường</p>
-        <div class="bougain" data-x="-30" data-y="700" data-flip="1" style="position: absolute; inset: 0"></div>
+        <div class="photo-arch" style="margin-top: 34px; width: 250px; height: 200px">
+          <img src="art/hoian-house.jpg" alt="" />
+        </div>
+        <img class="abs" src="art/lantern-single.webp" alt="" style="width: 46px; left: 52px; top: 330px" />
+        <p class="caps" style="margin-top: 26px">Địa điểm</p>
+        <h3 style="margin-top: 8px; font-size: 27px; font-weight: 500; color: var(--main)">Trung tâm tiệc cưới An Phúc</h3>
+        <p style="margin: 6px 40px 0; font-size: 16px" class="muted">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
+        <p class="caps" style="margin-top: 18px; display: inline-block; border-bottom: 1px solid var(--main); padding-bottom: 2px">Chỉ đường</p>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 170px; right: -50px; bottom: -40px" />
         <span class="label">5 · Ngày giờ, địa điểm</span>
       </section>
 
-      <!-- 6 · album on a string -->
+      <!-- 6 · album on a string with real lanterns -->
       <section class="screen">
         <p class="caps" style="margin-top: 60px">Khoảnh khắc</p>
         <p style="margin-top: 6px; font-size: 34px; font-style: italic; color: var(--main)">Những ngày bên nhau</p>
         <div class="pola" style="left: 30px; top: 150px; width: 330px; height: 220px; transform: rotate(-1.5deg)"><img src="../../src/static/couple.jpeg" alt="" /></div>
-        <svg viewBox="0 0 390 60" style="position: absolute; left: 0; top: 410px; width: 390px"><path d="M-10 10 Q195 60 400 10" fill="none" stroke="#6b4a2f" stroke-width="1" /></svg>
+        <svg viewBox="0 0 390 60" class="abs" style="left: 0; top: 410px; width: 390px"><path d="M-10 10 Q195 60 400 10" fill="none" stroke="#6b4a2f" stroke-width="1" /></svg>
+        <span class="pin" style="left: 66px; top: 424px"></span><span class="pin" style="left: 192px; top: 440px"></span><span class="pin" style="left: 318px; top: 424px"></span>
         <div class="pola" style="left: 18px; top: 432px; width: 104px; height: 140px; transform: rotate(-6deg)"><img src="../../src/static/album2.jpeg" alt="" /></div>
         <div class="pola" style="left: 143px; top: 452px; width: 104px; height: 140px; transform: rotate(2deg)"><img src="../../src/static/album3.jpeg" alt="" /></div>
         <div class="pola" style="left: 268px; top: 432px; width: 104px; height: 140px; transform: rotate(6deg)"><img src="../../src/static/destiny.jpeg" alt="" /></div>
-        <div style="position: absolute; left: 66px; top: 424px; width: 6px; height: 20px; background: #b48a5a; border-radius: 2px; z-index: 3"></div>
-        <div style="position: absolute; left: 192px; top: 440px; width: 6px; height: 20px; background: #b48a5a; border-radius: 2px; z-index: 3"></div>
-        <div style="position: absolute; left: 318px; top: 424px; width: 6px; height: 20px; background: #b48a5a; border-radius: 2px; z-index: 3"></div>
-        <svg viewBox="0 0 80 132" style="position: absolute; left: 112px; top: 420px; width: 34px"><use href="#lantern-gold" /></svg>
-        <svg viewBox="0 0 80 132" style="position: absolute; left: 240px; top: 420px; width: 34px"><use href="#lantern-red" /></svg>
+        <img class="abs" src="art/lantern-single.webp" alt="" style="left: 117px; top: 424px; width: 30px; z-index: 4" />
+        <img class="abs" src="art/lantern-single.webp" alt="" style="left: 244px; top: 424px; width: 30px; z-index: 4" />
         <div class="pola" style="left: 40px; top: 630px; width: 150px; height: 190px; transform: rotate(3deg)"><img src="../../src/static/album1.jpeg" alt="" /></div>
         <div class="pola" style="left: 205px; top: 640px; width: 150px; height: 190px; transform: rotate(-3deg)"><img src="../../src/static/album4.jpeg" alt="" /></div>
-        <span class="label">6 · Album: ảnh kẹp trên dây, xen đèn lồng</span>
+        <span class="label">6 · Album: ảnh kẹp trên dây, xen đèn lồng thật</span>
       </section>
 
       <!-- 7 · calendar, countdown, programme -->
       <section class="screen">
-        <svg class="ghost" viewBox="0 0 80 132" style="width: 280px; left: -130px; top: 280px"><use href="#lantern-red" /></svg>
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 230px; left: -150px; top: 300px; opacity: 0.16" />
         <p style="margin-top: 50px; font-size: 30px; font-style: italic; color: var(--main)">Tháng Mười Hai · 2026</p>
         <div class="cal" id="cal" style="margin-top: 18px"></div>
         <p class="caps" style="margin-top: 26px">Cùng đếm ngược</p>
         <div class="count" style="margin-top: 10px">
           <div><b>66</b><small>NGÀY</small></div><div><b>07</b><small>GIỜ</small></div><div><b>06</b><small>PHÚT</small></div><div><b>42</b><small>GIÂY</small></div>
         </div>
-        <svg viewBox="0 0 300 16" style="width: 300px; margin: 34px auto 0"><rect width="300" height="16" fill="url(#lattice)" /></svg>
-        <p class="caps" style="margin-top: 28px">Lịch trình</p>
+        <div class="divider" style="margin-top: 34px"><img src="art/lantern-single.webp" alt="" /></div>
+        <p class="caps" style="margin-top: 26px">Lịch trình</p>
         <div class="steps" style="margin-top: 12px">
-          <div><b>17:00</b><svg viewBox="0 0 80 132" style="width: 12px"><use href="#lantern-red" /></svg><span>Đón khách</span></div>
-          <div><b>17:30</b><svg viewBox="0 0 80 132" style="width: 12px"><use href="#lantern-gold" /></svg><span>Lễ thành hôn</span></div>
-          <div><b>18:00</b><svg viewBox="0 0 80 132" style="width: 12px"><use href="#lantern-rose" /></svg><span>Khai tiệc</span></div>
+          <div><b>17:00</b><i></i><span>Đón khách</span></div>
+          <div><b>17:30</b><i></i><span>Lễ thành hôn</span></div>
+          <div><b>18:00</b><i></i><span>Khai tiệc</span></div>
         </div>
         <span class="label">7 · Lịch, đếm ngược, lịch trình</span>
       </section>
@@ -437,122 +425,62 @@
         </div>
         <p style="margin-top: 6px"><span class="opt on">Sẽ tham dự</span><span class="opt">Rất tiếc không thể</span></p>
         <p style="margin-top: 22px"><span class="btn">Gửi xác nhận</span></p>
-        <svg viewBox="0 0 300 16" style="width: 300px; margin: 40px auto 0"><rect width="300" height="16" fill="url(#lattice)" /></svg>
-        <p class="caps" style="margin-top: 30px">Mừng cưới</p>
-        <svg viewBox="0 0 80 132" style="width: 110px; margin: 14px auto 0; filter: drop-shadow(0 10px 12px rgba(120, 40, 20, 0.35))"><use href="#lantern-red" /></svg>
+        <div class="divider" style="margin-top: 36px"><img src="art/lantern-single.webp" alt="" /></div>
+        <p class="caps" style="margin-top: 24px">Mừng cưới</p>
+        <img src="art/lantern-single.webp" alt="" style="display: block; width: 92px; margin: 10px auto 0; filter: drop-shadow(0 0 18px rgba(255, 150, 80, 0.55))" />
         <p style="margin-top: 6px; font-size: 16px; font-style: italic" class="muted">Chạm vào đèn lồng để gửi quà mừng</p>
+        <img class="abs" src="art/bougain-watercolor.webp" alt="" style="width: 150px; right: -60px; bottom: -30px" />
         <span class="label">8 · Xác nhận, quà mừng (chạm đèn lồng)</span>
       </section>
 
-      <!-- 9 · thanks, roofs at the bottom -->
+      <!-- 9 · thanks, the old town by the river -->
       <section class="screen">
-        <div class="string" data-y="-10" data-n="6"></div>
-        <div style="width: 230px; height: 230px; margin: 130px auto 0; padding: 7px; border: 1px solid var(--gold); border-radius: 50%">
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 190px; right: -70px; top: -120px" />
+        <img class="abs" src="art/lanterns-cluster.webp" alt="" style="width: 150px; left: -60px; top: -110px; transform: scaleX(-1)" />
+        <div style="width: 210px; height: 210px; margin: 150px auto 0; padding: 7px; border: 1px solid var(--gold); border-radius: 50%">
           <img src="../../src/static/destiny.jpeg" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%" />
         </div>
-        <p style="margin-top: 30px; font-size: 40px; font-style: italic; color: var(--main)">Trân trọng cảm ơn</p>
+        <p style="margin-top: 26px; font-size: 40px; font-style: italic; color: var(--main)">Trân trọng cảm ơn</p>
         <p class="caps" style="margin-top: 8px">Đức Minh · Khánh Linh</p>
-        <svg id="roofs" viewBox="0 0 390 230" style="position: absolute; left: 0; bottom: 0; width: 390px"></svg>
-        <span class="label">9 · Lời cảm ơn, mái ngói phố cổ</span>
+        <img
+          class="abs"
+          src="art/hoian-river.jpg"
+          alt=""
+          style="left: 0; bottom: 0; width: 390px; height: 300px; object-fit: cover; -webkit-mask: linear-gradient(transparent, #000 40%); mask: linear-gradient(transparent, #000 40%); filter: saturate(0.85) sepia(0.12)"
+        />
+        <span class="label">9 · Lời cảm ơn, phố cổ ven sông</span>
       </section>
     </div>
 
     <script>
-      const NS = "http://www.w3.org/2000/svg";
-      const tones = ["red", "gold", "red", "rose", "red", "gold", "red"];
-
-      // strings of lanterns hanging from a sagging cord, bleeding off both edges
-      document.querySelectorAll(".string").forEach((el, k) => {
-        const y0 = +el.dataset.y;
-        const n = +el.dataset.n;
-        const big = el.dataset.big;
-        const svg = document.createElementNS(NS, "svg");
-        svg.setAttribute("viewBox", "0 0 390 200");
-        svg.style.cssText = `position:absolute;left:0;top:${y0}px;width:390px;${el.dataset.ghost ? "opacity:.55" : ""}`;
-        const sag = (x) => 22 + 30 * Math.sin((Math.PI * (x + 20)) / 430);
-        let html = `<path d="M-20 22 Q195 82 410 22" fill="none" stroke="#6b4a2f" stroke-width="1"/>`;
-        for (let i = 0; i < n; i++) {
-          const x = -10 + (i * 410) / (n - 1);
-          const w = (big ? 58 : 38) + ((i * 7 + k * 3) % 3) * 9;
-          const drop = 6 + ((i * 5 + k) % 4) * 10;
-          html += `<line x1="${x}" y1="${sag(x)}" x2="${x}" y2="${sag(x) + drop}" stroke="#6b4a2f" stroke-width="1"/>`;
-          html += `<use href="#lantern-${tones[(i + k) % tones.length]}" x="${x - w / 2}" y="${sag(x) + drop - 2}" width="${w}" height="${w * 1.65}"/>`;
-        }
-        svg.innerHTML = html;
-        el.replaceWith(svg);
-      });
-
-      // open paper fan: pleated ring with gold ribs and the names along the arc
-      {
-        const fan = document.getElementById("fan");
-        const cx = 200, cy = 215, r0 = 70, r1 = 190, n = 16;
+      // fan sticks: bamboo ribs from the pivot; spread to the leaf's 116° when open, stacked when closed
+      document.querySelectorAll(".fan").forEach((fan) => {
+        const open = fan.dataset.ribs === "open";
+        const px = 180, py = 212, r = 212, n = 15, half = 58;
         let html = "";
         for (let i = 0; i < n; i++) {
-          const a0 = Math.PI + (i * Math.PI) / n, a1 = Math.PI + ((i + 1) * Math.PI) / n;
-          const p = (r, a) => `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`;
-          html += `<polygon points="${p(r0, a0)} ${p(r1, a0)} ${p(r1, a1)} ${p(r0, a1)}" fill="${i % 2 ? "#a84540" : "#933838"}"/>`;
+          const a = open ? -half + (i * 2 * half) / (n - 1) : -4 + (i * 8) / (n - 1);
+          const rad = ((a - 90) * Math.PI) / 180;
+          const guard = i === 0 || i === n - 1;
+          const len = guard ? r : 96;
+          html += `<line x1="${px}" y1="${py}" x2="${px + len * Math.cos(rad)}" y2="${py + len * Math.sin(rad)}" stroke="${guard ? "#7a4e2c" : "#a8794a"}" stroke-width="${guard ? 4 : 2.4}" stroke-linecap="round"/>`;
         }
-        for (let i = 0; i <= n; i++) {
-          const a = Math.PI + (i * Math.PI) / n;
-          html += `<line x1="${cx}" y1="${cy}" x2="${cx + r1 * Math.cos(a)}" y2="${cy + r1 * Math.sin(a)}" stroke="#c39a52" stroke-width="${i % n ? 1.2 : 2.4}"/>`;
-        }
-        html += `<path id="arc" d="M${cx - 132} ${cy} A132 132 0 0 1 ${cx + 132} ${cy}" fill="none"/>`;
-        html += `<text font-family="Cormorant Garamond" font-size="30" fill="#f3d9a4" letter-spacing="2"><textPath href="#arc" startOffset="50%" text-anchor="middle">Đức Minh &amp; Khánh Linh</textPath></text>`;
-        html += `<path d="M${cx - r1} ${cy} A${r1} ${r1} 0 0 1 ${cx + r1} ${cy}" fill="none" stroke="#c39a52" stroke-width="2"/>`;
-        html += `<circle cx="${cx}" cy="${cy}" r="8" fill="#c39a52"/>`;
-        fan.innerHTML = html;
-      }
-
-      // bougainvillea: a thin stem with clusters of three papery bracts and a few leaves
-      document.querySelectorAll(".bougain").forEach((el) => {
-        const x0 = +el.dataset.x, y0 = +el.dataset.y, flip = +el.dataset.flip;
-        const svg = document.createElementNS(NS, "svg");
-        svg.setAttribute("viewBox", "0 0 390 844");
-        svg.style.cssText = "position:absolute;inset:0;width:390px;height:844px;pointer-events:none";
-        const pts = Array.from({ length: 9 }, (_, i) => [x0 + (flip ? i * 20 : 140 - i * 20), y0 - i * 22 + Math.sin(i) * 12]);
-        let html = `<path d="M${pts.map((p) => p.join(" ")).join(" L")}" fill="none" stroke="#7a5a3a" stroke-width="2"/>`;
-        pts.forEach(([x, y], i) => {
-          html += `<ellipse cx="${x + 14}" cy="${y + 10}" rx="12" ry="5" transform="rotate(${30 + i * 23} ${x + 14} ${y + 10})" fill="#8b9a6b" opacity=".85"/>`;
-          const s = 1.3 + ((i * 3) % 4) * 0.18;
-          for (let j = 0; j < 6; j++) {
-            const a = j * 60 + i * 25;
-            const bx = x + Math.cos((a * Math.PI) / 180) * 8 * s, by = y + Math.sin((a * Math.PI) / 180) * 8 * s;
-            html += `<path d="M${x} ${y} C${bx - 10 * s} ${by - 4} ${bx + 6} ${by - 12 * s} ${bx} ${by} Z" transform="rotate(${a} ${x} ${y})" fill="${j % 2 ? "#c98a8b" : "#b56d70"}" opacity=".95"/>`;
-          }
-          html += `<circle cx="${x}" cy="${y}" r="2" fill="#f1e2b8"/>`;
-        });
+        html += `<circle cx="${px}" cy="${py}" r="5" fill="#c39a52" stroke="#7a4e2c"/>`;
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.innerHTML = html;
-        el.replaceWith(svg);
+        fan.prepend(svg);
       });
 
-      // calendar for December 2026 (starts on a Tuesday), the day marked with a small lantern
+      // December 2026 starts on a Tuesday; the wedding day is marked with a real lantern
       {
         const cal = document.getElementById("cal");
-        let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("");
-        html += "<span></span>";
+        let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
         for (let d = 1; d <= 31; d++) {
           html += d === 26
-            ? `<span><svg viewBox="0 0 80 132" style="position:absolute;left:50%;top:-8px;width:26px;transform:translateX(-50%)"><use href="#lantern-red"/></svg><b style="position:relative;color:#fbe9cf;font-weight:500">26</b></span>`
+            ? `<span><img src="art/lantern-single.webp" style="position:absolute;left:50%;top:-14px;width:28px;transform:translateX(-50%)"/><b style="position:relative;color:#fbe9cf;font-weight:500;font-size:13px">26</b></span>`
             : `<span>${d}</span>`;
         }
         cal.innerHTML = html;
-      }
-
-      // footer roofs: yin-yang tiles on two old houses, a lantern under each eave
-      {
-        const roofs = document.getElementById("roofs");
-        let html = `<rect x="0" y="150" width="390" height="80" fill="#e9d3a4"/>`;
-        const house = (x, w, top) => {
-          let s = `<path d="M${x - 16} ${top + 46} Q${x + w / 2} ${top + 30} ${x + w + 16} ${top + 46} L${x + w - 10} ${top} L${x + 10} ${top} Z" fill="#8a4a38"/>`;
-          for (let t = x + 4; t < x + w; t += 9) s += `<path d="M${t} ${top + 2} Q${t + 4.5} ${top + 24} ${t} ${top + 42}" fill="none" stroke="#6a3426" stroke-width="2"/>`;
-          s += `<rect x="${x}" y="${top + 44}" width="${w}" height="${230 - top - 44}" fill="#e7cf98"/>`;
-          s += `<rect x="${x + w * 0.3}" y="${top + 70}" width="${w * 0.4}" height="${230 - top - 70}" fill="#7c4a32"/>`;
-          s += `<use href="#lantern-red" x="${x + 8}" y="${top + 46}" width="22" height="36"/>`;
-          s += `<use href="#lantern-gold" x="${x + w - 30}" y="${top + 46}" width="22" height="36"/>`;
-          return s;
-        };
-        html += house(-20, 200, 80) + house(200, 210, 96);
-        roofs.innerHTML = html;
       }
     </script>
   </body>
