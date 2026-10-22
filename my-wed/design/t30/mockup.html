@@ -1,0 +1,443 @@
+<!doctype html>
+<!--
+  t30 · Bình minh biển. Mockup for review (new-template step 3, from the approved art kit).
+  Group B. Impressionist oil painting, golden morning light. Photo frame: full-bleed photo touching one screen
+  edge, washed with a golden sunlight overlay, text set over it. Intro: dawn over the sea, tap and the sun rises.
+  Layout: magazine stagger (photos and text alternate left and right). Type: Lora + Dancing Script.
+  Background: smooth sand (art/sand.jpg) with painted sea scenes as section backgrounds.
+  Render: node scripts/design/mockup.mjs design/t30/mockup.html <out.jpg>
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/vietnamese-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/latin-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/lora/vietnamese-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/dancing-script/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/dancing-script/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/dancing-script/latin-600.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/dancing-script/vietnamese-600.css" />
+    <style>
+      :root {
+        --bg: #fbf4e6;
+        --ink: #234a5a;
+        --main: #d9952b;
+        --gold: #b8741f;
+        --coral: #e08a6d;
+        --muted: #7d8b8f;
+        --cream: #fff8ec;
+        --display: "Lora", Georgia, serif;
+        --script: "Dancing Script", cursive;
+      }
+      body {
+        margin: 0;
+        background: #e6e2da;
+      }
+      .board {
+        display: flex;
+        gap: 18px;
+        width: max-content;
+        padding: 18px;
+        background: #e6e2da;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        height: 844px;
+        overflow: hidden;
+        background: var(--bg) url("art/sand.jpg") repeat;
+        background-size: 360px;
+        color: var(--ink);
+        font-family: var(--display);
+        text-align: center;
+      }
+      .label {
+        position: absolute;
+        left: 8px;
+        bottom: 6px;
+        z-index: 20;
+        padding: 2px 8px;
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font: 500 10px system-ui, sans-serif;
+      }
+      p,
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        position: relative;
+      }
+      .art {
+        position: absolute;
+        pointer-events: none;
+      }
+      .caps {
+        font-size: 10.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .script {
+        font-family: var(--script);
+        color: var(--main);
+      }
+      .names {
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: var(--ink);
+      }
+      .amp {
+        font-family: var(--script);
+        font-size: 40px;
+        line-height: 1;
+        color: var(--main);
+      }
+      .role {
+        margin-top: 4px;
+        font-size: 9.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .lead {
+        font-size: 15px;
+        font-style: italic;
+        line-height: 1.55;
+        color: var(--ink);
+      }
+      /* the one photo treatment: full bleed to a screen edge, washed with morning sun, text over it */
+      .ph {
+        position: absolute;
+        overflow: hidden;
+      }
+      .ph > img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .ph::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 84% 10%, rgba(255, 216, 140, 0.55), rgba(255, 216, 140, 0) 46%),
+          linear-gradient(to top, rgba(196, 120, 34, 0.6), rgba(196, 120, 34, 0) 48%);
+      }
+      .ph .over {
+        position: absolute;
+        z-index: 2;
+        color: var(--cream);
+        text-shadow: 0 1px 8px rgba(120, 70, 10, 0.35);
+      }
+      .fade-bottom {
+        -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+      }
+      .fade-top {
+        -webkit-mask-image: linear-gradient(to top, #000 70%, transparent 100%);
+        mask-image: linear-gradient(to top, #000 70%, transparent 100%);
+      }
+      .sun {
+        position: absolute;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff6d6 0 18%, rgba(255, 214, 128, 0.85) 30%, rgba(255, 200, 100, 0) 70%);
+      }
+      .rule {
+        display: inline-block;
+        width: 40px;
+        height: 1px;
+        background: var(--main);
+        vertical-align: middle;
+      }
+      .field {
+        margin: 0 auto 16px;
+        width: 290px;
+        padding: 6px 2px;
+        border-bottom: 1px solid rgba(35, 74, 90, 0.35);
+        text-align: left;
+        font-size: 15px;
+        font-style: italic;
+        color: rgba(35, 74, 90, 0.5);
+      }
+      .opt {
+        display: inline-block;
+        margin: 0 10px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .opt.on {
+        color: var(--ink);
+        border-bottom: 1px solid var(--main);
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 40px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--cream);
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+      .cal {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 290px;
+        margin: 0 auto;
+        row-gap: 4px;
+        font-size: 15px;
+      }
+      .cal i {
+        padding-bottom: 6px;
+        font-size: 9px;
+        font-style: normal;
+        letter-spacing: 0.15em;
+        color: var(--gold);
+      }
+      .cal span {
+        position: relative;
+        height: 32px;
+        line-height: 32px;
+      }
+      .count {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+      }
+      .count b {
+        display: block;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: var(--main);
+      }
+      .count small {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+      }
+      .steps {
+        width: 250px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .steps div {
+        display: grid;
+        grid-template-columns: 70px 22px 1fr;
+        align-items: center;
+        height: 36px;
+      }
+      .steps b {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--gold);
+      }
+      .steps i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--main);
+      }
+      .steps span {
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <!-- 1 · intro: the sea before dawn -->
+      <section class="screen">
+        <img class="art" src="art/hero.webp" alt="" style="inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62) saturate(0.55)" />
+        <div class="art" style="inset: 0; background: linear-gradient(180deg, rgba(20, 38, 66, 0.82), rgba(28, 52, 84, 0.55) 60%, rgba(20, 38, 66, 0.75))"></div>
+        <div class="art" style="left: 0; right: 0; top: 330px; height: 40px; background: radial-gradient(ellipse at 50% 50%, rgba(255, 190, 120, 0.55), rgba(255, 190, 120, 0) 70%)"></div>
+        <p class="caps" style="margin-top: 150px; color: rgba(255, 240, 215, 0.85)">Thiệp mời cưới</p>
+        <p class="script" style="margin-top: 10px; font-size: 50px; line-height: 1.15; color: var(--cream)">Đức Minh<br />&amp; Khánh Linh</p>
+        <div style="position: absolute; left: 50%; bottom: 120px; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%; border: 1px solid rgba(255, 220, 160, 0.8); box-shadow: 0 0 0 10px rgba(255, 220, 160, 0.12), 0 0 30px rgba(255, 200, 120, 0.45)">
+          <div style="position: absolute; inset: 18px; border-radius: 50%; background: radial-gradient(circle, #ffe7b0, #f2b25c)"></div>
+        </div>
+        <p class="caps" style="position: absolute; left: 0; right: 0; bottom: 84px; color: rgba(255, 240, 215, 0.85)">Chạm để đón bình minh</p>
+        <span class="label">1 · Mở đầu: biển lúc rạng đông</span>
+      </section>
+
+      <!-- 2 · the sun rises: first screen -->
+      <section class="screen">
+        <img class="art fade-bottom" src="art/hero.webp" alt="" style="inset: 0; width: 100%; height: 100%; object-fit: cover" />
+        <div class="art" style="inset: 0 0 auto; height: 300px; background: linear-gradient(180deg, rgba(251, 244, 230, 0.7), rgba(251, 244, 230, 0))"></div>
+        <div class="sun" style="top: 311px; left: 207px"></div>
+        <p class="caps" style="margin-top: 64px">Lễ thành hôn</p>
+        <h1 class="names" style="margin-top: 10px">Đức Minh</h1>
+        <p class="amp">&amp;</p>
+        <h1 class="names">Khánh Linh</h1>
+        <div style="position: absolute; left: 0; right: 0; bottom: 56px">
+          <p style="font-size: 15px; letter-spacing: 0.28em; color: var(--ink)">THỨ BẢY</p>
+          <p style="margin-top: 4px; font-size: 30px; letter-spacing: 0.12em; color: var(--ink)"><span class="rule"></span> 26 · 12 · 2026 <span class="rule"></span></p>
+        </div>
+        <span class="label">2 · Chạm vào: mặt trời lên, màn hình đầu</span>
+      </section>
+
+      <!-- 3 · cover photo spread -->
+      <section class="screen">
+        <div class="ph" style="left: 0; top: 64px; width: 306px; height: 408px">
+          <img src="../../src/static/cover.jpg" alt="" />
+          <p class="over script" style="left: 22px; bottom: 18px; text-align: left; font-size: 40px; line-height: 1.05; color: var(--cream)">Chúng mình<br />về chung một nhà</p>
+        </div>
+        <p class="caps" style="position: absolute; right: -96px; top: 250px; width: 260px; transform: rotate(90deg); color: var(--gold); letter-spacing: 0.42em">26 · 12 · 2026</p>
+        <div style="position: absolute; right: 32px; top: 506px; width: 300px; text-align: right">
+          <p class="caps">Lễ thành hôn</p>
+          <p style="margin-top: 8px; font-size: 28px; line-height: 1.25">Đức Minh <span class="amp" style="font-size: 32px">&amp;</span><br />Khánh Linh</p>
+          <p class="lead" style="margin-top: 14px">“Biển rộng trời cao,<br />và chúng mình có nhau.”</p>
+        </div>
+        <img class="art" src="art/shells.webp" alt="" style="width: 190px; left: -24px; bottom: 26px" />
+        <span class="label">3 · Ảnh bìa tràn lề trái</span>
+      </section>
+
+      <!-- 4 · families, names, invitation -->
+      <section class="screen">
+        <img class="art" src="art/corner.webp" alt="" style="width: 230px; left: 0; top: 0" />
+        <p class="caps" style="margin-top: 176px; padding: 0 48px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
+        <div style="display: flex; justify-content: space-between; margin: 22px 32px 0; font-size: 15px; line-height: 1.7">
+          <div style="text-align: left"><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
+          <div style="text-align: right; padding-top: 26px"><p class="caps" style="font-size: 9px">Nhà gái</p><p>Ông Lê Minh Đức</p><p>Bà Phạm Thị Hoa</p></div>
+        </div>
+        <div style="margin: 26px 32px 0">
+          <div style="text-align: left"><h2 class="names" style="font-size: 36px">Đức Minh</h2><p class="role">Trưởng nam</p></div>
+          <p class="amp" style="margin: -4px 0">&amp;</p>
+          <div style="text-align: right"><h2 class="names" style="font-size: 36px">Khánh Linh</h2><p class="role">Út nữ</p></div>
+        </div>
+        <img src="art/divider.webp" alt="" style="display: block; width: 260px; margin: 22px auto 0" />
+        <p class="caps" style="margin-top: 16px">Trân trọng kính mời</p>
+        <p class="script" style="margin-top: 4px; padding: 0 20px; font-size: 36px; line-height: 1.15">Anh Huy &amp; người thương</p>
+        <p class="lead" style="margin-top: 6px">tới dự bữa tiệc chung vui<br />cùng gia đình chúng tôi</p>
+        <span class="label">4 · Hai họ, tên so le, lời mời</span>
+      </section>
+
+      <!-- 5 · date and venue -->
+      <section class="screen">
+        <img class="art" src="art/gulls.webp" alt="" style="width: 150px; right: -14px; top: 18px" />
+        <div style="margin: 96px 32px 0; text-align: left">
+          <p class="caps">Tiệc cưới diễn ra vào lúc</p>
+          <p style="margin-top: 6px; font-size: 24px">17 giờ 30</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 18px; margin: 18px 32px 0">
+          <b style="font-size: 132px; font-weight: 400; line-height: 0.9; color: var(--main)">26</b>
+          <div style="text-align: left; padding-left: 18px; border-left: 1px solid var(--main); font-size: 15px; line-height: 1.8; letter-spacing: 0.12em">
+            <p>THỨ BẢY</p><p>THÁNG 12</p><p>2026</p>
+          </div>
+        </div>
+        <p style="margin: 14px 32px 0; text-align: left; font-size: 14px; font-style: italic; color: var(--muted)">Tức ngày 18 tháng 11 năm Bính Ngọ</p>
+        <img src="art/divider.webp" alt="" style="display: block; width: 260px; margin: 36px auto 0" />
+        <div style="margin: 30px 32px 0; text-align: right">
+          <p class="caps">Địa điểm</p>
+          <h3 style="margin-top: 8px; font-size: 24px; font-weight: 500">Trung tâm tiệc cưới An Phúc</h3>
+          <p style="margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--muted)">Sảnh Hoàng Kim, 68 Lê Lợi,<br />phường Bến Thành, TP. Hồ Chí Minh</p>
+          <p class="caps" style="margin-top: 16px; display: inline-block; border-bottom: 1px solid var(--main); padding-bottom: 2px">Chỉ đường →</p>
+        </div>
+        <img class="art" src="art/boat.webp" alt="" style="width: 150px; left: 14px; bottom: 30px" />
+        <span class="label">5 · Ngày giờ, địa điểm</span>
+      </section>
+
+      <!-- 6a · album: every photo bleeds to one edge, washed with sun; stagger left and right -->
+      <section class="screen">
+        <div style="margin: 54px 32px 0; text-align: left">
+          <p class="caps">Khoảnh khắc</p>
+          <p class="script" style="font-size: 36px">Những ngày bên nhau</p>
+        </div>
+        <div class="ph" style="left: 0; right: 0; top: 156px; height: 260px">
+          <img src="../../src/static/couple.jpeg" alt="" />
+        </div>
+        <div class="ph" style="left: 0; top: 440px; width: 222px; height: 296px">
+          <img src="../../src/static/album2.jpeg" alt="" />
+        </div>
+        <p class="lead" style="position: absolute; right: 24px; top: 560px; width: 122px; text-align: left; color: var(--gold)">“Gặp nhau là duyên, ở bên nhau là phận”</p>
+        <span class="label">6a · Album: ảnh tràn lề, phủ nắng</span>
+      </section>
+
+      <!-- 6b · album continues -->
+      <section class="screen">
+        <div class="ph" style="right: 0; top: 40px; width: 236px; height: 315px">
+          <img src="../../src/static/album3.jpeg" alt="" />
+        </div>
+        <p class="script" style="position: absolute; left: 26px; top: 150px; width: 110px; text-align: left; font-size: 30px; line-height: 1.15">Mỗi bình minh có nhau</p>
+        <div class="ph" style="left: 0; top: 380px; width: 256px; height: 341px">
+          <img src="../../src/static/album4.jpeg" alt="" />
+        </div>
+        <img class="art" src="art/shells.webp" alt="" style="width: 130px; right: 6px; top: 560px" />
+        <p class="caps" style="position: absolute; right: 24px; bottom: 60px; color: var(--muted)">Vuốt xem thêm →</p>
+        <span class="label">6b · Album (tiếp)</span>
+      </section>
+
+      <!-- 7 · calendar, countdown, programme -->
+      <section class="screen">
+        <p class="script" style="margin-top: 50px; font-size: 44px">Tháng 12 · 2026</p>
+        <div class="cal" id="cal" style="margin-top: 10px"></div>
+        <p class="caps" style="margin-top: 26px">Cùng đếm ngược</p>
+        <div class="count" style="margin-top: 10px">
+          <div><b>65</b><small>NGÀY</small></div><div><b>07</b><small>GIỜ</small></div><div><b>06</b><small>PHÚT</small></div><div><b>42</b><small>GIÂY</small></div>
+        </div>
+        <img src="art/divider.webp" alt="" style="display: block; width: 260px; margin: 26px auto 0" />
+        <p class="caps" style="margin-top: 16px">Lịch trình</p>
+        <div class="steps" style="margin-top: 10px">
+          <div><b>17:00</b><i></i><span>Đón khách</span></div>
+          <div><b>17:30</b><i></i><span>Lễ thành hôn</span></div>
+          <div><b>18:00</b><i></i><span>Khai tiệc</span></div>
+        </div>
+        <img class="art" src="art/boat.webp" alt="" style="width: 110px; right: 4px; bottom: 26px" />
+        <span class="label">7 · Lịch, đếm ngược, lịch trình</span>
+      </section>
+
+      <!-- 8 · RSVP and gift -->
+      <section class="screen">
+        <img class="art" src="art/gulls.webp" alt="" style="width: 140px; right: -10px; top: 24px" />
+        <p class="caps" style="margin-top: 100px">R · S · V · P</p>
+        <p class="script" style="margin-top: 2px; font-size: 42px">Xác nhận tham dự</p>
+        <p style="margin: 6px 44px 0; font-size: 14.5px; color: var(--muted)">Mong bạn phản hồi trước ngày 15.12 để gia đình chuẩn bị chu đáo.</p>
+        <div style="margin-top: 24px">
+          <p class="field">Tên của bạn</p>
+          <p class="field" style="height: 44px">Lời chúc gửi cô dâu chú rể</p>
+        </div>
+        <p style="margin-top: 4px"><span class="opt on">Sẽ tham dự</span><span class="opt">Rất tiếc không thể</span></p>
+        <p style="margin-top: 20px"><span class="btn">Gửi xác nhận</span></p>
+        <p class="caps" style="margin-top: 38px">Mừng cưới</p>
+        <img src="art/gift.webp" alt="" style="display: block; width: 170px; margin: 8px auto 0" />
+        <p class="lead" style="margin-top: 4px; color: var(--muted)">Chạm vào vỏ sò để gửi quà mừng</p>
+        <span class="label">8 · Xác nhận, quà mừng (vỏ sò ngọc trai)</span>
+      </section>
+
+      <!-- 9 · thanks: the morning shore -->
+      <section class="screen">
+        <div class="ph" style="left: 0; right: 0; top: 0; height: 470px">
+          <img src="../../src/static/destiny.jpeg" alt="" />
+          <p class="over script" style="left: 0; right: 0; bottom: 22px; font-size: 50px">Trân trọng cảm ơn</p>
+        </div>
+        <p class="caps" style="margin-top: 494px">Đức Minh · Khánh Linh</p>
+        <p class="lead" style="margin-top: 10px; color: var(--muted)">Hẹn gặp bạn trong ngày vui của chúng mình</p>
+        <img class="art" src="art/gulls.webp" alt="" style="width: 110px; right: 40px; bottom: 214px" />
+        <img class="art fade-top" src="art/shore.webp" alt="" style="width: 100%; left: 0; bottom: 0" />
+        <span class="label">9 · Lời cảm ơn, bờ biển buổi sớm</span>
+      </section>
+    </div>
+
+    <script>
+      // December 2026 starts on a Tuesday; the wedding day glows like a small sun
+      const cal = document.getElementById("cal");
+      let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
+      for (let d = 1; d <= 31; d++) {
+        html += d === 26
+          ? `<span><i style="position:absolute;left:50%;top:50%;width:40px;height:40px;transform:translate(-50%,-50%);border-radius:50%;padding:0;background:radial-gradient(circle,#ffd98a 0 38%,rgba(255,200,110,.55) 52%,rgba(255,200,110,0) 72%)"></i><b style="position:relative;font-weight:500;color:var(--ink)">26</b></span>`
+          : `<span>${d}</span>`;
+      }
+      cal.innerHTML = html;
+    </script>
+  </body>
+</html>
