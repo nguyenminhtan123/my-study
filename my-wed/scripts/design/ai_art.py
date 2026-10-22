@@ -7,6 +7,8 @@ Keep one STYLE line per template and prefix it to every piece, so the whole kit 
 Credentials come from the environment, never from the repo:
   CF_TOKEN    Workers AI API token
   CF_ACCOUNT  Cloudflare account id
+  TOGETHER_API_KEY  optional fallback (Together AI, free FLUX.1 schnell) used when Cloudflare is out of
+                    its daily quota or not configured
 
 Run: python3 scripts/design/ai_art.py [--paper dark] <out.webp> <width> <height> "<style + subject prompt>" [model]
      python3 scripts/design/ai_art.py [--paper dark] --alpha <in.jpg> <out.webp>   (existing art -> transparent)
@@ -88,7 +90,7 @@ MASK_PROMPT = (
 )
 
 
-def generate(prompt, width, height, model=MODEL):
+def cloudflare(prompt, width, height, model=MODEL):
     token, account = os.environ["CF_TOKEN"], os.environ["CF_ACCOUNT"]
     url = f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}"
     auth = ["-H", f"Authorization: Bearer {token}"]
@@ -103,8 +105,51 @@ def generate(prompt, width, height, model=MODEL):
     data = json.loads(raw)
     image = (data.get("result") or {}).get("image")
     if not image:
-        raise SystemExit(f"Workers AI error: {json.dumps(data)[:300]}")
+        raise RuntimeError(f"Workers AI error: {json.dumps(data)[:300]}")
     return Image.open(io.BytesIO(base64.b64decode(image)))
+
+
+def together(prompt, width, height):
+    """Fallback: Together AI's free FLUX.1 [schnell] endpoint (Apache 2.0). Needs TOGETHER_API_KEY."""
+    model = os.environ.get("TOGETHER_MODEL", "black-forest-labs/FLUX.1-schnell-Free")
+    body = {
+        "model": model,
+        "prompt": prompt,
+        "width": width // 16 * 16,
+        "height": height // 16 * 16,
+        "steps": 4,
+        "n": 1,
+        "response_format": "b64_json",
+    }
+    raw = subprocess.run(
+        [
+            "curl", "-sS", "-m", "180", "https://api.together.xyz/v1/images/generations",
+            "-H", f"Authorization: Bearer {os.environ['TOGETHER_API_KEY']}",
+            "-H", "Content-Type: application/json", "-d", json.dumps(body),
+        ],
+        capture_output=True,
+        check=True,
+    ).stdout
+    data = json.loads(raw)
+    items = data.get("data") or []
+    if not items or not items[0].get("b64_json"):
+        raise RuntimeError(f"Together AI error: {json.dumps(data)[:300]}")
+    return Image.open(io.BytesIO(base64.b64decode(items[0]["b64_json"])))
+
+
+def generate(prompt, width, height, model=MODEL):
+    """Cloudflare first (same model as the existing kits); Together AI when Cloudflare is out of quota
+    or not configured and TOGETHER_API_KEY is set."""
+    error = None
+    if os.environ.get("CF_TOKEN") and os.environ.get("CF_ACCOUNT"):
+        try:
+            return cloudflare(prompt, width, height, model)
+        except RuntimeError as e:
+            error = e
+    if os.environ.get("TOGETHER_API_KEY"):
+        print("Cloudflare unavailable, using Together AI", file=sys.stderr)
+        return together(prompt, width, height)
+    raise SystemExit(str(error or "Set CF_TOKEN + CF_ACCOUNT or TOGETHER_API_KEY"))
 
 
 if __name__ == "__main__":
