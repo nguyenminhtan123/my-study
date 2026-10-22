@@ -12,10 +12,11 @@ Credentials come from the environment, never from the repo:
               (free: 10,000 neurons/day, about 90 images) or not configured. deAPI free tier: 100 images/day,
               3 per minute, paid from the $5 signup credit.
 
-Run: python3 scripts/design/ai_art.py [--paper dark] <out.webp> <width> <height> "<style + subject prompt>" [model]
+Run: python3 scripts/design/ai_art.py [--paper dark|none] <out.webp> <width> <height> "<style + subject prompt>" [model]
      python3 scripts/design/ai_art.py [--paper dark] --alpha <in.jpg> <out.webp>   (existing art -> transparent)
      python3 scripts/design/ai_art.py --mask <out.png> <width> <height> "<shape, e.g. tall portrait>"
   --paper dark: the art is drawn on a pure black background (lacquer, gold leaf); black becomes transparent.
+  --paper none: keep the picture opaque, for a scene that fills a whole section as its background.
   --mask: a painted shape for photo masks (alpha only), drips removed and cropped tight; the STYLE of the
           template's medium can be added to the shape text so the edge matches the art.
 Default model: @cf/black-forest-labs/flux-2-klein-4b (Apache 2.0, outputs usable commercially).
@@ -82,7 +83,10 @@ def to_mask(im):
 
 
 def save(im, out, paper="light"):
-    im = to_alpha_dark(im) if paper == "dark" else to_alpha(im)
+    if paper == "none":
+        im = im.convert("RGB")
+    else:
+        im = to_alpha_dark(im) if paper == "dark" else to_alpha(im)
     im.save(out, quality=86, method=6) if out.endswith(".webp") else im.save(out, optimize=True)
 
 
@@ -157,8 +161,8 @@ def generate(prompt, width, height, model=MODEL):
 if __name__ == "__main__":
     args = sys.argv[1:]
     paper = "light"
-    if args[:2] == ["--paper", "dark"]:
-        paper, args = "dark", args[2:]
+    if args[:1] == ["--paper"]:
+        paper, args = args[1], args[2:]
     if len(args) == 3 and args[0] == "--alpha":
         save(Image.open(args[1]), args[2], paper)
     elif len(args) == 5 and args[0] == "--mask":
