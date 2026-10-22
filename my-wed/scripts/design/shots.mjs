@@ -4,10 +4,13 @@
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 
+import { execFileSync } from "node:child_process";
+
 import {
   APP,
   HIDE_CHROME,
   SCROLLER,
+  ffmpeg,
   launch,
   openIntro,
   phone,
@@ -45,4 +48,7 @@ await browser.close();
 
 const out = join(outDir, `${id}-strip.jpg`);
 strip(files, out);
-console.log(`${out}: ${files.length} màn hình`);
+// gallery thumbnail candidate: the first screen after the intro, 9:16, 360x640
+const thumb = join(outDir, `${id}-thumb.jpg`);
+execFileSync(ffmpeg, ["-v", "error", "-y", "-i", files[1] ?? files[0], "-vf", "crop=iw:iw*16/9,scale=360:640", "-q:v", "3", thumb]);
+console.log(`${out}: ${files.length} màn hình; ảnh đại diện: ${thumb}`);

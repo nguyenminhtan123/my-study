@@ -36,18 +36,19 @@ Diversity check before going on: compare with every row of `docs/templates-regis
 2. Every art file is a **transparent WebP** (the script converts the paper or black ground to alpha). Exception: a scene that fills a whole section as its background may stay opaque. Never `mix-blend-mode: multiply` (Zalo iOS shows the paper).
 3. One medium for the whole kit, same STYLE prefix on every piece. Re-draw pieces that are off-style or wrong (AI often fails "closed / folded" objects: try variations).
 4. Background texture if needed: `python3 scripts/design/paper.py`.
-5. `python3 scripts/design/board.py design/tNN/art <scratchpad>/tNN-board.jpg <background>` and send the board. **Stop and wait** for approval; re-draw on comments.
+5. `python3 scripts/design/board.py design/tNN/art <scratchpad>/tNN-board.jpg <background>`, run the self-check in the guide's section 10 (art lines), then send the board. **Stop and wait** for approval; re-draw on comments.
 
 ## Step 3: mockup from the approved kit, then STOP for review
 
 1. Copy `scripts/design/mockup-starter.html` to `design/tNN/mockup.html`; lay out the screens in the chosen layout (intro closed, intro opened, first screen, families/invite, date/venue, album (1–2 screens), calendar/countdown/programme, RSVP/gift, thanks) using only the kit, demo photos and the brief's tokens and fonts.
 2. Rules: a piece drawn cropped by an edge keeps that edge outside the screen; one photo frame for every photo, variety only from size and arrangement; corner art never covers text; one decoration family repeated.
-3. `node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg` (served over http, so CSS masks work), check it, `python3 scripts/design/palette.py` against the brief's targets, fix once.
+3. `node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg` (served over http, so CSS masks work), look at every screen at full size, go through the whole self-check in the guide's section 10 and `palette.py`, and fix everything it finds before sending. The goal is approval in one or two rounds, not five.
 4. Send the image with a few lines. **Stop and wait** for "duyệt"; apply comments and re-send as many rounds as needed.
 
 ## Step 4: build to match the mockup (after approval only)
 
-- Files: `templates/tNN/index.tsx`, `styles.scss`, `demo-data.ts`; art copied to `src/static/tNN/`; thumbnail `src/static/thumbs/tNN.jpg` (360x640 from the first screen). Register at the end of `templates/index.ts`; add the intro's tap target to `OPENERS` in `scripts/design/browser.mjs`; add the template and its photo slots to `admin/src/catalog.ts`.
+- Files: `templates/tNN/index.tsx`, `styles.scss`, `demo-data.ts`; art copied to `src/static/tNN/`; thumbnail `src/static/thumbs/tNN.jpg` (copy `tNN-thumb.jpg` that `shots.mjs` writes; run shots once the page renders). Register at the end of `templates/index.ts`; add the intro's tap target to `OPENERS` in `scripts/design/browser.mjs`; add the template and its photo slots to `admin/src/catalog.ts`.
+- Follow the guide's section 11 (Zalo WebView: no mix-blend-mode, no :has(), -webkit-mask prefixes).
 - Copy the mockup's tokens unchanged. Reuse `_kit` (Reveal, CalendarCard, Countdown, RsvpForm, GiftCard, VenueActions, GuestName, LunarNote, photoSrc, photoShape) and restyle in SCSS. All features of the guide's section 7 present. Never edit `src/core/`.
 - The album handles any number of photos (landscape vs portrait via `photoShape`).
 - `npx -y -p typescript@5.6.3 tsc --noEmit -p .` passes (and `cd admin && npx vite build` if the catalog changed).
