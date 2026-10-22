@@ -27,14 +27,14 @@ Story, group, palette with hex and shares, fonts, first-screen layout, section f
 ## Step 2: art kit, then STOP for review
 
 1. Write one STYLE line (medium, paper, palette, mood, "no text, no frame, plain paper background") and prefix it to every piece. One medium per template: never mix photo cut-outs, watercolour and vector.
-2. Draw each piece with `python3 scripts/design/ai_art.py design/tNN/art/<name>.jpg <w> <h> "<STYLE> <subject>"` (FLUX.2 klein, Apache 2.0; the script whitens the paper). Usual kit: hero (art that pours in from an edge), corner, divider, gift item, footer scene, intro object(s), photo masks (`wash-*.png`, painted shapes turned into alpha) if photos get a painted edge.
+2. Draw each piece with `python3 scripts/design/ai_art.py design/tNN/art/<name>.webp <w> <h> "<STYLE> <subject>"` (FLUX.2 klein, Apache 2.0). The script turns the paper transparent: **every art file is a transparent WebP**, never an image with a white or paper background. Usual kit: hero (art that pours in from an edge), corner, divider, gift item, footer scene, intro object(s), photo masks (`wash-*.png`, painted shapes turned into alpha) if photos get a painted edge.
 3. Re-draw any piece that is off-style or wrong (AI often gets "closed"/"folded" objects wrong: try a few variations).
-4. Compose a board of the pieces multiplied onto the page background and send it (SendUserFile). **Stop and wait** for approval; re-draw on comments.
+4. Compose a board of the pieces laid on the page background and send it (SendUserFile). **Stop and wait** for approval; re-draw on comments.
 
 ## Step 3: mockup from the approved kit, then STOP for review
 
 1. Copy `scripts/design/mockup-starter.html` to `design/tNN/mockup.html`; lay out the screens (intro closed, intro opened, first screen, families/invite, date/venue, album, calendar/countdown/programme, RSVP/gift, thanks) using only the kit, the demo photos and the brief's tokens.
-2. Art rules: art images use `mix-blend-mode: multiply`; a piece drawn cropped by an edge keeps that edge outside the screen; **one photo treatment for every photo** (e.g. all painted-edge masks), variety only from size and stagger; one decoration family repeated, not many.
+2. Art rules: art is transparent WebP placed normally (no `mix-blend-mode: multiply`: Zalo's iOS WebView shows the white paper); a piece drawn cropped by an edge keeps that edge outside the screen; **one photo treatment for every photo** (e.g. all painted-edge masks), variety only from size and stagger; one decoration family repeated, not many.
 3. Render `node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg`, check it yourself, measure with `python3 scripts/design/palette.py`, fix once.
 4. Send the mockup image with a few lines (what each screen shows, colour numbers). **Stop and wait.** Do not write template code until the owner says "duyệt"; apply comments and re-send as many rounds as needed.
 

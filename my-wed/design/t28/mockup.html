@@ -3,8 +3,8 @@
   t28 · Đèn lồng Hội An. Mockup v3 for review (new-template step 3: layout from the approved art kit).
   Group A (truyền thống nền sáng). One watercolour kit, all AI-drawn in the same style on the same paper
   (FLUX.2 klein, Apache 2.0): lanterns, bougainvillea, a red paper fan, the old town by the river.
-  Every art image has its paper whitened and is laid on the page with mix-blend-mode: multiply,
-  so it melts into the cream background instead of sitting on it as a cut-out.
+  Every art image has a transparent background (paper turned to alpha by scripts/design/ai_art.py),
+  so it sits on the cream page like paint on the same paper, with no box and no cut-out edge.
   Render: node scripts/design/mockup.mjs design/t28/mockup.html <out.jpg>
 -->
 <html lang="vi">
@@ -72,17 +72,15 @@
         margin: 0;
         position: relative;
       }
-      /* watercolour art: paper is white, multiply lets the page's cream show through */
+      /* watercolour art: transparent WebP */
       .art {
         position: absolute;
-        mix-blend-mode: multiply;
-        pointer-events: none;
+                pointer-events: none;
       }
       .art-inline {
         display: block;
         margin: 0 auto;
-        mix-blend-mode: multiply;
-      }
+              }
       .caps {
         font: 500 10px/1.7 var(--caps);
         letter-spacing: 0.32em;
@@ -312,18 +310,18 @@
     <div class="board">
       <!-- 1 · intro: a closed red fan -->
       <section class="screen">
-        <img class="art" src="art/hero.jpg" alt="" style="width: 390px; left: 0; top: -60px; opacity: 0.55" />
+        <img class="art" src="art/hero.webp" alt="" style="width: 390px; left: 0; top: -60px; opacity: 0.55" />
         <p class="caps" style="margin-top: 260px">Thiệp mời cưới</p>
         <p style="margin-top: 8px; font-size: 32px; font-style: italic; color: var(--main)">Đức Minh &amp; Khánh Linh</p>
-        <img class="art-inline" src="art/fan-closed.jpg" alt="" style="width: 150px; margin-top: 10px; transform: rotate(-12deg)" />
+        <img class="art-inline" src="art/fan-closed.webp" alt="" style="width: 150px; margin-top: 10px; transform: rotate(-12deg)" />
         <p class="caps" style="margin-top: -6px; color: var(--muted)">Chạm để mở quạt</p>
         <span class="label">1 · Mở đầu: quạt đỏ đang gập</span>
       </section>
 
       <!-- 2 · the fan spreads open -->
       <section class="screen">
-        <img class="art" src="art/hero.jpg" alt="" style="width: 390px; left: 0; top: -60px; opacity: 0.55" />
-        <img class="art-inline" src="art/fan-open.jpg" alt="" style="width: 430px; margin: 230px 0 0 -20px" />
+        <img class="art" src="art/hero.webp" alt="" style="width: 390px; left: 0; top: -60px; opacity: 0.55" />
+        <img class="art-inline" src="art/fan-open.webp" alt="" style="width: 430px; margin: 230px 0 0 -20px" />
         <p class="caps" style="margin-top: -10px">Lễ thành hôn</p>
         <p style="margin-top: 6px; font-size: 34px; color: var(--main)">Đức Minh <i style="color: var(--gold)">&amp;</i> Khánh Linh</p>
         <p style="margin-top: 6px; font-size: 20px; letter-spacing: 0.2em; color: var(--muted)">26 · 12 · 2026</p>
@@ -332,7 +330,7 @@
 
       <!-- 3 · first screen: lanterns and bougainvillea pour in from the top -->
       <section class="screen">
-        <img class="art" src="art/hero.jpg" alt="" style="width: 430px; left: -10px; top: -40px" />
+        <img class="art" src="art/hero.webp" alt="" style="width: 430px; left: -10px; top: -40px" />
         <p class="caps" style="margin-top: 318px">Lễ thành hôn</p>
         <h1 class="names" style="margin-top: 8px">Đức Minh</h1>
         <p class="amp">&amp;</p>
@@ -341,13 +339,13 @@
           <span style="text-align: right">Thứ bảy</span><b style="font-size: 44px">26</b><span style="text-align: left">Tháng 12<br />2026</span>
         </div>
         <img class="wash w-port2" src="../../src/static/cover.jpg" alt="" style="width: 230px; height: 260px; margin: 12px auto 0" />
-        <img class="art" src="art/bougain.jpg" alt="" style="width: 330px; left: -24px; bottom: -30px" />
+        <img class="art" src="art/bougain.webp" alt="" style="width: 330px; left: -24px; bottom: -30px" />
         <span class="label">3 · Màn hình đầu</span>
       </section>
 
       <!-- 4 · families, names, invitation -->
       <section class="screen">
-        <img class="art" src="art/bougain.jpg" alt="" style="width: 250px; right: -40px; top: -80px; transform: scale(-1, -1); opacity: 0.8" />
+        <img class="art" src="art/bougain.webp" alt="" style="width: 250px; right: -40px; top: -80px; transform: scale(-1, -1); opacity: 0.8" />
         <p class="caps" style="margin-top: 80px; padding: 0 40px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
         <div style="display: flex; justify-content: center; gap: 22px; margin-top: 26px; font-size: 17px; line-height: 1.6">
           <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -359,7 +357,7 @@
         <p class="amp" style="margin: 4px 0">&amp;</p>
         <h2 class="names" style="font-size: 44px">Khánh Linh</h2>
         <p class="role">ÚT NỮ</p>
-        <img class="art-inline" src="art/divider.jpg" alt="" style="width: 300px; margin-top: 16px" />
+        <img class="art-inline" src="art/divider.webp" alt="" style="width: 300px; margin-top: 16px" />
         <p class="caps" style="margin-top: 4px">Trân trọng kính mời</p>
         <p style="margin-top: 6px; font-family: var(--script); font-size: 40px; color: var(--main)">Anh Huy &amp; người thương</p>
         <p style="margin-top: 8px; font-size: 18px; font-style: italic">tới dự bữa tiệc chung vui<br />cùng gia đình chúng tôi</p>
@@ -368,19 +366,19 @@
 
       <!-- 5 · date and venue -->
       <section class="screen">
-        <img class="art" src="art/lantern.jpg" alt="" style="width: 170px; right: -40px; top: -90px; opacity: 0.9" />
+        <img class="art" src="art/lantern.webp" alt="" style="width: 170px; right: -40px; top: -90px; opacity: 0.9" />
         <p class="caps" style="margin-top: 90px">Tiệc cưới diễn ra vào lúc</p>
         <p style="margin-top: 8px; font-size: 26px; letter-spacing: 0.06em; color: var(--main)">17 giờ 30</p>
         <div class="dateline" style="margin-top: 16px">
           <span style="text-align: right">Thứ bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span>
         </div>
         <p style="margin-top: 14px; font-size: 15px; font-style: italic" class="muted">(Tức ngày 18 tháng 11 năm Bính Ngọ)</p>
-        <img class="art-inline" src="art/divider.jpg" alt="" style="width: 300px; margin-top: 18px" />
+        <img class="art-inline" src="art/divider.webp" alt="" style="width: 300px; margin-top: 18px" />
         <p class="caps" style="margin-top: 6px">Địa điểm</p>
         <h3 style="margin-top: 8px; font-size: 27px; font-weight: 500; color: var(--main)">Trung tâm tiệc cưới An Phúc</h3>
         <p style="margin: 6px 40px 0; font-size: 16px" class="muted">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
         <p class="caps" style="margin-top: 18px; display: inline-block; border-bottom: 1px solid var(--main); padding-bottom: 2px">Chỉ đường</p>
-        <img class="art" src="art/bougain.jpg" alt="" style="width: 330px; left: -24px; bottom: -30px" />
+        <img class="art" src="art/bougain.webp" alt="" style="width: 330px; left: -24px; bottom: -30px" />
         <span class="label">5 · Ngày giờ, địa điểm</span>
       </section>
 
@@ -389,7 +387,7 @@
         <p class="caps" style="margin-top: 56px">Khoảnh khắc</p>
         <p style="margin-top: 4px; font-size: 34px; font-style: italic; color: var(--main)">Những ngày bên nhau</p>
         <img class="wash w-land1 abs-photo" src="../../src/static/couple.jpeg" alt="" style="left: 0; top: 138px; width: 390px; height: 270px" />
-        <img class="art" src="art/divider.jpg" alt="" style="width: 300px; left: 45px; top: 400px" />
+        <img class="art" src="art/divider.webp" alt="" style="width: 300px; left: 45px; top: 400px" />
         <img class="wash w-port3 abs-photo" src="../../src/static/album2.jpeg" alt="" style="left: 14px; top: 490px; width: 180px; height: 250px" />
         <img class="wash w-port1 abs-photo" src="../../src/static/album3.jpeg" alt="" style="left: 198px; top: 530px; width: 180px; height: 250px" />
         <span class="label">6a · Album: một kiểu ảnh viền loang, xếp so le</span>
@@ -400,7 +398,7 @@
         <img class="wash w-port2 abs-photo" src="../../src/static/destiny.jpeg" alt="" style="left: 55px; top: 50px; width: 280px; height: 370px" />
         <p class="quote" style="position: absolute; left: 0; right: 0; top: 432px">“Gặp nhau là duyên,<br />ở bên nhau là phận”</p>
         <img class="wash w-land3 abs-photo" src="../../src/static/album4.jpeg" alt="" style="left: 10px; top: 520px; width: 370px; height: 250px" />
-        <img class="art" src="art/bougain.jpg" alt="" style="width: 260px; right: -24px; bottom: -70px; transform: scaleX(-1)" />
+        <img class="art" src="art/bougain.webp" alt="" style="width: 260px; right: -24px; bottom: -70px; transform: scaleX(-1)" />
         <p class="caps" style="position: absolute; left: 30px; bottom: 40px; color: var(--muted)">Vuốt để xem thêm ảnh →</p>
         <span class="label">6b · Album (tiếp)</span>
       </section>
@@ -413,14 +411,14 @@
         <div class="count" style="margin-top: 10px">
           <div><b>66</b><small>NGÀY</small></div><div><b>07</b><small>GIỜ</small></div><div><b>06</b><small>PHÚT</small></div><div><b>42</b><small>GIÂY</small></div>
         </div>
-        <img class="art-inline" src="art/divider.jpg" alt="" style="width: 300px; margin-top: 10px" />
+        <img class="art-inline" src="art/divider.webp" alt="" style="width: 300px; margin-top: 10px" />
         <p class="caps" style="margin-top: 4px">Lịch trình</p>
         <div class="steps" style="margin-top: 12px">
           <div><b>17:00</b><i></i><span>Đón khách</span></div>
           <div><b>17:30</b><i></i><span>Lễ thành hôn</span></div>
           <div><b>18:00</b><i></i><span>Khai tiệc</span></div>
         </div>
-        <img class="art" src="art/bougain.jpg" alt="" style="width: 330px; right: -24px; bottom: -30px; transform: scaleX(-1)" />
+        <img class="art" src="art/bougain.webp" alt="" style="width: 330px; right: -24px; bottom: -30px; transform: scaleX(-1)" />
         <span class="label">7 · Lịch, đếm ngược, lịch trình</span>
       </section>
 
@@ -436,18 +434,18 @@
         <p style="margin-top: 6px"><span class="opt on">Sẽ tham dự</span><span class="opt">Rất tiếc không thể</span></p>
         <p style="margin-top: 22px"><span class="btn">Gửi xác nhận</span></p>
         <p class="caps" style="margin-top: 40px">Mừng cưới</p>
-        <img class="art-inline" src="art/lantern.jpg" alt="" style="width: 190px; margin-top: -18px" />
+        <img class="art-inline" src="art/lantern.webp" alt="" style="width: 190px; margin-top: -18px" />
         <p style="margin-top: -30px; font-size: 16px; font-style: italic" class="muted">Chạm vào đèn lồng để gửi quà mừng</p>
         <span class="label">8 · Xác nhận, quà mừng (chạm đèn lồng)</span>
       </section>
 
       <!-- 9 · thanks, the old town by the river -->
       <section class="screen">
-        <img class="art" src="art/hero.jpg" alt="" style="width: 340px; right: -16px; top: -80px; opacity: 0.85" />
+        <img class="art" src="art/hero.webp" alt="" style="width: 340px; right: -16px; top: -80px; opacity: 0.85" />
         <img class="wash w-round" src="../../src/static/destiny.jpeg" alt="" style="width: 240px; height: 240px; margin: 190px auto 0" />
         <p style="margin-top: 22px; font-size: 40px; font-style: italic; color: var(--main)">Trân trọng cảm ơn</p>
         <p class="caps" style="margin-top: 6px">Đức Minh · Khánh Linh</p>
-        <img class="art" src="art/town.jpg" alt="" style="width: 470px; left: -40px; bottom: -40px" />
+        <img class="art" src="art/town.webp" alt="" style="width: 470px; left: -40px; bottom: -40px" />
         <span class="label">9 · Lời cảm ơn, phố cổ ven sông</span>
       </section>
     </div>
@@ -458,7 +456,7 @@
       let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
       for (let d = 1; d <= 31; d++) {
         html += d === 26
-          ? `<span><img src="art/lantern.jpg" style="position:absolute;left:50%;top:-30px;width:62px;transform:translateX(-50%);mix-blend-mode:multiply"/><b style="position:relative;color:#fbe9cf;font-weight:500;font-size:13px;top:2px">26</b></span>`
+          ? `<span><img src="art/lantern.webp" style="position:absolute;left:50%;top:-30px;width:62px;transform:translateX(-50%)"/><b style="position:relative;color:#fbe9cf;font-weight:500;font-size:13px;top:2px">26</b></span>`
           : `<span>${d}</span>`;
       }
       cal.innerHTML = html;

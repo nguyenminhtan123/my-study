@@ -46,13 +46,13 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 
 ## Mẫu 28 · Đèn lồng Hội An (`my-wed/design/t28/art/`, sau này chép sang `src/static/t28/`)
 
-Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo), cùng một câu lệnh phong cách màu nước, rồi làm trắng nền giấy bằng `scripts/design/ai_art.py`. Dùng thương mại được, không bắt buộc ghi nguồn. Nền tường `wall.jpg` sinh bằng `scripts/design/paper.py`.
+Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo), cùng một câu lệnh phong cách màu nước, rồi chuyển nền giấy thành trong suốt (WebP) bằng `scripts/design/ai_art.py`. Dùng thương mại được, không bắt buộc ghi nguồn. Nền tường `wall.jpg` sinh bằng `scripts/design/paper.py`.
 
 | Tệp | Nội dung | Dùng ở |
 | --- | --- | --- |
-| `hero.jpg` | Chùm đèn lồng và cành hoa giấy treo từ mép trên | Màn hình đầu, mở đầu, cuối trang |
-| `fan-closed.jpg`, `fan-open.jpg` | Quạt giấy đỏ gập và xoè | Phần mở đầu |
-| `lantern.jpg` | Một đèn lồng đỏ đang sáng | Quà mừng, ngày cưới trên lịch |
-| `divider.jpg` | Đèn lồng nhỏ trên dây hoa giấy | Đường chia giữa các phần |
-| `bougain.jpg` | Cành hoa giấy | Các góc |
-| `town.jpg` | Phố cổ tường vàng ven sông | Chân trang |
+| `hero.webp` | Chùm đèn lồng và cành hoa giấy treo từ mép trên | Màn hình đầu, mở đầu, cuối trang |
+| `fan-closed.webp`, `fan-open.webp` | Quạt giấy đỏ gập và xoè | Phần mở đầu |
+| `lantern.webp` | Một đèn lồng đỏ đang sáng | Quà mừng, ngày cưới trên lịch |
+| `divider.webp` | Đèn lồng nhỏ trên dây hoa giấy | Đường chia giữa các phần |
+| `bougain.webp` | Cành hoa giấy | Các góc |
+| `town.webp` | Phố cổ tường vàng ven sông | Chân trang |

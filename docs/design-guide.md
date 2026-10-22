@@ -59,7 +59,7 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 - **Một mẫu chỉ một chất liệu.** Ảnh chụp cắt nền, tranh màu nước và hình vector đặt chung sẽ lạc quẻ. Cả bộ tranh phải trông như một họa sĩ vẽ.
 - **Bộ tranh trước, bố cục sau.** Vẽ trọn bộ (tranh màn hình đầu, góc, đường chia, món quà, chân trang, vật mở đầu) rồi chủ repo duyệt bảng tranh, sau đó mới bố cục.
 - **Cách tạo:** AI vẽ cùng một câu lệnh phong cách (`scripts/design/ai_art.py`, FLUX.2 klein, Apache 2.0, dùng thương mại được). Không dùng ảnh từ các kho PNG chỉ cho phi thương mại (PNGWing, CleanPNG...).
-- **Không cắt nền.** Tranh vẽ trên giấy, làm trắng giấy rồi đặt lên trang bằng `mix-blend-mode: multiply`: tranh tan vào nền như in trên cùng tờ giấy.
+- **Tranh luôn có nền trong suốt** (WebP có kênh alpha). `ai_art.py` tự chuyển giấy trắng thành trong suốt, lớp màu nước thành bán trong suốt, nên tranh nằm trên mọi nền như vẽ trên cùng tờ giấy, không có khung trắng, không có mép cắt. **Không dùng `mix-blend-mode: multiply`**: Zalo trên iPhone không hỗ trợ đúng, lộ nền trắng (lỗi đã gặp ở mẫu 28).
 - Tranh vẽ tràn ra một mép thì mép đó luôn nằm ngoài màn hình (không để lộ đường cắt thẳng).
 - **Một kiểu ảnh cho mọi ảnh** (ví dụ ảnh viền loang màu nước bằng mặt nạ vẽ cùng nét). Không trộn khung vòm, polaroid, khung tròn trong cùng một thiệp. Đa dạng bằng kích thước và cách xếp so le.
 - Nền giấy sinh bằng `scripts/design/paper.py`; ghi nguồn tranh vào `docs/CREDITS.md`.
