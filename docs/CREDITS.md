@@ -71,3 +71,17 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 | `divider.webp` | Hàng vỏ ốc, sao biển, ngọc trai | Đường phân cách |
 | `boat.webp` | Thuyền buồm nhỏ | Ngày giờ, lịch |
 | `gift.webp` | Vỏ sò ôm viên ngọc trai | Quà mừng |
+
+## Mẫu 31 · Lễ đường (`my-wed/design/t31/art/`, chép sang `src/static/t31/`)
+
+Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy qua deAPI bằng tài khoản của chủ repo), cùng một câu lệnh phong cách tả thực sang trọng. Vật thể được vẽ trên nền trơn rồi tách nền bằng `scripts/design/cutout.py` (rembg, mô hình isnet-general-use, giấy phép Apache 2.0); cửa tách theo đường viền sáng trên nền tối. Hộp nhẫn được vẽ lại từ bản chủ repo chọn bằng chế độ sửa ảnh của cùng model. Dùng thương mại được, không bắt buộc ghi nguồn. Nền giấy `paper.jpg` sinh bằng `scripts/design/paper.py`.
+
+| Tệp | Nội dung | Dùng ở |
+| --- | --- | --- |
+| `aisle.webp` | Lối đi giữa lễ đường trắng, hoa và nến hai bên, cổng hoa | Mở đầu (qua khe cửa), màn hình đầu |
+| `doors.webp` | Cửa đôi vòm tròn cẩm thạch trắng viền vàng | Mở đầu (tách hai cánh) |
+| `footer.webp` | Chuỗi hoa hồng, lan trắng và lá bạch đàn | Mở đầu, chân khung ảnh bìa, cuối trang |
+| `rings.webp` | Hộp nhẫn nhung ngà, hai nhẫn vàng, hoa hồng và lan | Phần hai họ |
+| `rose.webp` | Cành hồng trắng nằm ngang | Đường phân cách |
+| `candles.webp` | Chân nến vàng với nến trắng và hoa hồng | Ngày giờ, địa điểm |
+| `gift.webp` | Hộp quà ngà buộc nơ satin, hoa hồng và lan | Quà mừng |
