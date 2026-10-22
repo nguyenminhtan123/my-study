@@ -1,0 +1,702 @@
+// Template 29: Sen hồng. One ink-wash lotus kit on silk (East Asian sumi brush, light colour), saved with
+// a transparent background. Every photo is a moon gate: a round photo inside a painted brush circle.
+// Layout: a hanging silk scroll (the silk rolls slightly at both side edges). Intro: a lotus bud blooms.
+// Approved mockup: design/t29/mockup.html.
+$silk: url("@/static/t29/silk.jpg");
+// rolled silk at both side edges, drawn on the scrolling background so it runs the whole page
+$edges:
+  linear-gradient(90deg, rgba(120, 95, 80, 0.16), rgba(120, 95, 80, 0) 14px),
+  linear-gradient(270deg, rgba(120, 95, 80, 0.16), rgba(120, 95, 80, 0) 14px);
+
+.t29-root {
+  --k-bg: #f8f2e8;
+  --k-ink: #4a3f3c;
+  --k-muted: #8a7b74;
+  --k-accent: #c2566c;
+  --k-accent2: #c9a35b;
+  --k-line: rgba(95, 143, 123, 0.45);
+  --k-card: transparent;
+  --k-display: "Playfair Display", Georgia, serif;
+  --k-script: "Allura", Georgia, serif;
+  --k-body: "Playfair Display", Georgia, serif;
+  --main: #c2566c;
+  --jade: #5f8f7b;
+  --gold: #c9a35b;
+  padding: 0;
+  background: $edges, $silk repeat var(--k-bg);
+  background-size: auto, auto, 360px;
+  background-attachment: local;
+  color: var(--k-ink);
+  font-family: var(--k-display);
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-x: hidden;
+  isolation: isolate;
+
+  :where(h1, h2, h3, p) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: none;
+  }
+}
+
+.t29-art {
+  pointer-events: none;
+}
+.t29-caps {
+  font-size: 10.5px;
+  line-height: 1.7;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--jade);
+}
+.t29-pad {
+  padding: 0 24px;
+}
+.t29-lead {
+  margin-top: 4px;
+  font-size: 16px;
+  font-style: italic;
+}
+.t29-sec {
+  position: relative;
+  padding: 64px 26px;
+}
+.t29-divider {
+  width: 230px;
+  margin: 24px auto 16px;
+}
+.t29-amp-inline {
+  font-family: var(--k-script);
+  font-size: 1.3em;
+  font-style: normal;
+  color: var(--gold);
+}
+
+// ---------- moon gate ----------
+// the ring images were measured: the brush circle's centre and the photo diameter as a share of
+// the image width; these offsets put the circle exactly around the round photo
+.t29-moon {
+  position: relative;
+  width: 190px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.t29-moon-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.t29-moon-ring {
+  position: absolute;
+  top: -8%;
+}
+.t29-moon-full .t29-moon-ring {
+  width: 229.9%;
+  left: -71.8%;
+}
+.t29-moon-plain .t29-moon-ring {
+  width: 137.9%;
+  left: -13.6%;
+}
+
+// ---------- date line ----------
+.t29-dateline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+
+  span {
+    width: 92px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+  span:first-child {
+    text-align: right;
+  }
+  span:last-child {
+    text-align: left;
+  }
+  b {
+    padding: 0 16px;
+    border-left: 1px solid var(--jade);
+    border-right: 1px solid var(--jade);
+    font-size: 58px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--main);
+  }
+}
+.t29-dateline-sm b {
+  font-size: 44px;
+}
+
+// ---------- intro ----------
+.t29-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  background: $edges, $silk repeat var(--k-bg);
+  background-size: auto, auto, 360px;
+  cursor: pointer;
+  transition: opacity 0.8s 2.2s;
+}
+.t29-intro-fly {
+  position: absolute;
+  right: 6px;
+  top: 18px;
+  width: 120px;
+  opacity: 0.75;
+  transition: opacity 0.8s;
+}
+.t29-intro-petals {
+  position: absolute;
+  right: -40px;
+  top: 30px;
+  width: 240px;
+  opacity: 0;
+  transition: opacity 1.2s 0.6s;
+}
+.t29-intro-bud,
+.t29-intro-open {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.t29-intro-bud {
+  padding-top: 17vh;
+  transition:
+    opacity 0.9s,
+    transform 0.9s;
+}
+.t29-intro-names {
+  margin-top: 8px;
+  font-size: 26px;
+  color: var(--main);
+}
+.t29-bud {
+  height: min(470px, 54vh);
+  margin-top: 26px;
+}
+.t29-intro-hint {
+  margin-top: 20px;
+  color: var(--k-muted);
+  animation: t29-pulse 1.8s ease-in-out infinite;
+}
+@keyframes t29-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+.t29-intro-open {
+  padding-top: 20vh;
+  opacity: 0;
+  transition: opacity 1s 0.3s;
+
+  .t29-caps {
+    margin-top: 18px;
+  }
+}
+.t29-bloom {
+  width: min(360px, 92vw);
+  transform: scale(0.55);
+  transform-origin: 50% 100%;
+  transition: transform 1.5s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.t29-intro-names-lg {
+  margin-top: 6px;
+  font-size: 30px;
+}
+.t29-intro-date {
+  margin-top: 6px;
+  font-size: 16px;
+  letter-spacing: 0.24em;
+  color: var(--k-muted);
+}
+.t29-intro-bloom {
+  opacity: 0;
+  pointer-events: none;
+
+  .t29-intro-bud {
+    opacity: 0;
+    transform: translateY(-20px) scale(1.08);
+  }
+  .t29-intro-hint {
+    animation: none;
+  }
+  .t29-intro-fly {
+    opacity: 0;
+  }
+  .t29-intro-petals {
+    opacity: 0.8;
+  }
+  .t29-intro-open {
+    opacity: 1;
+  }
+  .t29-bloom {
+    transform: none;
+  }
+}
+
+// ---------- first screen ----------
+.t29-cover {
+  position: relative;
+  padding: 120px 26px 190px;
+
+  > :not(.t29-art) {
+    position: relative;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 1s,
+      transform 1s;
+  }
+  @for $i from 2 through 5 {
+    > :nth-child(#{$i}) {
+      transition-delay: #{2.3s + ($i - 1) * 0.2s};
+    }
+  }
+}
+.t29-open .t29-cover > :not(.t29-art) {
+  opacity: 1;
+  transform: none;
+}
+.t29-hero {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 290px;
+}
+.t29-names {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--main);
+
+  i {
+    font-family: var(--k-script);
+    font-style: normal;
+    line-height: 1;
+    color: var(--gold);
+  }
+}
+// the cover moon sits right of centre so its lotus cluster has room on the left
+.t29-cover-moon {
+  margin-top: 40px;
+  left: 40px;
+}
+
+// ---------- families ----------
+.t29-fam-sec {
+  padding-top: 124px;
+}
+.t29-fly-corner {
+  position: absolute;
+  right: -22px;
+  top: -16px;
+  width: 120px;
+}
+.t29-fams {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 18px;
+  margin: 24px -14px 0;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.t29-fams-line {
+  background: var(--jade);
+}
+.t29-fam {
+  display: flex;
+  flex-direction: column;
+
+  b {
+    font-size: 9px;
+    font-weight: 400;
+  }
+}
+.t29-couple {
+  margin-top: 36px;
+}
+.t29-name {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--main);
+}
+.t29-role {
+  margin-top: 4px;
+  font-size: 9.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--k-muted);
+}
+.t29-amp {
+  display: block;
+  margin: 4px 0;
+  font-family: var(--k-script);
+  font-size: 44px;
+  font-style: normal;
+  line-height: 1;
+  color: var(--gold);
+}
+.t29-guest {
+  margin: 2px 0 0;
+  padding: 0 4px;
+  font-family: var(--k-script);
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--main);
+}
+
+// ---------- date and venue ----------
+.t29-when {
+  padding-bottom: 260px;
+}
+.t29-time {
+  margin-top: 8px;
+  font-size: 24px;
+  color: var(--main);
+}
+.t29-lunar {
+  margin-top: 12px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--k-muted);
+  opacity: 1;
+}
+.t29-venue {
+  margin-top: 8px;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--main);
+}
+.t29-address {
+  margin: 6px 14px 0;
+  font-size: 15px;
+  color: var(--k-muted);
+}
+// "Chỉ đường" as an underlined caps link, not a pill button
+.t29-actions .k-actions {
+  margin-top: 18px;
+
+  button {
+    padding: 2px 0;
+    border: 0;
+    border-bottom: 1px solid var(--jade);
+    border-radius: 0;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--jade);
+  }
+  button:active {
+    background: transparent;
+    color: var(--jade);
+  }
+  svg {
+    display: none;
+  }
+}
+// the lotus corner grows out of the image's bottom-left corner, which stays off-screen
+.t29-corner {
+  position: absolute;
+  left: -30px;
+  bottom: -20px;
+  width: 300px;
+}
+
+// ---------- album ----------
+.t29-title {
+  margin: 0 -16px 30px;
+  font-family: var(--k-script);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--main);
+}
+.t29-big {
+  width: 250px;
+  margin-bottom: 50px;
+}
+.t29-pair {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 56px;
+
+  .t29-moon {
+    width: 150px;
+  }
+  > :nth-child(2) {
+    margin-top: 70px;
+  }
+}
+.t29-single {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 -26px 56px;
+  padding-right: 18px;
+
+  .t29-moon {
+    width: 200px;
+    margin-left: -50px;
+  }
+  > :last-child {
+    flex: 1;
+  }
+}
+.t29-single-r {
+  flex-direction: row-reverse;
+  padding: 0 0 0 18px;
+
+  .t29-moon {
+    margin: 0 -50px 0 0;
+  }
+}
+.t29-quote {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--main);
+}
+
+// ---------- calendar, countdown, programme ----------
+.t29-cal {
+  padding-top: 50px;
+
+  .k-cal {
+    padding: 0 0 10px;
+    background: transparent;
+    box-shadow: none;
+  }
+  // the kit prints the month in English; this template shows its own heading
+  .k-cal-month {
+    display: none;
+  }
+  .k-cal-grid {
+    font-size: 15px;
+    color: var(--k-ink);
+  }
+  // Vietnamese weekday initials in place of the kit's MON..SUN
+  .k-cal-dow {
+    font-size: 0;
+    color: var(--jade);
+
+    &::after {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+    }
+  }
+  @each $i, $label in (1: "T2", 2: "T3", 3: "T4", 4: "T5", 5: "T6", 6: "T7", 7: "CN") {
+    .k-cal-dow:nth-child(#{$i})::after {
+      content: $label;
+    }
+  }
+  .k-cal-day {
+    height: 30px;
+  }
+  // the wedding day sits in a small lotus bloom instead of a heart
+  .k-cal-hit {
+    color: var(--main);
+    font-weight: 600;
+
+    &::before {
+      width: 44px;
+      height: 36px;
+      clip-path: none;
+      background: url("@/static/t29/bloom.webp") center / contain no-repeat;
+      transform: translate(-50%, -56%);
+      opacity: 0.55;
+      animation: none;
+    }
+    b {
+      text-shadow:
+        0 0 4px #fff8f0,
+        0 0 2px #fff8f0;
+    }
+  }
+  .k-count {
+    gap: 6px;
+    width: 290px;
+    margin: 10px auto 0;
+
+    div + div {
+      border: 0;
+    }
+    b {
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--main);
+    }
+    span {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--k-muted);
+    }
+  }
+  > :nth-child(2) {
+    margin-top: 26px;
+  }
+}
+.t29-month {
+  margin-bottom: 10px;
+  font-family: var(--k-script);
+  font-size: 46px;
+  line-height: 1.2;
+  color: var(--main);
+}
+.t29-steps {
+  width: 250px;
+  margin: 10px auto 0;
+  text-align: left;
+
+  div {
+    display: grid;
+    grid-template-columns: 70px 22px 1fr;
+    align-items: center;
+    height: 36px;
+  }
+  b {
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--main);
+  }
+  i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--jade);
+  }
+}
+
+// ---------- RSVP and gift ----------
+.t29-rsvp {
+  padding-top: 104px;
+
+  .k-form {
+    h3 {
+      font-family: var(--k-script);
+      font-size: 48px;
+      line-height: 1.2;
+      color: var(--main);
+    }
+    p {
+      margin: 0 18px 8px;
+      font-size: 14.5px;
+    }
+    input,
+    textarea,
+    select {
+      padding: 6px 2px;
+      border-width: 0 0 1px;
+      border-color: var(--k-line);
+      border-radius: 0;
+      font-size: 15px;
+      font-style: italic;
+    }
+  }
+  .k-chips button {
+    padding: 4px 2px;
+    border: 0;
+    border-radius: 0;
+    font-size: 15px;
+    color: var(--k-muted);
+  }
+  .k-chips button.on {
+    background: transparent;
+    border-bottom: 1px solid var(--main);
+    color: var(--main);
+  }
+  .k-submit {
+    align-self: center;
+    padding: 12px 40px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #fff8f2;
+  }
+}
+.t29-fly-rsvp {
+  right: -24px;
+  top: -20px;
+  width: 110px;
+  opacity: 0.8;
+}
+.t29-gift-caps {
+  margin-top: 34px;
+}
+.t29-giftbtn {
+  display: block;
+  margin: 14px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--k-muted);
+  cursor: pointer;
+
+  img {
+    width: 230px;
+    margin: 0 auto;
+  }
+  span {
+    display: block;
+    margin-top: 10px;
+    font-size: 15px;
+    font-style: italic;
+  }
+}
+.t29-gift {
+  margin-top: 18px;
+
+  .k-gift-card {
+    background: rgba(255, 252, 246, 0.6);
+    box-shadow: none;
+  }
+}
+
+// ---------- thanks ----------
+.t29-thanks {
+  position: relative;
+  min-height: 844px;
+  padding: 60px 26px 300px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.t29-thanks-moon {
+  left: 40px;
+}
+.t29-thanks-title {
+  margin-top: 200px;
+  font-family: var(--k-script);
+  font-size: 50px;
+  line-height: 1.2;
+  color: var(--main);
+}
+// the pond's bottom edge stays at the screen's bottom edge
+.t29-pond {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 430px;
+  transform: translateX(-50%);
+}
