@@ -1,6 +1,7 @@
 // Template 28: Đèn lồng Hội An. One watercolour kit (lanterns, bougainvillea, a red paper fan, the old
-// town by the river) drawn in a single style; its paper is white so it melts into the cream page with
-// multiply. Every photo gets a painted brush edge. Approved mockup: design/t28/mockup.html.
+// town by the river) drawn in a single style, saved with a transparent background so it sits on the
+// cream page like paint on the same paper. Every photo gets a painted brush edge.
+// Approved mockup: design/t28/mockup.html.
 $wall: url("@/static/t28/wall.jpg");
 
 .t28-root {
@@ -37,9 +38,8 @@ $wall: url("@/static/t28/wall.jpg");
   }
 }
 
-// watercolour art: white paper, multiplied onto the cream page
+// watercolour art (transparent WebP)
 .t28-art {
-  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -457,8 +457,7 @@ $wall: url("@/static/t28/wall.jpg");
       width: 60px;
       height: 80px;
       clip-path: none;
-      background: url("@/static/t28/lantern.jpg") center / contain no-repeat;
-      mix-blend-mode: multiply;
+      background: url("@/static/t28/lantern.webp") center / contain no-repeat;
       transform: translate(-50%, -48%);
       animation: none;
     }
