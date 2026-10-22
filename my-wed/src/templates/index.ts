@@ -85,6 +85,9 @@ import { demoData as demoData27 } from "@/templates/t27/demo-data";
 import Template28 from "@/templates/t28";
 import thumb28 from "@/static/thumbs/t28.jpg";
 import { demoData as demoData28 } from "@/templates/t28/demo-data";
+import Template29 from "@/templates/t29";
+import thumb29 from "@/static/thumbs/t29.jpg";
+import { demoData as demoData29 } from "@/templates/t29/demo-data";
 import Template30 from "@/templates/t30";
 import thumb30 from "@/static/thumbs/t30.jpg";
 import { demoData as demoData30 } from "@/templates/t30/demo-data";
@@ -297,6 +300,13 @@ export const templates: TemplateEntry[] = [
     thumbnail: thumb28,
     Component: Template28,
     demoData: demoData28,
+  },
+  {
+    id: "t29",
+    name: "Mẫu 29 · Sen hồng",
+    thumbnail: thumb29,
+    Component: Template29,
+    demoData: demoData29,
   },
   {
     id: "t30",

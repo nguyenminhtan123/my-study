@@ -57,6 +57,22 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 | `bougain.webp` | Cành hoa giấy | Các góc |
 | `town.webp` | Phố cổ tường vàng ven sông | Chân trang |
 
+## Mẫu 29 · Sen hồng (`my-wed/design/t29/art/`, chép sang `src/static/t29/`)
+
+Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI và deAPI bằng tài khoản của chủ repo), cùng một câu lệnh phong cách thủy mặc trên lụa, rồi chuyển nền giấy thành trong suốt (WebP) bằng `scripts/design/ai_art.py` và nâng màu cho tươi hơn theo ý chủ repo. Vòng mực trơn `ring-plain.webp` cắt từ `ring.webp`. Dùng thương mại được, không bắt buộc ghi nguồn. Nền lụa `silk.jpg` sinh bằng `scripts/design/paper.py`.
+
+| Tệp | Nội dung | Dùng ở |
+| --- | --- | --- |
+| `bud.webp`, `bloom.webp` | Búp sen khép, bông sen nở | Mở đầu, ngày cưới trên lịch |
+| `hero.webp` | Cụm sen và lá ở góc trên phải | Màn hình đầu |
+| `ring.webp`, `ring-plain.webp` | Vòng mực nguyệt môn (có và không có cụm sen) | Khung mọi ảnh |
+| `dragonfly.webp` | Sen, lá và chuồn chuồn ở góc | Mở đầu, hai họ, xác nhận |
+| `petals.webp` | Cánh sen bay | Mở đầu |
+| `divider.webp` | Cành sen nằm ngang | Đường phân cách |
+| `corner.webp` | Búp sen và lá mọc từ góc dưới trái | Ngày giờ, địa điểm |
+| `gift.webp` | Đèn hoa đăng trên mặt nước | Quà mừng |
+| `footer.webp` | Đầm sen có mái đình | Cuối trang |
+
 ## Mẫu 30 · Bình minh biển (`my-wed/design/t30/art/`, chép sang `src/static/t30/`)
 
 Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy qua deAPI bằng tài khoản của chủ repo), cùng một câu lệnh phong cách sơn dầu ấn tượng. Các hình trang trí được chuyển nền thành trong suốt (WebP) bằng `scripts/design/ai_art.py`; hai cảnh biển giữ nền đặc (`--paper none`). Dùng thương mại được, không bắt buộc ghi nguồn. Nền cát `sand.jpg` sinh bằng `scripts/design/paper.py`.
