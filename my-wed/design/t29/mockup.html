@@ -1,0 +1,447 @@
+<!doctype html>
+<!--
+  t29 · Sen hồng. Mockup for review (new-template step 3, from the approved art kit).
+  Group C. Ink-wash lotus on silk, brightened. Photo frame: round moon gate inside a brush circle
+  (ring.webp with its lotus cluster for the cover and thanks photos, ring-plain.webp for the album).
+  Intro: a lotus bud that opens. Layout: hanging silk scroll (rolled silk edges, no rods: a dark rod read as a heavy bar).
+  Type: Playfair Display + Allura. Render: node scripts/design/mockup.mjs design/t29/mockup.html <out.jpg>
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/vietnamese-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/latin-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/vietnamese-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/vietnamese-400.css" />
+    <style>
+      :root {
+        --bg: #f8f2e8;
+        --ink: #4a3f3c;
+        --main: #c2566c;
+        --jade: #5f8f7b;
+        --gold: #c9a35b;
+        --muted: #8a7b74;
+        --display: "Playfair Display", Georgia, serif;
+        --script: "Allura", Georgia, serif;
+      }
+      body {
+        margin: 0;
+        background: #e8e3dc;
+      }
+      .board {
+        display: flex;
+        gap: 18px;
+        width: max-content;
+        padding: 18px;
+        background: #e8e3dc;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        height: 844px;
+        overflow: hidden;
+        background: var(--bg) url("art/silk.jpg") repeat;
+        background-size: 360px;
+        color: var(--ink);
+        font-family: var(--display);
+        text-align: center;
+      }
+      /* hanging scroll: the silk rolls slightly at both side edges */
+      .screen::before,
+      .screen::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 14px;
+        z-index: 8;
+        pointer-events: none;
+      }
+      .screen::before {
+        left: 0;
+        background: linear-gradient(90deg, rgba(120, 95, 80, 0.16), rgba(120, 95, 80, 0));
+      }
+      .screen::after {
+        right: 0;
+        background: linear-gradient(270deg, rgba(120, 95, 80, 0.16), rgba(120, 95, 80, 0));
+      }
+      .label {
+        position: absolute;
+        left: 8px;
+        bottom: 6px;
+        z-index: 20;
+        padding: 2px 8px;
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font: 500 10px system-ui, sans-serif;
+      }
+      p,
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        position: relative;
+      }
+      .art {
+        position: absolute;
+        pointer-events: none;
+      }
+      .caps {
+        font-size: 10.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--jade);
+      }
+      .names {
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 1.08;
+        color: var(--main);
+      }
+      .amp {
+        font-family: var(--script);
+        font-size: 44px;
+        line-height: 1;
+        color: var(--gold);
+      }
+      .role {
+        margin-top: 4px;
+        font-size: 9.5px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .dateline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        color: var(--ink);
+      }
+      .dateline span {
+        width: 92px;
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+      .dateline b {
+        padding: 0 16px;
+        border-left: 1px solid var(--jade);
+        border-right: 1px solid var(--jade);
+        font-size: 58px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--main);
+      }
+      .script {
+        font-family: var(--script);
+        color: var(--main);
+      }
+      /* moon-gate photo: a round photo inside the painted brush circle */
+      .moon {
+        position: relative;
+        margin: 0 auto;
+      }
+      .moon > img.photo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .moon > img.ring {
+        position: absolute;
+        pointer-events: none;
+      }
+      .moon.full > img.ring {
+        width: 229.9%;
+        left: -71.8%;
+        top: -8%;
+      }
+      .moon.plain > img.ring {
+        width: 137.9%;
+        left: -13.6%;
+        top: -8%;
+      }
+      .rod {
+        position: absolute;
+        left: 50%;
+        width: 370px;
+        transform: translateX(-50%);
+        z-index: 9;
+      }
+      .field {
+        margin: 0 auto 16px;
+        width: 290px;
+        padding: 6px 2px;
+        border-bottom: 1px solid rgba(95, 143, 123, 0.45);
+        text-align: left;
+        font-size: 15px;
+        font-style: italic;
+        color: rgba(74, 63, 60, 0.5);
+      }
+      .opt {
+        display: inline-block;
+        margin: 0 10px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .opt.on {
+        color: var(--main);
+        border-bottom: 1px solid var(--main);
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 40px;
+        border-radius: 999px;
+        background: var(--main);
+        color: #fff8f2;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+      .cal {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 280px;
+        margin: 0 auto;
+        row-gap: 4px;
+        font-size: 15px;
+      }
+      .cal i {
+        padding-bottom: 6px;
+        font-size: 9px;
+        font-style: normal;
+        letter-spacing: 0.15em;
+        color: var(--jade);
+      }
+      .cal span {
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+      }
+      .count {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        color: var(--main);
+      }
+      .count b {
+        display: block;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 1;
+      }
+      .count small {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+      }
+      .steps {
+        width: 250px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .steps div {
+        display: grid;
+        grid-template-columns: 70px 22px 1fr;
+        align-items: center;
+        height: 36px;
+      }
+      .steps b {
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--main);
+      }
+      .steps i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--jade);
+      }
+      .steps span {
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <!-- 1 · intro: a closed lotus bud -->
+      <section class="screen">
+        <img class="art" src="art/dragonfly.webp" alt="" style="width: 120px; right: 6px; top: 18px; opacity: 0.75" />
+        <p class="caps" style="margin-top: 150px">Thiệp mời cưới</p>
+        <p style="margin-top: 8px; font-size: 26px; color: var(--main)">Đức Minh <span class="script" style="font-size: 34px; color: var(--gold)">&amp;</span> Khánh Linh</p>
+        <img src="art/bud.webp" alt="" style="display: block; height: 470px; margin: 26px auto 0" />
+        <p class="caps" style="margin-top: 20px; color: var(--muted)">Chạm vào búp sen</p>
+        <span class="label">1 · Mở đầu: búp sen</span>
+      </section>
+
+      <!-- 2 · the bud opens -->
+      <section class="screen">
+        <img class="art" src="art/petals.webp" alt="" style="width: 240px; right: -40px; top: 30px; opacity: 0.8" />
+        <img src="art/bloom.webp" alt="" style="display: block; width: 360px; margin: 170px auto 0" />
+        <p class="caps" style="margin-top: 18px">Lễ thành hôn</p>
+        <p style="margin-top: 6px; font-size: 30px; color: var(--main)">Đức Minh <span class="script" style="font-size: 40px; color: var(--gold)">&amp;</span> Khánh Linh</p>
+        <p style="margin-top: 6px; font-size: 16px; letter-spacing: 0.24em; color: var(--muted)">26 · 12 · 2026</p>
+        <span class="label">2 · Chạm vào: sen nở</span>
+      </section>
+
+      <!-- 3 · first screen: the top of the scroll -->
+      <section class="screen">
+        <img class="art" src="art/hero.webp" alt="" style="width: 290px; right: -10px; top: -10px" />
+        <p class="caps" style="margin-top: 120px">Lễ thành hôn</p>
+        <h1 class="names" style="margin-top: 10px">Đức Minh</h1>
+        <p class="amp">&amp;</p>
+        <h1 class="names">Khánh Linh</h1>
+        <div class="dateline" style="margin-top: 16px">
+          <span style="text-align: right">Thứ bảy</span><b style="font-size: 44px">26</b><span style="text-align: left">Tháng 12<br />2026</span>
+        </div>
+        <div class="moon full" style="width: 190px; height: 190px; margin-top: 40px; left: 40px">
+          <img class="photo" src="../../src/static/cover.jpg" alt="" />
+          <img class="ring" src="art/ring.webp" alt="" />
+        </div>
+        <span class="label">3 · Màn hình đầu</span>
+      </section>
+
+      <!-- 4 · families, names, invitation -->
+      <section class="screen">
+        <img class="art" src="art/dragonfly.webp" alt="" style="width: 120px; right: -22px; top: -16px" />
+        <p class="caps" style="margin-top: 124px; padding: 0 50px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 24px; font-size: 15px; line-height: 1.7">
+          <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
+          <div style="border-left: 1px solid var(--jade)"></div>
+          <div><p class="caps" style="font-size: 9px">Nhà gái</p><p>Ông Lê Minh Đức</p><p>Bà Phạm Thị Hoa</p></div>
+        </div>
+        <h2 class="names" style="margin-top: 36px; font-size: 40px">Đức Minh</h2>
+        <p class="role">Trưởng nam</p>
+        <p class="amp" style="margin: 4px 0">&amp;</p>
+        <h2 class="names" style="font-size: 40px">Khánh Linh</h2>
+        <p class="role">Út nữ</p>
+        <img src="art/divider.webp" alt="" style="display: block; width: 230px; margin: 22px auto 0" />
+        <p class="caps" style="margin-top: 16px">Trân trọng kính mời</p>
+        <p class="script" style="margin-top: 2px; padding: 0 20px; font-size: 40px; line-height: 1.1">Anh Huy &amp; người thương</p>
+        <p style="margin-top: 4px; font-size: 16px; font-style: italic">tới dự bữa tiệc chung vui<br />cùng gia đình chúng tôi</p>
+        <span class="label">4 · Hai họ, tên, lời mời</span>
+      </section>
+
+      <!-- 5 · date and venue -->
+      <section class="screen">
+        <p class="caps" style="margin-top: 70px">Tiệc cưới diễn ra vào lúc</p>
+        <p style="margin-top: 8px; font-size: 24px; color: var(--main)">17 giờ 30</p>
+        <div class="dateline" style="margin-top: 16px">
+          <span style="text-align: right">Thứ bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span>
+        </div>
+        <p style="margin-top: 12px; font-size: 14px; font-style: italic; color: var(--muted)">(Tức ngày 18 tháng 11 năm Bính Ngọ)</p>
+        <img src="art/divider.webp" alt="" style="display: block; width: 230px; margin: 28px auto 0" />
+        <p class="caps" style="margin-top: 18px">Địa điểm</p>
+        <h3 style="margin-top: 8px; font-size: 25px; font-weight: 500; color: var(--main)">Trung tâm tiệc cưới An Phúc</h3>
+        <p style="margin: 6px 40px 0; font-size: 15px; color: var(--muted)">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
+        <p class="caps" style="margin-top: 18px; display: inline-block; border-bottom: 1px solid var(--jade); padding-bottom: 2px">Chỉ đường</p>
+        <img class="art" src="art/corner.webp" alt="" style="width: 300px; left: -30px; bottom: -20px" />
+        <span class="label">5 · Ngày giờ, địa điểm</span>
+      </section>
+
+      <!-- 6a · album: every photo is a moon gate, sizes and stagger make the rhythm -->
+      <section class="screen">
+        <p class="caps" style="margin-top: 56px">Khoảnh khắc</p>
+        <p class="script" style="margin-top: 0; font-size: 44px">Những ngày bên nhau</p>
+        <div class="moon plain" style="width: 250px; height: 250px; margin-top: 34px">
+          <img class="photo" src="../../src/static/couple.jpeg" alt="" />
+          <img class="ring" src="art/ring-plain.webp" alt="" />
+        </div>
+        <div style="position: relative; height: 330px">
+          <div class="moon plain" style="position: absolute; left: 24px; top: 52px; width: 150px; height: 150px">
+            <img class="photo" src="../../src/static/album2.jpeg" alt="" />
+            <img class="ring" src="art/ring-plain.webp" alt="" />
+          </div>
+          <div class="moon plain" style="position: absolute; right: 26px; top: 122px; width: 160px; height: 160px">
+            <img class="photo" src="../../src/static/album3.jpeg" alt="" />
+            <img class="ring" src="art/ring-plain.webp" alt="" />
+          </div>
+        </div>
+        <img class="art" src="art/petals.webp" alt="" style="width: 200px; left: -30px; bottom: -40px; opacity: 0.85" />
+        <span class="label">6a · Album: mọi ảnh trong vòng nguyệt môn</span>
+      </section>
+
+      <!-- 6b · album continues -->
+      <section class="screen">
+        <div class="moon plain" style="width: 200px; height: 200px; margin-top: 70px; left: -80px">
+          <img class="photo" src="../../src/static/destiny.jpeg" alt="" />
+          <img class="ring" src="art/ring-plain.webp" alt="" />
+        </div>
+        <p style="position: absolute; right: 16px; top: 150px; width: 118px; text-align: left; font-size: 16px; font-style: italic; line-height: 1.5; color: var(--main)">“Gặp nhau là duyên, ở bên nhau là phận”</p>
+        <div class="moon plain" style="width: 270px; height: 270px; margin-top: 60px; left: 30px">
+          <img class="photo" src="../../src/static/album4.jpeg" alt="" />
+          <img class="ring" src="art/ring-plain.webp" alt="" />
+        </div>
+        <p class="caps" style="margin-top: 40px; color: var(--muted)">Vuốt để xem thêm ảnh →</p>
+        <span class="label">6b · Album (tiếp)</span>
+      </section>
+
+      <!-- 7 · calendar, countdown, programme -->
+      <section class="screen">
+        <p class="script" style="margin-top: 50px; font-size: 46px">Tháng 12 · 2026</p>
+        <div class="cal" id="cal" style="margin-top: 10px"></div>
+        <p class="caps" style="margin-top: 26px">Cùng đếm ngược</p>
+        <div class="count" style="margin-top: 10px">
+          <div><b>65</b><small>NGÀY</small></div><div><b>07</b><small>GIỜ</small></div><div><b>06</b><small>PHÚT</small></div><div><b>42</b><small>GIÂY</small></div>
+        </div>
+        <img src="art/divider.webp" alt="" style="display: block; width: 230px; margin: 24px auto 0" />
+        <p class="caps" style="margin-top: 14px">Lịch trình</p>
+        <div class="steps" style="margin-top: 10px">
+          <div><b>17:00</b><i></i><span>Đón khách</span></div>
+          <div><b>17:30</b><i></i><span>Lễ thành hôn</span></div>
+          <div><b>18:00</b><i></i><span>Khai tiệc</span></div>
+        </div>
+        <span class="label">7 · Lịch, đếm ngược, lịch trình</span>
+      </section>
+
+      <!-- 8 · RSVP and gift -->
+      <section class="screen">
+        <img class="art" src="art/dragonfly.webp" alt="" style="width: 110px; right: -24px; top: -20px; opacity: 0.8" />
+        <p class="caps" style="margin-top: 104px">R · S · V · P</p>
+        <p class="script" style="font-size: 48px">Xác nhận tham dự</p>
+        <p style="margin: 4px 44px 0; font-size: 14.5px; color: var(--muted)">Mong bạn phản hồi trước ngày 15.12 để gia đình chuẩn bị chu đáo.</p>
+        <div style="margin-top: 24px">
+          <p class="field">Tên của bạn</p>
+          <p class="field" style="height: 44px">Lời chúc gửi cô dâu chú rể</p>
+        </div>
+        <p style="margin-top: 4px"><span class="opt on">Sẽ tham dự</span><span class="opt">Rất tiếc không thể</span></p>
+        <p style="margin-top: 20px"><span class="btn">Gửi xác nhận</span></p>
+        <p class="caps" style="margin-top: 34px">Mừng cưới</p>
+        <img src="art/gift.webp" alt="" style="display: block; width: 230px; margin: 14px auto 0" />
+        <p style="margin-top: 10px; font-size: 15px; font-style: italic; color: var(--muted)">Thả đèn hoa đăng để gửi quà mừng</p>
+        <span class="label">8 · Xác nhận, quà mừng (đèn hoa đăng)</span>
+      </section>
+
+      <!-- 9 · thanks: the bottom of the scroll -->
+      <section class="screen">
+        <div class="moon full" style="width: 190px; height: 190px; margin-top: 60px; left: 40px">
+          <img class="photo" src="../../src/static/destiny.jpeg" alt="" />
+          <img class="ring" src="art/ring.webp" alt="" />
+        </div>
+        <p class="script" style="margin-top: 200px; font-size: 50px">Trân trọng cảm ơn</p>
+        <p class="caps" style="margin-top: 0">Đức Minh · Khánh Linh</p>
+        <img class="art" src="art/footer.webp" alt="" style="width: 430px; left: -20px; bottom: -8px" />
+        <span class="label">9 · Lời cảm ơn, đầm sen</span>
+      </section>
+    </div>
+
+    <script>
+      // December 2026 starts on a Tuesday; the wedding day sits in a small lotus bloom
+      const cal = document.getElementById("cal");
+      let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
+      for (let d = 1; d <= 31; d++) {
+        html += d === 26
+          ? `<span><img src="art/bloom.webp" style="position:absolute;left:50%;top:50%;width:44px;transform:translate(-50%,-56%);opacity:.55"/><b style="position:relative;color:var(--main);font-weight:600;text-shadow:0 0 4px #fff8f0,0 0 2px #fff8f0">26</b></span>`
+          : `<span>${d}</span>`;
+      }
+      cal.innerHTML = html;
+    </script>
+  </body>
+</html>
