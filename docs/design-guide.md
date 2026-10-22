@@ -32,7 +32,10 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 | **D. Nền tối ánh kim** | Nền đậm có vân, chữ kem/vàng, viền vàng chạy dọc, hoa văn chạm trổ | Màu đậm 80–90%, kem/vàng 10–15% | Gấm đỏ nhũ vàng, Lục bảo ánh kim, Đêm sao xanh navy, Nhung đen vàng |
 | **E. Mảng màu** | Các khối màu lớn bo vòm xen nền sáng, rất ít trang trí | Màu khối 30–40%, nền sáng 55–65% | Vòm sage, Gạch nung terracotta, Pastel xanh khói |
 
-## 3. Quy tắc phối màu (đo trên mẫu tham chiếu)
+## 3. Quy tắc phối màu (mặc định, đo trên mẫu tham chiếu)
+
+Đây là mặc định cho các chất liệu trang nhã. Chất liệu nào có quy tắc riêng thì theo bảng ở mục 9 (ví dụ tranh Đông Hồ, hoạt hình dùng màu tươi; sơn mài dùng nền đen).
+
 
 - **Một màu nền chiếm 65–90%** (nhóm E: 30–50% vì có mảng màu). Màu chính 10–20%, màu nhấn ≤ 10%.
 - **Màu chính là màu trầm, đã pha xám**: độ bão hòa đo được ở mẫu tham chiếu 0,14–0,30. Ví dụ đỏ hồng đất `#c89c96`, xanh rêu `#abae95`, xanh xám `#89a2a7`. Không dùng màu tươi chói.
@@ -40,7 +43,10 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 - **Nền không bao giờ phẳng**: vân giấy, lớp màu nước mờ, hoặc họa tiết. Màu kem dao động nhẹ (`#fff7eb` ↔ `#fffdf9`).
 - Nền tối: không dùng đen tuyền; dùng đỏ thẫm `#3a0505`, xanh rêu `#23381e`... có vân và tối dần ở góc.
 
-## 4. Quy tắc chữ
+## 4. Quy tắc chữ (mặc định)
+
+Cặp chữ thay đổi theo chất liệu (mục 9). Giữ ở mọi mẫu: chênh lệch cỡ chữ lớn giữa tên và nhãn, tối đa 2 họ chữ + 1 chữ viết tay.
+
 
 - **Toàn bộ là chữ có chân (serif)** như thiệp in: tên, tiêu đề, địa chỉ, ngày tháng. Chữ không chân chỉ dùng cho nhãn rất nhỏ (nếu có).
 - **Chênh lệch cỡ chữ lớn**: tên 44–52px nét mảnh; nhãn ("TRƯỞNG NAM", "THÔNG TIN LỄ CƯỚI") 10–11px, in hoa, giãn chữ 0,25–0,35em.
@@ -52,16 +58,18 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 - **Một họa tiết chủ đạo lặp ít nhất 3 lần**: màn hình đầu, đường chia, chân trang (hoặc hộp quà).
 - Trang trí **to, lệch một bên, tràn khỏi mép** ít nhất 2 chỗ. Tránh họa tiết nhỏ đặt giữa ở mọi phần.
 - **Không có ô viền kiểu giao diện app** (ô viền, nút viền, chip). Thông tin chỉ là chữ căn giữa với vài đường kẻ mảnh. Viền chỉ dùng khi là khung trang trí thật. Riêng form xác nhận tham dự được có ô nhập.
-- **Ảnh như vật thật**: viền trắng, bóng mềm, nghiêng 2–8°, hoặc nằm trong khung (vòm, tròn, khung chạm trổ).
+- **Ảnh có cách xử lý riêng của mẫu** (chọn ở mục 9), không để ảnh vuông trơn.
 
-## 6. Tranh minh họa (rút ra khi làm mẫu 28)
+## 6. Tranh minh họa (đúng với mọi chất liệu)
 
 - **Một mẫu chỉ một chất liệu.** Ảnh chụp cắt nền, tranh màu nước và hình vector đặt chung sẽ lạc quẻ. Cả bộ tranh phải trông như một họa sĩ vẽ.
 - **Bộ tranh trước, bố cục sau.** Vẽ trọn bộ (tranh màn hình đầu, góc, đường chia, món quà, chân trang, vật mở đầu) rồi chủ repo duyệt bảng tranh, sau đó mới bố cục.
 - **Cách tạo:** AI vẽ cùng một câu lệnh phong cách (`scripts/design/ai_art.py`, FLUX.2 klein, Apache 2.0, dùng thương mại được). Không dùng ảnh từ các kho PNG chỉ cho phi thương mại (PNGWing, CleanPNG...).
 - **Tranh luôn có nền trong suốt** (WebP có kênh alpha). `ai_art.py` tự chuyển giấy trắng thành trong suốt, lớp màu nước thành bán trong suốt, nên tranh nằm trên mọi nền như vẽ trên cùng tờ giấy, không có khung trắng, không có mép cắt. **Không dùng `mix-blend-mode: multiply`**: Zalo trên iPhone không hỗ trợ đúng, lộ nền trắng (lỗi đã gặp ở mẫu 28).
 - Tranh vẽ tràn ra một mép thì mép đó luôn nằm ngoài màn hình (không để lộ đường cắt thẳng).
-- **Một kiểu ảnh cho mọi ảnh** (ví dụ ảnh viền loang màu nước bằng mặt nạ vẽ cùng nét). Không trộn khung vòm, polaroid, khung tròn trong cùng một thiệp. Đa dạng bằng kích thước và cách xếp so le.
+- **Một kiểu ảnh cho mọi ảnh trong một mẫu** (chọn từ mục 9 cho hợp chất liệu). Không trộn nhiều kiểu khung trong cùng một thiệp; đa dạng bằng kích thước và cách xếp.
+- Tranh vẽ trên nền tối (sơn mài, nhũ vàng): tạo với `--paper dark`, nền đen thành trong suốt.
+- Tranh nền phủ kín cả một phần (cảnh rộng làm nền) được để nguyên, không cần trong suốt.
 - Nền giấy sinh bằng `scripts/design/paper.py`; ghi nguồn tranh vào `docs/CREDITS.md`.
 
 ## 7. Thứ tự nội dung (đủ tính năng, không đổi)
@@ -85,3 +93,67 @@ Màn hình đầu, khung trang trí và kiểu album làm tự do theo câu chuy
 | 9 | Ảnh có viền, bóng, nghiêng hoặc khung | Ảnh chụp màn hình |
 | 10 | Đường chia, hộp quà, chân trang có tranh đúng chủ đề | Ảnh chụp màn hình |
 | 11 | Một chất liệu tranh, một kiểu ảnh, không lộ mép cắt | Ảnh chụp màn hình |
+
+## 9. Thực đơn đa dạng: mỗi mẫu chọn theo câu chuyện
+
+Mỗi mẫu chọn **một phương án cho mỗi mặt** dưới đây, sao cho hợp câu chuyện. Trong một mẫu mọi thứ đồng bộ; giữa các mẫu phải khác nhau: **mẫu mới khác mọi mẫu trong `docs/templates-register.md` ở ít nhất 4 trong 7 mặt** (chất liệu, khung ảnh, mở đầu, bố cục, chữ, nền, màu chính).
+
+### 9.1 Chất liệu tranh (kèm câu lệnh phong cách mở đầu cho `ai_art.py`)
+
+| Chất liệu | Hợp với | Câu lệnh phong cách (STYLE) | Ghi chú |
+|---|---|---|---|
+| Màu nước | Hoa, vườn, phố cổ, biển | `Delicate hand-painted watercolor on cream paper, soft washes, fine sepia ink outlines` | Đã dùng ở t28 |
+| Thủy mặc / tranh lụa Á Đông | Sen, trúc, hạc, núi sông | `Traditional East Asian ink wash painting on silk, sumi brush strokes, sparse composition, light colour accents` | Nhiều khoảng trống |
+| Cắt giấy | Song Hỷ, Tết, truyền thống | `Intricate red paper-cut art, layered papercraft, crisp edges, subtle drop shadows, on white paper` | Khối đỏ phẳng, đổ bóng nhẹ |
+| Tranh Đông Hồ / khắc gỗ dân gian | Vui, Việt Nam, đám cưới quê | `Vietnamese Dong Ho folk woodblock print, bold black outlines, flat natural pigments, rice paper texture` | Màu tươi được phép |
+| Sơn mài / khảm vàng nền tối | Sang trọng, Long Phụng | `Vietnamese lacquer painting, gold leaf and eggshell inlay, rich vermilion and gold, on pure black background` | Dùng `--paper dark` |
+| Khắc đồng cổ điển châu Âu | Baroque, lâu đài, hoàng gia | `Fine vintage copperplate engraving, cross-hatching, sepia ink on ivory paper, ornate` | Đơn sắc + 1 màu nhấn |
+| Gốm men lam | Thanh lịch, Huế, Bát Tràng | `Blue and white porcelain painting, cobalt brush strokes on white glaze, traditional Vietnamese motifs` | Hai màu xanh trắng |
+| Nét vẽ tối giản | Hiện đại, tối giản | `Minimal single-line drawing, thin uniform strokes, one accent colour, lots of white space` | Hợp nhóm E |
+| Sơn dầu / tranh cổ điển | Lãng mạn, châu Âu | `Classical oil painting, soft impasto, warm glazes, museum quality` | Hợp làm cảnh nền phủ kín |
+| Hoạt hình / chibi | Trẻ trung, vui | `Cute chibi illustration, clean outlines, soft cel shading, pastel palette` | Vẽ người: giữ nhân vật nhất quán khó, cần duyệt kỹ |
+
+### 9.2 Khung ảnh (một kiểu cho mọi ảnh trong mẫu)
+
+| Kiểu | Hợp chất liệu |
+|---|---|
+| Viền loang màu nước (mặt nạ vẽ cùng nét) | Màu nước, thủy mặc |
+| Khung cắt giấy (viền răng cưa/hoa văn cắt) | Cắt giấy |
+| Khung vòm kiến trúc viền mảnh | Khắc đồng, gốm, tối giản |
+| Khung tròn nguyệt môn | Thủy mặc, sơn mài |
+| Đĩa gốm (ảnh trong lòng đĩa men lam) | Gốm men lam |
+| Khung sơn mài viền vàng | Sơn mài |
+| Tem bưu chính răng cưa | Tối giản, hoạt hình |
+| Polaroid kẹp dây | Hoạt hình, trẻ trung |
+| Ảnh tràn viền, phủ lớp màu, chữ đè lên | Nhóm D, sơn dầu |
+| Khung tranh mạ vàng chạm trổ | Khắc đồng, sơn dầu |
+
+### 9.3 Mở đầu (ưu tiên kiểu chưa mẫu nào dùng)
+
+Cửa gỗ mở (t26) · phong bì polaroid (t27) · quạt xoè (t28) · rèm lụa kéo · cuộn thư mở dọc · lật trang sách · mở nắp hộp quà / khay trầu · bật sáng đèn lồng · cánh hoa sen nở · ô cửa sổ mở · tấm voan vén lên · bóc tem niêm phong.
+
+### 9.4 Bố cục
+
+| Kiểu | Mô tả |
+|---|---|
+| Một cột căn giữa | Cổ điển, mọi chất liệu |
+| Tạp chí so le | Ảnh và chữ lệch trái phải xen kẽ |
+| Mảng sáng tối xen kẽ | Phần nền đậm xen phần nền sáng (nhóm D, E) |
+| Cuộn thư dài | Cả thiệp như một cuộn giấy, viền hai bên |
+| Thẻ chồng | Mỗi phần là một tấm thẻ/tấm giấy đặt chồng |
+| Đường dẫn | Một đường cong/dòng sông nối các phần |
+
+### 9.5 Chữ (cặp chữ đã cài sẵn)
+
+| Cặp | Hợp |
+|---|---|
+| Cormorant Garamond + Great Vibes | Cổ điển, màu nước (t28) |
+| Playfair Display + Allura | Sang trọng, sơn mài, khắc đồng |
+| Lora + Dancing Script | Ấm áp, Đông Hồ, hoạt hình |
+| Fahkwang + Be Vietnam Pro | Hiện đại, tối giản |
+| Cormorant Garamond + Ephesis | Thanh nhã, thủy mặc, gốm |
+| Be Vietnam Pro + Mea Culpa | Tối giản trẻ trung |
+
+### 9.6 Nền
+
+Giấy kem có vân (`paper.py`) · lụa có vân dệt · nền đen sơn mài có ánh · men gốm trắng ngà · giấy dó thô · khối màu phẳng (nhóm E) · cảnh vẽ phủ kín làm nền từng phần.
