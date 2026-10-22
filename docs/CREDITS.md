@@ -56,3 +56,18 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 | `divider.webp` | Đèn lồng nhỏ trên dây hoa giấy | Đường chia giữa các phần |
 | `bougain.webp` | Cành hoa giấy | Các góc |
 | `town.webp` | Phố cổ tường vàng ven sông | Chân trang |
+
+## Mẫu 30 · Bình minh biển (`my-wed/design/t30/art/`, chép sang `src/static/t30/`)
+
+Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy qua deAPI bằng tài khoản của chủ repo), cùng một câu lệnh phong cách sơn dầu ấn tượng. Các hình trang trí được chuyển nền thành trong suốt (WebP) bằng `scripts/design/ai_art.py`; hai cảnh biển giữ nền đặc (`--paper none`). Dùng thương mại được, không bắt buộc ghi nguồn. Nền cát `sand.jpg` sinh bằng `scripts/design/paper.py`.
+
+| Tệp | Nội dung | Dùng ở |
+| --- | --- | --- |
+| `hero.webp` | Bình minh trên biển, đường nắng trên mặt nước, thuyền buồm xa | Mở đầu, màn hình đầu |
+| `shore.webp` | Sóng vỗ bờ cát lúc sáng sớm | Cuối trang |
+| `corner.webp` | Cành hoa sứ vàng mọc từ góc trên trái | Phần hai họ |
+| `gulls.webp` | Đôi hải âu | Ngày giờ, xác nhận, cuối trang |
+| `shells.webp` | Ốc xoắn, sò điệp, sao biển | Ảnh bìa, album |
+| `divider.webp` | Hàng vỏ ốc, sao biển, ngọc trai | Đường phân cách |
+| `boat.webp` | Thuyền buồm nhỏ | Ngày giờ, lịch |
+| `gift.webp` | Vỏ sò ôm viên ngọc trai | Quà mừng |
