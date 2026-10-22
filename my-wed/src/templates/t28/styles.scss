@@ -92,8 +92,8 @@ $wall: url("@/static/t28/wall.jpg");
   padding: 64px 26px;
 }
 // sections with a bougainvillea corner keep room for it under the text
-.t28-sec:has(> .t28-corner-bl),
-.t28-sec:has(> .t28-corner-br) {
+// (a class, not :has(), which old Android WebViews do not understand)
+.t28-sec-corner {
   padding-bottom: 210px;
 }
 .t28-divider {

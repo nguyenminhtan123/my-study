@@ -157,3 +157,28 @@ Cửa gỗ mở (t26) · phong bì polaroid (t27) · quạt xoè (t28) · rèm l
 ### 9.6 Nền
 
 Giấy kem có vân (`paper.py`) · lụa có vân dệt · nền đen sơn mài có ánh · men gốm trắng ngà · giấy dó thô · khối màu phẳng (nhóm E) · cảnh vẽ phủ kín làm nền từng phần.
+
+## 10. Tự kiểm trước khi gửi (rút ra từ 5 vòng sửa mockup của mẫu 28)
+
+Trước khi gửi **bảng tranh** hoặc **mockup**, tự soát đủ danh sách này. Mỗi dòng là một lỗi chủ repo đã phải chỉ ra:
+
+- [ ] Cả bộ tranh cùng một chất liệu, không có ảnh chụp cắt nền lẫn vào.
+- [ ] Mọi tranh nền trong suốt, không thấy khung trắng hay mép giấy trên nền trang.
+- [ ] Tranh vẽ tràn mép nào thì mép đó nằm ngoài màn hình; không có đường cắt thẳng nào lộ ra.
+- [ ] Mọi ảnh dùng **một** kiểu khung; album trông như một bộ (chỉ khác kích thước, cách xếp).
+- [ ] Ảnh trong khung không bị mất đầu, không co nhỏ giữa khoảng trống (mặt nạ cắt sát).
+- [ ] Tranh góc nhìn thấy rõ (không lọt hết ra ngoài) và không đè lên chữ.
+- [ ] Không có chữ tiếng Anh lọt vào (lịch của `_kit` in tên tháng tiếng Anh: ẩn `.k-cal-month`, tự viết "Tháng 12 · 2026").
+- [ ] Tên dài không xuống dòng xấu (thử tên 2–3 chữ, họ tên cha mẹ dài).
+- [ ] Đo `palette.py`: nền, độ bão hoà đúng mục tiêu của bản thiết kế.
+
+## 11. Chạy được trong Zalo (iOS và Android)
+
+Mini app chạy trong WebView của Zalo, không phải Chrome mới nhất. Tránh những thứ đã gây lỗi hoặc dễ gây lỗi:
+
+- **Không `mix-blend-mode`** (iOS hiện nền trắng). Tranh dùng WebP trong suốt.
+- **Không `:has()`**: WebView Android cũ không hiểu, dùng class thay thế.
+- `mask-image` luôn viết kèm `-webkit-mask-image`.
+- Hạn chế `backdrop-filter` (nặng, có máy không hỗ trợ); `text-wrap: balance` chỉ là trang trí thêm, không được để bố cục phụ thuộc vào nó.
+- Ảnh tĩnh: WebP cho tranh trong suốt, JPEG cho ảnh/nền; mỗi file nên dưới khoảng 300 KB.
+- Phần mở đầu là lớp phủ `position: fixed` phải tự biến mất sau khi mở (không chặn cuộn).

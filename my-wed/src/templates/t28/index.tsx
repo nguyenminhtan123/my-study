@@ -180,7 +180,7 @@ const Template28 = ({ data }: { data: WeddingData }) => {
       </section>
 
       {/* ---------- date and venue ---------- */}
-      <section className="t28-sec t28-when">
+      <section className="t28-sec t28-sec-corner t28-when">
         <img className="t28-art t28-when-lantern" src={lantern} alt="" />
         <Reveal>
           <p className="t28-caps">Tiệc cưới diễn ra vào lúc</p>
@@ -263,7 +263,7 @@ const Template28 = ({ data }: { data: WeddingData }) => {
       </section>
 
       {/* ---------- calendar, countdown, programme ---------- */}
-      <section className="t28-sec t28-cal">
+      <section className="t28-sec t28-sec-corner t28-cal">
         <Reveal variant="zoom">
           <p className="t28-month">
             Tháng {Number(d.month)} · {d.year}
