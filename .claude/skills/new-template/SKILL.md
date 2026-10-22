@@ -15,8 +15,8 @@ Talk to the owner in Vietnamese, briefly. Never deploy. Two review gates (art ki
 ## Preconditions
 
 1. Pick the next free id from `my-wed/src/templates/index.ts`.
-2. AI art credentials: `CF_TOKEN` and `CF_ACCOUNT` from the environment (preferred, set in the environment's settings), else the scratchpad files `cf/token`, `cf/account`. Never commit or print them. If neither exists, ask the owner to add them to the environment settings.
-3. Budget: the free Workers AI plan allows about 25 images a day (10,000 neurons, resets 00:00 UTC). Plan the kit (usually 8–12 images including retries) and stop drawing when the quota error appears; say so and continue the next day, or the owner can upgrade (Workers Paid).
+2. AI art credentials (environment first, else scratchpad files; never commit or print them): `CF_TOKEN` + `CF_ACCOUNT` (Cloudflare Workers AI, scratchpad `cf/`) and `DEAPI_KEY` (deAPI, scratchpad `deapi/key`). Both serve the same model, FLUX.2 [klein] 4B, so kits stay consistent; `ai_art.py` uses Cloudflare first and switches to deAPI on its quota error. If neither exists, ask the owner to add them to the environment settings.
+3. Budget, free tiers only (the owner does not want paid plans): Cloudflare about 90 images/day (resets 00:00 UTC), deAPI 100 images/day at 3 per minute from the $5 signup credit. A kit is usually 8–12 images including retries. If both run out, say so and continue the next day.
 4. Dev server for steps 4–5: `cd my-wed && npx zmp start -nF -P 3100`.
 
 ## Step 0: story (one question round)

@@ -1,4 +1,5 @@
-"""Draw template art with an image model on Cloudflare Workers AI and turn its paper transparent:
+"""Draw template art with FLUX.2 [klein] 4B (Cloudflare Workers AI, or deAPI when Cloudflare is out of its
+daily quota) and turn its paper transparent:
 white paper becomes fully transparent, watercolour washes half transparent, ink stays opaque, so the art
 sits on any page background without a box and without cut-out edges. Output: WebP with alpha.
 (Do not rely on `mix-blend-mode: multiply` instead: Zalo's iOS WebView shows the white paper.)
@@ -7,8 +8,9 @@ Keep one STYLE line per template and prefix it to every piece, so the whole kit 
 Credentials come from the environment, never from the repo:
   CF_TOKEN    Workers AI API token
   CF_ACCOUNT  Cloudflare account id
-  TOGETHER_API_KEY  optional fallback (Together AI, free FLUX.1 schnell) used when Cloudflare is out of
-                    its daily quota or not configured
+  DEAPI_KEY   deAPI key (app.deapi.ai), same model, used when Cloudflare is out of its daily quota
+              (free: 10,000 neurons/day, about 90 images) or not configured. deAPI free tier: 100 images/day,
+              3 per minute, paid from the $5 signup credit.
 
 Run: python3 scripts/design/ai_art.py [--paper dark] <out.webp> <width> <height> "<style + subject prompt>" [model]
      python3 scripts/design/ai_art.py [--paper dark] --alpha <in.jpg> <out.webp>   (existing art -> transparent)
@@ -109,47 +111,47 @@ def cloudflare(prompt, width, height, model=MODEL):
     return Image.open(io.BytesIO(base64.b64decode(image)))
 
 
-def together(prompt, width, height):
-    """Fallback: Together AI's free FLUX.1 [schnell] endpoint (Apache 2.0). Needs TOGETHER_API_KEY."""
-    model = os.environ.get("TOGETHER_MODEL", "black-forest-labs/FLUX.1-schnell-Free")
-    body = {
-        "model": model,
-        "prompt": prompt,
-        "width": width // 16 * 16,
-        "height": height // 16 * 16,
-        "steps": 4,
-        "n": 1,
-        "response_format": "b64_json",
-    }
-    raw = subprocess.run(
-        [
-            "curl", "-sS", "-m", "180", "https://api.together.xyz/v1/images/generations",
-            "-H", f"Authorization: Bearer {os.environ['TOGETHER_API_KEY']}",
-            "-H", "Content-Type: application/json", "-d", json.dumps(body),
-        ],
-        capture_output=True,
-        check=True,
-    ).stdout
-    data = json.loads(raw)
-    items = data.get("data") or []
-    if not items or not items[0].get("b64_json"):
-        raise RuntimeError(f"Together AI error: {json.dumps(data)[:300]}")
-    return Image.open(io.BytesIO(base64.b64decode(items[0]["b64_json"])))
+def deapi(prompt, width, height, model="Flux_2_Klein_4B_BF16"):
+    """deAPI is asynchronous: submit the job, poll it, then download result_url."""
+    import time
+
+    key = os.environ["DEAPI_KEY"]
+    base = "https://api.deapi.ai/api/v2"
+    head = ["-H", f"Authorization: Bearer {key}", "-H", "Accept: application/json"]
+
+    def call(*args):
+        out = subprocess.run(["curl", "-sS", "-m", "120", *head, *args], capture_output=True, check=True).stdout
+        return json.loads(out)
+
+    body = {"prompt": prompt, "model": model, "width": width // 16 * 16, "height": height // 16 * 16, "steps": 4, "seed": -1}
+    job = call("-H", "Content-Type: application/json", "-d", json.dumps(body), f"{base}/images/generations")
+    rid = (job.get("data") or job).get("request_id")
+    if not rid:
+        raise RuntimeError(f"deAPI error: {json.dumps(job)[:300]}")
+    for _ in range(90):  # free tier allows 3 jobs a minute; a klein image takes a few seconds
+        time.sleep(2)
+        st = call(f"{base}/jobs/{rid}")
+        data = st.get("data") or st
+        if data.get("status") == "done" and data.get("result_url"):
+            raw = subprocess.run(["curl", "-sSL", "-m", "120", data["result_url"]], capture_output=True, check=True).stdout
+            return Image.open(io.BytesIO(raw))
+        if data.get("status") in ("error", "failed"):
+            raise RuntimeError(f"deAPI job failed: {json.dumps(st)[:300]}")
+    raise RuntimeError("deAPI job timed out")
 
 
 def generate(prompt, width, height, model=MODEL):
-    """Cloudflare first (same model as the existing kits); Together AI when Cloudflare is out of quota
-    or not configured and TOGETHER_API_KEY is set."""
+    """Cloudflare first; deAPI (same FLUX.2 klein model) when Cloudflare is out of quota or not configured."""
     error = None
     if os.environ.get("CF_TOKEN") and os.environ.get("CF_ACCOUNT"):
         try:
             return cloudflare(prompt, width, height, model)
         except RuntimeError as e:
             error = e
-    if os.environ.get("TOGETHER_API_KEY"):
-        print("Cloudflare unavailable, using Together AI", file=sys.stderr)
-        return together(prompt, width, height)
-    raise SystemExit(str(error or "Set CF_TOKEN + CF_ACCOUNT or TOGETHER_API_KEY"))
+    if os.environ.get("DEAPI_KEY"):
+        print("Cloudflare unavailable, using deAPI", file=sys.stderr)
+        return deapi(prompt, width, height)
+    raise SystemExit(str(error or "Set CF_TOKEN + CF_ACCOUNT or DEAPI_KEY"))
 
 
 if __name__ == "__main__":
