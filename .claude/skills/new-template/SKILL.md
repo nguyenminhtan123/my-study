@@ -1,67 +1,52 @@
 ---
 name: new-template
-description: Create a new wedding-invitation template (tNN) for the my-wed gallery, design first: the owner picks a design group and story, Claude writes a short brief, renders a mockup image of the phone screens, and only after the owner approves the mockup builds the template code. Use when the user asks to create, add, or make a new template/mẫu thiệp (with or without a design image), or to redo an existing template's design.
+description: Create a new wedding-invitation template (tNN) for the my-wed gallery, design first: the owner picks a design group and story, Claude draws one coherent art kit with AI and gets it approved, renders a mockup image of the phone screens and gets it approved, and only then builds the template code to match. Use when the user asks to create, add, or make a new template/mẫu thiệp (with or without a design image), or to redo an existing template's design.
 ---
 
 # new-template (v2: design first)
 
 The previous version (build straight from a design image) is archived in `docs/archive/new-template-skill-v1.md`.
-Read `docs/design-guide.md` before step 1: it holds the design groups, the 5 layers, colour and type rules, and the 10-point check.
+Read `docs/design-guide.md` before step 1: design groups, the 5 layers, colour/type rules, the art rules learned on t28, the 10-point check.
 
-Talk to the owner in Vietnamese. Never deploy. Commit only after the owner approves the finished template.
+Talk to the owner in Vietnamese, briefly. Never deploy. There are two review gates (art kit, mockup); the owner only reviews, Claude does all the work. No video unless the owner asks.
 
 ## Preconditions
 
-1. `my-wed/src/core/` and `my-wed/src/templates/index.ts` exist (shared data contract and registry).
-2. Pick the next free id from `templates/index.ts`.
-3. The dev server can run (`cd my-wed && npx zmp start -nF -P 3100`) for steps 4–5.
+1. `my-wed/src/core/` and `my-wed/src/templates/index.ts` exist. Pick the next free id from `templates/index.ts`.
+2. AI art: Cloudflare Workers AI credentials in the scratchpad (`cf/token`, `cf/account`), exported as `CF_TOKEN` / `CF_ACCOUNT` for `scripts/design/ai_art.py`. Never commit them. If missing, ask the owner (dash.cloudflare.com → AI → Workers AI → Use REST API → token + Account ID).
+3. The dev server can run (`cd my-wed && npx zmp start -nF -P 3100`) for step 4.
 
 ## Step 0: the owner chooses (one question round)
 
-If the owner already named a group/story (e.g. "mẫu sen hồng truyền thống") or gave a design image, derive the choices and skip the questions it answers. Otherwise ask with AskUserQuestion, one round, up to 4 questions:
+If the owner already named a group/story or gave a design image, derive the choices. Otherwise AskUserQuestion, one round: design group (A–E), story (3 suggestions from the guide not used yet), main colour (3 muted options with hex), intro (one no other template uses). Ask the group alone first if it is unknown.
 
-1. **Nhóm thiết kế**: A. Truyền thống nền sáng / B. Tranh phong cảnh / C. Hoa lá tràn mép / D. Nền tối ánh kim (E. Mảng màu via "Other").
-2. **Câu chuyện**: 3 suggestions from the chosen group in the design guide (pick ones not used by an existing template; check `templates/index.ts` names).
-3. **Màu chủ đạo**: 3 muted options fitting the story (name + hex).
-4. **Mở đầu**: cửa mở / phong bì / rèm / không có, or a new idea that fits the story. Prefer one no other template uses.
+## Step 1: brief (about 10 lines, in the reply)
 
-Questions 2–3 depend on 1; if the group is not known yet, ask question 1 alone first.
+Story, group, palette with hex and shares, fonts, first-screen layout, section frame style, background, the art at divider / gift / footer, intro, and the art list (each piece and what it shows).
 
-## Step 1: design brief (short, in the reply)
+## Step 2: art kit, then STOP for review
 
-About 10 lines, all decided, no options:
-- Story in one sentence; group.
-- Palette with hex and shares (background %, main %, accent %), per the guide's colour rules.
-- Fonts: names, titles, small caps label (installed `@fontsource` families; adding one is allowed, say so).
-- Layer 1, first screen: layout described in one or two lines.
-- Layer 2, section frame style. Layer 3, background. Layer 4, the art at divider, gift, footer. Layer 5, album style.
-- Intro: how it opens.
-- Art list: each piece and its source (code / public-domain / AI), per guide section 6.
+1. Write one STYLE line (medium, paper, palette, mood, "no text, no frame, plain paper background") and prefix it to every piece. One medium per template: never mix photo cut-outs, watercolour and vector.
+2. Draw each piece with `python3 scripts/design/ai_art.py design/tNN/art/<name>.jpg <w> <h> "<STYLE> <subject>"` (FLUX.2 klein, Apache 2.0; the script whitens the paper). Usual kit: hero (art that pours in from an edge), corner, divider, gift item, footer scene, intro object(s), photo masks (`wash-*.png`, painted shapes turned into alpha) if photos get a painted edge.
+3. Re-draw any piece that is off-style or wrong (AI often gets "closed"/"folded" objects wrong: try a few variations).
+4. Compose a board of the pieces multiplied onto the page background and send it (SendUserFile). **Stop and wait** for approval; re-draw on comments.
 
-## Step 2: mockup image, then STOP for review
+## Step 3: mockup from the approved kit, then STOP for review
 
-1. Copy `my-wed/scripts/design/mockup-starter.html` to `my-wed/design/tNN/mockup.html` and draw the 8 screens in plain HTML/CSS: intro closed, first screen, families and names, date and venue, album, calendar/countdown/programme, RSVP and gift, thanks. Use the demo photos in `src/static/`, the brief's tokens and fonts, real Vietnamese text from the demo data.
-2. Art: make the code-drawn pieces now (SVG inline or files in `design/tNN/art/`). Public-domain pictures: download into `design/tNN/art/`, note the source. Missing art: a `.todo-art` box with a label, never a random image.
-3. Render: `cd my-wed && node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg`. Look at it yourself, fix obvious problems once.
-4. Measure: `python3 scripts/design/palette.py <scratchpad>/tNN-mockup.jpg`; fix colours that miss the targets.
-5. Send the image to the owner (SendUserFile) with the brief and a 10-point score (guide section 8), short.
-6. **Stop and wait.** Do not write template code until the owner approves the mockup. Apply their comments to the mockup and re-send as many rounds as they want.
+1. Copy `scripts/design/mockup-starter.html` to `design/tNN/mockup.html`; lay out the screens (intro closed, intro opened, first screen, families/invite, date/venue, album, calendar/countdown/programme, RSVP/gift, thanks) using only the kit, the demo photos and the brief's tokens.
+2. Art rules: art images use `mix-blend-mode: multiply`; a piece drawn cropped by an edge keeps that edge outside the screen; **one photo treatment for every photo** (e.g. all painted-edge masks), variety only from size and stagger; one decoration family repeated, not many.
+3. Render `node scripts/design/mockup.mjs design/tNN/mockup.html <scratchpad>/tNN-mockup.jpg`, check it yourself, measure with `python3 scripts/design/palette.py`, fix once.
+4. Send the mockup image with a few lines (what each screen shows, colour numbers). **Stop and wait.** Do not write template code until the owner says "duyệt"; apply comments and re-send as many rounds as needed.
 
-## Step 3: build (after approval only)
+## Step 4: build to match the mockup (after approval only)
 
-- Files: `templates/tNN/index.tsx`, `styles.scss`, `demo-data.ts`; art in `src/static/tNN/` (compressed: JPEG/WebP, keep each under ~200 KB); thumbnail `src/static/thumbs/tNN.jpg` (360x640, from the first screen).
-- Copy the mockup's tokens into `styles.scss` unchanged. Reuse `_kit` (Reveal, CalendarCard, Countdown, RsvpForm, GiftCard, VenueActions, GuestName, LunarNote, photoSrc).
-- All shared features from the guide's section 7 are present, in that order. Never edit `src/core/`; if the design needs a core change, ask.
-- Register in `templates/index.ts` at the end of the list.
+- Files: `templates/tNN/index.tsx`, `styles.scss`, `demo-data.ts`; art copied to `src/static/tNN/`; thumbnail `src/static/thumbs/tNN.jpg` (360x640 from the first screen). Register at the end of `templates/index.ts`; add the intro's tap target to `OPENERS` in `scripts/design/browser.mjs`.
+- Copy the mockup's tokens and art rules unchanged. Reuse `_kit` (Reveal, CalendarCard, Countdown, RsvpForm, GiftCard, VenueActions, GuestName, LunarNote, photoSrc, photoShape); restyle them in the template's SCSS. All shared features from the guide's section 7 must be present. Never edit `src/core/`; ask if the design needs it.
+- The album must handle any number of photos (landscape vs portrait via `photoShape`).
 - `npx -y -p typescript@5.6.3 tsc --noEmit -p .` must pass.
 
-## Step 4: check against the mockup
+## Step 5: final screenshots and hand-off
 
-1. `node scripts/design/shots.mjs tNN <scratchpad>/tNN` gives a strip in the same layout as the mockup. Compare the two; fix differences, at most 2 rounds (layout, then type, then colour, then decoration).
-2. `python3 scripts/design/palette.py <scratchpad>/tNN/tNN-strip.jpg` and the 10-point check again.
-
-## Step 5: video and hand-off
-
-1. `node scripts/design/video.mjs tNN <scratchpad>/tNN.mp4 28` (9:16, 1080x1920).
-2. Send the video and the strip. Report in a few lines: what was built, the score, anything left (art still missing, guesses).
-3. When the owner approves: commit on `main`, push, then sync `claude/commit-folder-to-repo-lnvcke` (see CLAUDE.md). Do not commit the mockup image; `design/tNN/mockup.html` and its code-drawn art may be committed.
+1. `node scripts/design/shots.mjs tNN <scratchpad>/tNN` and compare with the mockup; fix differences (at most 2 rounds), re-measure with `palette.py`.
+2. Send the screenshot strip (no video) and a short report: what was built, colour numbers, anything left.
+3. Commit on `main`, push, then sync `claude/commit-folder-to-repo-lnvcke` (see CLAUDE.md). Art, mockup HTML and the template are committed; rendered mockup images and screenshots are not.

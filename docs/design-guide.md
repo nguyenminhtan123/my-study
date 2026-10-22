@@ -54,13 +54,15 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 - **Không có ô viền kiểu giao diện app** (ô viền, nút viền, chip). Thông tin chỉ là chữ căn giữa với vài đường kẻ mảnh. Viền chỉ dùng khi là khung trang trí thật. Riêng form xác nhận tham dự được có ô nhập.
 - **Ảnh như vật thật**: viền trắng, bóng mềm, nghiêng 2–8°, hoặc nằm trong khung (vòm, tròn, khung chạm trổ).
 
-## 6. Nguồn tranh minh họa (theo thứ tự ưu tiên)
+## 6. Tranh minh họa (rút ra khi làm mẫu 28)
 
-1. **Tự vẽ bằng code** (SVG/CSS): chữ 囍, mây, lá bạch đàn, đường viền, hoa văn hình học, vân giấy (`numpy` sinh ảnh nền lặp).
-2. **Tranh cổ điển hết bản quyền** (public domain, ví dụ tranh thực vật màu nước thế kỷ 18–19 trên Wikimedia Commons): ghi nguồn vào `docs/CREDITS.md`.
-3. **AI tạo ảnh** khi đã có tài khoản (chủ repo cung cấp mã, không lưu vào repo).
-
-Không dùng ảnh tải trên mạng không rõ bản quyền. Không đưa ảnh khách vào repo.
+- **Một mẫu chỉ một chất liệu.** Ảnh chụp cắt nền, tranh màu nước và hình vector đặt chung sẽ lạc quẻ. Cả bộ tranh phải trông như một họa sĩ vẽ.
+- **Bộ tranh trước, bố cục sau.** Vẽ trọn bộ (tranh màn hình đầu, góc, đường chia, món quà, chân trang, vật mở đầu) rồi chủ repo duyệt bảng tranh, sau đó mới bố cục.
+- **Cách tạo:** AI vẽ cùng một câu lệnh phong cách (`scripts/design/ai_art.py`, FLUX.2 klein, Apache 2.0, dùng thương mại được). Không dùng ảnh từ các kho PNG chỉ cho phi thương mại (PNGWing, CleanPNG...).
+- **Không cắt nền.** Tranh vẽ trên giấy, làm trắng giấy rồi đặt lên trang bằng `mix-blend-mode: multiply`: tranh tan vào nền như in trên cùng tờ giấy.
+- Tranh vẽ tràn ra một mép thì mép đó luôn nằm ngoài màn hình (không để lộ đường cắt thẳng).
+- **Một kiểu ảnh cho mọi ảnh** (ví dụ ảnh viền loang màu nước bằng mặt nạ vẽ cùng nét). Không trộn khung vòm, polaroid, khung tròn trong cùng một thiệp. Đa dạng bằng kích thước và cách xếp so le.
+- Nền giấy sinh bằng `scripts/design/paper.py`; ghi nguồn tranh vào `docs/CREDITS.md`.
 
 ## 7. Thứ tự nội dung (đủ tính năng, không đổi)
 
@@ -68,7 +70,7 @@ Mở đầu → Màn hình đầu → Hai họ và tên → Lời mời (tên kh
 → Album → Lịch tháng + đếm ngược → Lịch trình → Xác nhận tham dự → Quà mừng → Lời cảm ơn.
 Màn hình đầu, khung trang trí và kiểu album làm tự do theo câu chuyện.
 
-## 8. Bảng chấm 10 tiêu chí (bước 4 của skill)
+## 8. Bảng chấm tiêu chí (bước 3 và 5 của skill)
 
 | # | Tiêu chí | Cách kiểm |
 |---|---|---|
@@ -82,3 +84,4 @@ Màn hình đầu, khung trang trí và kiểu album làm tự do theo câu chuy
 | 8 | Không có ô viền kiểu app (trừ form xác nhận) | Ảnh chụp màn hình |
 | 9 | Ảnh có viền, bóng, nghiêng hoặc khung | Ảnh chụp màn hình |
 | 10 | Đường chia, hộp quà, chân trang có tranh đúng chủ đề | Ảnh chụp màn hình |
+| 11 | Một chất liệu tranh, một kiểu ảnh, không lộ mép cắt | Ảnh chụp màn hình |
