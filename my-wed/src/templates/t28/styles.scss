@@ -1,0 +1,632 @@
+// Template 28: Đèn lồng Hội An. One watercolour kit (lanterns, bougainvillea, a red paper fan, the old
+// town by the river) drawn in a single style; its paper is white so it melts into the cream page with
+// multiply. Every photo gets a painted brush edge. Approved mockup: design/t28/mockup.html.
+$wall: url("@/static/t28/wall.jpg");
+
+.t28-root {
+  --k-bg: #f6ecd6;
+  --k-ink: #6e2b2b;
+  --k-muted: #8f6a55;
+  --k-accent: #9a3b3b;
+  --k-accent2: #c39a52;
+  --k-line: rgba(154, 59, 59, 0.3);
+  --k-card: transparent;
+  --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --k-script: "Great Vibes", Georgia, serif;
+  --k-body: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --main: #9a3b3b;
+  --gold: #c39a52;
+  --caps: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 0;
+  background: var(--k-bg) $wall repeat;
+  background-size: 360px;
+  color: var(--k-ink);
+  font-family: var(--k-display);
+  font-size: 17px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-x: hidden;
+  isolation: isolate;
+
+  :where(h1, h2, h3, p) {
+    margin: 0;
+  }
+  img {
+    display: block;
+    max-width: none;
+  }
+}
+
+// watercolour art: white paper, multiplied onto the cream page
+.t28-art {
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.t28-caps {
+  font: 500 10px/1.7 var(--caps);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--main);
+}
+.t28-pad {
+  padding: 0 20px;
+}
+.t28-names {
+  display: flex;
+  flex-direction: column;
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--main);
+
+  i {
+    font-size: 30px;
+    font-style: italic;
+    color: var(--gold);
+  }
+}
+.t28-role {
+  margin-top: 6px;
+  font: 500 9.5px var(--caps);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--k-muted);
+}
+.t28-amp {
+  display: block;
+  margin: 4px 0;
+  font-size: 30px;
+  color: var(--gold);
+}
+.t28-title {
+  margin-top: 4px;
+  font-size: 34px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--main);
+}
+.t28-sec {
+  position: relative;
+  padding: 64px 26px;
+}
+// sections with a bougainvillea corner keep room for it under the text
+.t28-sec:has(> .t28-corner-bl),
+.t28-sec:has(> .t28-corner-br) {
+  padding-bottom: 210px;
+}
+.t28-divider {
+  width: 300px;
+  margin: 10px auto;
+}
+
+// corners: the bougainvillea branch grows out of the image's bottom-left corner,
+// so that corner always sits at the screen edge
+.t28-corner {
+  position: absolute;
+  z-index: -1;
+  width: 330px;
+}
+.t28-corner-bl {
+  left: -24px;
+  bottom: -30px;
+}
+.t28-corner-br {
+  right: -24px;
+  bottom: -30px;
+  transform: scaleX(-1);
+}
+.t28-corner-tr {
+  right: -40px;
+  top: -80px;
+  width: 250px;
+  transform: scale(-1, -1);
+  opacity: 0.8;
+}
+
+// ---------- photos with a painted edge ----------
+.t28-wash {
+  object-fit: cover;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+}
+@each $shape, $file in (land1: wash-land, land2: wash-land2, land3: wash-land3, port1: wash-port, port2: wash-port2, port3: wash-port3, round: wash-round) {
+  .t28-w-#{$shape} {
+    mask-image: url("@/static/t28/#{$file}.png");
+    -webkit-mask-image: url("@/static/t28/#{$file}.png");
+  }
+}
+
+// ---------- intro ----------
+.t28-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--k-bg) $wall repeat;
+  background-size: 360px;
+  isolation: isolate;
+  cursor: pointer;
+  transition: opacity 0.8s 1.7s;
+}
+.t28-intro-hero {
+  position: absolute;
+  left: 0;
+  top: -60px;
+  width: 100%;
+  opacity: 0.55;
+}
+.t28-intro-names {
+  margin-top: 8px;
+  font-size: 30px;
+  font-style: italic;
+  color: var(--main);
+}
+.t28-fan {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+.t28-fan-closed,
+.t28-fan-open {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transition:
+    transform 1.1s cubic-bezier(0.3, 0.7, 0.2, 1),
+    opacity 0.8s;
+}
+.t28-fan-closed {
+  width: 150px;
+  transform: translateX(-50%) rotate(-12deg);
+}
+// the open fan grows out of the closed one's rivet
+.t28-fan-open {
+  width: 420px;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.25) rotate(-30deg);
+  transform-origin: 50% 85%;
+}
+.t28-intro-hint {
+  color: var(--k-muted);
+  animation: t28-pulse 1.8s ease-in-out infinite;
+}
+@keyframes t28-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+.t28-intro-opening {
+  opacity: 0;
+  pointer-events: none;
+
+  .t28-fan-closed {
+    opacity: 0;
+    transform: translateX(-50%) rotate(20deg) scale(0.8);
+  }
+  .t28-fan-open {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(0deg);
+  }
+  .t28-intro-hint {
+    opacity: 0;
+    animation: none;
+  }
+}
+
+// ---------- first screen ----------
+.t28-cover {
+  position: relative;
+  min-height: 100vh;
+  padding: 300px 26px 70px;
+  box-sizing: border-box;
+
+  > :not(.t28-art) {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 1s,
+      transform 1s;
+  }
+  @for $i from 1 through 4 {
+    > :nth-child(#{$i + 1}) {
+      transition-delay: #{2s + $i * 0.2s};
+    }
+  }
+}
+.t28-open .t28-cover > :not(.t28-art) {
+  opacity: 1;
+  transform: none;
+}
+.t28-cover-hero {
+  position: absolute;
+  left: -10px;
+  top: -40px;
+  width: calc(100% + 40px);
+  z-index: -1;
+}
+.t28-cover .t28-names {
+  margin-top: 8px;
+}
+.t28-cover-photo {
+  width: 230px;
+  height: 260px;
+  margin: 14px auto 0;
+}
+
+// date line: weekday | big day | month and year, two thin gold rules
+.t28-dateline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+  color: var(--main);
+
+  span {
+    width: 86px;
+    font: 500 10px/1.6 var(--caps);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+  span:first-child {
+    text-align: right;
+  }
+  span:last-child {
+    text-align: left;
+  }
+  b {
+    padding: 0 18px;
+    border-left: 1px solid var(--gold);
+    border-right: 1px solid var(--gold);
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1;
+  }
+}
+.t28-dateline-sm b {
+  font-size: 44px;
+}
+
+// ---------- families ----------
+.t28-fams {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 12px;
+  margin: 24px -14px 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.t28-fams-line {
+  background: var(--gold);
+}
+.t28-fam {
+  display: flex;
+  flex-direction: column;
+
+  b {
+    margin-bottom: 2px;
+    font-size: 9px;
+  }
+}
+.t28-couple {
+  margin: 40px 0 18px;
+
+  .t28-names {
+    font-size: 44px;
+  }
+}
+.t28-guest {
+  margin: 6px 0 0;
+  font-family: var(--k-script);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--main);
+}
+.t28-lead {
+  margin-top: 8px;
+  font-size: 18px;
+  font-style: italic;
+}
+
+// ---------- date and venue ----------
+.t28-when-lantern {
+  position: absolute;
+  right: -40px;
+  top: -90px;
+  width: 170px;
+  opacity: 0.9;
+  z-index: -1;
+}
+.t28-time {
+  margin-top: 8px;
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  color: var(--main);
+}
+.t28-lunar {
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--k-muted);
+  opacity: 1;
+}
+.t28-venue {
+  margin-top: 8px;
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--main);
+}
+.t28-address {
+  margin: 6px 14px 0;
+  font-size: 16px;
+  color: var(--k-muted);
+}
+// "Chỉ đường" as an underlined caps link, not a pill button
+.t28-actions .k-actions {
+  margin-top: 16px;
+
+  button {
+    padding: 2px 0;
+    border: 0;
+    border-bottom: 1px solid var(--main);
+    border-radius: 0;
+    font: 500 10px var(--caps);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--main);
+  }
+  button:active {
+    background: transparent;
+    color: var(--main);
+  }
+  svg {
+    display: none;
+  }
+}
+
+// ---------- album ----------
+.t28-album .t28-title {
+  margin-bottom: 18px;
+}
+.t28-wide {
+  width: calc(100% + 52px);
+  margin: 0 -26px;
+  aspect-ratio: 13 / 9;
+}
+.t28-tall {
+  width: 280px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+}
+.t28-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0 -12px;
+
+  .t28-wash {
+    width: 100%;
+    aspect-ratio: 18 / 25;
+  }
+  > :nth-child(2) {
+    margin-top: 40px;
+  }
+}
+.t28-quote {
+  margin: 22px 0;
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--main);
+}
+
+// ---------- calendar, countdown, programme ----------
+.t28-cal {
+  .k-cal {
+    padding: 0 6px 10px;
+    background: transparent;
+    box-shadow: none;
+  }
+  // the kit prints the month in English; this template shows its own Vietnamese heading
+  .k-cal-month {
+    display: none;
+  }
+  .k-cal-grid {
+    font-size: 16px;
+    color: var(--k-ink);
+  }
+  .k-cal-dow {
+    font: 500 8.5px var(--caps);
+    letter-spacing: 0.15em;
+  }
+  .k-cal-day {
+    height: 30px;
+  }
+  // the wedding day glows inside a small lantern instead of a heart
+  .k-cal-hit {
+    &::before {
+      width: 60px;
+      height: 80px;
+      clip-path: none;
+      background: url("@/static/t28/lantern.jpg") center / contain no-repeat;
+      mix-blend-mode: multiply;
+      transform: translate(-50%, -48%);
+      animation: none;
+    }
+    b {
+      top: 3px;
+      font-size: 13px;
+      color: #fbe9cf;
+    }
+  }
+  .k-count {
+    margin-top: 10px;
+
+    div + div {
+      border: 0;
+    }
+    b {
+      font-size: 38px;
+      font-weight: 400;
+      color: var(--main);
+    }
+    span {
+      font: 500 8.5px var(--caps);
+      letter-spacing: 0.3em;
+      color: var(--k-muted);
+    }
+  }
+  > :nth-child(2) {
+    margin-top: 26px;
+  }
+}
+.t28-month {
+  margin-bottom: 14px;
+  font-size: 30px;
+  font-style: italic;
+  color: var(--main);
+}
+.t28-steps {
+  width: 240px;
+  margin: 12px auto 0;
+  text-align: left;
+
+  div {
+    display: grid;
+    grid-template-columns: 70px 20px 1fr;
+    align-items: center;
+    height: 36px;
+  }
+  b {
+    font-size: 21px;
+    font-weight: 500;
+    color: var(--main);
+  }
+  i {
+    width: 7px;
+    height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+}
+
+// ---------- RSVP and gift ----------
+.t28-rsvp {
+  .k-form {
+    margin-top: 4px;
+
+    h3 {
+      font-family: var(--k-display);
+      font-size: 36px;
+      font-style: italic;
+      color: var(--main);
+    }
+    p {
+      font-size: 15.5px;
+    }
+    input,
+    textarea,
+    select {
+      padding: 6px 2px;
+      border-width: 0 0 1px;
+      border-color: var(--k-line);
+      border-radius: 0;
+      font-size: 16px;
+      font-style: italic;
+    }
+  }
+  .k-chips button {
+    padding: 4px 2px;
+    border: 0;
+    border-radius: 0;
+    font-size: 16px;
+    color: var(--k-muted);
+  }
+  .k-chips button.on {
+    background: transparent;
+    border-bottom: 1px solid var(--main);
+    color: var(--main);
+  }
+  .k-submit {
+    border-radius: 0;
+    font: 500 10.5px var(--caps);
+    letter-spacing: 0.3em;
+    color: #f8ead2;
+  }
+}
+.t28-gift-caps {
+  margin-top: 46px;
+}
+.t28-giftbtn {
+  display: block;
+  margin: -14px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+
+  img {
+    width: 190px;
+    margin: 0 auto;
+  }
+  span {
+    display: block;
+    margin-top: -30px;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--k-muted);
+  }
+}
+.t28-gift {
+  margin-top: 18px;
+
+  .k-gift-card {
+    background: rgba(255, 252, 244, 0.6);
+    box-shadow: none;
+  }
+}
+
+// ---------- thanks ----------
+.t28-thanks {
+  position: relative;
+  min-height: 760px;
+  padding: 190px 26px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.t28-thanks-hero {
+  position: absolute;
+  left: -10px;
+  top: -80px;
+  width: calc(100% + 40px);
+  opacity: 0.85;
+  z-index: -1;
+}
+.t28-round {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+}
+.t28-thanks-title {
+  margin-top: 22px;
+  font-size: 40px;
+  font-style: italic;
+  color: var(--main);
+}
+.t28-town {
+  position: absolute;
+  left: -40px;
+  bottom: -40px;
+  width: calc(100% + 80px);
+  z-index: -1;
+}

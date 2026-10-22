@@ -63,6 +63,7 @@ export const HIDE_CHROME =
 
 // the intro of each template (doors, envelope, seal...): tapped to open it
 export const OPENERS = [
+  ".t28-intro",
   ".t26-doors",
   ".t27-env",
   ".wd-seal",
