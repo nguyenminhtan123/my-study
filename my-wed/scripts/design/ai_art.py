@@ -8,8 +8,12 @@ Credentials come from the environment, never from the repo:
   CF_TOKEN    Workers AI API token
   CF_ACCOUNT  Cloudflare account id
 
-Run: python3 scripts/design/ai_art.py <out.webp> <width> <height> "<style + subject prompt>" [model]
-     python3 scripts/design/ai_art.py --alpha <in.jpg> <out.webp>   (existing art on paper -> transparent)
+Run: python3 scripts/design/ai_art.py [--paper dark] <out.webp> <width> <height> "<style + subject prompt>" [model]
+     python3 scripts/design/ai_art.py [--paper dark] --alpha <in.jpg> <out.webp>   (existing art -> transparent)
+     python3 scripts/design/ai_art.py --mask <out.png> <width> <height> "<shape, e.g. tall portrait>"
+  --paper dark: the art is drawn on a pure black background (lacquer, gold leaf); black becomes transparent.
+  --mask: a painted shape for photo masks (alpha only), drips removed and cropped tight; the STYLE of the
+          template's medium can be added to the shape text so the edge matches the art.
 Default model: @cf/black-forest-labs/flux-2-klein-4b (Apache 2.0, outputs usable commercially).
 """
 
@@ -48,9 +52,40 @@ def to_alpha(im, min_alpha=0.04):
     return Image.fromarray((out * 255).round().astype("uint8"), "RGBA")
 
 
-def save(im, out):
-    im = to_alpha(im)
+def to_alpha_dark(im, min_alpha=0.04):
+    """Colour-to-alpha against black: alpha = brightest channel, colours un-mixed from black."""
+    c = np.asarray(im.convert("RGB"), float) / 255
+    a = c.max(-1, keepdims=True)
+    a = np.where(a < min_alpha, 0, a)
+    rgb = np.where(a > 0, c / np.maximum(a, 1e-6), 0)
+    out = np.concatenate([np.clip(rgb, 0, 1), a], -1)
+    return Image.fromarray((out * 255).round().astype("uint8"), "RGBA")
+
+
+def to_mask(im):
+    """Dark ink on white -> alpha shape; an opening removes drips and specks; cropped tight."""
+    from PIL import ImageFilter
+
+    g = np.asarray(im.convert("L"), float)
+    a = Image.fromarray(np.clip((255 - g) * 1.4 - 30, 0, 255).astype("uint8"))
+    a = a.resize((a.width // 2, a.height // 2), Image.LANCZOS)
+    a = a.filter(ImageFilter.MinFilter(9)).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(1))
+    box = a.point(lambda v: 255 if v > 40 else 0).getbbox()
+    a = a.crop((max(0, box[0] - 6), max(0, box[1] - 6), min(a.width, box[2] + 6), min(a.height, box[3] + 6)))
+    out = Image.new("LA", a.size, 0)
+    out.putalpha(a)
+    return out
+
+
+def save(im, out, paper="light"):
+    im = to_alpha_dark(im) if paper == "dark" else to_alpha(im)
     im.save(out, quality=86, method=6) if out.endswith(".webp") else im.save(out, optimize=True)
+
+
+MASK_PROMPT = (
+    "A single loose painted shape in black ink on pure white paper, one large solid dark area filling most "
+    "of the picture, irregular brush edges, no drips, the centre completely solid black. No objects, no text. "
+)
 
 
 def generate(prompt, width, height, model=MODEL):
@@ -74,11 +109,18 @@ def generate(prompt, width, height, model=MODEL):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    paper = "light"
+    if args[:2] == ["--paper", "dark"]:
+        paper, args = "dark", args[2:]
     if len(args) == 3 and args[0] == "--alpha":
-        save(Image.open(args[1]), args[2])
+        save(Image.open(args[1]), args[2], paper)
+    elif len(args) == 5 and args[0] == "--mask":
+        im = generate(MASK_PROMPT + args[4], int(args[2]), int(args[3]))
+        to_mask(im).save(args[1], optimize=True)
+        print(args[1])
     elif len(args) >= 4:
         im = generate(args[3], int(args[1]), int(args[2]), args[4] if len(args) > 4 else MODEL)
-        save(im, args[0])
+        save(im, args[0], paper)
         print(args[0], im.size)
     else:
         print(__doc__)
