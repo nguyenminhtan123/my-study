@@ -4,7 +4,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t15/styles.scss";
 import { WeddingData } from "@/core/types";
-import lanterns from "@/static/t15-lanterns.jpg";
+import lanterns from "@/static/t15-lanterns.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {

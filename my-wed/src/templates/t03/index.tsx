@@ -3,7 +3,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
-import leaf from "@/static/t03-betel-leaf.jpg";
+import leaf from "@/static/t03-betel-leaf.webp";
 import tray from "@/static/t03-betel-tray.jpg";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";

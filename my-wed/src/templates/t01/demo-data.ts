@@ -3,7 +3,7 @@ import album2 from "@/static/album2.jpeg";
 import album3 from "@/static/album3.jpeg";
 import album4 from "@/static/album4.jpeg";
 import couple from "@/static/couple.jpeg";
-import cover from "@/static/cover.jpg";
+import cover from "@/static/cover.webp";
 import destiny from "@/static/destiny.jpeg";
 import {
   GiftSide,

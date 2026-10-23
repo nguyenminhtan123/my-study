@@ -2,7 +2,7 @@
 // a transparent background. Every photo is a moon gate: a round photo inside a painted brush circle.
 // Layout: a hanging silk scroll (the silk rolls slightly at both side edges). Intro: a lotus bud blooms.
 // Approved mockup: design/t29/mockup.html.
-$silk: url("@/static/t29/silk.jpg");
+$silk: url("@/static/t29/silk.webp");
 // rolled silk at both side edges, drawn on the scrolling background so it runs the whole page
 $edges:
   linear-gradient(90deg, rgba(120, 95, 80, 0.16), rgba(120, 95, 80, 0) 14px),

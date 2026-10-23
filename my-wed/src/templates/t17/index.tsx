@@ -3,8 +3,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t17/styles.scss";
 import { WeddingData } from "@/core/types";
-import bouquet from "@/static/t17-bouquet.jpg";
-import roses from "@/static/t17-bouquet-roses.jpg";
+import bouquet from "@/static/t17-bouquet.webp";
+import roses from "@/static/t17-bouquet-roses.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {

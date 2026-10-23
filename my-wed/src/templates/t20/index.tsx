@@ -3,8 +3,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t20/styles.scss";
 import { WeddingData } from "@/core/types";
-import cake from "@/static/t20-cake.jpg";
-import cakeNight from "@/static/t20-cake-night.jpg";
+import cake from "@/static/t20-cake.webp";
+import cakeNight from "@/static/t20-cake-night.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
