@@ -410,6 +410,91 @@
         text-transform: uppercase;
         color: var(--main);
       }
+      /* entrances: script adds .in when an element scrolls into view (staggered by --d) */
+      [data-anim] {
+        opacity: 0;
+        transition:
+          opacity 0.9s ease,
+          transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+        transition-delay: var(--d, 0s);
+      }
+      [data-anim="up"] {
+        transform: translateY(28px);
+      }
+      [data-anim="zoom"] {
+        transform: scale(0.86);
+      }
+      [data-anim="left"] {
+        transform: translateX(-46px);
+      }
+      [data-anim="right"] {
+        transform: translateX(46px);
+      }
+      [data-anim="grow"] {
+        transform: scaleX(0.15);
+      }
+      [data-anim="pop"] {
+        transform: scale(0.3);
+        transition-timing-function: ease, cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      [data-anim].in {
+        opacity: 1;
+        transform: none;
+      }
+      /* small living touches */
+      .beat {
+        display: inline-block;
+        animation: beat 1.6s ease-in-out infinite;
+      }
+      @keyframes beat {
+        15% {
+          transform: scale(1.3);
+        }
+        30% {
+          transform: scale(1);
+        }
+      }
+      .breathe {
+        animation: breathe 3.2s ease-in-out infinite;
+      }
+      @keyframes breathe {
+        50% {
+          transform: scale(1.035);
+        }
+      }
+      .ring-pulse {
+        animation: ring-pulse 2s ease-out infinite;
+      }
+      @keyframes ring-pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(212, 96, 122, 0.45);
+        }
+        100% {
+          box-shadow: 0 0 0 12px rgba(212, 96, 122, 0);
+        }
+      }
+      .btn,
+      .tag {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn::after,
+      .tag::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -60%;
+        width: 40%;
+        background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+        animation: shine 3.2s ease-in-out infinite;
+      }
+      @keyframes shine {
+        60%,
+        100% {
+          left: 130%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -425,13 +510,13 @@
       <span class="amp">&amp;</span>
       <h1 class="names">Khánh Linh</h1>
       <div class="dateline" style="margin-top: 22px"><span style="text-align: right">Thứ Bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span></div>
-      <p class="hearts" style="margin-top: 14px">♥ ♥ ♥</p>
+      <p class="hearts" style="margin-top: 14px"><span class="beat">♥</span> <span class="beat" style="animation-delay: 0.2s">♥</span> <span class="beat" style="animation-delay: 0.4s">♥</span></p>
       <div class="live" data-bouquet style="--o: 50% 40%; width: 236px; margin: 20px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
     </section>
 
     <!-- 2 · families, names, invitation -->
     <section>
-      <img class="art" src="art/corner.webp" alt="" style="width: 150px; right: 6px; top: 16px; transform: scaleX(-1)" />
+      <div class="art" style="width: 150px; right: 6px; top: 16px; transform: scaleX(-1)"><img class="sway" src="art/corner.webp" alt="" style="display: block; width: 100%" /></div>
       <p class="caps" style="padding: 150px 34px 0">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
       <div style="display: flex; justify-content: center; gap: 18px; margin-top: 22px; font-size: 15px; line-height: 1.7">
         <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -452,8 +537,8 @@
     <!-- 3 · cover photo cradled by a symmetrical spray -->
     <section>
       <div class="oval" style="width: 262px; height: 350px; margin-top: 90px"><img src="../../src/static/cover.jpg" alt="" /></div>
-      <img src="art/cradle.webp" alt="" style="display: block; width: 320px; margin: -72px auto 0; position: relative" />
-      <p class="script" style="margin-top: 26px; font-size: 38px">Hạnh phúc là nắm tay nhau</p>
+      <img src="art/garland.webp" alt="" data-anim="grow" style="display: block; width: 330px; margin: -36px auto 0; position: relative" />
+      <p class="script" style="margin-top: 34px; font-size: 38px">Hạnh phúc là nắm tay nhau</p>
       <p class="lead muted" style="margin-top: 6px">đi qua mọi mùa của cuộc đời</p>
     </section>
 
@@ -462,7 +547,7 @@
       <p class="caps" style="padding-top: 70px">Tiệc cưới diễn ra vào lúc</p>
       <p style="margin-top: 6px; font-size: 26px; color: var(--main)">17 giờ 30</p>
       <div style="position: relative; width: 320px; height: 281px; margin: 18px auto 0">
-        <div class="live" style="--o: 50% 50%"><img src="art/heart.webp" alt="" style="display: block; width: 100%" /></div>
+        <div class="live" style="--o: 50% 50%"><img class="breathe" src="art/heart.webp" alt="" style="display: block; width: 100%" /></div>
         <div style="position: absolute; inset: 4% 0 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
           <p class="caps" style="font-size: 9px">Thứ Bảy</p>
           <p style="font-size: 48px; line-height: 1.05; color: var(--main)">26</p>
@@ -543,7 +628,7 @@
       <p class="script" style="margin-top: 30px; font-size: 52px">Trân trọng cảm ơn</p>
       <p class="caps" style="margin-top: 4px; color: var(--ink)">Đức Minh · Khánh Linh</p>
       <p class="lead muted" style="margin-top: 8px">Sự hiện diện của bạn là niềm hạnh phúc<br />của gia đình chúng tôi</p>
-      <p class="hearts" style="margin-top: 18px">♥ ♥ ♥</p>
+      <p class="hearts" style="margin-top: 18px"><span class="beat">♥</span> <span class="beat" style="animation-delay: 0.2s">♥</span> <span class="beat" style="animation-delay: 0.4s">♥</span></p>
       <img src="art/garland.webp" alt="" style="display: block; width: 260px; margin: 14px auto 0" />
     </section>
 
@@ -553,7 +638,7 @@
       let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
       for (let d = 1; d <= 31; d++) {
         html += d === 26
-          ? `<span><i style="position:absolute;left:50%;top:50%;width:30px;height:30px;padding:0;transform:translate(-50%,-50%);border-radius:50%;background:var(--main)"></i><b style="position:relative;font-weight:400;color:#fff">26</b></span>`
+          ? `<span><i style="position:absolute;left:50%;top:50%;width:30px;height:30px;padding:0;transform:translate(-50%,-50%);border-radius:50%;background:var(--main)" class="ring-pulse"></i><b style="position:relative;font-weight:400;color:#fff">26</b></span>`
           : `<span>${d}</span>`;
       }
       cal.innerHTML = html;
@@ -695,6 +780,32 @@
         requestAnimationFrame(popGift);
       };
       requestAnimationFrame(popGift);
+
+      // entrances: every block in a section rises in, staggered; photos zoom, dividers grow from the
+      // centre, programme rows slide in from alternate sides, tags pop
+      const kind = (el) => {
+        if (el.matches(".oval, .tag") || el.querySelector(".oval")) return el.matches(".tag") ? "pop" : "zoom";
+        if (el.matches('img[src*="garland"], img[src*="rose"]')) return "grow";
+        return "up";
+      };
+      document.querySelectorAll("section").forEach((sec) => {
+        let n = 0;
+        [...sec.children].forEach((el) => {
+          if (el.matches(".art, .live, .gift-pop, [data-anim], .tl") || el.querySelector(".live")) return;
+          el.dataset.anim = kind(el);
+          el.style.setProperty("--d", `${Math.min(n++ * 0.12, 0.9)}s`);
+        });
+      });
+      document.querySelectorAll(".tag").forEach((el) => (el.dataset.anim = "pop"));
+      document.querySelectorAll(".tl-row").forEach((el, i) => {
+        el.dataset.anim = i % 2 ? "right" : "left";
+        el.style.setProperty("--d", `${0.15 + i * 0.2}s`);
+      });
+      const reveal = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll("[data-anim]").forEach((el) => reveal.observe(el));
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
