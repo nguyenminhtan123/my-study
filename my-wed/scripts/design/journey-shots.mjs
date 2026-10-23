@@ -41,7 +41,7 @@ const screens = await page.evaluate(() => Math.round(document.documentElement.sc
 const files = [];
 for (let i = 0; i < screens; i++) {
   await page.evaluate((y) => scrollTo(0, y), i * 844);
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(2600);
   const file = join(dir, `s${i}.png`);
   await page.screenshot({ path: file });
   files.push(file);

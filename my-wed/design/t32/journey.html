@@ -232,17 +232,37 @@
         border-radius: 50%;
         background: var(--sage);
       }
-      /* the living piece of each section: script sets --a (bloom 0..1) and --d (dissolve 0..1) */
+      /* the living piece of each section: shown only while its section owns the flowers */
       .live {
-        --a: 1;
-        --d: 0;
-        opacity: calc(var(--a) * (1 - var(--d)));
-        transform: scale(calc(0.55 + 0.45 * var(--a) + 0.15 * var(--d))) rotate(calc((1 - var(--a)) * -14deg));
-        filter: blur(calc(var(--d) * 6px));
-        clip-path: circle(calc(var(--a) * 75%) at var(--o, 50% 50%));
-        -webkit-clip-path: circle(calc(var(--a) * 75%) at var(--o, 50% 50%));
+        opacity: 0;
+        transform: scale(0.5) rotate(-12deg);
+        filter: blur(6px);
+        clip-path: circle(0% at var(--o, 50% 50%));
+        -webkit-clip-path: circle(0% at var(--o, 50% 50%));
         transform-origin: var(--o, 50% 50%);
-        will-change: transform, opacity;
+        transition: opacity 0.6s, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s, clip-path 0.9s, -webkit-clip-path 0.9s;
+      }
+      .live.here {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        clip-path: circle(80% at var(--o, 50% 50%));
+        -webkit-clip-path: circle(80% at var(--o, 50% 50%));
+      }
+      /* the bouquet that carries the flowers from one section to the next */
+      .traveller {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 35;
+        width: 130px;
+        pointer-events: none;
+        opacity: 0;
+      }
+      .traveller img {
+        display: block;
+        width: 100%;
+        filter: drop-shadow(0 12px 16px rgba(150, 80, 95, 0.2));
       }
       .sway {
         animation: sway 4.5s ease-in-out infinite;
@@ -293,6 +313,7 @@
   </head>
   <body>
     <div class="petals" id="petals"></div>
+    <div class="traveller" id="traveller"><img src="art/bouquet.webp" alt="" /></div>
     
     <!-- 1 · first screen: names, date, the bouquet below -->
     <section>
@@ -307,7 +328,7 @@
 
     <!-- 2 · families, names, invitation; the bouquet rests bottom right -->
     <section>
-      <div class="art live" style="--o: 100% 0%; width: 220px; right: -40px; top: -30px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: scaleX(-1)" /></div>
+      <div class="art live" style="--o: 100% 0%; width: 170px; right: -6px; top: 14px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: scaleX(-1)" /></div>
       <p class="caps" style="padding: 150px 34px 0">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
       <div style="display: flex; justify-content: center; gap: 18px; margin-top: 22px; font-size: 15px; line-height: 1.7">
         <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -370,7 +391,7 @@
     <!-- 6 · calendar card, countdown, programme; the bouquet rests bottom right -->
     <section>
       <div class="card" style="position: relative; margin-top: 60px">
-        <div class="art live" style="--o: 0% 50%; width: 118px; right: -34px; top: -58px"><img src="art/rose.webp" alt="" style="display: block; width: 100%; transform: rotate(-18deg)" /></div>
+        <div class="art live" style="--o: 0% 50%; width: 96px; right: 6px; top: -34px"><img src="art/rose.webp" alt="" style="display: block; width: 100%; transform: rotate(-18deg)" /></div>
         <p class="script" style="font-size: 40px">Tháng 12 · 2026</p>
         <div class="cal" id="cal" style="margin-top: 8px"></div>
       </div>
@@ -422,51 +443,99 @@
       }
       cal.innerHTML = html;
 
-      // bloom while a piece rises into view, dissolve while it leaves at the top; both follow the scroll
-      const pieces = [...document.querySelectorAll(".live")];
-      const clamp = (v) => Math.min(1, Math.max(0, v));
-      const smooth = (v) => v * v * (3 - 2 * v);
-      const state = pieces.map(() => ({ open: false, gone: false }));
-      const burst = (el, n) => {
+      // one bouquet carries the flowers: when a new section takes over, the old piece folds back into the
+      // bouquet, the bouquet flies to the new section's piece, then bursts into petals as that piece blooms
+      const sections = [...document.querySelectorAll("section")];
+      const pieces = sections.map((sec) => sec.querySelector(".live"));
+      const traveller = document.getElementById("traveller");
+      const centre = (el) => {
         const r = el.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
+        return { x: r.left + r.width / 2 + scrollX, y: r.top + r.height / 2 + scrollY, w: r.width };
+      };
+      const burst = (x, y, n) => {
         for (let i = 0; i < n; i++) {
           const p = document.createElement("img");
           p.className = "burst";
           p.src = i % 2 ? "art/petal1.webp" : "art/petal2.webp";
           const size = 12 + Math.random() * 14;
-          Object.assign(p.style, { width: `${size}px`, left: `${cx - size / 2}px`, top: `${cy - size / 2}px` });
+          Object.assign(p.style, { width: `${size}px`, left: `${x - size / 2}px`, top: `${y - size / 2}px` });
           document.body.appendChild(p);
           const ang = Math.random() * Math.PI * 2;
-          const dist = 70 + Math.random() * 110;
+          const dist = 60 + Math.random() * 120;
           p.animate(
             [
-              { transform: "translate(0,0) rotate(0deg) scale(0.6)", opacity: 0.95 },
-              { transform: `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist + 60}px) rotate(${Math.random() * 540 - 270}deg) scale(1)`, opacity: 0 },
+              { transform: "translate(0,0) rotate(0deg) scale(0.6)", opacity: 1 },
+              { transform: `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist + 50}px) rotate(${Math.random() * 540 - 270}deg) scale(1)`, opacity: 0 },
             ],
-            { duration: 1300 + Math.random() * 600, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" },
+            { duration: 1200 + Math.random() * 600, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" },
           ).onfinish = () => p.remove();
         }
       };
-      const tick = () => {
-        const h = innerHeight;
-        pieces.forEach((el, i) => {
-          // timed by the piece's section: blooms as the section arrives, dissolves as it leaves
-          const top = el.closest("section").getBoundingClientRect().top / h;
-          const a = smooth(clamp((0.6 - top) / 0.45));
-          const d = smooth(clamp((-top - 0.2) / 0.4));
-          el.style.setProperty("--a", a.toFixed(3));
-          el.style.setProperty("--d", d.toFixed(3));
-          const st = state[i];
-          if (a > 0.55 && !st.open) burst(el, 12);
-          if (d > 0.35 && !st.gone) burst(el, 14);
-          st.open = a > 0.55;
-          st.gone = d > 0.35;
-        });
-        requestAnimationFrame(tick);
+      // the bouquet flies in screen coordinates and follows its target while the page scrolls
+      const W = 130;
+      const view = (el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width };
       };
-      requestAnimationFrame(tick);
+      const put = (x, y, scale, opacity) => {
+        traveller.style.transform = `translate(${x - W / 2}px, ${y - W * 0.55}px) scale(${scale})`;
+        traveller.style.opacity = opacity;
+      };
+      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      let current = 0;
+      let busy = false;
+      pieces[0].classList.add("here");
+      const go = (to) => {
+        busy = true;
+        const from = pieces[current];
+        const dest = pieces[to];
+        // 1 · the old piece folds back into the bouquet (at the screen edge if it has scrolled away)
+        const a = view(from);
+        a.y = Math.min(innerHeight - 120, Math.max(120, a.y));
+        traveller.style.transition = "none";
+        put(a.x, a.y, Math.min(1.6, a.w / W), 0);
+        traveller.getBoundingClientRect();
+        from.classList.remove("here");
+        traveller.style.transition = "opacity 0.3s, transform 0.4s ease-out";
+        put(a.x, a.y, 1, 1);
+        // 2 · it flies along an arc to the new piece, tracking it as the page moves
+        setTimeout(() => {
+          traveller.style.transition = "none";
+          const t0 = performance.now();
+          const fly = (now) => {
+            const p = Math.min(1, (now - t0) / 1200);
+            const e = ease(p);
+            const b = view(dest);
+            const x = a.x + (b.x - a.x) * e;
+            const y = a.y + (b.y - a.y) * e - Math.sin(Math.PI * p) * 70;
+            put(x, y, 1 + Math.sin(Math.PI * p) * 0.12, 1);
+            traveller.style.transform += ` rotate(${Math.sin(Math.PI * p * 2) * 10}deg)`;
+            if (p < 1) return requestAnimationFrame(fly);
+            // 3 · it bursts into petals and the new piece blooms in its place
+            traveller.style.transition = "opacity 0.45s, transform 0.45s";
+            put(b.x, b.y, 1.35, 0);
+            burst(b.x, b.y, 16);
+            dest.classList.add("here");
+            setTimeout(() => {
+              current = to;
+              busy = false;
+              sync();
+            }, 500);
+          };
+          requestAnimationFrame(fly);
+        }, 400);
+      };
+      const sync = () => {
+        if (busy) return;
+        // a section takes over as soon as its top passes 70% of the screen, while the old piece is
+        // still in sight, so the guest sees the bouquet leave it and travel down
+        let best = 0;
+        sections.forEach((sec, i) => {
+          if (sec.getBoundingClientRect().top <= innerHeight * 0.7) best = i;
+        });
+        if (best !== current) go(best);
+      };
+      addEventListener("scroll", sync, { passive: true });
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
