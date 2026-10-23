@@ -72,7 +72,7 @@ for (let i = 1; i < screens; i++) {
       }),
     i * 844,
   );
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(2600);
 }
 recording = false;
 await cdp.send("Page.stopScreencast");
