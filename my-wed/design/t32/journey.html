@@ -1,9 +1,10 @@
 <!doctype html>
 <!--
   t32 · Hoa hồng pastel. Live prototype of the bouquet journey (open it at 390x844 and scroll):
-  one bouquet travels down the invitation; at each section it flies from the last section's slot to the
-  next one and turns into that section's piece (corner spray, wreath round the date, garland, gift box),
-  while rose petals fall over the page. The template ports this engine to React.
+  one bouquet stays on screen from the first section to the last. Its pose (place, size, tilt) is tied to
+  the scroll position: it rests beside each section's content while that section is read, and glides to
+  the next resting place as the guest scrolls on, swaying gently; rose petals fall over the page.
+  The section art (corner spray, wreath round the date, garland, gift box) stays put in its section.
   Record: node scripts/design/journey-video.mjs design/t32/journey.html <out.mp4>
 -->
 <html lang="vi">
@@ -75,7 +76,7 @@
         line-height: 1;
         color: var(--main);
       }
-      /* a slot is where the bouquet settles in a section, in that section's form */
+      /* section art that stays in its section */
       .slot {
         position: relative;
         margin: 0 auto;
@@ -106,20 +107,27 @@
         object-fit: cover;
         border-radius: 50%;
       }
-      /* the traveller: one bouquet that flies between slots and turns into the next piece */
-      .traveller {
-        position: absolute;
+      /* the bouquet: fixed on screen, placed by script from the scroll position */
+      .bouquet {
+        position: fixed;
+        left: 0;
+        top: 0;
         z-index: 30;
         pointer-events: none;
-        visibility: hidden;
-        transform-origin: 0 0;
+        transform-origin: 50% 70%;
+        will-change: transform;
       }
-      .traveller img {
-        position: absolute;
-        inset: 0;
+      .bouquet img {
+        display: block;
         width: 100%;
-        height: 100%;
-        object-fit: contain;
+        filter: drop-shadow(0 10px 14px rgba(120, 70, 80, 0.18));
+        transform-origin: 50% 90%;
+        animation: sway 4.5s ease-in-out infinite;
+      }
+      @keyframes sway {
+        50% {
+          transform: rotate(4deg) translateY(-4px);
+        }
       }
       /* falling petals */
       .petals {
@@ -157,9 +165,9 @@
   </head>
   <body>
     <div class="petals" id="petals"></div>
+    <div class="bouquet" id="bouquet"><img src="art/bouquet.webp" alt="" /></div>
     <div class="page" id="page">
-      <div class="traveller" id="traveller"><img id="ta" alt="" /><img id="tb" alt="" /></div>
-
+      
       <!-- 1 · cover: the bouquet itself -->
       <section>
         <p class="caps" style="margin-top: 20px">Lễ thành hôn</p>
@@ -167,7 +175,6 @@
         <p class="amp">&amp;</p>
         <h1 class="names">Khánh Linh</h1>
         <p style="margin-top: 14px; font-size: 18px; letter-spacing: 0.24em">26 · 12 · 2026</p>
-        <div class="slot" data-src="art/bouquet.webp" style="width: 250px; height: 340px; margin-top: 30px"><img alt="" /></div>
       </section>
 
       <!-- 2 · families: the bouquet settles as a corner spray -->
@@ -215,72 +222,49 @@
       <section>
         <div class="oval" style="margin-top: 20px"><img src="../../src/static/destiny.jpeg" alt="" /></div>
         <p class="script" style="margin-top: 26px; font-size: 52px">Trân trọng cảm ơn</p>
-        <div class="slot" data-src="art/bouquet.webp" style="width: 170px; height: 230px; margin-top: 10px"><img alt="" /></div>
       </section>
     </div>
 
     <script>
-      const page = document.getElementById("page");
-      const traveller = document.getElementById("traveller");
-      const ta = document.getElementById("ta");
-      const tb = document.getElementById("tb");
-      const slots = [...document.querySelectorAll(".slot")];
       const sections = [...document.querySelectorAll("section")];
-      slots.forEach((s) => (s.querySelector("img").src = s.dataset.src));
+      document.querySelectorAll(".slot").forEach((el) => {
+        el.querySelector("img").src = el.dataset.src;
+        el.classList.add("here");
+      });
 
-      // a slot's box in page coordinates, so a flight is unaffected by scrolling
-      const box = (el) => {
-        const r = el.getBoundingClientRect();
-        const p = page.getBoundingClientRect();
-        return { x: r.left - p.left, y: r.top - p.top, w: r.width, h: r.height };
+      // where the bouquet rests in each section: centre x and y as a share of the screen, width, tilt
+      const POSES = [
+        { x: 0.5, y: 0.71, w: 230, r: 0 },
+        { x: 0.86, y: 0.86, w: 120, r: 14 },
+        { x: 0.13, y: 0.86, w: 116, r: -12 },
+        { x: 0.86, y: 0.86, w: 108, r: 14 },
+        { x: 0.14, y: 0.83, w: 112, r: -10 },
+        { x: 0.5, y: 0.83, w: 170, r: 0 },
+      ];
+      const bouquet = document.getElementById("bouquet");
+      const lerp = (a, b, t) => a + (b - a) * t;
+      // rest while a section is read, glide during the middle of the scroll between two sections
+      const ease = (t) => {
+        const u = Math.min(1, Math.max(0, (t - 0.2) / 0.6));
+        return u * u * (3 - 2 * u);
       };
-
-      let current = 0;
-      let flying = false;
-      slots[0].classList.add("here");
-
-      const fly = (to) => {
-        if (to === current || flying) return;
-        flying = true;
-        const from = slots[current];
-        const dest = slots[to];
-        const a = box(from);
-        const b = box(dest);
-        // the traveller sits on the destination box and starts scaled back onto the source box
-        Object.assign(traveller.style, { left: `${b.x}px`, top: `${b.y}px`, width: `${b.w}px`, height: `${b.h}px`, transition: "none" });
-        traveller.style.transform = `translate(${a.x - b.x}px, ${a.y - b.y}px) scale(${a.w / b.w}, ${a.h / b.h})`;
-        ta.src = from.dataset.src;
-        tb.src = dest.dataset.src;
-        ta.style.cssText = "opacity:1;transition:none";
-        tb.style.cssText = "opacity:0;transition:none";
-        traveller.style.visibility = "visible";
-        from.classList.remove("here");
-        traveller.getBoundingClientRect();
-        const ease = "1.2s cubic-bezier(0.45, 0, 0.2, 1)";
-        traveller.style.transition = `transform ${ease}`;
-        traveller.style.transform = "none";
-        ta.style.cssText = "opacity:0;transition:opacity 0.7s 0.35s";
-        tb.style.cssText = "opacity:1;transition:opacity 0.7s 0.35s";
-        setTimeout(() => {
-          dest.classList.add("here");
-          traveller.style.visibility = "hidden";
-          current = to;
-          flying = false;
-          sync();
-        }, 1250);
+      const place = () => {
+        const tops = sections.map((s) => s.offsetTop);
+        let i = 0;
+        while (i < tops.length - 1 && scrollY >= tops[i + 1]) i++;
+        const next = Math.min(i + 1, POSES.length - 1);
+        const span = (tops[i + 1] ?? tops[i] + innerHeight) - tops[i];
+        const t = next === i ? 0 : ease((scrollY - tops[i]) / span);
+        const a = POSES[i];
+        const b = POSES[next];
+        const w = lerp(a.w, b.w, t);
+        const x = lerp(a.x, b.x, t) * innerWidth - w / 2;
+        const y = lerp(a.y, b.y, t) * innerHeight - w * 0.68;
+        bouquet.style.width = `${w}px`;
+        bouquet.style.transform = `translate(${x}px, ${y}px) rotate(${lerp(a.r, b.r, t)}deg)`;
+        requestAnimationFrame(place);
       };
-
-      // the section nearest the middle of the screen owns the bouquet
-      const sync = () => {
-        const mid = innerHeight / 2;
-        let best = 0;
-        sections.forEach((s, i) => {
-          const r = s.getBoundingClientRect();
-          if (r.top <= mid && r.bottom > mid) best = i;
-        });
-        fly(best);
-      };
-      addEventListener("scroll", sync, { passive: true });
+      requestAnimationFrame(place);
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
