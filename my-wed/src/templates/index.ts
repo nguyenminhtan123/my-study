@@ -16,9 +16,6 @@ import { demoData as demoData05 } from "@/templates/t05/demo-data";
 import Template07 from "@/templates/t07";
 import thumb07 from "@/static/thumbs/t07.jpg";
 import { demoData as demoData07 } from "@/templates/t07/demo-data";
-import Template09 from "@/templates/t09";
-import thumb09 from "@/static/thumbs/t09.jpg";
-import { demoData as demoData09 } from "@/templates/t09/demo-data";
 import Template10 from "@/templates/t10";
 import thumb10 from "@/static/thumbs/t10.jpg";
 import { demoData as demoData10 } from "@/templates/t10/demo-data";
@@ -43,18 +40,12 @@ import { demoData as demoData16 } from "@/templates/t16/demo-data";
 import Template17 from "@/templates/t17";
 import thumb17 from "@/static/thumbs/t17.jpg";
 import { demoData as demoData17 } from "@/templates/t17/demo-data";
-import Template18 from "@/templates/t18";
-import thumb18 from "@/static/thumbs/t18.jpg";
-import { demoData as demoData18 } from "@/templates/t18/demo-data";
 import Template19 from "@/templates/t19";
 import thumb19 from "@/static/thumbs/t19.jpg";
 import { demoData as demoData19 } from "@/templates/t19/demo-data";
 import Template20 from "@/templates/t20";
 import thumb20 from "@/static/thumbs/t20.jpg";
 import { demoData as demoData20 } from "@/templates/t20/demo-data";
-import Template21 from "@/templates/t21";
-import thumb21 from "@/static/thumbs/t21.jpg";
-import { demoData as demoData21 } from "@/templates/t21/demo-data";
 import Template22 from "@/templates/t22";
 import thumb22 from "@/static/thumbs/t22.jpg";
 import { demoData as demoData22 } from "@/templates/t22/demo-data";
@@ -184,13 +175,6 @@ export const templates: TemplateEntry[] = [
     demoData: demoData07,
   },
   {
-    id: "t09",
-    name: "Mẫu 9 · Cẩm tú cầu",
-    thumbnail: thumb09,
-    Component: Template09,
-    demoData: demoData09,
-  },
-  {
     id: "t12",
     name: "Mẫu 12 · Xanh rêu & kem",
     thumbnail: thumb12,
@@ -226,25 +210,11 @@ export const templates: TemplateEntry[] = [
     demoData: demoData17,
   },
   {
-    id: "t18",
-    name: "Mẫu 18 · Hoa đào cổ họa",
-    thumbnail: thumb18,
-    Component: Template18,
-    demoData: demoData18,
-  },
-  {
     id: "t20",
     name: "Mẫu 20 · Bánh cưới",
     thumbnail: thumb20,
     Component: Template20,
     demoData: demoData20,
-  },
-  {
-    id: "t21",
-    name: "Mẫu 21 · Tạp chí mẫu đơn",
-    thumbnail: thumb21,
-    Component: Template21,
-    demoData: demoData21,
   },
   {
     id: "t25",
