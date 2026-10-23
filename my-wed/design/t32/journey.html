@@ -1,0 +1,298 @@
+<!doctype html>
+<!--
+  t32 · Hoa hồng pastel. Live prototype of the bouquet journey (open it at 390x844 and scroll):
+  one bouquet travels down the invitation; at each section it flies from the last section's slot to the
+  next one and turns into that section's piece (corner spray, wreath round the date, garland, gift box),
+  while rose petals fall over the page. The template ports this engine to React.
+  Record: node scripts/design/journey-video.mjs design/t32/journey.html <out.mp4>
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/latin-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/playfair-display/vietnamese-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/great-vibes/vietnamese-400.css" />
+    <style>
+      :root {
+        --bg: #fbf3f1;
+        --ink: #5b4a4f;
+        --main: #c47c8a;
+        --sage: #8fa596;
+        --muted: #9a8a8e;
+        --line: rgba(196, 124, 138, 0.4);
+        --display: "Playfair Display", Georgia, serif;
+        --script: "Great Vibes", cursive;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      body {
+        background: var(--bg) url("art/paper.jpg") repeat;
+        background-size: 360px;
+        color: var(--ink);
+        font-family: var(--display);
+        text-align: center;
+      }
+      .page {
+        position: relative;
+        overflow: hidden;
+      }
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+      section {
+        position: relative;
+        min-height: 844px;
+        padding: 70px 26px;
+        box-sizing: border-box;
+      }
+      .caps {
+        font-size: 10.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--sage);
+      }
+      .script {
+        font-family: var(--script);
+        color: var(--main);
+      }
+      .names {
+        font-size: 42px;
+        font-weight: 400;
+        line-height: 1.1;
+      }
+      .amp {
+        font-family: var(--script);
+        font-size: 44px;
+        line-height: 1;
+        color: var(--main);
+      }
+      /* a slot is where the bouquet settles in a section, in that section's form */
+      .slot {
+        position: relative;
+        margin: 0 auto;
+      }
+      .slot > img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .slot.here > img {
+        opacity: 1;
+      }
+      .oval {
+        width: 230px;
+        aspect-ratio: 3 / 4;
+        margin: 0 auto;
+        padding: 7px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+      }
+      .oval img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      /* the traveller: one bouquet that flies between slots and turns into the next piece */
+      .traveller {
+        position: absolute;
+        z-index: 30;
+        pointer-events: none;
+        visibility: hidden;
+        transform-origin: 0 0;
+      }
+      .traveller img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      /* falling petals */
+      .petals {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .petals img {
+        position: absolute;
+        top: -40px;
+        width: 22px;
+        opacity: 0.85;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translate(0, -40px) rotate(0deg);
+        }
+        25% {
+          transform: translate(28px, 25vh) rotate(90deg);
+        }
+        50% {
+          transform: translate(-18px, 50vh) rotate(180deg);
+        }
+        75% {
+          transform: translate(24px, 75vh) rotate(270deg);
+        }
+        100% {
+          transform: translate(-10px, 105vh) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="petals" id="petals"></div>
+    <div class="page" id="page">
+      <div class="traveller" id="traveller"><img id="ta" alt="" /><img id="tb" alt="" /></div>
+
+      <!-- 1 · cover: the bouquet itself -->
+      <section>
+        <p class="caps" style="margin-top: 20px">Lễ thành hôn</p>
+        <h1 class="names" style="margin-top: 10px">Đức Minh</h1>
+        <p class="amp">&amp;</p>
+        <h1 class="names">Khánh Linh</h1>
+        <p style="margin-top: 14px; font-size: 18px; letter-spacing: 0.24em">26 · 12 · 2026</p>
+        <div class="slot" data-src="art/bouquet.webp" style="width: 250px; height: 340px; margin-top: 30px"><img alt="" /></div>
+      </section>
+
+      <!-- 2 · families: the bouquet settles as a corner spray -->
+      <section>
+        <div class="slot" data-src="art/corner.webp" style="position: absolute; right: -20px; top: 0; width: 190px; height: 190px"><img alt="" /></div>
+        <p class="caps" style="margin-top: 120px; padding: 0 30px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
+        <div class="oval" style="margin-top: 30px"><img src="../../src/static/cover.jpg" alt="" /></div>
+        <h2 class="names" style="margin-top: 26px; font-size: 36px">Đức Minh <span class="amp" style="font-size: 38px">&amp;</span> Khánh Linh</h2>
+      </section>
+
+      <!-- 3 · date: the bouquet opens into a wreath round the date -->
+      <section>
+        <p class="caps" style="margin-top: 60px">Tiệc cưới diễn ra vào lúc</p>
+        <p style="margin-top: 6px; font-size: 24px">17 giờ 30</p>
+        <div class="slot" data-src="art/wreath.webp" style="width: 300px; height: 300px; margin-top: 30px"><img alt="" />
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <p class="caps">Thứ Bảy</p>
+            <p style="font-size: 64px; line-height: 1; color: var(--main)">26</p>
+            <p class="caps">Tháng 12 · 2026</p>
+          </div>
+        </div>
+        <p style="margin-top: 30px; font-size: 24px">Trung tâm tiệc cưới An Phúc</p>
+        <p style="margin-top: 6px; font-size: 15px; color: var(--muted)">68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
+      </section>
+
+      <!-- 4 · album: the bouquet stretches out into a garland over the photos -->
+      <section>
+        <p class="script" style="margin-top: 20px; font-size: 46px">Những ngày bên nhau</p>
+        <div class="slot" data-src="art/garland.webp" style="width: 340px; height: 120px; margin-top: 10px"><img alt="" /></div>
+        <div style="display: flex; justify-content: center; gap: 18px; margin-top: 10px">
+          <div class="oval" style="width: 150px; margin: 0"><img src="../../src/static/album2.jpeg" alt="" /></div>
+          <div class="oval" style="width: 150px; margin: 50px 0 0"><img src="../../src/static/album3.jpeg" alt="" /></div>
+        </div>
+      </section>
+
+      <!-- 5 · gift: the bouquet becomes the gift box -->
+      <section>
+        <p class="caps" style="margin-top: 60px">Mừng cưới</p>
+        <p class="script" style="margin-top: 4px; font-size: 44px">Gửi lời chúc mừng</p>
+        <div class="slot" data-src="art/gift.webp" style="width: 230px; height: 230px; margin-top: 30px"><img alt="" /></div>
+        <p style="margin-top: 12px; font-style: italic; color: var(--muted)">Chạm vào hộp quà</p>
+      </section>
+
+      <!-- 6 · thanks: back to the bouquet -->
+      <section>
+        <div class="oval" style="margin-top: 20px"><img src="../../src/static/destiny.jpeg" alt="" /></div>
+        <p class="script" style="margin-top: 26px; font-size: 52px">Trân trọng cảm ơn</p>
+        <div class="slot" data-src="art/bouquet.webp" style="width: 170px; height: 230px; margin-top: 10px"><img alt="" /></div>
+      </section>
+    </div>
+
+    <script>
+      const page = document.getElementById("page");
+      const traveller = document.getElementById("traveller");
+      const ta = document.getElementById("ta");
+      const tb = document.getElementById("tb");
+      const slots = [...document.querySelectorAll(".slot")];
+      const sections = [...document.querySelectorAll("section")];
+      slots.forEach((s) => (s.querySelector("img").src = s.dataset.src));
+
+      // a slot's box in page coordinates, so a flight is unaffected by scrolling
+      const box = (el) => {
+        const r = el.getBoundingClientRect();
+        const p = page.getBoundingClientRect();
+        return { x: r.left - p.left, y: r.top - p.top, w: r.width, h: r.height };
+      };
+
+      let current = 0;
+      let flying = false;
+      slots[0].classList.add("here");
+
+      const fly = (to) => {
+        if (to === current || flying) return;
+        flying = true;
+        const from = slots[current];
+        const dest = slots[to];
+        const a = box(from);
+        const b = box(dest);
+        // the traveller sits on the destination box and starts scaled back onto the source box
+        Object.assign(traveller.style, { left: `${b.x}px`, top: `${b.y}px`, width: `${b.w}px`, height: `${b.h}px`, transition: "none" });
+        traveller.style.transform = `translate(${a.x - b.x}px, ${a.y - b.y}px) scale(${a.w / b.w}, ${a.h / b.h})`;
+        ta.src = from.dataset.src;
+        tb.src = dest.dataset.src;
+        ta.style.cssText = "opacity:1;transition:none";
+        tb.style.cssText = "opacity:0;transition:none";
+        traveller.style.visibility = "visible";
+        from.classList.remove("here");
+        traveller.getBoundingClientRect();
+        const ease = "1.2s cubic-bezier(0.45, 0, 0.2, 1)";
+        traveller.style.transition = `transform ${ease}`;
+        traveller.style.transform = "none";
+        ta.style.cssText = "opacity:0;transition:opacity 0.7s 0.35s";
+        tb.style.cssText = "opacity:1;transition:opacity 0.7s 0.35s";
+        setTimeout(() => {
+          dest.classList.add("here");
+          traveller.style.visibility = "hidden";
+          current = to;
+          flying = false;
+          sync();
+        }, 1250);
+      };
+
+      // the section nearest the middle of the screen owns the bouquet
+      const sync = () => {
+        const mid = innerHeight / 2;
+        let best = 0;
+        sections.forEach((s, i) => {
+          const r = s.getBoundingClientRect();
+          if (r.top <= mid && r.bottom > mid) best = i;
+        });
+        fly(best);
+      };
+      addEventListener("scroll", sync, { passive: true });
+
+      // petals: a few at a time, each with its own speed, size and sway
+      const petals = document.getElementById("petals");
+      for (let i = 0; i < 12; i++) {
+        const p = document.createElement("img");
+        p.src = i % 2 ? "art/petal1.webp" : "art/petal2.webp";
+        p.style.left = `${Math.round(Math.random() * 95)}%`;
+        p.style.width = `${16 + Math.round(Math.random() * 14)}px`;
+        p.style.animationDuration = `${9 + Math.random() * 8}s`;
+        p.style.animationDelay = `${-Math.random() * 16}s`;
+        petals.appendChild(p);
+      }
+    </script>
+  </body>
+</html>
