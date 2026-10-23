@@ -4,9 +4,6 @@ import { WeddingData } from "@/core/types";
 import Template01 from "@/templates/t01";
 import thumb01 from "@/static/thumbs/t01.jpg";
 import { demoData as demoData01 } from "@/templates/t01/demo-data";
-import Template02 from "@/templates/t02";
-import thumb02 from "@/static/thumbs/t02.jpg";
-import { demoData as demoData02 } from "@/templates/t02/demo-data";
 import Template03 from "@/templates/t03";
 import thumb03 from "@/static/thumbs/t03.jpg";
 import { demoData as demoData03 } from "@/templates/t03/demo-data";
@@ -16,15 +13,9 @@ import { demoData as demoData04 } from "@/templates/t04/demo-data";
 import Template05 from "@/templates/t05";
 import thumb05 from "@/static/thumbs/t05.jpg";
 import { demoData as demoData05 } from "@/templates/t05/demo-data";
-import Template06 from "@/templates/t06";
-import thumb06 from "@/static/thumbs/t06.jpg";
-import { demoData as demoData06 } from "@/templates/t06/demo-data";
 import Template07 from "@/templates/t07";
 import thumb07 from "@/static/thumbs/t07.jpg";
 import { demoData as demoData07 } from "@/templates/t07/demo-data";
-import Template08 from "@/templates/t08";
-import thumb08 from "@/static/thumbs/t08.jpg";
-import { demoData as demoData08 } from "@/templates/t08/demo-data";
 import Template09 from "@/templates/t09";
 import thumb09 from "@/static/thumbs/t09.jpg";
 import { demoData as demoData09 } from "@/templates/t09/demo-data";
@@ -172,13 +163,6 @@ export const templates: TemplateEntry[] = [
     demoData: demoData24,
   },
   {
-    id: "t02",
-    name: "Mẫu 2 · Tối giản",
-    thumbnail: thumb02,
-    Component: Template02,
-    demoData: demoData02,
-  },
-  {
     id: "t04",
     name: "Mẫu 4 · Đỏ rượu vang",
     thumbnail: thumb04,
@@ -193,25 +177,11 @@ export const templates: TemplateEntry[] = [
     demoData: demoData05,
   },
   {
-    id: "t06",
-    name: "Mẫu 6 · Tú cầu lục bảo",
-    thumbnail: thumb06,
-    Component: Template06,
-    demoData: demoData06,
-  },
-  {
     id: "t07",
     name: "Mẫu 7 · Lụa vàng",
     thumbnail: thumb07,
     Component: Template07,
     demoData: demoData07,
-  },
-  {
-    id: "t08",
-    name: "Mẫu 8 · Uyên ương",
-    thumbnail: thumb08,
-    Component: Template08,
-    demoData: demoData08,
   },
   {
     id: "t09",
