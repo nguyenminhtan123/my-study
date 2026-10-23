@@ -56,8 +56,15 @@ recording = true;
 await page.waitForTimeout(1500);
 
 // one screen at a time: an eased scroll, then a pause long enough for the flight to land
-const screens = await page.evaluate(() => Math.round(document.documentElement.scrollHeight / innerHeight));
-for (let i = 1; i < screens; i++) {
+// one stop per screen: each section's top, plus a further screen for sections taller than one
+const stops = await page.evaluate(() => {
+  const out = [];
+  for (const s of document.querySelectorAll("section")) {
+    for (let y = s.offsetTop; y < s.offsetTop + s.offsetHeight - 120; y += innerHeight) out.push(y);
+  }
+  return out.length ? out : Array.from({ length: Math.round(document.documentElement.scrollHeight / innerHeight) }, (_, i) => i * innerHeight);
+});
+for (const target of stops.slice(1)) {
   await page.evaluate(
     (target) =>
       new Promise((done) => {
@@ -70,7 +77,7 @@ for (let i = 1; i < screens; i++) {
         };
         requestAnimationFrame(step);
       }),
-    i * 844,
+    target,
   );
   await page.waitForTimeout(2600);
 }
