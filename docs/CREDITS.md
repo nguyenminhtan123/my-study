@@ -9,9 +9,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t15-damask.jpg` | Mẫu 15 (phong bì, dải gấm đỏ) | Red silk damask wallcovering của Picdrome Public Domain Pictures https://www.flickr.com/photos/65798313@N06/18960169295 (CC0 1.0) |
 | `my-wed/src/static/t16-lavender-rows.jpg` | Mẫu 16 (ảnh chính, địa điểm, cuối trang) | Lavender field background https://www.rawpixel.com/image/6035698/photo-image-background-flower-public-domain (CC0 1.0) |
 | `my-wed/src/static/t16-lavender-sprig.jpg` | Mẫu 16 (dải ngăn cách) | Lavender field background https://www.rawpixel.com/image/6035950/photo-image-background-flower-public-domain (CC0 1.0) |
-| `my-wed/src/static/t18-blossom-painting.jpg` | Mẫu 18 (tranh chính, cuối trang; đã cắt viền) | Pheasant cherry blossom branch (1887-1945) của rijksmuseum https://www.rawpixel.com/image/436638/free-illustration-image-cherry-blossom-pheasant-japanese (CC0 1.0) |
-| `my-wed/src/static/t21-peony-plate.jpg` | Mẫu 21 (bìa tạp chí) | Tree peony [Paeonia suffruticosa var. flore purpureo] của Swallowtail Garden Seeds https://www.flickr.com/photos/97123293@N07/16838441912 (Public Domain Mark (phạm vi công cộng)) |
-| `my-wed/src/static/t21-peony-painting.jpg` | Mẫu 21 (trang chương trình, cuối trang) | Tree Peony, Moutan (1838) của Swallowtail Garden Seeds https://www.flickr.com/photos/97123293@N07/16715895426 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/t22-champagne.jpg` | Mẫu 22 (ảnh chính) | Free champagne sparkling wine image https://www.rawpixel.com/image/5927536/photo-image-new-year-public-domain-hand (CC0 1.0) |
 | `my-wed/src/static/t22-gold-bokeh.jpg` | Mẫu 22 (nền đếm ngược, cuối trang) | Free bokeh image https://www.rawpixel.com/image/5911823/free-bokeh-image-public-domain-light-cc0-photo (CC0 1.0) |
 | `my-wed/src/static/t04-wine.jpg` | Mẫu 4 (ảnh chính) | A glass of wine with broken glass của freestocks.org (flickr) https://www.flickr.com/photos/135396164@N05/32498911932 (CC0 1.0) |
@@ -19,8 +16,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t05-lagoon.jpg` | Mẫu 5 (ảnh chính) | Balos, Crete, Greece của pom'. (flickr) https://www.flickr.com/photos/146832554@N06/24921723967 (Public Domain Mark (phạm vi công cộng)) |
 | `my-wed/src/static/t05-water.jpg` | Mẫu 5 (nền đếm ngược, cuối trang) | Sea water Taormina-Messina-Sicilia-Italy - Creative Commons by gnuckx của gnuckx (flickr) https://www.flickr.com/photos/34409164@N06/4054213464 (CC0 1.0) |
 | `my-wed/src/static/t07-gold-drape.jpg` | Mẫu 7 (lụa nền, dải ngăn cách) | gold swag curtain của lisafree54 (flickr) https://www.flickr.com/photos/136594255@N06/23205557159 (CC0 1.0) |
-| `my-wed/src/static/t09-hydrangea-blue2.jpg` | Mẫu 9 (ảnh chính, cuối trang) | Blue Hydrangea flowers, lush blooming (rawpixel) https://www.rawpixel.com/image/11189423/blue-hydrangea-flowers-lush-blooming (CC0 1.0) |
-| `my-wed/src/static/t09-hydrangea-purple.jpg` | Mẫu 9 (nền đếm ngược) | Free purple hydrangea image (rawpixel) https://www.rawpixel.com/image/5923163/photo-image-flower-public-domain-nature (CC0 1.0) |
 | `my-wed/src/static/t03-betel-tray.jpg` | Mẫu 3 (ảnh chính, cuối trang) | Model of Vietnamese Betel Nuts của Gary Lee Todd, Ph.D. (flickr) https://www.flickr.com/photos/101561334@N08/25020626518 (CC0 1.0) |
 | `my-wed/src/static/t03-betel-leaf.jpg` | Mẫu 3 (nền lá trầu) | betel leaf của Lutful Islam Ahmed (wordpress) https://wordpress.org/photos/photo/8926568459/ (CC0 1.0) |
 | `my-wed/src/static/t10-rings-box.jpg` | Mẫu 10 (ảnh chính, cuối trang) | Wedding ring box (rawpixel) https://www.rawpixel.com/image/6030256/photo-image-background-public-domain-gold (CC0 1.0) |
