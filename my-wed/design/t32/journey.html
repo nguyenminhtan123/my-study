@@ -246,8 +246,8 @@
         opacity: 1;
         transform: none;
         filter: none;
-        clip-path: circle(80% at var(--o, 50% 50%));
-        -webkit-clip-path: circle(80% at var(--o, 50% 50%));
+        clip-path: circle(200% at var(--o, 50% 50%));
+        -webkit-clip-path: circle(200% at var(--o, 50% 50%));
       }
       /* the bouquet that carries the flowers from one section to the next */
       .traveller {
@@ -323,12 +323,12 @@
       <span class="amp">&amp;</span>
       <h1 class="names">Khánh Linh</h1>
       <div class="dateline" style="margin-top: 22px"><span style="text-align: right">Thứ Bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span></div>
-      <div class="live" style="--o: 50% 40%; width: 236px; margin: 46px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
+      <div class="live" data-bouquet style="--o: 50% 40%; width: 236px; margin: 46px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
     </section>
 
     <!-- 2 · families, names, invitation; the bouquet rests bottom right -->
     <section>
-      <div class="art live" style="--o: 100% 0%; width: 170px; right: -6px; top: 14px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: scaleX(-1)" /></div>
+      <div class="art live" style="--o: 100% 0%; width: 140px; right: -4px; top: 4px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: scaleX(-1)" /></div>
       <p class="caps" style="padding: 150px 34px 0">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
       <div style="display: flex; justify-content: center; gap: 18px; margin-top: 22px; font-size: 15px; line-height: 1.7">
         <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -429,7 +429,7 @@
       <p class="script" style="margin-top: 30px; font-size: 52px">Trân trọng cảm ơn</p>
       <p class="caps" style="margin-top: 4px; color: var(--ink)">Đức Minh · Khánh Linh</p>
       <p class="lead muted" style="margin-top: 8px">Sự hiện diện của bạn là niềm hạnh phúc<br />của gia đình chúng tôi</p>
-      <div class="live" style="--o: 50% 40%; width: 150px; margin: 20px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
+      <div class="live" data-bouquet style="--o: 50% 40%; width: 150px; margin: 20px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
     </section>
 
     <script>
@@ -485,37 +485,62 @@
       let current = 0;
       let busy = false;
       pieces[0].classList.add("here");
+      // a bouquet piece needs no fold or bloom: the flying bouquet simply leaves it or lands as it
+      const swap = (el, on) => {
+        el.style.transition = "none";
+        el.classList.toggle("here", on);
+        el.getBoundingClientRect();
+        el.style.transition = "";
+      };
       const go = (to) => {
         busy = true;
         const from = pieces[current];
         const dest = pieces[to];
-        // 1 · the old piece folds back into the bouquet (at the screen edge if it has scrolled away)
         const a = view(from);
         a.y = Math.min(innerHeight - 120, Math.max(120, a.y));
         traveller.style.transition = "none";
-        put(a.x, a.y, Math.min(1.6, a.w / W), 0);
-        traveller.getBoundingClientRect();
-        from.classList.remove("here");
-        traveller.style.transition = "opacity 0.3s, transform 0.4s ease-out";
-        put(a.x, a.y, 1, 1);
+        if (from.hasAttribute("data-bouquet")) {
+          // 1 · the bouquet lifts straight off its place
+          put(a.x, a.y, a.w / W, 1);
+          swap(from, false);
+          traveller.getBoundingClientRect();
+          traveller.style.transition = "transform 0.4s ease-out";
+          put(a.x, a.y, 1, 1);
+        } else {
+          // 1 · the old piece folds back into the bouquet (at the screen edge if it has scrolled away)
+          put(a.x, a.y, Math.min(1.6, a.w / W), 0);
+          traveller.getBoundingClientRect();
+          from.classList.remove("here");
+          traveller.style.transition = "opacity 0.3s, transform 0.4s ease-out";
+          put(a.x, a.y, 1, 1);
+        }
         // 2 · it flies along an arc to the new piece, tracking it as the page moves
         setTimeout(() => {
           traveller.style.transition = "none";
           const t0 = performance.now();
+          const land = dest.hasAttribute("data-bouquet");
           const fly = (now) => {
             const p = Math.min(1, (now - t0) / 1200);
             const e = ease(p);
             const b = view(dest);
             const x = a.x + (b.x - a.x) * e;
             const y = a.y + (b.y - a.y) * e - Math.sin(Math.PI * p) * 70;
-            put(x, y, 1 + Math.sin(Math.PI * p) * 0.12, 1);
+            const size = land ? 1 + (b.w / W - 1) * e : 1;
+            put(x, y, size + Math.sin(Math.PI * p) * 0.12, 1);
             traveller.style.transform += ` rotate(${Math.sin(Math.PI * p * 2) * 10}deg)`;
             if (p < 1) return requestAnimationFrame(fly);
-            // 3 · it bursts into petals and the new piece blooms in its place
-            traveller.style.transition = "opacity 0.45s, transform 0.45s";
-            put(b.x, b.y, 1.35, 0);
-            burst(b.x, b.y, 16);
-            dest.classList.add("here");
+            if (land) {
+              // 3 · the bouquet lands as itself and only throws its petals
+              swap(dest, true);
+              traveller.style.opacity = 0;
+              burst(b.x, b.y, 18);
+            } else {
+              // 3 · it bursts into petals and the new piece blooms in its place
+              traveller.style.transition = "opacity 0.45s, transform 0.45s";
+              put(b.x, b.y, 1.35, 0);
+              burst(b.x, b.y, 16);
+              dest.classList.add("here");
+            }
             setTimeout(() => {
               current = to;
               busy = false;
