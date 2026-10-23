@@ -4,7 +4,7 @@ import "@/templates/_kit/kit.scss";
 import "@/templates/t16/styles.scss";
 import { WeddingData } from "@/core/types";
 import rows from "@/static/t16-lavender-rows.jpg";
-import sprig from "@/static/t16-lavender-sprig.jpg";
+import sprig from "@/static/t16-lavender-sprig.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {

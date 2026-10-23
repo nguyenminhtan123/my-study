@@ -3,8 +3,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t10/styles.scss";
 import { WeddingData } from "@/core/types";
-import ringsBox from "@/static/t10-rings-box.jpg";
-import ringsGold from "@/static/t10-rings-gold.jpg";
+import ringsBox from "@/static/t10-rings-box.webp";
+import ringsGold from "@/static/t10-rings-gold.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {

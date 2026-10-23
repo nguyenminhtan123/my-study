@@ -4,8 +4,8 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t19/styles.scss";
 import { WeddingData } from "@/core/types";
-import candles from "@/static/t19-candles.jpg";
-import reception from "@/static/t19-reception.jpg";
+import candles from "@/static/t19-candles.webp";
+import reception from "@/static/t19-reception.webp";
 import { Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
