@@ -94,6 +94,9 @@ import { demoData as demoData30 } from "@/templates/t30/demo-data";
 import Template31 from "@/templates/t31";
 import thumb31 from "@/static/thumbs/t31.jpg";
 import { demoData as demoData31 } from "@/templates/t31/demo-data";
+import Template32 from "@/templates/t32";
+import thumb32 from "@/static/thumbs/t32.jpg";
+import { demoData as demoData32 } from "@/templates/t32/demo-data";
 
 export interface TemplateEntry {
   id: string;
@@ -321,6 +324,13 @@ export const templates: TemplateEntry[] = [
     thumbnail: thumb31,
     Component: Template31,
     demoData: demoData31,
+  },
+  {
+    id: "t32",
+    name: "Mẫu 32 · Hoa hồng pastel",
+    thumbnail: thumb32,
+    Component: Template32,
+    demoData: demoData32,
   },
 ];
 
