@@ -175,18 +175,18 @@
         <div class="slot" data-src="art/corner.webp" style="position: absolute; right: -20px; top: 0; width: 190px; height: 190px"><img alt="" /></div>
         <p class="caps" style="margin-top: 120px; padding: 0 30px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
         <div class="oval" style="margin-top: 30px"><img src="../../src/static/cover.jpg" alt="" /></div>
-        <h2 class="names" style="margin-top: 26px; font-size: 36px">Đức Minh <span class="amp" style="font-size: 38px">&amp;</span> Khánh Linh</h2>
+        <h2 class="names" style="margin-top: 26px; font-size: 30px; white-space: nowrap">Đức Minh <span class="amp" style="font-size: 38px">&amp;</span> Khánh Linh</h2>
       </section>
 
       <!-- 3 · date: the bouquet opens into a wreath round the date -->
       <section>
         <p class="caps" style="margin-top: 60px">Tiệc cưới diễn ra vào lúc</p>
         <p style="margin-top: 6px; font-size: 24px">17 giờ 30</p>
-        <div class="slot" data-src="art/wreath.webp" style="width: 300px; height: 300px; margin-top: 30px"><img alt="" />
+        <div class="slot" data-src="art/wreath.webp" style="width: 340px; height: 340px; margin-top: 20px"><img alt="" />
           <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
-            <p class="caps">Thứ Bảy</p>
-            <p style="font-size: 64px; line-height: 1; color: var(--main)">26</p>
-            <p class="caps">Tháng 12 · 2026</p>
+            <p class="caps" style="font-size: 9px">Thứ Bảy</p>
+            <p style="font-size: 50px; line-height: 1; color: var(--main)">26</p>
+            <p class="caps" style="font-size: 9px; letter-spacing: 0.2em">12 · 2026</p>
           </div>
         </div>
         <p style="margin-top: 30px; font-size: 24px">Trung tâm tiệc cưới An Phúc</p>
@@ -284,7 +284,7 @@
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 10; i++) {
         const p = document.createElement("img");
         p.src = i % 2 ? "art/petal1.webp" : "art/petal2.webp";
         p.style.left = `${Math.round(Math.random() * 95)}%`;
