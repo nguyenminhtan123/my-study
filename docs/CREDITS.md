@@ -101,3 +101,18 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 | `rose.webp` | Cành hồng trắng nằm ngang | Đường phân cách |
 | `candles.webp` | Chân nến vàng với nến trắng và hoa hồng | Ngày giờ, địa điểm |
 | `gift.webp` | Hộp quà ngà buộc nơ satin, hoa hồng và lan | Quà mừng |
+
+## Mẫu 32 · Hoa hồng pastel (`my-wed/design/t32/art/`, chép sang `src/static/t32/`)
+
+Các hình hoa do chủ repo tạo bằng Google Gemini (theo câu lệnh Claude soạn, ảnh bó hoa làm mẫu), rồi tách nền ở đây bằng `scripts/design/cutout.py` (rembg, isnet-general-use) hoặc theo độ bão hoà màu. Dấu Gemini ở góc ảnh đã được xoá trước khi tách nền. Theo điều khoản của Google, người tạo được dùng nội dung do Gemini tạo ra. Nền giấy `paper.jpg` sinh bằng `scripts/design/paper.py`.
+
+| Tệp | Nội dung | Dùng ở |
+| --- | --- | --- |
+| `bouquet.webp` | Bó hoa cưới hồng phấn, nơ satin | Màn hình đầu (bay xuống trái tim hoa) |
+| `heart.webp` | Trái tim kết hoa hồng, nơ hồng | Ngày cưới |
+| `garland.webp` | Dải hoa mảnh nằm ngang | Dưới ảnh bìa, album, lịch, cuối thiệp |
+| `corner.webp` | Nhành hồng một bông | Góc phần hai họ, album |
+| `rose.webp` | Một bông hồng nằm ngang | Phân cách, góc thẻ lịch |
+| `gift.webp` | Hộp quà hồng buộc nơ, hoa hồng | Quà mừng |
+| `glasses.webp`, `rings.webp`, `cake.webp` | Ly champagne, nhẫn cưới, bánh cưới | Lịch trình |
+| `petal1.webp`, `petal2.webp` | Cánh hồng | Cánh hoa rơi, tung hoa |

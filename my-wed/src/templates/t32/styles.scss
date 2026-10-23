@@ -1,0 +1,869 @@
+// Template 32: Hoa hồng pastel. One realistic blush-rose kit (bouquet, heart of roses, sprig, divider, gift box,
+// programme pictures; drawn by the owner with Gemini, cut out here). The bouquet on the first screen flies
+// down and opens into the heart of roses round the date; the gift box pops open in a burst of petals;
+// rose petals drift over the page and every block rises in as it scrolls into view.
+// Approved mockup: design/t32/journey.html.
+$paper: url("@/static/t32/paper.jpg");
+
+.t32-root {
+  --k-bg: #fff5ef;
+  --k-ink: #6b3f48;
+  --k-muted: #a0787f;
+  --k-accent: #d4607a;
+  --k-accent2: #b8935a;
+  --k-line: rgba(212, 96, 122, 0.4);
+  --k-card: transparent;
+  --k-display: "Playfair Display", Georgia, serif;
+  --k-script: "Great Vibes", cursive;
+  --k-body: "Playfair Display", Georgia, serif;
+  --main: #d4607a;
+  --gold: #b8935a;
+  --card: rgba(255, 255, 255, 0.7);
+  padding: 0;
+  background: var(--k-bg) $paper repeat;
+  background-size: 360px;
+  color: var(--k-ink);
+  font-family: var(--k-display);
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: center;
+  overflow-x: hidden;
+  isolation: isolate;
+
+  :where(h1, h2, h3, p) {
+    margin: 0;
+    font-weight: 400;
+  }
+  img {
+    display: block;
+    max-width: none;
+  }
+}
+
+.t32-sec {
+  position: relative;
+  padding: 64px 30px;
+  overflow: hidden;
+}
+.t32-art {
+  position: absolute;
+  pointer-events: none;
+}
+.t32-caps {
+  font-size: 10.5px;
+  line-height: 1.7;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--gold);
+}
+.t32-ink {
+  color: var(--k-ink);
+}
+.t32-muted {
+  color: var(--k-muted);
+}
+.t32-pad {
+  padding: 0 4px;
+}
+.t32-gap {
+  margin-top: 26px;
+}
+.t32-script {
+  font-family: var(--k-script);
+  line-height: 1.15;
+  color: var(--main);
+}
+.t32-lead {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.6;
+}
+.t32-title {
+  margin-top: 2px;
+  font-family: var(--k-script);
+  font-size: 46px;
+  line-height: 1.15;
+  color: var(--main);
+}
+.t32-card {
+  padding: 26px 20px 22px;
+  border: 1px solid rgba(196, 124, 138, 0.25);
+  border-radius: 28px;
+  background: var(--card);
+}
+.t32-divider {
+  width: 320px;
+  margin: 8px auto 0;
+}
+.t32-divider-sm {
+  width: 260px;
+  margin-top: 36px;
+}
+
+// ---------- the one photo frame: a bright arch ----------
+.t32-arch {
+  position: relative;
+  margin: 0 auto;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: cover;
+    border: 5px solid #fff;
+    border-radius: 999px 999px 14px 14px;
+    box-shadow: 0 12px 26px rgba(180, 80, 100, 0.16);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -9px;
+    border: 1px solid rgba(184, 147, 90, 0.6);
+    border-radius: 999px 999px 20px 20px;
+    pointer-events: none;
+  }
+}
+
+// ---------- entrances (the template adds .t32-in when a block scrolls into view) ----------
+.t32-root [data-anim] {
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.t32-root [data-anim="up"] {
+  transform: translateY(28px);
+}
+.t32-root [data-anim="zoom"] {
+  transform: scale(0.86);
+}
+.t32-root [data-anim="left"] {
+  transform: translateX(-46px);
+}
+.t32-root [data-anim="right"] {
+  transform: translateX(46px);
+}
+.t32-root [data-anim="grow"] {
+  transform: scaleX(0.15);
+}
+.t32-root [data-anim="pop"] {
+  transform: scale(0.3);
+  transition-timing-function: ease, cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.t32-root [data-anim].t32-in {
+  opacity: 1;
+  transform: none;
+}
+
+// ---------- small living touches ----------
+.t32-sway {
+  transform-origin: 50% 90%;
+  animation: t32-sway 4.5s ease-in-out infinite;
+}
+@keyframes t32-sway {
+  50% {
+    transform: rotate(3deg) translateY(-4px);
+  }
+}
+.t32-breathe {
+  animation: t32-breathe 3.2s ease-in-out infinite;
+}
+@keyframes t32-breathe {
+  50% {
+    transform: scale(1.035);
+  }
+}
+.t32-hearts {
+  margin-top: 14px;
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  color: var(--main);
+
+  span {
+    display: inline-block;
+    animation: t32-beat 1.6s ease-in-out infinite;
+  }
+  span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+@keyframes t32-beat {
+  15% {
+    transform: scale(1.3);
+  }
+  30% {
+    transform: scale(1);
+  }
+}
+@keyframes t32-shine {
+  60%,
+  100% {
+    left: 130%;
+  }
+}
+@mixin shine {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 40%;
+    background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    animation: t32-shine 3.2s ease-in-out infinite;
+  }
+}
+
+// ---------- drifting petals, petal bursts, the flying bouquet ----------
+.t32-petals {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+
+  img {
+    position: absolute;
+    top: -40px;
+    opacity: 0.85;
+    animation: t32-fall linear infinite;
+  }
+}
+@keyframes t32-fall {
+  0% {
+    transform: translate(0, -40px) rotate(0deg);
+  }
+  25% {
+    transform: translate(28px, 25vh) rotate(90deg);
+  }
+  50% {
+    transform: translate(-18px, 50vh) rotate(180deg);
+  }
+  75% {
+    transform: translate(24px, 75vh) rotate(270deg);
+  }
+  100% {
+    transform: translate(-10px, 105vh) rotate(360deg);
+  }
+}
+.t32-burst {
+  position: fixed;
+  z-index: 45;
+  pointer-events: none;
+}
+.t32-traveller {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 35;
+  width: 130px;
+  pointer-events: none;
+  opacity: 0;
+
+  img {
+    width: 100%;
+    filter: drop-shadow(0 12px 16px rgba(150, 80, 95, 0.2));
+  }
+}
+// a piece the bouquet lands on: hidden until the bouquet turns into it
+.t32-live {
+  opacity: 0;
+  transform: scale(0.5) rotate(-12deg);
+  filter: blur(6px);
+  clip-path: circle(0% at 50% 50%);
+  -webkit-clip-path: circle(0% at 50% 50%);
+  transition:
+    opacity 0.6s,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.6s,
+    clip-path 0.9s,
+    -webkit-clip-path 0.9s;
+}
+.t32-live.t32-here {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: circle(200% at 50% 50%);
+  -webkit-clip-path: circle(200% at 50% 50%);
+}
+
+// ---------- first screen ----------
+.t32-cover {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 70px;
+}
+.t32-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -60px;
+  width: 420px;
+  height: 420px;
+  margin-left: -210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247, 184, 198, 0.6), rgba(247, 184, 198, 0) 65%);
+}
+.t32-tag {
+  @include shine;
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--main);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.t32-cover .t32-caps {
+  margin-top: 14px;
+}
+.t32-names {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+  font-size: 44px;
+  line-height: 1.08;
+
+  i {
+    font-family: var(--k-script);
+    font-size: 50px;
+    font-style: normal;
+    line-height: 0.9;
+    color: var(--main);
+  }
+}
+.t32-dateline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 22px;
+
+  span {
+    width: 86px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+  span:first-child {
+    text-align: right;
+  }
+  span:last-child {
+    text-align: left;
+  }
+  b {
+    padding: 0 16px;
+    border-left: 1px solid var(--k-line);
+    border-right: 1px solid var(--k-line);
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--main);
+  }
+}
+.t32-bouquet {
+  position: relative;
+  width: 236px;
+  margin: 20px auto 0;
+
+  img {
+    width: 100%;
+  }
+}
+
+// ---------- families ----------
+.t32-fam-sec {
+  padding-top: 150px;
+}
+// the sprig is drawn for a top-left corner; mirrored sideways it hangs into the top-right one
+.t32-sprig {
+  right: 6px;
+  top: 16px;
+  width: 150px;
+  transform: scaleX(-1);
+
+  img {
+    width: 100%;
+  }
+}
+.t32-fams {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 16px;
+  margin: 22px -12px 0;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.t32-fams-line {
+  background: var(--k-line);
+}
+.t32-fam {
+  display: flex;
+  flex-direction: column;
+
+  b {
+    font-size: 9px;
+    font-weight: 400;
+  }
+}
+.t32-couple {
+  margin-top: 32px;
+}
+.t32-name {
+  font-size: 38px;
+  line-height: 1.08;
+}
+.t32-role {
+  margin-top: 4px;
+  font-size: 9.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--k-muted);
+}
+.t32-amp {
+  display: block;
+  margin: 4px 0;
+  font-family: var(--k-script);
+  font-size: 44px;
+  font-style: normal;
+  line-height: 0.9;
+  color: var(--main);
+}
+.t32-rose {
+  width: 130px;
+  margin: 22px auto 14px;
+}
+.t32-guest {
+  margin: 2px 0 0;
+  font-family: var(--k-script);
+  font-size: 36px;
+  line-height: 1.15;
+  color: var(--main);
+}
+
+// ---------- cover photo ----------
+.t32-photo {
+  padding-top: 90px;
+}
+.t32-cover-arch {
+  width: 262px;
+  aspect-ratio: 3 / 4;
+}
+.t32-under {
+  position: relative;
+  width: 330px;
+  margin: -36px auto 0;
+}
+.t32-photo-line {
+  margin-top: 34px;
+  font-size: 38px;
+}
+.t32-photo .t32-lead {
+  margin-top: 6px;
+}
+
+// ---------- date and venue ----------
+.t32-when {
+  padding-top: 70px;
+}
+.t32-time {
+  margin-top: 6px;
+  font-size: 26px;
+  color: var(--main);
+}
+.t32-heart {
+  position: relative;
+  width: 320px;
+  aspect-ratio: 778 / 682;
+  margin: 18px auto 0;
+
+  img {
+    width: 100%;
+  }
+}
+.t32-heart-date {
+  position: absolute;
+  inset: 4% 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .t32-caps {
+    font-size: 9px;
+  }
+  b {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--main);
+  }
+}
+.t32-month-line {
+  margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--main);
+}
+.t32-lunar {
+  margin-top: 6px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--k-muted);
+  opacity: 1;
+}
+.t32-venue {
+  margin-top: 8px;
+  font-size: 24px;
+  line-height: 1.3;
+}
+.t32-address {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--k-muted);
+}
+// "Chỉ đường" as an underlined caps link, not a pill button
+.t32-actions .k-actions {
+  margin-top: 16px;
+
+  button {
+    padding: 2px 0;
+    border: 0;
+    border-bottom: 1px solid var(--main);
+    border-radius: 0;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--main);
+  }
+  button:active {
+    background: transparent;
+    color: var(--main);
+  }
+  svg {
+    display: none;
+  }
+}
+
+// ---------- album ----------
+.t32-album {
+  padding-top: 60px;
+}
+.t32-hero {
+  position: relative;
+  width: 290px;
+  margin: 30px auto 0;
+}
+.t32-hero-arch {
+  width: 290px;
+  aspect-ratio: 29 / 38;
+}
+.t32-hero-sprig {
+  right: -26px;
+  bottom: -28px;
+  width: 120px;
+  transform: scale(-1, -1);
+
+  img {
+    width: 100%;
+  }
+}
+.t32-pair {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 46px;
+
+  > :nth-child(2) {
+    margin-top: 56px;
+  }
+}
+.t32-small {
+  width: 150px;
+  aspect-ratio: 150 / 204;
+}
+.t32-quote {
+  margin: 44px 16px 0;
+  padding: 22px;
+
+  .t32-lead {
+    font-size: 17px;
+    color: var(--main);
+  }
+}
+.t32-quote-mark {
+  height: 22px;
+  font-size: 54px;
+  line-height: 0.6;
+}
+
+// ---------- calendar and countdown ----------
+.t32-cal {
+  padding-top: 70px;
+
+  .k-cal {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .k-cal-month {
+    display: none;
+  }
+  .k-cal-grid {
+    font-size: 15px;
+    color: var(--k-ink);
+  }
+  // Vietnamese weekday initials in place of the kit's MON..SUN
+  .k-cal-dow {
+    font-size: 0;
+    color: var(--gold);
+
+    &::after {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+  }
+  @each $i, $label in (1: "T2", 2: "T3", 3: "T4", 4: "T5", 5: "T6", 6: "T7", 7: "CN") {
+    .k-cal-dow:nth-child(#{$i})::after {
+      content: $label;
+    }
+  }
+  .k-cal-day {
+    height: 30px;
+  }
+  // the wedding day in a rose circle with a ring that keeps spreading out
+  .k-cal-hit {
+    color: #fff;
+    font-weight: 400;
+
+    &::before {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      clip-path: none;
+      background: var(--main);
+      animation: t32-ring 2s ease-out infinite;
+    }
+  }
+  .k-count {
+    width: 290px;
+    margin: 10px auto 0;
+
+    div + div {
+      border: 0;
+    }
+    b {
+      font-size: 34px;
+      font-weight: 400;
+      color: var(--main);
+    }
+    span {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--k-muted);
+    }
+  }
+}
+@keyframes t32-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 96, 122, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(212, 96, 122, 0);
+  }
+}
+.t32-cal-card {
+  position: relative;
+}
+.t32-cal-rose {
+  right: 6px;
+  top: -34px;
+  width: 96px;
+  transform: rotate(-18deg);
+}
+.t32-month {
+  margin-bottom: 8px;
+  font-size: 40px;
+}
+
+// ---------- programme ----------
+.t32-tl {
+  position: relative;
+  margin-top: 18px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    bottom: 30px;
+    border-left: 1px dashed var(--k-line);
+  }
+}
+.t32-tl-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 168px;
+
+  img {
+    justify-self: center;
+    width: 118px;
+    max-height: 130px;
+    object-fit: contain;
+  }
+}
+.t32-tl-text {
+  padding-left: 24px;
+  text-align: left;
+}
+.t32-flip .t32-tl-text {
+  order: -1;
+  padding: 0 24px 0 0;
+  text-align: right;
+}
+.t32-tl-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--main);
+  box-shadow: 0 0 0 5px rgba(196, 124, 138, 0.16);
+}
+.t32-tl-time {
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--main);
+}
+.t32-tl-label {
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+// ---------- RSVP and gift ----------
+.t32-rsvp {
+  padding-top: 50px;
+
+  .k-form {
+    margin-top: 2px;
+
+    h3 {
+      font-family: var(--k-script);
+      font-size: 40px;
+      line-height: 1.15;
+      color: var(--main);
+    }
+    p {
+      margin: 4px 6px 12px;
+      font-size: 13.5px;
+    }
+    input,
+    textarea,
+    select {
+      padding: 6px 2px;
+      border-width: 0 0 1px;
+      border-color: var(--k-line);
+      border-radius: 0;
+      font-size: 15px;
+      font-style: italic;
+    }
+  }
+  .k-chips button {
+    padding: 4px 2px;
+    border: 0;
+    border-radius: 0;
+    font-size: 15px;
+    color: var(--k-muted);
+  }
+  .k-chips button.on {
+    background: transparent;
+    border-bottom: 1px solid var(--main);
+    color: var(--main);
+  }
+  .k-submit {
+    @include shine;
+    align-self: center;
+    padding: 11px 38px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+  }
+}
+.t32-gift-caps {
+  margin-top: 30px;
+}
+.t32-giftbtn {
+  display: block;
+  margin: 6px auto 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--k-muted);
+  cursor: pointer;
+
+  span {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+    font-style: italic;
+  }
+}
+// the gift box pops from small to full size (the template adds .t32-on in view)
+.t32-gift-pop {
+  width: 160px;
+  margin: 0 auto;
+  transform: scale(0.25);
+  opacity: 0;
+  transition:
+    transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.5s;
+}
+.t32-gift-pop.t32-on {
+  transform: none;
+  opacity: 1;
+}
+.t32-gift {
+  margin-top: 18px;
+
+  .k-gift-card {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+  }
+}
+
+// ---------- thanks ----------
+.t32-thanks {
+  padding-top: 70px;
+  padding-bottom: 80px;
+}
+.t32-thanks-arch {
+  width: 220px;
+  aspect-ratio: 22 / 29;
+}
+.t32-thanks-title {
+  margin-top: 30px;
+  font-size: 52px;
+}
+.t32-thanks .t32-caps {
+  margin-top: 4px;
+}
+.t32-thanks .t32-lead {
+  margin-top: 8px;
+}

@@ -1,6 +1,7 @@
 // Screenshot a template screen by screen (intro, then each viewport while scrolling) and join them
 // into one strip, the same layout as the mockup so the two can be compared.
-// Needs the dev server (zmp start -P 3100). Run: node scripts/design/shots.mjs <tNN> <outDir>
+// Needs the dev server (zmp start -P 3100). Run: node scripts/design/shots.mjs <tNN> <outDir> [waitMs]
+// waitMs: pause on each screen (default 500); give scroll-driven animations time to finish.
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 
@@ -18,7 +19,8 @@ import {
   strip,
 } from "./browser.mjs";
 
-const [id, outDir] = process.argv.slice(2);
+const [id, outDir, waitArg] = process.argv.slice(2);
+const wait = Number(waitArg) || 500;
 if (!id || !outDir) {
   console.error("usage: node scripts/design/shots.mjs <tNN> <outDir>");
   process.exit(1);
@@ -39,7 +41,7 @@ if (await openIntro(page)) await page.waitForTimeout(3500);
 const pages = await page.evaluate(`(() => { const el = ${SCROLLER}; window.__sc = el; return Math.ceil(el.scrollHeight / el.clientHeight); })()`);
 for (let i = 0; i < pages; i++) {
   await page.evaluate((i) => { window.__sc.scrollTop = i * window.__sc.clientHeight; }, i);
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(wait);
   const file = join(outDir, `${id}-${String(i + 1).padStart(2, "0")}.png`);
   await page.screenshot({ path: file });
   files.push(file);
