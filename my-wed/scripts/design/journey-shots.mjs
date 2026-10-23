@@ -37,10 +37,17 @@ const page = await browser.newPage({ viewport: { width: 390, height: 844 }, devi
 await page.goto(url);
 await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(800);
-const screens = await page.evaluate(() => Math.round(document.documentElement.scrollHeight / innerHeight));
+// one stop per screen: each section's top, plus a further screen for sections taller than one
+const stops = await page.evaluate(() => {
+  const out = [];
+  for (const s of document.querySelectorAll("section")) {
+    for (let y = s.offsetTop; y < s.offsetTop + s.offsetHeight - 120; y += innerHeight) out.push(y);
+  }
+  return out.length ? out : Array.from({ length: Math.round(document.documentElement.scrollHeight / innerHeight) }, (_, i) => i * innerHeight);
+});
 const files = [];
-for (let i = 0; i < screens; i++) {
-  await page.evaluate((y) => scrollTo(0, y), i * 844);
+for (const [i, y] of stops.entries()) {
+  await page.evaluate((top) => scrollTo(0, top), y);
   await page.waitForTimeout(2600);
   const file = join(dir, `s${i}.png`);
   await page.screenshot({ path: file });
