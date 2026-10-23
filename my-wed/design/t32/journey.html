@@ -1,11 +1,13 @@
 <!doctype html>
 <!--
-  t32 · Hoa hồng pastel. Live prototype of the bouquet journey (open it at 390x844 and scroll):
-  one bouquet stays on screen from the first section to the last. Its pose (place, size, tilt) is tied to
-  the scroll position: it rests beside each section's content while that section is read, and glides to
-  the next resting place as the guest scrolls on, swaying gently; rose petals fall over the page.
-  The section art (corner spray, wreath round the date, garland, gift box) stays put in its section.
-  Record: node scripts/design/journey-video.mjs design/t32/journey.html <out.mp4>
+  t32 · Hoa hồng pastel. Mockup and live prototype in one page (390x844, one section per screen).
+  One bouquet stays on screen from the first section to the last: its pose (place, size, tilt) follows the
+  scroll position. It rests in a free corner while a section is read and glides to the next corner as the
+  guest scrolls on, swaying gently; rose petals fall over the page. The other rose pieces (corner spray,
+  wreath round the date, garland over the album, gift box) stay in their sections.
+  Photo frame: an oval with a double blush hairline. Type: Playfair Display + Great Vibes.
+  Stills: node scripts/design/journey-shots.mjs design/t32/journey.html <out.jpg>
+  Video:  node scripts/design/journey-video.mjs design/t32/journey.html <out.mp4>
 -->
 <html lang="vi">
   <head>
@@ -24,14 +26,14 @@
         --main: #c47c8a;
         --sage: #8fa596;
         --muted: #9a8a8e;
-        --line: rgba(196, 124, 138, 0.4);
+        --line: rgba(196, 124, 138, 0.45);
+        --card: rgba(255, 255, 255, 0.55);
         --display: "Playfair Display", Georgia, serif;
         --script: "Great Vibes", cursive;
       }
       html,
       body {
         margin: 0;
-        height: 100%;
       }
       body {
         background: var(--bg) url("art/paper.jpg") repeat;
@@ -40,20 +42,23 @@
         font-family: var(--display);
         text-align: center;
       }
-      .page {
-        position: relative;
-        overflow: hidden;
-      }
       p,
       h1,
-      h2 {
+      h2,
+      h3 {
         margin: 0;
+        font-weight: 400;
       }
       section {
         position: relative;
-        min-height: 844px;
-        padding: 70px 26px;
+        height: 844px;
+        padding: 0 30px;
         box-sizing: border-box;
+        overflow: hidden;
+      }
+      .art {
+        position: absolute;
+        pointer-events: none;
       }
       .caps {
         font-size: 10.5px;
@@ -63,42 +68,61 @@
       }
       .script {
         font-family: var(--script);
+        line-height: 1.15;
         color: var(--main);
       }
+      .lead {
+        font-size: 15px;
+        font-style: italic;
+        line-height: 1.6;
+      }
+      .muted {
+        color: var(--muted);
+      }
       .names {
-        font-size: 42px;
-        font-weight: 400;
-        line-height: 1.1;
+        font-size: 44px;
+        line-height: 1.08;
       }
       .amp {
+        display: block;
         font-family: var(--script);
-        font-size: 44px;
+        font-size: 50px;
+        line-height: 0.9;
+        color: var(--main);
+      }
+      .role {
+        margin-top: 4px;
+        font-size: 9.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .dateline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+      .dateline span {
+        width: 86px;
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        line-height: 1.6;
+        text-transform: uppercase;
+      }
+      .dateline b {
+        padding: 0 16px;
+        border-left: 1px solid var(--line);
+        border-right: 1px solid var(--line);
+        font-size: 50px;
+        font-weight: 400;
         line-height: 1;
         color: var(--main);
       }
-      /* section art that stays in its section */
-      .slot {
+      /* the one photo frame: an oval with a double blush hairline */
+      .oval {
         position: relative;
         margin: 0 auto;
-      }
-      .slot > img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        opacity: 0;
-        transition: opacity 0.25s;
-      }
-      .slot.here > img {
-        opacity: 1;
-      }
-      .oval {
-        width: 230px;
-        aspect-ratio: 3 / 4;
-        margin: 0 auto;
-        padding: 7px;
-        border: 1px solid var(--line);
-        border-radius: 50%;
       }
       .oval img {
         display: block;
@@ -106,6 +130,105 @@
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
+      }
+      .oval::after {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+      }
+      .card {
+        padding: 26px 20px 22px;
+        border: 1px solid rgba(196, 124, 138, 0.25);
+        border-radius: 28px;
+        background: var(--card);
+      }
+      .field {
+        margin: 0 auto 14px;
+        padding: 6px 2px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        font-size: 15px;
+        font-style: italic;
+        color: rgba(91, 74, 79, 0.5);
+      }
+      .opt {
+        display: inline-block;
+        margin: 0 8px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .opt.on {
+        color: var(--main);
+        border-bottom: 1px solid var(--main);
+      }
+      .btn {
+        display: inline-block;
+        padding: 11px 38px;
+        border-radius: 999px;
+        background: var(--main);
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+      .cal {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        row-gap: 2px;
+        font-size: 15px;
+      }
+      .cal i {
+        padding-bottom: 6px;
+        font-size: 9px;
+        font-style: normal;
+        letter-spacing: 0.12em;
+        color: var(--sage);
+      }
+      .cal span {
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+      }
+      .count {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+      }
+      .count b {
+        display: block;
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: var(--main);
+      }
+      .count small {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+      }
+      .steps {
+        width: 230px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .steps div {
+        display: grid;
+        grid-template-columns: 64px 20px 1fr;
+        align-items: center;
+        height: 32px;
+        font-size: 15px;
+      }
+      .steps b {
+        font-weight: 400;
+        color: var(--main);
+      }
+      .steps i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sage);
       }
       /* the bouquet: fixed on screen, placed by script from the scroll position */
       .bouquet {
@@ -120,7 +243,7 @@
       .bouquet img {
         display: block;
         width: 100%;
-        filter: drop-shadow(0 10px 14px rgba(120, 70, 80, 0.18));
+        filter: drop-shadow(0 12px 16px rgba(150, 80, 95, 0.18));
         transform-origin: 50% 90%;
         animation: sway 4.5s ease-in-out infinite;
       }
@@ -140,7 +263,6 @@
       .petals img {
         position: absolute;
         top: -40px;
-        width: 22px;
         opacity: 0.85;
         animation: fall linear infinite;
       }
@@ -166,80 +288,140 @@
   <body>
     <div class="petals" id="petals"></div>
     <div class="bouquet" id="bouquet"><img src="art/bouquet.webp" alt="" /></div>
-    <div class="page" id="page">
-      
-      <!-- 1 · cover: the bouquet itself -->
-      <section>
-        <p class="caps" style="margin-top: 20px">Lễ thành hôn</p>
-        <h1 class="names" style="margin-top: 10px">Đức Minh</h1>
-        <p class="amp">&amp;</p>
-        <h1 class="names">Khánh Linh</h1>
-        <p style="margin-top: 14px; font-size: 18px; letter-spacing: 0.24em">26 · 12 · 2026</p>
-      </section>
 
-      <!-- 2 · families: the bouquet settles as a corner spray -->
-      <section>
-        <div class="slot" data-src="art/corner.webp" style="position: absolute; right: -20px; top: 0; width: 190px; height: 190px"><img alt="" /></div>
-        <p class="caps" style="margin-top: 120px; padding: 0 30px">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
-        <div class="oval" style="margin-top: 30px"><img src="../../src/static/cover.jpg" alt="" /></div>
-        <h2 class="names" style="margin-top: 26px; font-size: 30px; white-space: nowrap">Đức Minh <span class="amp" style="font-size: 38px">&amp;</span> Khánh Linh</h2>
-      </section>
+    <!-- 1 · first screen: names, date, the bouquet below -->
+    <section>
+      <div class="art" style="left: 50%; top: 470px; width: 420px; height: 420px; margin-left: -210px; border-radius: 50%; background: radial-gradient(circle, rgba(244, 196, 205, 0.55), rgba(244, 196, 205, 0) 65%)"></div>
+      <p class="caps" style="padding-top: 84px">Lễ thành hôn</p>
+      <h1 class="names" style="margin-top: 14px">Đức Minh</h1>
+      <span class="amp">&amp;</span>
+      <h1 class="names">Khánh Linh</h1>
+      <div class="dateline" style="margin-top: 22px"><span style="text-align: right">Thứ Bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span></div>
+    </section>
 
-      <!-- 3 · date: the bouquet opens into a wreath round the date -->
-      <section>
-        <p class="caps" style="margin-top: 60px">Tiệc cưới diễn ra vào lúc</p>
-        <p style="margin-top: 6px; font-size: 24px">17 giờ 30</p>
-        <div class="slot" data-src="art/wreath.webp" style="width: 340px; height: 340px; margin-top: 20px"><img alt="" />
-          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
-            <p class="caps" style="font-size: 9px">Thứ Bảy</p>
-            <p style="font-size: 50px; line-height: 1; color: var(--main)">26</p>
-            <p class="caps" style="font-size: 9px; letter-spacing: 0.2em">12 · 2026</p>
-          </div>
+    <!-- 2 · families, names, invitation; the bouquet rests bottom right -->
+    <section>
+      <img class="art" src="art/corner.webp" alt="" style="width: 210px; left: -46px; top: -40px; transform: rotate(180deg) scaleY(-1)" />
+      <p class="caps" style="padding: 150px 34px 0">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
+      <div style="display: flex; justify-content: center; gap: 18px; margin-top: 22px; font-size: 15px; line-height: 1.7">
+        <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
+        <div style="border-left: 1px solid var(--line)"></div>
+        <div><p class="caps" style="font-size: 9px">Nhà gái</p><p>Ông Lê Minh Đức</p><p>Bà Phạm Thị Hoa</p></div>
+      </div>
+      <h2 class="names" style="margin-top: 32px; font-size: 38px">Đức Minh</h2>
+      <p class="role">Chú rể</p>
+      <span class="amp" style="font-size: 44px; margin: 4px 0">&amp;</span>
+      <h2 class="names" style="font-size: 38px">Khánh Linh</h2>
+      <p class="role">Cô dâu</p>
+      <img src="art/rose.webp" alt="" style="display: block; width: 130px; margin: 22px auto 0" />
+      <p class="caps" style="margin-top: 14px">Trân trọng kính mời</p>
+      <p class="script" style="margin-top: 2px; font-size: 36px">Anh Huy &amp; người thương</p>
+      <p class="lead" style="margin-top: 2px">tới dự bữa tiệc chung vui<br />cùng gia đình chúng tôi</p>
+    </section>
+
+    <!-- 3 · cover photo; the bouquet rests bottom left -->
+    <section>
+      <div class="oval" style="width: 262px; height: 350px; margin-top: 96px"><img src="../../src/static/cover.jpg" alt="" /></div>
+      <p class="script" style="margin-top: 34px; font-size: 38px">Hạnh phúc là nắm tay nhau</p>
+      <p class="lead muted" style="margin-top: 6px">đi qua mọi mùa của cuộc đời</p>
+    </section>
+
+    <!-- 4 · date and venue: the wreath round the date; the bouquet rests bottom right -->
+    <section>
+      <p class="caps" style="padding-top: 70px">Tiệc cưới diễn ra vào lúc</p>
+      <p style="margin-top: 6px; font-size: 26px; color: var(--main)">17 giờ 30</p>
+      <div style="position: relative; width: 300px; height: 300px; margin: 18px auto 0">
+        <img src="art/wreath.webp" alt="" style="display: block; width: 100%" />
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <p class="caps" style="font-size: 9px">Thứ Bảy</p>
+          <p style="font-size: 46px; line-height: 1.05; color: var(--main)">26</p>
+          <p class="caps" style="font-size: 9px; letter-spacing: 0.2em">12 · 2026</p>
         </div>
-        <p style="margin-top: 30px; font-size: 24px">Trung tâm tiệc cưới An Phúc</p>
-        <p style="margin-top: 6px; font-size: 15px; color: var(--muted)">68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
-      </section>
+      </div>
+      <p class="lead muted" style="margin-top: 10px; font-size: 14px">(Tức ngày 18 tháng 11 năm Bính Ngọ)</p>
+      <p class="caps" style="margin-top: 26px">Địa điểm</p>
+      <h3 style="margin-top: 8px; font-size: 24px; line-height: 1.3">Trung tâm tiệc cưới An Phúc</h3>
+      <p class="muted" style="margin: 6px 30px 0; font-size: 15px; line-height: 1.5">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
+      <p class="caps" style="display: inline-block; margin-top: 16px; padding-bottom: 2px; border-bottom: 1px solid var(--main); color: var(--main)">Chỉ đường</p>
+    </section>
 
-      <!-- 4 · album: the bouquet stretches out into a garland over the photos -->
-      <section>
-        <p class="script" style="margin-top: 20px; font-size: 46px">Những ngày bên nhau</p>
-        <div class="slot" data-src="art/garland.webp" style="width: 340px; height: 120px; margin-top: 10px"><img alt="" /></div>
-        <div style="display: flex; justify-content: center; gap: 18px; margin-top: 10px">
-          <div class="oval" style="width: 150px; margin: 0"><img src="../../src/static/album2.jpeg" alt="" /></div>
-          <div class="oval" style="width: 150px; margin: 50px 0 0"><img src="../../src/static/album3.jpeg" alt="" /></div>
-        </div>
-      </section>
+    <!-- 5 · album: a garland over oval photos in the same frame; the bouquet rests bottom left -->
+    <section>
+      <p class="caps" style="padding-top: 60px">Khoảnh khắc</p>
+      <p class="script" style="margin-top: 2px; font-size: 46px">Những ngày bên nhau</p>
+      <img src="art/garland.webp" alt="" style="display: block; width: 340px; margin: 6px auto 0" />
+      <div style="position: relative; height: 470px; margin-top: 16px">
+        <div class="oval" style="position: absolute; left: 6px; top: 0; width: 172px; height: 236px"><img src="../../src/static/couple.jpeg" alt="" /></div>
+        <div class="oval" style="position: absolute; right: 6px; top: 50px; width: 122px; height: 164px"><img src="../../src/static/album2.jpeg" alt="" /></div>
+        <div class="oval" style="position: absolute; right: 26px; top: 262px; width: 122px; height: 164px"><img src="../../src/static/album3.jpeg" alt="" /></div>
+        <p class="lead" style="position: absolute; left: 14px; top: 286px; width: 150px; text-align: left; color: var(--main)">“Gặp nhau là duyên, ở bên nhau là phận”</p>
+      </div>
+    </section>
 
-      <!-- 5 · gift: the bouquet becomes the gift box -->
-      <section>
-        <p class="caps" style="margin-top: 60px">Mừng cưới</p>
-        <p class="script" style="margin-top: 4px; font-size: 44px">Gửi lời chúc mừng</p>
-        <div class="slot" data-src="art/gift.webp" style="width: 230px; height: 230px; margin-top: 30px"><img alt="" /></div>
-        <p style="margin-top: 12px; font-style: italic; color: var(--muted)">Chạm vào hộp quà</p>
-      </section>
+    <!-- 6 · calendar card, countdown, programme; the bouquet rests bottom right -->
+    <section>
+      <div class="card" style="margin-top: 60px">
+        <p class="script" style="font-size: 40px">Tháng 12 · 2026</p>
+        <div class="cal" id="cal" style="margin-top: 8px"></div>
+      </div>
+      <p class="caps" style="margin-top: 28px">Cùng đếm ngược</p>
+      <div class="count" style="margin-top: 8px">
+        <div><b>65</b><small>NGÀY</small></div><div><b>07</b><small>GIỜ</small></div><div><b>06</b><small>PHÚT</small></div><div><b>42</b><small>GIÂY</small></div>
+      </div>
+      <p class="caps" style="margin-top: 30px">Lịch trình</p>
+      <div class="steps" style="margin-top: 8px">
+        <div><b>17:00</b><i></i><span>Đón khách</span></div>
+        <div><b>17:30</b><i></i><span>Lễ thành hôn</span></div>
+        <div><b>18:00</b><i></i><span>Khai tiệc</span></div>
+      </div>
+    </section>
 
-      <!-- 6 · thanks: back to the bouquet -->
-      <section>
-        <div class="oval" style="margin-top: 20px"><img src="../../src/static/destiny.jpeg" alt="" /></div>
-        <p class="script" style="margin-top: 26px; font-size: 52px">Trân trọng cảm ơn</p>
-      </section>
-    </div>
+    <!-- 7 · RSVP card and the gift box; the bouquet rests bottom left -->
+    <section>
+      <div class="card" style="margin-top: 50px">
+        <p class="caps">R · S · V · P</p>
+        <p class="script" style="margin-top: 2px; font-size: 40px">Xác nhận tham dự</p>
+        <p class="muted" style="margin: 4px 6px 18px; font-size: 13.5px">Mong bạn phản hồi trước ngày 15.12 để gia đình chuẩn bị chu đáo.</p>
+        <p class="field">Tên của bạn</p>
+        <p class="field" style="height: 40px">Lời chúc gửi cô dâu chú rể</p>
+        <p style="margin-top: 4px"><span class="opt on">Sẽ tham dự</span><span class="opt">Rất tiếc không thể</span></p>
+        <p style="margin-top: 18px"><span class="btn">Gửi xác nhận</span></p>
+      </div>
+      <p class="caps" style="margin-top: 26px">Mừng cưới</p>
+      <img src="art/gift.webp" alt="" style="display: block; width: 150px; margin: 6px auto 0" />
+      <p class="lead muted" style="margin-top: 2px; font-size: 14px">Chạm vào hộp quà để gửi lời chúc</p>
+    </section>
+
+    <!-- 8 · thanks: the bouquet comes back to the middle -->
+    <section>
+      <div class="oval" style="width: 220px; height: 290px; margin-top: 70px"><img src="../../src/static/destiny.jpeg" alt="" /></div>
+      <p class="script" style="margin-top: 30px; font-size: 52px">Trân trọng cảm ơn</p>
+      <p class="caps" style="margin-top: 4px; color: var(--ink)">Đức Minh · Khánh Linh</p>
+      <p class="lead muted" style="margin-top: 8px">Sự hiện diện của bạn là niềm hạnh phúc<br />của gia đình chúng tôi</p>
+    </section>
 
     <script>
-      const sections = [...document.querySelectorAll("section")];
-      document.querySelectorAll(".slot").forEach((el) => {
-        el.querySelector("img").src = el.dataset.src;
-        el.classList.add("here");
-      });
+      // December 2026 starts on a Tuesday; the wedding day sits in a blush circle
+      const cal = document.getElementById("cal");
+      let html = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<i>${d}</i>`).join("") + "<span></span>";
+      for (let d = 1; d <= 31; d++) {
+        html += d === 26
+          ? `<span><i style="position:absolute;left:50%;top:50%;width:30px;height:30px;padding:0;transform:translate(-50%,-50%);border-radius:50%;background:var(--main)"></i><b style="position:relative;font-weight:400;color:#fff">26</b></span>`
+          : `<span>${d}</span>`;
+      }
+      cal.innerHTML = html;
 
+      const sections = [...document.querySelectorAll("section")];
       // where the bouquet rests in each section: centre x and y as a share of the screen, width, tilt
       const POSES = [
-        { x: 0.5, y: 0.71, w: 230, r: 0 },
-        { x: 0.86, y: 0.86, w: 120, r: 14 },
-        { x: 0.13, y: 0.86, w: 116, r: -12 },
-        { x: 0.86, y: 0.86, w: 108, r: 14 },
-        { x: 0.14, y: 0.83, w: 112, r: -10 },
-        { x: 0.5, y: 0.83, w: 170, r: 0 },
+        { x: 0.5, y: 0.73, w: 236, r: 0 },
+        { x: 0.86, y: 0.88, w: 104, r: 14 },
+        { x: 0.16, y: 0.86, w: 118, r: -12 },
+        { x: 0.88, y: 0.89, w: 100, r: 14 },
+        { x: 0.13, y: 0.9, w: 96, r: -12 },
+        { x: 0.87, y: 0.9, w: 100, r: 14 },
+        { x: 0.12, y: 0.9, w: 96, r: -12 },
+        { x: 0.5, y: 0.86, w: 150, r: 0 },
       ];
       const bouquet = document.getElementById("bouquet");
       const lerp = (a, b, t) => a + (b - a) * t;
@@ -253,13 +435,12 @@
         let i = 0;
         while (i < tops.length - 1 && scrollY >= tops[i + 1]) i++;
         const next = Math.min(i + 1, POSES.length - 1);
-        const span = (tops[i + 1] ?? tops[i] + innerHeight) - tops[i];
-        const t = next === i ? 0 : ease((scrollY - tops[i]) / span);
+        const t = next === i ? 0 : ease((scrollY - tops[i]) / (tops[i + 1] - tops[i]));
         const a = POSES[i];
         const b = POSES[next];
         const w = lerp(a.w, b.w, t);
         const x = lerp(a.x, b.x, t) * innerWidth - w / 2;
-        const y = lerp(a.y, b.y, t) * innerHeight - w * 0.68;
+        const y = lerp(a.y, b.y, t) * innerHeight - w * 0.72;
         bouquet.style.width = `${w}px`;
         bouquet.style.transform = `translate(${x}px, ${y}px) rotate(${lerp(a.r, b.r, t)}deg)`;
         requestAnimationFrame(place);
@@ -268,13 +449,13 @@
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 9; i++) {
         const p = document.createElement("img");
         p.src = i % 2 ? "art/petal1.webp" : "art/petal2.webp";
         p.style.left = `${Math.round(Math.random() * 95)}%`;
-        p.style.width = `${16 + Math.round(Math.random() * 14)}px`;
-        p.style.animationDuration = `${9 + Math.random() * 8}s`;
-        p.style.animationDelay = `${-Math.random() * 16}s`;
+        p.style.width = `${14 + Math.round(Math.random() * 12)}px`;
+        p.style.animationDuration = `${10 + Math.random() * 8}s`;
+        p.style.animationDelay = `${-Math.random() * 18}s`;
         petals.appendChild(p);
       }
     </script>
