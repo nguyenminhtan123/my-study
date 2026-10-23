@@ -1,10 +1,12 @@
 <!doctype html>
 <!--
   t32 · Hoa hồng pastel. Mockup and live prototype in one page (390x844, one section per screen).
-  One bouquet stays on screen from the first section to the last: its pose (place, size, tilt) follows the
-  scroll position. It rests in a free corner while a section is read and glides to the next corner as the
-  guest scrolls on, swaying gently; rose petals fall over the page. The other rose pieces (corner spray,
-  wreath round the date, garland over the album, gift box) stay in their sections.
+  One rose arrangement changes form down the page: the bouquet on the first screen, then the corner spray,
+  the wreath round the date, the garland over the album, the gift box, and the bouquet again at the end.
+  Each section owns one "living" piece (.live). As a section leaves the screen its piece dissolves and
+  scatters petals; as the next one arrives its piece blooms open from its own anchor point with a burst of
+  petals, so the flowers seem to turn into one another. Both are tied to the scroll, so scrolling back
+  plays it in reverse. Rose petals also drift over the page.
   Photo frame: an oval with a double blush hairline. Type: Playfair Display + Great Vibes.
   Stills: node scripts/design/journey-shots.mjs design/t32/journey.html <out.jpg>
   Video:  node scripts/design/journey-video.mjs design/t32/journey.html <out.mp4>
@@ -230,27 +232,31 @@
         border-radius: 50%;
         background: var(--sage);
       }
-      /* the bouquet: fixed on screen, placed by script from the scroll position */
-      .bouquet {
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 30;
-        pointer-events: none;
-        transform-origin: 50% 70%;
-        will-change: transform;
+      /* the living piece of each section: script sets --a (bloom 0..1) and --d (dissolve 0..1) */
+      .live {
+        --a: 1;
+        --d: 0;
+        opacity: calc(var(--a) * (1 - var(--d)));
+        transform: scale(calc(0.55 + 0.45 * var(--a) + 0.15 * var(--d))) rotate(calc((1 - var(--a)) * -14deg));
+        filter: blur(calc(var(--d) * 6px));
+        clip-path: circle(calc(var(--a) * 75%) at var(--o, 50% 50%));
+        -webkit-clip-path: circle(calc(var(--a) * 75%) at var(--o, 50% 50%));
+        transform-origin: var(--o, 50% 50%);
+        will-change: transform, opacity;
       }
-      .bouquet img {
-        display: block;
-        width: 100%;
-        filter: drop-shadow(0 12px 16px rgba(150, 80, 95, 0.18));
-        transform-origin: 50% 90%;
+      .sway {
         animation: sway 4.5s ease-in-out infinite;
+        transform-origin: 50% 90%;
       }
       @keyframes sway {
         50% {
-          transform: rotate(4deg) translateY(-4px);
+          transform: rotate(3deg) translateY(-4px);
         }
+      }
+      .burst {
+        position: fixed;
+        z-index: 45;
+        pointer-events: none;
       }
       /* falling petals */
       .petals {
@@ -287,8 +293,7 @@
   </head>
   <body>
     <div class="petals" id="petals"></div>
-    <div class="bouquet" id="bouquet"><img src="art/bouquet.webp" alt="" /></div>
-
+    
     <!-- 1 · first screen: names, date, the bouquet below -->
     <section>
       <div class="art" style="left: 50%; top: 470px; width: 420px; height: 420px; margin-left: -210px; border-radius: 50%; background: radial-gradient(circle, rgba(244, 196, 205, 0.55), rgba(244, 196, 205, 0) 65%)"></div>
@@ -297,11 +302,12 @@
       <span class="amp">&amp;</span>
       <h1 class="names">Khánh Linh</h1>
       <div class="dateline" style="margin-top: 22px"><span style="text-align: right">Thứ Bảy</span><b>26</b><span style="text-align: left">Tháng 12<br />2026</span></div>
+      <div class="live" style="--o: 50% 40%; width: 236px; margin: 46px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
     </section>
 
     <!-- 2 · families, names, invitation; the bouquet rests bottom right -->
     <section>
-      <img class="art" src="art/corner.webp" alt="" style="width: 210px; left: -46px; top: -40px; transform: rotate(180deg) scaleY(-1)" />
+      <div class="art live" style="--o: 100% 0%; width: 220px; right: -40px; top: -30px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: scaleX(-1)" /></div>
       <p class="caps" style="padding: 150px 34px 0">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
       <div style="display: flex; justify-content: center; gap: 18px; margin-top: 22px; font-size: 15px; line-height: 1.7">
         <div><p class="caps" style="font-size: 9px">Nhà trai</p><p>Ông Nguyễn Văn Hùng</p><p>Bà Trần Thị Mai</p></div>
@@ -321,8 +327,11 @@
 
     <!-- 3 · cover photo; the bouquet rests bottom left -->
     <section>
-      <div class="oval" style="width: 262px; height: 350px; margin-top: 96px"><img src="../../src/static/cover.jpg" alt="" /></div>
-      <p class="script" style="margin-top: 34px; font-size: 38px">Hạnh phúc là nắm tay nhau</p>
+      <div style="position: relative; margin-top: 96px">
+        <div class="oval" style="width: 262px; height: 350px"><img src="../../src/static/cover.jpg" alt="" /></div>
+        <div class="art live" style="--o: 0% 100%; width: 150px; left: -18px; top: 250px"><img src="art/corner.webp" alt="" style="display: block; width: 100%; transform: rotate(90deg)" /></div>
+      </div>
+      <p class="script" style="margin-top: 50px; font-size: 38px">Hạnh phúc là nắm tay nhau</p>
       <p class="lead muted" style="margin-top: 6px">đi qua mọi mùa của cuộc đời</p>
     </section>
 
@@ -331,7 +340,7 @@
       <p class="caps" style="padding-top: 70px">Tiệc cưới diễn ra vào lúc</p>
       <p style="margin-top: 6px; font-size: 26px; color: var(--main)">17 giờ 30</p>
       <div style="position: relative; width: 300px; height: 300px; margin: 18px auto 0">
-        <img src="art/wreath.webp" alt="" style="display: block; width: 100%" />
+        <div class="live" style="--o: 50% 50%"><img src="art/wreath.webp" alt="" style="display: block; width: 100%" /></div>
         <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
           <p class="caps" style="font-size: 9px">Thứ Bảy</p>
           <p style="font-size: 46px; line-height: 1.05; color: var(--main)">26</p>
@@ -349,7 +358,7 @@
     <section>
       <p class="caps" style="padding-top: 60px">Khoảnh khắc</p>
       <p class="script" style="margin-top: 2px; font-size: 46px">Những ngày bên nhau</p>
-      <img src="art/garland.webp" alt="" style="display: block; width: 340px; margin: 6px auto 0" />
+      <div class="live" style="--o: 50% 50%; width: 340px; margin: 6px auto 0"><img src="art/garland.webp" alt="" style="display: block; width: 100%" /></div>
       <div style="position: relative; height: 470px; margin-top: 16px">
         <div class="oval" style="position: absolute; left: 6px; top: 0; width: 172px; height: 236px"><img src="../../src/static/couple.jpeg" alt="" /></div>
         <div class="oval" style="position: absolute; right: 6px; top: 50px; width: 122px; height: 164px"><img src="../../src/static/album2.jpeg" alt="" /></div>
@@ -360,7 +369,8 @@
 
     <!-- 6 · calendar card, countdown, programme; the bouquet rests bottom right -->
     <section>
-      <div class="card" style="margin-top: 60px">
+      <div class="card" style="position: relative; margin-top: 60px">
+        <div class="art live" style="--o: 0% 50%; width: 118px; right: -34px; top: -58px"><img src="art/rose.webp" alt="" style="display: block; width: 100%; transform: rotate(-18deg)" /></div>
         <p class="script" style="font-size: 40px">Tháng 12 · 2026</p>
         <div class="cal" id="cal" style="margin-top: 8px"></div>
       </div>
@@ -388,7 +398,7 @@
         <p style="margin-top: 18px"><span class="btn">Gửi xác nhận</span></p>
       </div>
       <p class="caps" style="margin-top: 26px">Mừng cưới</p>
-      <img src="art/gift.webp" alt="" style="display: block; width: 150px; margin: 6px auto 0" />
+      <div class="live" style="--o: 50% 30%; width: 150px; margin: 6px auto 0"><img src="art/gift.webp" alt="" style="display: block; width: 100%" /></div>
       <p class="lead muted" style="margin-top: 2px; font-size: 14px">Chạm vào hộp quà để gửi lời chúc</p>
     </section>
 
@@ -398,6 +408,7 @@
       <p class="script" style="margin-top: 30px; font-size: 52px">Trân trọng cảm ơn</p>
       <p class="caps" style="margin-top: 4px; color: var(--ink)">Đức Minh · Khánh Linh</p>
       <p class="lead muted" style="margin-top: 8px">Sự hiện diện của bạn là niềm hạnh phúc<br />của gia đình chúng tôi</p>
+      <div class="live" style="--o: 50% 40%; width: 150px; margin: 20px auto 0"><img class="sway" src="art/bouquet.webp" alt="" style="display: block; width: 100%" /></div>
     </section>
 
     <script>
@@ -411,41 +422,51 @@
       }
       cal.innerHTML = html;
 
-      const sections = [...document.querySelectorAll("section")];
-      // where the bouquet rests in each section: centre x and y as a share of the screen, width, tilt
-      const POSES = [
-        { x: 0.5, y: 0.73, w: 236, r: 0 },
-        { x: 0.86, y: 0.88, w: 104, r: 14 },
-        { x: 0.16, y: 0.86, w: 118, r: -12 },
-        { x: 0.88, y: 0.89, w: 100, r: 14 },
-        { x: 0.13, y: 0.9, w: 96, r: -12 },
-        { x: 0.87, y: 0.9, w: 100, r: 14 },
-        { x: 0.12, y: 0.9, w: 96, r: -12 },
-        { x: 0.5, y: 0.86, w: 150, r: 0 },
-      ];
-      const bouquet = document.getElementById("bouquet");
-      const lerp = (a, b, t) => a + (b - a) * t;
-      // rest while a section is read, glide during the middle of the scroll between two sections
-      const ease = (t) => {
-        const u = Math.min(1, Math.max(0, (t - 0.2) / 0.6));
-        return u * u * (3 - 2 * u);
+      // bloom while a piece rises into view, dissolve while it leaves at the top; both follow the scroll
+      const pieces = [...document.querySelectorAll(".live")];
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+      const smooth = (v) => v * v * (3 - 2 * v);
+      const state = pieces.map(() => ({ open: false, gone: false }));
+      const burst = (el, n) => {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        for (let i = 0; i < n; i++) {
+          const p = document.createElement("img");
+          p.className = "burst";
+          p.src = i % 2 ? "art/petal1.webp" : "art/petal2.webp";
+          const size = 12 + Math.random() * 14;
+          Object.assign(p.style, { width: `${size}px`, left: `${cx - size / 2}px`, top: `${cy - size / 2}px` });
+          document.body.appendChild(p);
+          const ang = Math.random() * Math.PI * 2;
+          const dist = 70 + Math.random() * 110;
+          p.animate(
+            [
+              { transform: "translate(0,0) rotate(0deg) scale(0.6)", opacity: 0.95 },
+              { transform: `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist + 60}px) rotate(${Math.random() * 540 - 270}deg) scale(1)`, opacity: 0 },
+            ],
+            { duration: 1300 + Math.random() * 600, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" },
+          ).onfinish = () => p.remove();
+        }
       };
-      const place = () => {
-        const tops = sections.map((s) => s.offsetTop);
-        let i = 0;
-        while (i < tops.length - 1 && scrollY >= tops[i + 1]) i++;
-        const next = Math.min(i + 1, POSES.length - 1);
-        const t = next === i ? 0 : ease((scrollY - tops[i]) / (tops[i + 1] - tops[i]));
-        const a = POSES[i];
-        const b = POSES[next];
-        const w = lerp(a.w, b.w, t);
-        const x = lerp(a.x, b.x, t) * innerWidth - w / 2;
-        const y = lerp(a.y, b.y, t) * innerHeight - w * 0.72;
-        bouquet.style.width = `${w}px`;
-        bouquet.style.transform = `translate(${x}px, ${y}px) rotate(${lerp(a.r, b.r, t)}deg)`;
-        requestAnimationFrame(place);
+      const tick = () => {
+        const h = innerHeight;
+        pieces.forEach((el, i) => {
+          // timed by the piece's section: blooms as the section arrives, dissolves as it leaves
+          const top = el.closest("section").getBoundingClientRect().top / h;
+          const a = smooth(clamp((0.6 - top) / 0.45));
+          const d = smooth(clamp((-top - 0.2) / 0.4));
+          el.style.setProperty("--a", a.toFixed(3));
+          el.style.setProperty("--d", d.toFixed(3));
+          const st = state[i];
+          if (a > 0.55 && !st.open) burst(el, 12);
+          if (d > 0.35 && !st.gone) burst(el, 14);
+          st.open = a > 0.55;
+          st.gone = d > 0.35;
+        });
+        requestAnimationFrame(tick);
       };
-      requestAnimationFrame(place);
+      requestAnimationFrame(tick);
 
       // petals: a few at a time, each with its own speed, size and sway
       const petals = document.getElementById("petals");
