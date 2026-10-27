@@ -21,7 +21,7 @@ if (!input || !out) {
 }
 
 // serve my-wed/ over http, as mockup.mjs does
-const TYPES = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".woff": "font/woff" };
+const TYPES = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".woff": "font/woff", ".mp4": "video/mp4", ".webm": "video/webm" };
 const server = createServer((req, res) => {
   const file = join(root, decodeURIComponent(new URL(req.url, "http://x").pathname));
   let body;
@@ -56,7 +56,8 @@ await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(1000);
 await cdp.send("Page.startScreencast", { format: "jpeg", quality: 90, maxWidth: 780, maxHeight: 1688 });
 recording = true;
-await page.waitForTimeout(1500);
+// hold the first screen long enough for its entrance to play out
+await page.waitForTimeout(hold ? 1500 : 4500);
 
 // one screen at a time: an eased scroll, then a pause long enough for the flight to land
 // one stop per screen: each section's top, plus a further screen for sections taller than one
