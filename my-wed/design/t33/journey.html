@@ -1,0 +1,889 @@
+<!doctype html>
+<!--
+  t33 Nắng đồng hoa: mockup as a live page (one 390px phone column).
+  Opening screen: the looping meadow video, the couple's photo laid on it as a clean white-bordered print.
+  Below: coded UI on white, with a light pattern of tiny wildflowers and a few real-looking sprigs.
+  Video:  node scripts/design/journey-video.mjs design/t33/journey.html <out.mp4>
+  Stills: node scripts/design/journey-shots.mjs design/t33/journey.html <out.jpg>
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/latin-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/cormorant-garamond/vietnamese-400-italic.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-300.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-300.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-500.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-500.css" />
+    <style>
+      :root {
+        /* design tokens: copied unchanged into styles.scss after approval */
+        --bg: #fffdf9;
+        --ink: #2f4637;
+        --soft: #6c7a6f;
+        --main: #d0708c;
+        --accent: #6b80c0;
+        --gold: #d6b37a;
+        --line: #ecdfd0;
+        --display: "Cormorant Garamond", Georgia, serif;
+        --script: "Allura", Georgia, serif;
+        --caps: "Be Vietnam Pro", system-ui, sans-serif;
+        /* tiny wildflowers scattered on white: pink cosmos, blue cornflower, gold bud */
+        --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg opacity='.38'%3E%3Cg transform='translate(34 40)' fill='%23f2c3d0'%3E%3Cellipse rx='3' ry='6.5' transform='translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(72) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(144) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(216) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(288) translate(0 -6)'/%3E%3Ccircle r='2.4' fill='%23ecd29a'/%3E%3C/g%3E%3Cg transform='translate(128 98) rotate(20)' fill='%23c5cfee'%3E%3Ccircle r='3.2' cx='0' cy='-4.5'/%3E%3Ccircle r='3.2' cx='4.3' cy='-1.4'/%3E%3Ccircle r='3.2' cx='2.6' cy='3.7'/%3E%3Ccircle r='3.2' cx='-2.6' cy='3.7'/%3E%3Ccircle r='3.2' cx='-4.3' cy='-1.4'/%3E%3Ccircle r='1.8' fill='%23f6e6bf'/%3E%3C/g%3E%3Ccircle cx='80' cy='150' r='2' fill='%23ecd29a'/%3E%3Ccircle cx='160' cy='22' r='1.6' fill='%23f2c3d0'/%3E%3Cpath d='M60 112 q6 -10 14 -12' stroke='%23cfdccb' stroke-width='1.2' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: #e9e6e1;
+      }
+      .page {
+        width: 390px;
+        margin: 0 auto;
+        overflow: hidden;
+        background: var(--bg) var(--pattern) 0 0 / 180px 180px;
+        color: var(--ink);
+        font-family: var(--display);
+        text-align: center;
+      }
+      section {
+        position: relative;
+        padding: 64px 28px;
+      }
+      .caps {
+        font: 400 11px/1.6 var(--caps);
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .script {
+        font: 400 40px/1.1 var(--script);
+        color: var(--main);
+      }
+      .title {
+        margin: 0 0 6px;
+        font: 400 46px/1 var(--script);
+        color: var(--main);
+      }
+      .rule {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 14px auto 0;
+        color: var(--gold);
+      }
+      .rule::before,
+      .rule::after {
+        content: "";
+        width: 54px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold));
+      }
+      .rule::after {
+        background: linear-gradient(90deg, var(--gold), transparent);
+      }
+      .rule i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--main);
+        box-shadow:
+          -12px 0 0 -1.5px var(--accent),
+          12px 0 0 -1.5px var(--accent);
+      }
+      /* one photo frame for every photo: a clean print with a white border and a soft shadow */
+      .print {
+        display: block;
+        padding: 6px;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow:
+          0 1px 2px rgba(47, 70, 55, 0.08),
+          0 14px 30px -10px rgba(47, 70, 55, 0.28);
+      }
+      .print img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+      .sprig {
+        position: absolute;
+        pointer-events: none;
+        transform-origin: 50% 100%;
+        animation: sway 5s ease-in-out infinite alternate;
+      }
+      @keyframes sway {
+        from {
+          rotate: -2deg;
+        }
+        to {
+          rotate: 2deg;
+        }
+      }
+
+      /* reveal on scroll */
+      [data-anim] {
+        opacity: 0;
+        transition:
+          opacity 0.9s ease,
+          transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      [data-anim="up"] {
+        transform: translateY(26px);
+      }
+      [data-anim="zoom"] {
+        transform: scale(0.94);
+      }
+      [data-anim="left"] {
+        transform: translateX(-30px);
+      }
+      [data-anim="right"] {
+        transform: translateX(30px);
+      }
+      .in {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      /* ---------- 1. opening: the meadow video, the couple's print on it ---------- */
+      .cover {
+        height: 844px;
+        padding: 0;
+        overflow: hidden;
+        color: #fff;
+        background: #2b3a2c;
+      }
+      .cover video,
+      .cover .shade {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cover .shade {
+        background:
+          linear-gradient(to bottom, rgba(22, 34, 24, 0.42), rgba(22, 34, 24, 0) 22%),
+          linear-gradient(to top, rgba(22, 34, 24, 0.62), rgba(22, 34, 24, 0.18) 34%, rgba(22, 34, 24, 0) 50%);
+      }
+      .cover .kicker,
+      .cover .names,
+      .cover .date,
+      .cover .hint {
+        position: absolute;
+        left: 0;
+        right: 0;
+      }
+      .cover .kicker {
+        top: 54px;
+        font: 400 11px/1 var(--caps);
+        letter-spacing: 0.46em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 10px rgba(20, 30, 20, 0.5);
+        animation: fade 1.4s ease 0.3s both;
+      }
+      .cover .kicker::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 1px;
+        margin: 12px auto 0;
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .cover .print {
+        position: absolute;
+        left: 61px;
+        top: 104px;
+        width: 268px;
+        height: 358px;
+        padding: 7px;
+        box-shadow: 0 22px 50px -12px rgba(15, 25, 15, 0.55);
+        animation: land 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
+      }
+      .cover .print img {
+        object-position: 50% 20%;
+      }
+      @keyframes land {
+        from {
+          opacity: 0;
+          transform: translateY(34px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .cover .names {
+        top: 494px;
+        font: 400 52px/1.02 var(--script);
+        text-shadow:
+          0 2px 14px rgba(20, 30, 20, 0.45),
+          0 0 2px rgba(20, 30, 20, 0.3);
+      }
+      .cover .names span {
+        display: block;
+        white-space: nowrap;
+        animation: write 1.6s ease both;
+      }
+      .cover .names .n1 {
+        padding-right: 64px;
+        animation-delay: 1.5s;
+      }
+      .cover .names .n2 {
+        padding-left: 64px;
+        animation-delay: 2s;
+      }
+      .cover .names i {
+        margin-right: 8px;
+        font-size: 36px;
+        font-style: normal;
+      }
+      @keyframes write {
+        from {
+          opacity: 0;
+          clip-path: inset(0 100% 0 0);
+        }
+        to {
+          opacity: 1;
+          clip-path: inset(0 0 0 0);
+        }
+      }
+      .cover .date {
+        top: 640px;
+        font: 400 13px/1 var(--caps);
+        letter-spacing: 0.5em;
+        text-shadow: 0 1px 8px rgba(20, 30, 20, 0.6);
+        animation: fade 1.2s ease 2.8s both;
+      }
+      .cover .date::before {
+        content: "";
+        display: block;
+        width: 150px;
+        height: 1px;
+        margin: 0 auto 14px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+      }
+      .cover .hint {
+        bottom: 26px;
+        font: 400 10px/1 var(--caps);
+        letter-spacing: 0.3em;
+        opacity: 0.85;
+        animation: fade 1s ease 3.4s both;
+      }
+      .cover .hint::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 24px;
+        margin: 10px auto 0;
+        background: linear-gradient(#fff, transparent);
+        animation: drip 1.8s ease-in-out infinite;
+        transform-origin: top;
+      }
+      @keyframes drip {
+        0% {
+          transform: scaleY(0);
+        }
+        60% {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleY(1);
+          opacity: 0;
+        }
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+      }
+
+      /* ---------- 2. invitation and families ---------- */
+      .invite {
+        padding-top: 78px;
+      }
+      .invite .lead {
+        margin: 18px 0 0;
+        font: italic 400 19px/1.5 var(--display);
+        color: var(--soft);
+      }
+      .families {
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 10px;
+        margin-left: -12px;
+        margin-right: -12px;
+        margin: 30px 0 0;
+      }
+      .families .bar {
+        background: linear-gradient(transparent, var(--line), transparent);
+      }
+      .families h4 {
+        margin: 0 0 10px;
+        font: 500 11px/1 var(--caps);
+        letter-spacing: 0.3em;
+        color: var(--main);
+      }
+      .families p {
+        margin: 0;
+        font: 500 16px/1.55 var(--display);
+        white-space: nowrap;
+      }
+      .couple {
+        margin: 36px 0 0;
+      }
+      .couple .who {
+        font: 500 34px/1.1 var(--display);
+        letter-spacing: 0.02em;
+      }
+      .couple .role {
+        margin-top: 4px;
+        font: 400 10px/1 var(--caps);
+        letter-spacing: 0.32em;
+        color: var(--soft);
+      }
+      .couple .amp {
+        margin: 10px 0;
+        font: 400 40px/1 var(--script);
+        color: var(--main);
+      }
+
+      /* ---------- 3. the date ---------- */
+      .day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin: 26px 0 0;
+      }
+      .day .side {
+        width: 92px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        font: 500 12px/1.5 var(--caps);
+        letter-spacing: 0.22em;
+      }
+      .day .big {
+        font: 500 84px/0.9 var(--display);
+        color: var(--main);
+      }
+      .time {
+        margin: 18px 0 0;
+        font: italic 400 20px/1.4 var(--display);
+        color: var(--soft);
+      }
+      .cal {
+        width: 300px;
+        margin: 28px auto 0;
+        padding: 18px 16px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.85);
+      }
+      .cal .m {
+        margin-bottom: 10px;
+        font: 500 20px/1 var(--display);
+      }
+      .cal .grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        row-gap: 6px;
+        font: 400 12px/30px var(--caps);
+      }
+      .cal .grid b {
+        font-weight: 500;
+        font-size: 10px;
+        color: var(--soft);
+      }
+      .cal .grid .on {
+        position: relative;
+        color: #fff;
+        font-weight: 500;
+        z-index: 0;
+      }
+      .cal .grid .on::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 32px;
+        height: 32px;
+        margin: -16px 0 0 -16px;
+        z-index: -1;
+        border-radius: 50%;
+        background: var(--main);
+        animation: beat 1.6s ease-in-out infinite;
+      }
+      @keyframes beat {
+        50% {
+          transform: scale(1.12);
+          box-shadow: 0 0 0 6px rgba(208, 112, 140, 0.18);
+        }
+      }
+
+      /* ---------- 4. venue and programme ---------- */
+      .glade {
+        position: relative;
+        height: 190px;
+        margin: 26px -28px 0;
+        background: url("art/glade.webp") 50% 62% / cover;
+        -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+        mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+      }
+      .venue h3 {
+        margin: 6px 0 6px;
+        font: 500 26px/1.2 var(--display);
+      }
+      .venue .addr {
+        margin: 0 auto;
+        max-width: 290px;
+        font: 400 13px/1.6 var(--caps);
+        color: var(--soft);
+      }
+      .btns {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0 0;
+      }
+      .btn {
+        padding: 12px 20px;
+        border-radius: 99px;
+        border: 1px solid var(--main);
+        color: var(--main);
+        font: 500 11px/1 var(--caps);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .btn.fill {
+        background: var(--main);
+        color: #fff;
+      }
+      .program {
+        position: relative;
+        width: 280px;
+        margin: 34px auto 0;
+        text-align: left;
+      }
+      .program::before {
+        content: "";
+        position: absolute;
+        left: 74px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: linear-gradient(var(--gold), var(--line));
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        padding: 12px 0;
+      }
+      .step .t {
+        width: 56px;
+        text-align: right;
+        font: 500 22px/1 var(--display);
+        color: var(--main);
+      }
+      .step .dot {
+        width: 11px;
+        height: 11px;
+        margin-left: -3px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid var(--accent);
+        flex: none;
+      }
+      .step .l {
+        font: 500 12px/1 var(--caps);
+        letter-spacing: 0.22em;
+      }
+
+      /* ---------- 5. album ---------- */
+      .album {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin: 26px 0 0;
+      }
+      .album .wide {
+        grid-column: 1 / -1;
+        aspect-ratio: 3 / 2;
+      }
+      .album .tall {
+        aspect-ratio: 3 / 4;
+      }
+      .album .shift {
+        margin-top: 34px;
+      }
+      .album .lift {
+        margin-top: -34px;
+      }
+      .quote {
+        margin: 26px 10px 0;
+        font: italic 400 19px/1.5 var(--display);
+        color: var(--soft);
+      }
+
+      /* ---------- 6. countdown, RSVP ---------- */
+      .count {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 22px 0 0;
+      }
+      .count div {
+        width: 70px;
+        padding: 14px 0 10px;
+        border-radius: 12px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      .count b {
+        display: block;
+        font: 500 30px/1 var(--display);
+        color: var(--main);
+      }
+      .count span {
+        font: 400 9px/1 var(--caps);
+        letter-spacing: 0.2em;
+        color: var(--soft);
+      }
+      .form {
+        margin: 34px 0 0;
+        padding: 24px 20px;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+        text-align: left;
+      }
+      .field {
+        margin: 0 0 14px;
+      }
+      .field label {
+        display: block;
+        margin: 0 0 6px;
+        font: 500 10px/1 var(--caps);
+        letter-spacing: 0.2em;
+        color: var(--soft);
+      }
+      .field .box {
+        height: 42px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: var(--bg);
+      }
+      .choice {
+        display: flex;
+        gap: 8px;
+      }
+      .choice span {
+        flex: 1;
+        padding: 12px 0;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        text-align: center;
+        font: 400 12px/1 var(--caps);
+      }
+      .choice .on {
+        border-color: var(--main);
+        color: var(--main);
+        background: rgba(208, 112, 140, 0.07);
+      }
+      .form .btn {
+        display: block;
+        margin: 18px 0 0;
+        text-align: center;
+      }
+
+      /* ---------- 7. gift ---------- */
+      .gift-art {
+        width: 150px;
+        margin: 18px auto 0;
+        display: block;
+      }
+      .gifts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 18px 0 0;
+      }
+      .card {
+        padding: 16px 10px 14px;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      .card h4 {
+        margin: 0 0 10px;
+        font: 500 10px/1 var(--caps);
+        letter-spacing: 0.24em;
+        color: var(--main);
+      }
+      .qr {
+        width: 104px;
+        height: 104px;
+        margin: 0 auto 10px;
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: repeat(13, 1fr);
+        padding: 6px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      .qr i {
+        aspect-ratio: 1;
+      }
+      .qr i.k {
+        background: var(--ink);
+      }
+      .card p {
+        margin: 2px 0;
+        font: 400 11px/1.5 var(--caps);
+        color: var(--soft);
+      }
+      .card .acc {
+        font: 500 15px/1.4 var(--display);
+        color: var(--ink);
+      }
+
+      /* ---------- 8. thanks ---------- */
+      .thanks {
+        padding-bottom: 0;
+      }
+      .thanks .print {
+        width: 230px;
+        height: 306px;
+        margin: 26px auto 0;
+      }
+      .thanks .title {
+        margin-top: 26px;
+      }
+      .foot {
+        height: 230px;
+        margin: 10px -28px 0;
+        background: url("art/glade.webp") 50% 70% / cover;
+        -webkit-mask-image: linear-gradient(transparent, #000 55%);
+        mask-image: linear-gradient(transparent, #000 55%);
+      }
+      .fly {
+        position: absolute;
+        width: 34px;
+        animation: float 6s ease-in-out infinite alternate;
+      }
+      .fly img {
+        width: 100%;
+        animation: flap 0.3s ease-in-out infinite alternate;
+      }
+      @keyframes flap {
+        to {
+          transform: scaleX(0.4);
+        }
+      }
+      @keyframes float {
+        to {
+          transform: translate(-30px, -16px) rotate(12deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <!-- 1. opening -->
+      <section class="cover">
+        <video poster="video/meadow-poster.jpg" autoplay muted loop playsinline>
+          <source src="video/meadow.mp4" type='video/mp4; codecs="avc1.4d401f"' />
+          <source src="video/meadow.webm" type="video/webm" />
+        </video>
+        <div class="shade"></div>
+        <div class="kicker">Thiệp mời cưới</div>
+        <div class="print"><img src="../../src/static/cover.webp" alt="" /></div>
+        <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
+        <div class="date">26 · 12 · 2026</div>
+        <div class="hint">CUỘN XUỐNG</div>
+        <div class="fly" style="right: 34px; top: 470px"><img src="art/butterfly.webp" alt="" /></div>
+      </section>
+
+      <!-- 2. invitation -->
+      <section class="invite">
+        <img class="sprig" src="art/cosmos.webp" alt="" style="right: -46px; top: -10px; width: 120px" />
+        <img class="sprig" src="art/blue.webp" alt="" style="left: -40px; bottom: 10px; width: 92px; animation-delay: -2s" />
+        <div class="caps" data-anim="up">Trân trọng kính mời</div>
+        <div class="script" data-anim="up" style="margin-top: 8px">Quý khách</div>
+        <p class="lead" data-anim="up">đến dự buổi tiệc chung vui<br />cùng gia đình chúng tôi</p>
+        <div class="families" data-anim="up">
+          <div>
+            <h4>NHÀ TRAI</h4>
+            <p>Ông Nguyễn Văn Hùng<br />Bà Trần Thị Mai</p>
+          </div>
+          <div class="bar"></div>
+          <div>
+            <h4>NHÀ GÁI</h4>
+            <p>Ông Lê Minh Đức<br />Bà Phạm Thị Hoa</p>
+          </div>
+        </div>
+        <div class="couple">
+          <div data-anim="left">
+            <div class="who">Đức Minh</div>
+            <div class="role">CHÚ RỂ</div>
+          </div>
+          <div class="amp" data-anim="zoom">&amp;</div>
+          <div data-anim="right">
+            <div class="who">Khánh Linh</div>
+            <div class="role">CÔ DÂU</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. date -->
+      <section class="date-sec">
+        <h2 class="title" data-anim="up">Ngày chung đôi</h2>
+        <div class="rule" data-anim="up"><i></i></div>
+        <div class="day" data-anim="zoom">
+          <div class="side">THỨ BẢY</div>
+          <div class="big">26</div>
+          <div class="side">THÁNG 12<br />2026</div>
+        </div>
+        <p class="time" data-anim="up">Lễ thành hôn lúc 17 giờ 30</p>
+        <div class="cal" data-anim="up">
+          <div class="m">Tháng 12 · 2026</div>
+          <div class="grid" id="cal"></div>
+        </div>
+      </section>
+
+      <!-- 4. venue + programme -->
+      <section class="venue">
+        <h2 class="title" data-anim="up">Địa điểm</h2>
+        <div class="rule" data-anim="up"><i></i></div>
+        <div class="glade" data-anim="zoom"></div>
+        <h3 data-anim="up">Trung tâm tiệc cưới An Phúc</h3>
+        <p class="addr" data-anim="up">Sảnh Hoàng Kim, 68 Lê Lợi, phường Bến Thành, TP. Hồ Chí Minh</p>
+        <div class="btns" data-anim="up"><span class="btn fill">Chỉ đường</span><span class="btn">Lưu vào lịch</span></div>
+        <div class="program">
+          <div class="step" data-anim="left"><span class="t">17:00</span><span class="dot"></span><span class="l">ĐÓN KHÁCH</span></div>
+          <div class="step" data-anim="left"><span class="t">17:30</span><span class="dot"></span><span class="l">LỄ THÀNH HÔN</span></div>
+          <div class="step" data-anim="left"><span class="t">18:00</span><span class="dot"></span><span class="l">KHAI TIỆC</span></div>
+        </div>
+      </section>
+
+      <!-- 5. album -->
+      <section class="album-sec">
+        <img class="sprig" src="art/cosmos.webp" alt="" style="left: -50px; top: 6px; width: 104px; transform: scaleX(-1)" />
+        <h2 class="title" data-anim="up">Khoảnh khắc</h2>
+        <div class="rule" data-anim="up"><i></i></div>
+        <div class="album">
+          <span class="print wide" data-anim="zoom"><img src="../../src/static/couple.jpeg" alt="" /></span>
+          <span class="print tall" data-anim="left"><img src="../../src/static/album2.jpeg" alt="" /></span>
+          <span class="print tall shift" data-anim="right"><img src="../../src/static/album3.jpeg" alt="" /></span>
+          <span class="print tall" data-anim="left"><img src="../../src/static/album4.jpeg" alt="" /></span>
+          <span class="print tall shift" data-anim="right"><img src="../../src/static/destiny.jpeg" alt="" /></span>
+        </div>
+        <p class="quote" data-anim="up">“Gặp nhau giữa mùa hoa nở,<br />thương nhau suốt những mùa sau.”</p>
+      </section>
+
+      <!-- 6. countdown + RSVP -->
+      <section class="rsvp">
+        <h2 class="title" data-anim="up">Đếm ngược</h2>
+        <div class="rule" data-anim="up"><i></i></div>
+        <div class="count" data-anim="up">
+          <div><b>60</b><span>NGÀY</span></div>
+          <div><b>07</b><span>GIỜ</span></div>
+          <div><b>42</b><span>PHÚT</span></div>
+          <div><b>18</b><span>GIÂY</span></div>
+        </div>
+        <div class="form" data-anim="up">
+          <div class="caps" style="text-align: center; margin-bottom: 18px; color: var(--main)">Xác nhận tham dự</div>
+          <div class="field"><label>HỌ TÊN</label><div class="box"></div></div>
+          <div class="field">
+            <label>BẠN SẼ ĐẾN CHỨ?</label>
+            <div class="choice"><span class="on">Có, mình sẽ đến</span><span>Tiếc quá, bận rồi</span></div>
+          </div>
+          <div class="field"><label>LỜI NHẮN</label><div class="box" style="height: 70px"></div></div>
+          <span class="btn fill">Gửi xác nhận</span>
+        </div>
+      </section>
+
+      <!-- 7. gift -->
+      <section class="gift">
+        <h2 class="title" data-anim="up">Hộp mừng cưới</h2>
+        <div class="rule" data-anim="up"><i></i></div>
+        <img class="gift-art" src="art/gift.webp" alt="" data-anim="zoom" />
+        <div class="gifts">
+          <div class="card" data-anim="left">
+            <h4>NHÀ TRAI</h4>
+            <div class="qr"></div>
+            <p>Vietcombank</p>
+            <p class="acc">1903 6688 2026</p>
+            <p>NGUYEN DUC MINH</p>
+          </div>
+          <div class="card" data-anim="right">
+            <h4>NHÀ GÁI</h4>
+            <div class="qr"></div>
+            <p>Techcombank</p>
+            <p class="acc">0711 0022 5566</p>
+            <p>LE KHANH LINH</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. thanks -->
+      <section class="thanks">
+        <span class="print" data-anim="zoom"><img src="../../src/static/destiny.jpeg" alt="" /></span>
+        <h2 class="title" data-anim="up">Cảm ơn bạn</h2>
+        <p class="lead" data-anim="up" style="margin: 6px 0 0; font: italic 400 19px/1.5 var(--display); color: var(--soft)">Sự hiện diện của bạn là<br />niềm vui lớn nhất của chúng tôi</p>
+        <div class="foot"></div>
+      </section>
+    </main>
+    <script>
+      // December 2026, weeks starting Monday; the 1st is a Tuesday
+      const cal = document.getElementById("cal");
+      cal.innerHTML =
+        ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => `<b>${d}</b>`).join("") +
+        "<span></span>" +
+        Array.from({ length: 31 }, (_, i) => `<span class="${i + 1 === 26 ? "on" : ""}">${i + 1}</span>`).join("");
+      // stand-in QR codes (the real one is the couple's uploaded image)
+      document.querySelectorAll(".qr").forEach((q, n) => {
+        let s = 7 + n * 13;
+        const r = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+        const eye = (x, y) => [0, 1, 2, 3, 4].some((a) => [0, 1, 2, 3, 4].some((b) => x === a && y === b));
+        q.innerHTML = Array.from({ length: 169 }, (_, i) => {
+          const x = i % 13, y = Math.floor(i / 13);
+          const corner = [[0, 0], [8, 0], [0, 8]].find(([cx, cy]) => x >= cx && x < cx + 5 && y >= cy && y < cy + 5);
+          const on = corner ? (x - corner[0]) % 4 === 0 || (y - corner[1]) % 4 === 0 || (x - corner[0] === 2 && y - corner[1] === 2) : r() > 0.5;
+          return `<i class="${on ? "k" : ""}"></i>`;
+        }).join("");
+      });
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll("[data-anim]").forEach((el, i) => {
+        el.style.transitionDelay = `${(i % 3) * 0.12}s`;
+        io.observe(el);
+      });
+    </script>
+  </body>
+</html>
