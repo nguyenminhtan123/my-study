@@ -1,0 +1,198 @@
+<!doctype html>
+<!-- t33: four photo-frame options for the opening screen, side by side (render with mockup.mjs). -->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/allura/vietnamese-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/latin-400.css" />
+    <link rel="stylesheet" href="../../node_modules/@fontsource/be-vietnam-pro/vietnamese-400.css" />
+    <style>
+      :root {
+        --gold: #e9cf98;
+        --script: "Allura", Georgia, serif;
+        --caps: "Be Vietnam Pro", system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #e9e6e1;
+      }
+      .board {
+        display: flex;
+        gap: 18px;
+        width: max-content;
+        padding: 18px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        height: 844px;
+        overflow: hidden;
+        color: #fff;
+        text-align: center;
+        background: url("video/meadow-poster.jpg") center / cover;
+      }
+      .screen::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(to bottom, rgba(22, 34, 24, 0.42), rgba(22, 34, 24, 0) 22%),
+          linear-gradient(to top, rgba(22, 34, 24, 0.62), rgba(22, 34, 24, 0.18) 34%, rgba(22, 34, 24, 0) 50%);
+      }
+      .screen > * {
+        position: absolute;
+      }
+      .label {
+        left: 8px;
+        top: 6px;
+        z-index: 9;
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.6);
+        font: 500 12px var(--caps);
+      }
+      .kicker {
+        left: 0;
+        right: 0;
+        top: 54px;
+        font: 400 11px/1 var(--caps);
+        letter-spacing: 0.46em;
+      }
+      .names {
+        left: 0;
+        right: 0;
+        top: 512px;
+        font: 400 52px/1.02 var(--script);
+        text-shadow: 0 2px 14px rgba(20, 30, 20, 0.45);
+      }
+      .names span {
+        display: block;
+      }
+      .names .n1 {
+        padding-right: 64px;
+      }
+      .names .n2 {
+        padding-left: 64px;
+      }
+      .names i {
+        margin-right: 8px;
+        font-size: 36px;
+        font-style: normal;
+      }
+      .date {
+        left: 0;
+        right: 0;
+        top: 650px;
+        font: 400 13px/1 var(--caps);
+        letter-spacing: 0.5em;
+      }
+      .photo {
+        left: 63px;
+        top: 108px;
+        width: 264px;
+        height: 370px;
+      }
+      .photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 20%;
+      }
+      .sprig {
+        pointer-events: none;
+      }
+
+      /* A: soft corners, a fine gold line drawn a little outside, sprigs tucked into two corners */
+      .a .photo img {
+        border-radius: 22px;
+        box-shadow: 0 22px 50px -14px rgba(15, 25, 15, 0.6);
+      }
+      .a .photo::before {
+        content: "";
+        position: absolute;
+        inset: -9px;
+        border: 1px solid var(--gold);
+        border-radius: 30px;
+      }
+
+      /* B: leaf shape, two opposite corners fully rounded, gold line offset like a shadow */
+      .b .photo img {
+        border-radius: 130px 14px 130px 14px;
+        box-shadow: 0 22px 50px -14px rgba(15, 25, 15, 0.6);
+      }
+      .b .photo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translate(12px, 12px);
+        border: 1px solid var(--gold);
+        border-radius: 130px 14px 130px 14px;
+      }
+
+      /* C: frosted glass border, like a pane of light over the meadow */
+      .c .photo {
+        padding: 10px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.24);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 22px 50px -14px rgba(15, 25, 15, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+      .c .photo img {
+        border-radius: 19px;
+      }
+
+      /* D: tall arch with a wreath of real wildflowers along the bottom edge */
+      .d .photo img {
+        border-radius: 132px 132px 18px 18px;
+        box-shadow: 0 22px 50px -14px rgba(15, 25, 15, 0.6);
+      }
+      .d .photo::before {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border: 1px solid var(--gold);
+        border-radius: 140px 140px 24px 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <div class="screen a">
+        <div class="label">A · Bo góc + chỉ vàng + nhành hoa cài</div>
+        <div class="kicker">THIỆP MỜI CƯỚI</div>
+        <div class="photo"><img src="../../src/static/cover.webp" alt="" /></div>
+        <img class="sprig" src="art/cosmos.webp" alt="" style="left: 18px; top: 360px; width: 110px; transform: rotate(-18deg)" />
+        <img class="sprig" src="art/blue.webp" alt="" style="right: 26px; top: 64px; width: 74px; transform: rotate(22deg) scaleX(-1)" />
+        <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
+        <div class="date">26 · 12 · 2026</div>
+      </div>
+      <div class="screen b">
+        <div class="label">B · Hình lá + chỉ vàng lệch</div>
+        <div class="kicker">THIỆP MỜI CƯỚI</div>
+        <div class="photo"><img src="../../src/static/cover.webp" alt="" /></div>
+        <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
+        <div class="date">26 · 12 · 2026</div>
+      </div>
+      <div class="screen c">
+        <div class="label">C · Viền kính trong</div>
+        <div class="kicker">THIỆP MỜI CƯỚI</div>
+        <div class="photo"><img src="../../src/static/cover.webp" alt="" /></div>
+        <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
+        <div class="date">26 · 12 · 2026</div>
+      </div>
+      <div class="screen d">
+        <div class="label">D · Vòm cao + chỉ vàng + hoa dưới chân</div>
+        <div class="kicker">THIỆP MỜI CƯỚI</div>
+        <div class="photo"><img src="../../src/static/cover.webp" alt="" /></div>
+        <img class="sprig" src="art/cosmos.webp" alt="" style="left: 34px; top: 380px; width: 104px; transform: rotate(-10deg)" />
+        <img class="sprig" src="art/blue.webp" alt="" style="right: 40px; top: 392px; width: 80px; transform: rotate(12deg)" />
+        <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
+        <div class="date">26 · 12 · 2026</div>
+      </div>
+    </div>
+  </body>
+</html>
