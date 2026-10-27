@@ -227,7 +227,7 @@
         letter-spacing: 0.46em;
         text-transform: uppercase;
         text-shadow: 0 1px 10px rgba(20, 30, 20, 0.5);
-        animation: fade 1.4s ease 0.3s both;
+        animation: fade 1.2s ease 4s both;
       }
       .cover .kicker::after {
         content: "";
@@ -251,7 +251,7 @@
         box-shadow:
           0 22px 50px -14px rgba(15, 25, 15, 0.55),
           inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        animation: land 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
+        animation: land 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 2.4s both;
       }
       .cover .print img {
         border-radius: 19px;
@@ -267,7 +267,7 @@
         height: 140%;
         transform: rotate(18deg);
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
-        animation: glint 6s ease-in-out 2.2s infinite;
+        animation: glint 6s ease-in-out 4s infinite;
       }
       @keyframes glint {
         0% {
@@ -281,11 +281,16 @@
       @keyframes land {
         from {
           opacity: 0;
-          transform: translateY(34px) scale(0.96);
+          transform: translateY(46px) scale(0.92);
+          filter: blur(8px);
+        }
+        60% {
+          filter: blur(0);
         }
         to {
           opacity: 1;
           transform: none;
+          filter: blur(0);
         }
       }
       .cover .names {
@@ -298,29 +303,35 @@
       .cover .names span {
         display: block;
         white-space: nowrap;
-        animation: write 1.6s ease both;
+        animation: write 2s ease-in-out both;
       }
       .cover .names .n1 {
         padding-right: 64px;
-        animation-delay: 1.5s;
+        animation-delay: 4.5s;
       }
       .cover .names .n2 {
         padding-left: 64px;
-        animation-delay: 2s;
+        animation-delay: 5.7s;
       }
       .cover .names i {
         margin-right: 8px;
         font-size: 36px;
         font-style: normal;
       }
+      .cover .names span {
+        -webkit-mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+        mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+        -webkit-mask-size: 240% 100%;
+        mask-size: 240% 100%;
+      }
       @keyframes write {
         from {
-          opacity: 0;
-          clip-path: inset(0 100% 0 0);
+          -webkit-mask-position: 100% 0;
+          mask-position: 100% 0;
         }
         to {
-          opacity: 1;
-          clip-path: inset(0 0 0 0);
+          -webkit-mask-position: 0 0;
+          mask-position: 0 0;
         }
       }
       .cover .date {
@@ -328,7 +339,7 @@
         font: 400 13px/1 var(--caps);
         letter-spacing: 0.5em;
         text-shadow: 0 1px 8px rgba(20, 30, 20, 0.6);
-        animation: fade 1.2s ease 2.8s both;
+        animation: fade 1.2s ease 7.5s both;
       }
       .cover .date::before {
         content: "";
@@ -343,7 +354,7 @@
         font: 400 10px/1 var(--caps);
         letter-spacing: 0.3em;
         opacity: 0.85;
-        animation: fade 1s ease 3.4s both;
+        animation: fade 1s ease 8.2s both;
       }
       .cover .hint::after {
         content: "";
@@ -765,7 +776,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-hold="10500">
     <main class="page">
       <div class="bg">
         <video poster="video/meadow-poster.jpg" autoplay muted loop playsinline>
