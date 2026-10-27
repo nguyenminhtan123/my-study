@@ -41,7 +41,8 @@ await page.waitForTimeout(800);
 const stops = await page.evaluate(() => {
   const out = [];
   for (const s of document.querySelectorAll("section")) {
-    for (let y = s.offsetTop; y < s.offsetTop + s.offsetHeight - 120; y += innerHeight) out.push(y);
+    const top = s.getBoundingClientRect().top + scrollY; // offsetTop is relative to a positioned wrapper
+    for (let y = top; y < top + s.offsetHeight - 120; y += innerHeight) out.push(y);
   }
   return out.length ? out : Array.from({ length: Math.round(document.documentElement.scrollHeight / innerHeight) }, (_, i) => i * innerHeight);
 });
