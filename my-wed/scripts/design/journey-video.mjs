@@ -56,8 +56,8 @@ await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(1000);
 await cdp.send("Page.startScreencast", { format: "jpeg", quality: 90, maxWidth: 780, maxHeight: 1688 });
 recording = true;
-// hold the first screen long enough for its entrance to play out
-await page.waitForTimeout(hold ? 1500 : 4500);
+// hold the first screen long enough for its entrance to play out (a page can ask for more: <body data-hold="ms">)
+await page.waitForTimeout(hold ? 1500 : Number(await page.evaluate(() => document.body.dataset.hold)) || 4500);
 
 // one screen at a time: an eased scroll, then a pause long enough for the flight to land
 // one stop per screen: each section's top, plus a further screen for sections taller than one
