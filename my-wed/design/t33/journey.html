@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   t33 Nắng đồng hoa: mockup as a live page (one 390px phone column).
-  Opening screen: the looping meadow video, the couple's photo laid on it as a clean white-bordered print.
+  Opening screen: the looping meadow video, the couple's photo laid on it in a clear glass frame.
   Below: coded UI on white, with a light pattern of tiny wildflowers and a few real-looking sprigs.
   Video:  node scripts/design/journey-video.mjs design/t33/journey.html <out.mp4>
   Stills: node scripts/design/journey-shots.mjs design/t33/journey.html <out.jpg>
@@ -103,22 +103,25 @@
           -12px 0 0 -1.5px var(--accent),
           12px 0 0 -1.5px var(--accent);
       }
-      /* one photo frame for every photo: a clean print with a white border and a soft shadow */
+      /* one photo frame for every photo: a pane of clear glass (rounded, a bright rim, a faint blush on white) */
       .print {
+        position: relative;
         display: block;
-        padding: 6px;
-        border-radius: 4px;
-        background: #fff;
+        padding: 7px;
+        border-radius: 20px;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(246, 228, 235, 0.6) 55%, rgba(226, 232, 248, 0.6));
+        border: 1px solid rgba(208, 112, 140, 0.22);
         box-shadow:
-          0 1px 2px rgba(47, 70, 55, 0.08),
-          0 14px 30px -10px rgba(47, 70, 55, 0.28);
+          0 1px 2px rgba(47, 70, 55, 0.06),
+          0 16px 32px -14px rgba(47, 70, 55, 0.32),
+          inset 0 1px 0 #fff;
       }
       .print img {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 2px;
+        border-radius: 13px;
       }
       .sprig {
         position: absolute;
@@ -207,15 +210,43 @@
       .cover .print {
         position: absolute;
         left: 61px;
-        top: 104px;
+        top: 100px;
         width: 268px;
-        height: 358px;
-        padding: 7px;
-        box-shadow: 0 22px 50px -12px rgba(15, 25, 15, 0.55);
+        height: 372px;
+        padding: 10px;
+        overflow: hidden;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.24);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 22px 50px -14px rgba(15, 25, 15, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
         animation: land 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
       }
       .cover .print img {
+        border-radius: 19px;
         object-position: 50% 20%;
+      }
+      /* a glint of light crossing the glass, now and then */
+      .cover .print::after {
+        content: "";
+        position: absolute;
+        top: -20%;
+        left: -60%;
+        width: 40%;
+        height: 140%;
+        transform: rotate(18deg);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+        animation: glint 6s ease-in-out 2.2s infinite;
+      }
+      @keyframes glint {
+        0% {
+          left: -60%;
+        }
+        30%,
+        100% {
+          left: 130%;
+        }
       }
       @keyframes land {
         from {
