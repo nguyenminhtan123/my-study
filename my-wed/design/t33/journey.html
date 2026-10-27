@@ -2,7 +2,8 @@
 <!--
   t33 Nắng đồng hoa: mockup as a live page (one 390px phone column).
   Opening screen: the looping meadow video, the couple's photo laid on it in a clear glass frame.
-  Below: coded UI on white, with a light pattern of tiny wildflowers and a few real-looking sprigs.
+  The video stays still behind the whole card; below the opening the coded UI runs inside a white sheet held
+  in a clear glass rim, so the meadow shows around it. The sheet has a light pattern of tiny wildflowers.
   Video:  node scripts/design/journey-video.mjs design/t33/journey.html <out.mp4>
   Stills: node scripts/design/journey-shots.mjs design/t33/journey.html <out.jpg>
 -->
@@ -49,17 +50,59 @@
         background: #e9e6e1;
       }
       .page {
+        position: relative;
         width: 390px;
         margin: 0 auto;
         overflow: hidden;
-        background: var(--bg) var(--pattern) 0 0 / 180px 180px;
         color: var(--ink);
         font-family: var(--display);
         text-align: center;
       }
       section {
         position: relative;
-        padding: 64px 28px;
+        padding: 60px 20px;
+      }
+      /* the meadow video, still behind everything */
+      .bg {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        z-index: 0;
+        width: 390px;
+        height: 100vh;
+        transform: translateX(-50%);
+        background: #2b3a2c;
+      }
+      .bg video,
+      .bg .shade {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .bg .shade {
+        background:
+          linear-gradient(to bottom, rgba(22, 34, 24, 0.42), rgba(22, 34, 24, 0) 22%),
+          linear-gradient(to top, rgba(22, 34, 24, 0.62), rgba(22, 34, 24, 0.18) 34%, rgba(22, 34, 24, 0) 50%);
+      }
+      /* the content: a white sheet in a clear glass rim, the meadow showing around it */
+      .sheet {
+        position: relative;
+        z-index: 1;
+        margin: 0 12px 12px;
+        padding: 7px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.24);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 -10px 40px -10px rgba(15, 25, 15, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+      .paper {
+        overflow: hidden;
+        border-radius: 23px;
+        background: var(--bg) var(--pattern) 0 0 / 180px 180px;
       }
       .caps {
         font: 400 11px/1.6 var(--caps);
@@ -164,24 +207,11 @@
 
       /* ---------- 1. opening: the meadow video, the couple's print on it ---------- */
       .cover {
+        z-index: 1;
         height: 844px;
         padding: 0;
         overflow: hidden;
         color: #fff;
-        background: #2b3a2c;
-      }
-      .cover video,
-      .cover .shade {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .cover .shade {
-        background:
-          linear-gradient(to bottom, rgba(22, 34, 24, 0.42), rgba(22, 34, 24, 0) 22%),
-          linear-gradient(to top, rgba(22, 34, 24, 0.62), rgba(22, 34, 24, 0.18) 34%, rgba(22, 34, 24, 0) 50%);
       }
       .cover .kicker,
       .cover .names,
@@ -372,7 +402,7 @@
       }
       .families p {
         margin: 0;
-        font: 500 16px/1.55 var(--display);
+        font: 500 15px/1.55 var(--display);
         white-space: nowrap;
       }
       .couple {
@@ -472,7 +502,7 @@
       .glade {
         position: relative;
         height: 190px;
-        margin: 26px -28px 0;
+        margin: 26px -20px 0;
         background: url("art/glade.webp") 50% 62% / cover;
         -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
         mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
@@ -709,7 +739,7 @@
       }
       .foot {
         height: 230px;
-        margin: 10px -28px 0;
+        margin: 10px -20px 0;
         background: url("art/glade.webp") 50% 70% / cover;
         -webkit-mask-image: linear-gradient(transparent, #000 55%);
         mask-image: linear-gradient(transparent, #000 55%);
@@ -737,13 +767,15 @@
   </head>
   <body>
     <main class="page">
-      <!-- 1. opening -->
-      <section class="cover">
+      <div class="bg">
         <video poster="video/meadow-poster.jpg" autoplay muted loop playsinline>
           <source src="video/meadow.mp4" type='video/mp4; codecs="avc1.4d401f"' />
           <source src="video/meadow.webm" type="video/webm" />
         </video>
         <div class="shade"></div>
+      </div>
+      <!-- 1. opening -->
+      <section class="cover">
         <div class="kicker">Thiệp mời cưới</div>
         <div class="print"><img src="../../src/static/cover.webp" alt="" /></div>
         <div class="names"><span class="n1">Đức Minh</span><span class="n2"><i>&amp;</i>Khánh Linh</span></div>
@@ -752,6 +784,7 @@
         <div class="fly" style="right: 34px; top: 470px"><img src="art/butterfly.webp" alt="" /></div>
       </section>
 
+      <div class="sheet"><div class="paper">
       <!-- 2. invitation -->
       <section class="invite">
         <img class="sprig" src="art/cosmos.webp" alt="" style="right: -46px; top: -10px; width: 120px" />
@@ -881,6 +914,7 @@
         <p class="lead" data-anim="up" style="margin: 6px 0 0; font: italic 400 19px/1.5 var(--display); color: var(--soft)">Sự hiện diện của bạn là<br />niềm vui lớn nhất của chúng tôi</p>
         <div class="foot"></div>
       </section>
+      </div></div>
     </main>
     <script>
       // December 2026, weeks starting Monday; the 1st is a Tuesday
