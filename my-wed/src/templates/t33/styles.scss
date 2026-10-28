@@ -1,0 +1,816 @@
+// Template 33: Nắng đồng hoa. The owner's looping video of a sunlit wildflower meadow stays still behind the
+// whole card. The opening plays the video alone, then the couple's photo lands in a clear glass frame and the
+// names write themselves in. Below, the content runs on a white sheet held in the same glass rim, so the
+// meadow keeps moving round its edges; a faint pattern of tiny wildflowers and a few real-looking sprigs.
+// Approved mockup: design/t33/journey.html.
+$glade: url("@/static/t33/glade.webp");
+// tiny wildflowers scattered on white: pink cosmos, blue cornflower, gold bud
+$pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg opacity='.38'%3E%3Cg transform='translate(34 40)' fill='%23f2c3d0'%3E%3Cellipse rx='3' ry='6.5' transform='translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(72) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(144) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(216) translate(0 -6)'/%3E%3Cellipse rx='3' ry='6.5' transform='rotate(288) translate(0 -6)'/%3E%3Ccircle r='2.4' fill='%23ecd29a'/%3E%3C/g%3E%3Cg transform='translate(128 98) rotate(20)' fill='%23c5cfee'%3E%3Ccircle r='3.2' cx='0' cy='-4.5'/%3E%3Ccircle r='3.2' cx='4.3' cy='-1.4'/%3E%3Ccircle r='3.2' cx='2.6' cy='3.7'/%3E%3Ccircle r='3.2' cx='-2.6' cy='3.7'/%3E%3Ccircle r='3.2' cx='-4.3' cy='-1.4'/%3E%3Ccircle r='1.8' fill='%23f6e6bf'/%3E%3C/g%3E%3Ccircle cx='80' cy='150' r='2' fill='%23ecd29a'/%3E%3Ccircle cx='160' cy='22' r='1.6' fill='%23f2c3d0'/%3E%3Cpath d='M60 112 q6 -10 14 -12' stroke='%23cfdccb' stroke-width='1.2' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+
+.t33-root {
+  --k-bg: #fffdf9;
+  --k-ink: #2f4637;
+  --k-muted: #6c7a6f;
+  --k-accent: #d0708c;
+  --k-accent2: #6b80c0;
+  --k-line: #ecdfd0;
+  --k-card: transparent;
+  --k-display: "Cormorant Garamond", Georgia, serif;
+  --k-script: "Allura", cursive;
+  --k-body: "Cormorant Garamond", Georgia, serif;
+  --main: #d0708c;
+  --accent: #6b80c0;
+  --gold: #d6b37a;
+  --soft: #6c7a6f;
+  --line: #ecdfd0;
+  --caps: "Be Vietnam Pro", system-ui, sans-serif;
+  padding: 0;
+  background: #2b3a2c;
+  color: var(--k-ink);
+  font-family: var(--k-display);
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: center;
+  overflow-x: hidden;
+  isolation: isolate;
+
+  :where(h1, h2, h3, p) {
+    margin: 0;
+    font-weight: 400;
+  }
+  img {
+    display: block;
+    max-width: none;
+  }
+}
+
+// ---------- reveal on scroll ----------
+.t33-root [data-anim] {
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.t33-root [data-anim="up"] {
+  transform: translateY(26px);
+}
+.t33-root [data-anim="zoom"] {
+  transform: scale(0.94);
+}
+.t33-root [data-anim="left"] {
+  transform: translateX(-30px);
+}
+.t33-root [data-anim="right"] {
+  transform: translateX(30px);
+}
+.t33-root [data-anim].t33-in {
+  opacity: 1;
+  transform: none;
+}
+
+// ---------- the meadow video, still behind everything ----------
+.t33-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  video,
+  .t33-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.t33-shade {
+  background:
+    linear-gradient(to bottom, rgba(22, 34, 24, 0.42), rgba(22, 34, 24, 0) 22%),
+    linear-gradient(to top, rgba(22, 34, 24, 0.62), rgba(22, 34, 24, 0.18) 34%, rgba(22, 34, 24, 0) 50%);
+}
+
+// ---------- shared pieces ----------
+.t33-caps {
+  font: 400 11px/1.6 var(--caps);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.t33-script {
+  font: 400 40px/1.1 var(--k-script);
+  color: var(--main);
+}
+.t33-title {
+  font: 400 46px/1.05 var(--k-script);
+  color: var(--main);
+}
+.t33-lead {
+  font: italic 400 19px/1.5 var(--k-display);
+  color: var(--soft);
+}
+.t33-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 14px auto 0;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 54px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  &::after {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--main);
+    box-shadow:
+      -12px 0 0 -1.5px var(--accent),
+      12px 0 0 -1.5px var(--accent);
+  }
+}
+// the one photo frame: a pane of clear glass (rounded, a bright rim, a faint blush on white)
+.t33-glass {
+  position: relative;
+  padding: 7px;
+  border-radius: 20px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(246, 228, 235, 0.6) 55%, rgba(226, 232, 248, 0.6));
+  border: 1px solid rgba(208, 112, 140, 0.22);
+  box-shadow:
+    0 1px 2px rgba(47, 70, 55, 0.06),
+    0 16px 32px -14px rgba(47, 70, 55, 0.32),
+    inset 0 1px 0 #fff;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+  }
+}
+.t33-sprig {
+  position: absolute;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  animation: t33-sway 5s ease-in-out infinite alternate;
+}
+@keyframes t33-sway {
+  from {
+    rotate: -2deg;
+  }
+  to {
+    rotate: 2deg;
+  }
+}
+
+// ---------- opening ----------
+.t33-cover {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  min-height: 600px;
+  padding: 54px 0 26px;
+  box-sizing: border-box;
+  color: #fff;
+  overflow: hidden;
+}
+.t33-kicker {
+  font: 400 11px/1 var(--caps);
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 10px rgba(20, 30, 20, 0.5);
+  animation: t33-fade 1.2s ease 4s both;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    margin: 12px auto 0;
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
+// the glass on the video: clear, a white rim, and a glint crossing it now and then
+.t33-cover-glass {
+  flex: none;
+  height: min(372px, 46vh);
+  aspect-ratio: 268 / 372;
+  margin-top: 22px;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 22px 50px -14px rgba(15, 25, 15, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-sizing: border-box;
+  animation: t33-land 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 2.4s both;
+
+  img {
+    border-radius: 19px;
+    object-position: 50% 20%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -60%;
+    width: 40%;
+    height: 140%;
+    transform: rotate(18deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+    animation: t33-glint 6s ease-in-out 4s infinite;
+  }
+}
+@keyframes t33-land {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.92);
+    filter: blur(8px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes t33-glint {
+  0% {
+    left: -60%;
+  }
+  30%,
+  100% {
+    left: 130%;
+  }
+}
+// the names write themselves in: a soft leading edge runs along each line, like ink
+.t33-names {
+  width: 100%;
+  margin-top: 26px;
+  font-family: var(--k-script);
+  line-height: 1.02;
+  text-shadow:
+    0 2px 14px rgba(20, 30, 20, 0.45),
+    0 0 2px rgba(20, 30, 20, 0.3);
+
+  span {
+    display: block;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+    mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+    -webkit-mask-size: 240% 100%;
+    mask-size: 240% 100%;
+    animation: t33-write 2s ease-in-out both;
+  }
+  .t33-n1 {
+    padding-right: 64px;
+    animation-delay: 4.5s;
+  }
+  .t33-n2 {
+    padding-left: 64px;
+    animation-delay: 5.7s;
+  }
+  i {
+    margin-right: 8px;
+    font-size: 0.7em;
+    font-style: normal;
+  }
+}
+@keyframes t33-write {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+.t33-date {
+  margin-top: 22px;
+  font: 400 13px/1 var(--caps);
+  letter-spacing: 0.5em;
+  text-shadow: 0 1px 8px rgba(20, 30, 20, 0.6);
+  animation: t33-fade 1.2s ease 7.5s both;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 1px;
+    margin: 0 auto 14px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  }
+}
+.t33-hint {
+  margin-top: auto;
+  font: 400 10px/1 var(--caps);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  animation: t33-fade 1s ease 8.2s both;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 24px;
+    margin: 10px auto 0;
+    background: linear-gradient(#fff, transparent);
+    transform-origin: top;
+    animation: t33-drip 1.8s ease-in-out infinite;
+  }
+}
+@keyframes t33-drip {
+  0% {
+    transform: scaleY(0);
+  }
+  60% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+@keyframes t33-fade {
+  from {
+    opacity: 0;
+  }
+}
+.t33-fly {
+  position: absolute;
+  right: 34px;
+  top: 56%;
+  width: 34px;
+  animation: t33-float 6s ease-in-out infinite alternate;
+
+  img {
+    width: 100%;
+    animation: t33-flap 0.3s ease-in-out infinite alternate;
+  }
+}
+@keyframes t33-flap {
+  to {
+    transform: scaleX(0.4);
+  }
+}
+@keyframes t33-float {
+  to {
+    transform: translate(-30px, -16px) rotate(12deg);
+  }
+}
+
+// ---------- the sheet: white paper in a clear glass rim, the meadow showing round it ----------
+.t33-sheet {
+  position: relative;
+  z-index: 1;
+  margin: 0 12px 12px;
+  padding: 7px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 -10px 40px -10px rgba(15, 25, 15, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.t33-paper {
+  overflow: hidden;
+  border-radius: 23px;
+  background: var(--k-bg) $pattern 0 0 / 180px 180px;
+}
+.t33-sec {
+  position: relative;
+  padding: 60px 20px;
+}
+.t33-gap {
+  margin-top: 30px;
+}
+
+// ---------- families and invitation ----------
+.t33-invite {
+  padding-top: 70px;
+}
+.t33-sprig-tr {
+  right: -50px;
+  top: -44px;
+  width: 104px;
+}
+.t33-invite > .t33-caps:first-of-type {
+  letter-spacing: 0.22em;
+}
+.t33-sprig-bl {
+  left: -40px;
+  bottom: 30px;
+  width: 92px;
+  animation-delay: -2s;
+}
+.t33-sprig-tl {
+  left: -50px;
+  top: 6px;
+  width: 104px;
+  scale: -1 1;
+}
+.t33-fams {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 10px;
+  margin: 22px -8px 0;
+
+  > i {
+    background: linear-gradient(transparent, var(--line), transparent);
+  }
+  b {
+    display: block;
+    margin-bottom: 8px;
+    font: 500 11px/1 var(--caps);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--main);
+  }
+  span {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+}
+.t33-couple {
+  margin-top: 34px;
+
+  h2 {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  p {
+    margin-top: 4px;
+    font: 400 10px/1 var(--caps);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  > i {
+    display: block;
+    margin: 10px 0;
+    font: 400 40px/1 var(--k-script);
+    color: var(--main);
+  }
+}
+.t33-invite-line {
+  margin-top: 40px;
+
+  .t33-guest {
+    margin-top: 8px;
+  }
+  .t33-lead {
+    margin-top: 10px;
+  }
+}
+
+// ---------- date ----------
+.t33-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 26px 0 16px;
+
+  span {
+    width: 92px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font: 500 12px/1.5 var(--caps);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  b {
+    font-size: 84px;
+    font-weight: 500;
+    line-height: 0.9;
+    color: var(--main);
+  }
+}
+.t33-lunar {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--soft);
+}
+
+// ---------- venue ----------
+.t33-glade {
+  height: 190px;
+  margin: 26px -20px 0;
+  background: $glade 50% 62% / cover;
+  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+}
+.t33-venue {
+  h3 {
+    margin-top: 6px;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+}
+.t33-address {
+  max-width: 290px;
+  margin: 6px auto 0;
+  font: 400 13px/1.6 var(--caps);
+  color: var(--soft);
+}
+.t33-actions {
+  margin-top: 20px;
+
+  .k-actions button {
+    padding: 12px 22px;
+    background: var(--main);
+    color: #fff;
+    font: 500 11px/1 var(--caps);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// ---------- album ----------
+.t33-album {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 26px;
+}
+.t33-wide {
+  grid-column: 1 / -1;
+
+  .t33-glass {
+    aspect-ratio: 3 / 2;
+  }
+}
+.t33-tall .t33-glass {
+  aspect-ratio: 3 / 4;
+}
+.t33-low {
+  margin-top: 34px;
+}
+.t33-quote {
+  margin: 26px 10px 0;
+  font: italic 400 19px/1.5 var(--k-display);
+  color: var(--soft);
+}
+
+// ---------- calendar and countdown ----------
+.t33-card {
+  margin-top: 26px;
+  padding: 18px 16px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+}
+.t33-cal {
+  .k-cal {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .k-cal-month {
+    display: none;
+  }
+  .k-cal-grid {
+    font: 400 12px/1 var(--caps);
+    color: var(--k-ink);
+  }
+  // Vietnamese weekday initials in place of the kit's MON..SUN
+  .k-cal-dow {
+    font-size: 0;
+    color: var(--soft);
+
+    &::after {
+      font: 500 10px/1 var(--caps);
+    }
+  }
+  @each $i, $label in (1: "T2", 2: "T3", 3: "T4", 4: "T5", 5: "T6", 6: "T7", 7: "CN") {
+    .k-cal-dow:nth-child(#{$i})::after {
+      content: $label;
+    }
+  }
+  .k-cal-day {
+    height: 32px;
+  }
+  .k-cal-hit {
+    font-weight: 500;
+
+    &::before {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      clip-path: none;
+      background: var(--main);
+      animation: t33-beat 1.6s ease-in-out infinite;
+    }
+  }
+  .k-count {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+
+    div {
+      width: 70px;
+      padding: 14px 0 10px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    b {
+      font-size: 30px;
+      color: var(--main);
+    }
+    span {
+      font: 400 9px/1 var(--caps);
+      letter-spacing: 0.2em;
+    }
+  }
+}
+@keyframes t33-beat {
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    box-shadow: 0 0 0 6px rgba(208, 112, 140, 0.18);
+  }
+}
+
+// ---------- programme ----------
+.t33-program {
+  position: relative;
+  width: 280px;
+  margin: 26px auto 0;
+  text-align: left;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 74px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(var(--gold), var(--line));
+  }
+}
+.t33-step {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 12px 0;
+
+  i {
+    flex: none;
+    width: 11px;
+    height: 11px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--accent);
+    box-sizing: border-box;
+  }
+}
+.t33-step-time {
+  width: 56px;
+  text-align: right;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--main);
+}
+.t33-step-label {
+  font: 500 12px/1.3 var(--caps);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+// ---------- RSVP ----------
+.t33-rsvp {
+  padding-top: 20px;
+
+  .t33-card {
+    margin: 0;
+    padding: 24px 18px;
+    background: #fff;
+  }
+  .k-form {
+    h3 {
+      font-size: 42px;
+    }
+    p {
+      font: 400 12px/1.6 var(--caps);
+    }
+    input,
+    textarea {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--k-bg);
+      font: 400 13px var(--caps);
+    }
+  }
+  .k-chips button {
+    border-color: var(--line);
+    border-radius: 10px;
+    font: 400 12px var(--caps);
+  }
+  .k-chips button.on {
+    border-color: var(--main);
+    background: rgba(208, 112, 140, 0.08);
+    color: var(--main);
+  }
+  .k-submit {
+    padding: 13px 0;
+    border: 0;
+    border-radius: 99px;
+    background: var(--main);
+    color: #fff;
+    font: 500 11px/1 var(--caps);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+}
+
+// ---------- gift ----------
+.t33-gift-art {
+  width: 150px;
+  margin: 18px auto 0;
+}
+.t33-gift {
+  .k-gift {
+    margin-top: 18px;
+  }
+  .k-chips button {
+    border-color: var(--line);
+    font: 400 12px var(--caps);
+  }
+  .k-chips button.on {
+    border-color: var(--main);
+    background: var(--main);
+  }
+  .k-gift-card {
+    border-radius: 16px;
+    border-color: var(--line);
+    background: #fff;
+
+    span,
+    em {
+      font-family: var(--caps);
+    }
+    button {
+      font: 500 11px/1 var(--caps);
+      letter-spacing: 0.14em;
+      padding: 11px 20px;
+    }
+  }
+}
+
+// ---------- thanks ----------
+.t33-thanks {
+  padding-bottom: 0;
+
+  .t33-title {
+    margin-top: 26px;
+  }
+  .t33-lead {
+    margin-top: 6px;
+  }
+}
+.t33-thanks-glass {
+  width: 230px;
+  aspect-ratio: 230 / 306;
+  margin: 0 auto;
+}
+.t33-sign {
+  margin-top: 14px;
+  color: var(--k-ink);
+}
+.t33-foot {
+  height: 230px;
+  margin: 10px -20px 0;
+  background: $glade 50% 70% / cover;
+  -webkit-mask-image: linear-gradient(transparent, #000 55%);
+  mask-image: linear-gradient(transparent, #000 55%);
+}
