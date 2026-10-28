@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Page, useNavigate, useParams } from "zmp-ui";
 
 import MusicPlayer from "@/components/music-player";
+import Preloader from "@/components/preloader";
 import { getTemplate } from "@/templates";
 
 const Chevron = ({ up = false }: { up?: boolean }) => (
@@ -87,6 +88,7 @@ function TemplateDetailPage() {
       </button>
       <MusicPlayer song={demoData.music} />
       <Component data={demoData} />
+      <Preloader key={id} names={[demoData.groom, demoData.bride]} />
     </>
   );
 }

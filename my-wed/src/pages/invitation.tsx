@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Page, useNavigate } from "zmp-ui";
 
 import MusicPlayer from "@/components/music-player";
+import Preloader, { LoadingScreen } from "@/components/preloader";
 import { fetchInvitation, mergeInvitationData } from "@/core/invitations";
 import { WeddingData } from "@/core/types";
 import { getTemplate } from "@/templates";
@@ -45,38 +46,35 @@ const InvitationPage = ({ code }: { code: string }) => {
       <>
         <MusicPlayer song={state.data.music} corner />
         <Component data={state.data} />
+        <Preloader names={[state.data.groom, state.data.bride]} />
       </>
     );
   }
 
+  // the same waiting screen as while the pictures load, so opening an invitation is one smooth wait
+  if (state.kind === "loading") return <LoadingScreen />;
+
   return (
     <Page className="iv-page">
-      {state.kind === "loading" ? (
-        <div className="iv-box">
-          <span className="iv-spin" aria-hidden="true" />
-          <p>Đang mở thiệp…</p>
-        </div>
-      ) : (
-        <div className="iv-box">
-          <h1>
-            {state.kind === "missing"
-              ? "Không tìm thấy thiệp"
-              : "Chưa mở được thiệp"}
-          </h1>
-          <p>
-            {state.kind === "missing"
-              ? "Đường liên kết không đúng hoặc thiệp đã hết hạn."
-              : "Kết nối mạng đang chập chờn, bạn thử mở lại sau ít phút nhé."}
-          </p>
-          <button
-            type="button"
-            className="iv-btn"
-            onClick={() => navigate("/", { replace: true })}
-          >
-            Xem các mẫu thiệp
-          </button>
-        </div>
-      )}
+      <div className="iv-box">
+        <h1>
+          {state.kind === "missing"
+            ? "Không tìm thấy thiệp"
+            : "Chưa mở được thiệp"}
+        </h1>
+        <p>
+          {state.kind === "missing"
+            ? "Đường liên kết không đúng hoặc thiệp đã hết hạn."
+            : "Kết nối mạng đang chập chờn, bạn thử mở lại sau ít phút nhé."}
+        </p>
+        <button
+          type="button"
+          className="iv-btn"
+          onClick={() => navigate("/", { replace: true })}
+        >
+          Xem các mẫu thiệp
+        </button>
+      </div>
     </Page>
   );
 };
