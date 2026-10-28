@@ -38,7 +38,7 @@ Mỗi mẫu mới chọn 1 nhóm, rồi 1 câu chuyện trong nhóm.
 
 
 - **Một màu nền chiếm 65–90%** (nhóm E: 30–50% vì có mảng màu). Màu chính 10–20%, màu nhấn ≤ 10%.
-- **Màu chính là màu trầm, đã pha xám**: độ bão hòa đo được ở mẫu tham chiếu 0,14–0,30. Ví dụ đỏ hồng đất `#c89c96`, xanh rêu `#abae95`, xanh xám `#89a2a7`. Không dùng màu tươi chói.
+- **Màu chính tươi, trong, ấm** (chủ repo nhắc nhiều lần): hồng tươi `#ff7fa8`, cam đào `#ffad8f`, xanh non `#8fcf5a`, vàng bơ `#ffd95e`... **Không dùng tông nhạt pha xám** (hồng tro, tím xám, xanh xám, kem tái): ở Việt Nam nhìn như đồ tang. Tránh neon chói gắt; còn lại cứ tươi. Mẫu cũ đo được độ bão hòa 0,14–0,30 là quá trầm, mẫu mới không lấy làm mốc.
 - **Chữ mang màu chính** (đỏ đô, xanh rêu, nâu), không dùng chữ đen.
 - **Nền không bao giờ phẳng**: vân giấy, lớp màu nước mờ, hoặc họa tiết. Màu kem dao động nhẹ (`#fff7eb` ↔ `#fffdf9`).
 - Nền tối: không dùng đen tuyền; dùng đỏ thẫm `#3a0505`, xanh rêu `#23381e`... có vân và tối dần ở góc.
