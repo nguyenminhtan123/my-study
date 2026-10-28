@@ -9,7 +9,6 @@ import butterfly from "@/static/t33/butterfly.webp";
 import cosmos from "@/static/t33/cosmos.webp";
 import gift from "@/static/t33/gift.webp";
 import meadowPoster from "@/static/t33/meadow-poster.webp";
-import meadow from "@/static/t33/meadow.mp4";
 import { dateParts } from "@/templates/_kit/date";
 import {
   CalendarCard,
@@ -22,6 +21,12 @@ import {
   photoSrc,
   useGuestName,
 } from "@/templates/_kit/sections";
+
+// The moving meadow: the owner's video, kept in Supabase Storage (Zalo will not ship an .mp4 in the app, and
+// iOS needs a host that answers byte-range requests, which the image site does not).
+const MEADOW = import.meta.env.VITE_SUPABASE_URL
+  ? `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/media/templates/t33/meadow-loop.mp4`
+  : "";
 
 // "CHỦ NHẬT" -> "Chủ Nhật"
 const titleCase = (s: string) =>
@@ -86,7 +91,7 @@ const Template33 = ({ data }: { data: WeddingData }) => {
       <div ref={root}>
         {/* the meadow, still behind the whole card */}
         <div className="t33-bg" aria-hidden>
-          <video ref={video} src={meadow} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
+          <video ref={video} src={MEADOW} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
           <div className="t33-shade" />
         </div>
 
