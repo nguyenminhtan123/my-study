@@ -96,3 +96,16 @@ Các hình hoa do chủ repo tạo bằng Google Gemini (theo câu lệnh Claude
 | `gift.webp` | Hộp quà hồng buộc nơ, hoa hồng | Quà mừng |
 | `glasses.webp`, `rings.webp`, `cake.webp` | Ly champagne, nhẫn cưới, bánh cưới | Lịch trình |
 | `petal1.webp`, `petal2.webp` | Cánh hồng | Cánh hoa rơi, tung hoa |
+
+## Mẫu 33 · Nắng đồng hoa (`my-wed/design/t33/`, chép sang `src/static/t33/`)
+
+Video đồng hoa (`design/t33/video/`, bản nén `meadow.mp4` và ảnh chờ `meadow-poster.webp`) do chủ repo tự làm và cho phép dùng. Các tranh còn lại do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo), cùng một câu lệnh phong cách ảnh điện ảnh nắng ngược. Hoa vẽ trên nền trơn rồi tách nền bằng `scripts/design/cutout.py` (rembg, isnet-general-use); bướm vẽ trên nền đen (`--paper dark`). Dùng thương mại được, không bắt buộc ghi nguồn.
+
+| Tệp | Nội dung | Dùng ở |
+| --- | --- | --- |
+| `meadow.mp4`, `meadow-poster.webp` | Đồng hoa dại ngập nắng, chạy lặp | Nền đứng yên sau cả thiệp |
+| `cosmos.webp` | Nhành hoa cánh bướm hồng | Góc phần hai họ, album |
+| `blue.webp` | Nhành hoa xanh và cúc trắng | Góc phần hai họ |
+| `butterfly.webp` | Bướm trắng | Màn hình đầu |
+| `gift.webp` | Bó hoa dại gói giấy kraft | Quà mừng |
+| `glade.webp` | Đồng hoa nắng chiều | Địa điểm, cuối thiệp |

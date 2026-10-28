@@ -31,6 +31,7 @@ export const TEMPLATES: TemplateInfo[] = [
   { id: "t30", name: "Mẫu 30 · Bình minh biển", photos: ["cover", "destiny"] },
   { id: "t31", name: "Mẫu 31 · Lễ đường", photos: ["cover", "destiny"] },
   { id: "t32", name: "Mẫu 32 · Hoa hồng pastel", photos: ["cover", "destiny"] },
+  { id: "t33", name: "Mẫu 33 · Nắng đồng hoa", photos: ["cover", "destiny"] },
 ];
 
 export const PHOTO_LABELS: Record<string, string> = {
