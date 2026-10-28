@@ -58,4 +58,5 @@ Diversity check before going on: compare with every row of `docs/templates-regis
 1. `node scripts/design/shots.mjs tNN <scratchpad>/tNN`, compare with the mockup, fix (at most 2 rounds), re-check `palette.py`.
 2. Add the template's row to `docs/templates-register.md` and its art sources to `docs/CREDITS.md`.
 3. Send the screenshot strip (no video) and a short report.
-4. Commit on `main`, push, sync `claude/commit-folder-to-repo-lnvcke` (CLAUDE.md). Art, mockup HTML, template, register are committed; rendered images are not. Remind the owner that the mini app (and admin, if changed) needs a deploy, and deploy only when told.
+4. Upload the new images to the media site before pushing: `CLOUDFLARE_API_TOKEN=<scratchpad cf/pages-token> CLOUDFLARE_ACCOUNT_ID=<scratchpad cf/account> npm run media` (in `my-wed/`). A build serves template images from that site (`scripts/remote-media.mjs`) and fails if one is missing, so the owner's deploy would stop.
+5. Commit on `main`, push, sync `claude/commit-folder-to-repo-lnvcke` (CLAUDE.md). Art, mockup HTML, template, register are committed; rendered images are not. Remind the owner that the mini app (and admin, if changed) needs a deploy, and deploy only when told.
