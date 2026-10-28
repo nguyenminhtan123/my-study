@@ -258,9 +258,12 @@
         width: 58%;
         height: 76.4%;
       }
+      /* through the doorway: the sky of the card, glowing at the edges, as if the other side were already
+         the invitation */
       .door .light {
         opacity: 0;
-        background: radial-gradient(ellipse at 50% 60%, #fff 0 35%, #ffe9f1 65%, #ffc9dc);
+        background: url("video/sky.webp") 55% 30% / auto 100% no-repeat;
+        box-shadow: inset 0 0 6px 2px rgba(255, 244, 248, 0.9);
         transition: opacity 0.3s;
       }
       .open .door .light {
@@ -275,6 +278,18 @@
       .open .door .leaf {
         transform: rotateY(-82deg);
         box-shadow: -6px 0 14px rgba(120, 50, 80, 0.25);
+      }
+      /* the leaf darkens as it turns away from the light */
+      .door .leaf::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(110, 40, 75, 0.45), rgba(110, 40, 75, 0.12));
+        opacity: 0;
+        transition: opacity 1.4s ease;
+      }
+      .open .door .leaf::after {
+        opacity: 1;
       }
       /* a soft halo inviting the tap */
       .halo {
@@ -343,16 +358,10 @@
         }
       }
       /* the light floods the screen as we pass through */
-      .flash {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at var(--cx) var(--cy), #fff 0 30%, #ffeaf2);
+      /* once the doorway fills the screen, the opening melts into the card's own sky behind it */
+      .intro.fade {
         opacity: 0;
-        transition: opacity 1s ease 0.5s;
-        pointer-events: none;
-      }
-      .through .flash {
-        opacity: 1;
+        transition: opacity 0.7s ease;
       }
 
       /* ================= first screen: a bright pastel sky ================= */
@@ -681,7 +690,6 @@
           <h1>Đức Minh<br />&amp; Khánh Linh</h1>
         </div>
         <div class="tap">CHẠM VÀO CÁNH CỬA</div>
-        <div class="flash"></div>
       </div>
 
       <!-- first screen -->
@@ -845,9 +853,10 @@
         setTimeout(() => intro.classList.add("open"), 2100);
         setTimeout(() => intro.classList.add("through"), 3200);
         setTimeout(() => {
-          intro.classList.add("gone");
+          intro.classList.add("fade");
           document.querySelectorAll(".cover [data-anim]").forEach((el) => el.classList.add("in"));
-        }, 4700);
+        }, 4300);
+        setTimeout(() => intro.classList.add("gone"), 5100);
       });
 
       // December 2026, weeks starting Monday; the 1st is a Tuesday
