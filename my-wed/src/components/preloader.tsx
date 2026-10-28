@@ -1,37 +1,89 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
 
 // How long a guest may wait at most, and how long the screen stays at least (no flash when cached).
 const MAX_WAIT = 8000;
 const MIN_SHOW = 700;
 
-/** The waiting screen itself: a beating heart, the couple's names, and how far loading has got. */
+/** Colours and handwriting font of the template being opened (its `--k-*` variables), if it sets them. */
+type Theme = {
+  bg?: string;
+  ink?: string;
+  muted?: string;
+  accent?: string;
+  script?: string;
+};
+
+const DEFAULT_SCRIPT = '"Great Vibes", cursive';
+
+/**
+ * The template's page. While the router slides it in, the page we came from (the gallery) is still in
+ * the document, after it.
+ */
+const templatePage = () =>
+  [...document.querySelectorAll(".zaui-page")].find(
+    (p) => !p.classList.contains("gl-page") && !p.classList.contains("iv-page"),
+  );
+
+/** Reads the theme off the template page that has just mounted. */
+const readTheme = (): Theme => {
+  const page = templatePage();
+  if (!page) return {};
+  const style = getComputedStyle(page);
+  const get = (name: string) =>
+    style.getPropertyValue(name).trim() || undefined;
+  return {
+    bg: get("--k-bg"),
+    ink: get("--k-ink"),
+    muted: get("--k-muted"),
+    accent: get("--k-accent"),
+    script: get("--k-script"),
+  };
+};
+
+/**
+ * The waiting screen itself: a beating heart, the couple's names, and how far loading has got,
+ * in the colours and handwriting of the template being opened.
+ */
 export const LoadingScreen = ({
   names,
   progress,
   leaving = false,
+  theme = {},
 }: {
   /** groom and bride */
   names?: [string, string];
   /** 0..1, or undefined while there is nothing to count yet */
   progress?: number;
   leaving?: boolean;
+  theme?: Theme;
 }) => {
+  const script = theme.script ?? DEFAULT_SCRIPT;
   // the names wait for their handwriting font, so they never flash up in a plain one first
   const [font, setFont] = useState(false);
   useEffect(() => {
     let alive = true;
+    setFont(false);
     const show = () => alive && setFont(true);
-    document.fonts.load('40px "Great Vibes"').then(show, show);
+    document.fonts.load(`40px ${script}`).then(show, show);
     const t = window.setTimeout(show, 1500);
     return () => {
       alive = false;
       window.clearTimeout(t);
     };
-  }, []);
+  }, [script]);
+
+  const vars = {
+    "--pl-bg": theme.bg,
+    "--pl-ink": theme.ink,
+    "--pl-muted": theme.muted,
+    "--pl-accent": theme.accent,
+    "--pl-script": script,
+  } as CSSProperties;
 
   return (
     <div
       className={`pl-screen ${leaving ? "pl-leave" : ""} ${font ? "pl-font" : ""}`}
+      style={vars}
       role="status"
     >
       <svg className="pl-heart" viewBox="0 0 32 29" aria-hidden="true">
@@ -80,6 +132,9 @@ const videoReady = (video: HTMLVideoElement) =>
  */
 const Preloader = ({ names }: { names: [string, string] }) => {
   const [progress, setProgress] = useState(0);
+  // before the first paint, so the screen never shows in the default colours first
+  const [theme, setTheme] = useState<Theme>();
+  useLayoutEffect(() => setTheme(readTheme()), []);
   // the bar creeps on by itself too (toward 90%), so it never sits still while a big file loads
   const [creep, setCreep] = useState(0);
   const [phase, setPhase] = useState<"wait" | "leave" | "gone">("wait");
@@ -94,8 +149,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
     );
     // the template has mounted by the next frame; gather what it shows
     const frame = requestAnimationFrame(() => {
-      const pages = document.querySelectorAll(".zaui-page");
-      const page = pages[pages.length - 1] ?? document.body;
+      const page = templatePage() ?? document.body;
       const images = new Set<string>();
       page
         .querySelectorAll("img")
@@ -144,9 +198,15 @@ const Preloader = ({ names }: { names: [string, string] }) => {
   }, [phase]);
 
   if (phase === "gone") return null;
+  if (!theme) return null;
   const shown = phase === "leave" ? 1 : Math.max(progress, creep);
   return (
-    <LoadingScreen names={names} progress={shown} leaving={phase === "leave"} />
+    <LoadingScreen
+      theme={theme}
+      names={names}
+      progress={shown}
+      leaving={phase === "leave"}
+    />
   );
 };
 
