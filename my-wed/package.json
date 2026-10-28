@@ -18,7 +18,8 @@
     "login": "zmp login",
     "start": "zmp start",
     "deploy": "zmp deploy",
-    "music": "node scripts/music.mjs"
+    "music": "node scripts/music.mjs",
+    "media": "node scripts/media-upload.mjs"
   },
   "dependencies": {
     "@fontsource/allura": "^5.3.0",

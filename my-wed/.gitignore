@@ -45,3 +45,4 @@ music-src/
 
 # Cached zmp-ui icon font for the design scripts
 scripts/design/.cache/
+media-dist/
