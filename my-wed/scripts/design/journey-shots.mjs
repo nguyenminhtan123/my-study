@@ -37,6 +37,17 @@ const page = await browser.newPage({ viewport: { width: 390, height: 844 }, devi
 await page.goto(url);
 await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(800);
+// an opening the guest taps (<div data-opener>): shoot it closed, tap it, let it play
+const opener = await page.$("[data-opener]");
+const first = [];
+if (opener) {
+  const file = join(dir, "intro.png");
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: file });
+  first.push(file);
+  await opener.click();
+  await page.waitForTimeout(Number(await page.evaluate(() => document.body.dataset.openMs)) || 5500);
+}
 // one stop per screen: each section's top, plus a further screen for sections taller than one
 const stops = await page.evaluate(() => {
   const out = [];
@@ -46,7 +57,7 @@ const stops = await page.evaluate(() => {
   }
   return out.length ? out : Array.from({ length: Math.round(document.documentElement.scrollHeight / innerHeight) }, (_, i) => i * innerHeight);
 });
-const files = [];
+const files = [...first];
 for (const [i, y] of stops.entries()) {
   await page.evaluate((top) => scrollTo(0, top), y);
   await page.waitForTimeout(2600);

@@ -58,6 +58,11 @@ await cdp.send("Page.startScreencast", { format: "jpeg", quality: 90, maxWidth: 
 recording = true;
 // hold the first screen long enough for its entrance to play out (a page can ask for more: <body data-hold="ms">)
 await page.waitForTimeout(hold ? 1500 : Number(await page.evaluate(() => document.body.dataset.hold)) || 4500);
+// an opening the guest taps (<div data-opener>): tap it and let it play (data-open-ms, default 5500)
+if (!hold && (await page.$("[data-opener]"))) {
+  await page.click("[data-opener]");
+  await page.waitForTimeout(Number(await page.evaluate(() => document.body.dataset.openMs)) || 5500);
+}
 
 // one screen at a time: an eased scroll, then a pause long enough for the flight to land
 // one stop per screen: each section's top, plus a further screen for sections taller than one
