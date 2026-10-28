@@ -220,7 +220,8 @@
         transition: transform 1.4s cubic-bezier(0.6, 0, 0.4, 1);
       }
 
-      /* the door drawn over the video's door; it takes over as the camera arrives */
+      /* the video's own door, sharpened (4x upscale of its frame), laid over it; it takes over as the camera
+         arrives. Its edges fade into the video around it. Leaf box inside the picture: x 21-79%, y 12.4-88.8% */
       .door {
         position: absolute;
         left: var(--dl);
@@ -229,80 +230,60 @@
         height: var(--dh);
         opacity: 0;
         transition: opacity 0.6s ease 1.3s;
-        perspective: 320px;
+        perspective: 420px;
       }
       .near .door {
         opacity: 1;
       }
-      /* behind the leaf: the light of the other side */
-      .door .light {
-        position: absolute;
-        inset: 6% 7% 0;
-        background: radial-gradient(ellipse at 50% 60%, #fff 0 35%, #ffe9f1 60%, #ffc9dc);
+      .door .photo,
+      .door .leaf {
+        background: url("video/door-near.webp") 0 0 / var(--dw) var(--dh) no-repeat;
       }
-      .door .casing {
+      .door .photo {
         position: absolute;
         inset: 0;
-        border: solid #f4bccb;
-        border-width: calc(var(--dw) * 0.07) calc(var(--dw) * 0.07) 0;
-        border-radius: 1px;
-        box-shadow:
-          inset 0 0 0 0.5px rgba(150, 70, 100, 0.35),
-          0 0 0 0.5px rgba(150, 70, 100, 0.25);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent),
+          linear-gradient(transparent, #000 10%, #000 86%, transparent);
+        -webkit-mask-composite: source-in;
+        mask-image: linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent),
+          linear-gradient(transparent, #000 10%, #000 86%, transparent);
+        mask-composite: intersect;
       }
+      /* behind the leaf: the light of the other side */
+      .door .light,
       .door .leaf {
         position: absolute;
-        inset: 6% 7% 0;
-        transform-origin: 0 50%;
+        left: 21%;
+        top: 12.4%;
+        width: 58%;
+        height: 76.4%;
+      }
+      .door .light {
+        opacity: 0;
+        background: radial-gradient(ellipse at 50% 60%, #fff 0 35%, #ffe9f1 65%, #ffc9dc);
+        transition: opacity 0.3s;
+      }
+      .open .door .light {
+        opacity: 1;
+      }
+      /* the leaf, cut from the same picture; hinged on the right (the latch is on the left), it swings inward */
+      .door .leaf {
+        background-position: calc(var(--dw) * -0.21) calc(var(--dh) * -0.124);
+        transform-origin: 100% 50%;
         transition: transform 1.4s cubic-bezier(0.5, 0, 0.3, 1);
-        background: linear-gradient(90deg, #f3b4c6, #f7c3d1 55%, #efadc1);
-        box-shadow: inset 0 0 0 0.5px rgba(150, 70, 100, 0.3);
       }
-      /* it swings inward, away from us, on its left hinge */
       .open .door .leaf {
-        transform: rotateY(82deg);
-      }
-      /* four raised panels, as on the video's door */
-      .leaf i {
-        position: absolute;
-        left: 13%;
-        width: 31%;
-        border-radius: 0.5px;
-        background: linear-gradient(160deg, #f9cfda, #efb0c3);
-        box-shadow:
-          inset 0.4px 0.4px 0 rgba(255, 255, 255, 0.8),
-          inset -0.5px -0.5px 0 rgba(160, 70, 100, 0.35);
-      }
-      .leaf i:nth-child(2),
-      .leaf i:nth-child(4) {
-        left: 56%;
-      }
-      .leaf i:nth-child(1),
-      .leaf i:nth-child(2) {
-        top: 7%;
-        height: 42%;
-      }
-      .leaf i:nth-child(3),
-      .leaf i:nth-child(4) {
-        top: 56%;
-        height: 37%;
-      }
-      .leaf b {
-        position: absolute;
-        right: 8%;
-        top: 51%;
-        width: 5%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, #fff3cf, var(--gold) 60%, #b98a3a);
+        transform: rotateY(-82deg);
+        box-shadow: -6px 0 14px rgba(120, 50, 80, 0.25);
       }
       /* a soft halo inviting the tap */
       .halo {
         position: absolute;
-        left: calc(var(--dl) - 12px);
-        top: calc(var(--dt) - 12px);
-        width: calc(var(--dw) + 24px);
-        height: calc(var(--dh) + 12px);
+        /* round the door's casing, which sits at x 15.6-84.4%, y 9.1-88.9% of the door picture */
+        left: calc(var(--dl) + var(--dw) * 0.156 - 10px);
+        top: calc(var(--dt) + var(--dh) * 0.091 - 10px);
+        width: calc(var(--dw) * 0.688 + 20px);
+        height: calc(var(--dh) * 0.798 + 10px);
         border-radius: 8px 8px 0 0;
         box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9);
         animation: halo 2.2s ease-out infinite;
@@ -689,9 +670,9 @@
             <source src="video/door.webm" type="video/webm" />
           </video>
           <div class="door">
+            <div class="photo"></div>
             <div class="light"></div>
-            <div class="leaf"><i></i><i></i><i></i><i></i><b></b></div>
-            <div class="casing"></div>
+            <div class="leaf"></div>
           </div>
         </div>
         <div class="halo"></div>
@@ -829,8 +810,9 @@
       </section>
     </main>
     <script>
-      // the video's door, as a share of the video frame (720 x 1280): casing x 296-428, y 462-724
-      const DOOR = { x: 296 / 720, y: 462 / 1280, w: 132 / 720, h: 262 / 1280 };
+      // the sharpened door picture covers this box of the video frame (720 x 1280): x 266-458, y 432-760;
+      // the door's casing itself is 262 of its 328 px height
+      const DOOR = { x: 266 / 720, y: 432 / 1280, w: 192 / 720, h: 328 / 1280 };
       const intro = document.getElementById("intro");
       const place = () => {
         // the video covers the screen: scale to fill, centred
@@ -851,7 +833,7 @@
         st.setProperty("--cx", dl + dw / 2 + "px");
         st.setProperty("--cy", dt + dh / 2 + "px");
         // close enough that the door stands about two thirds of the screen tall
-        st.setProperty("--zoom", (H * 0.66) / dh);
+        st.setProperty("--zoom", (H * 0.66) / (dh * (262 / 328)));
       };
       place();
       addEventListener("resize", place);
