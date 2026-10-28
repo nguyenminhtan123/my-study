@@ -4,18 +4,7 @@ import { useEffect, useState } from "react";
 const MAX_WAIT = 8000;
 const MIN_SHOW = 700;
 
-// a slender heart in a 100 x 90 box
-const HEART =
-  "M50 86C21 65 3 47 3 27 3 13 13.5 3 27 3 37 3 45 9 50 18 55 9 63 3 73 3 86.5 3 97 13 97 27 97 47 79 65 50 86Z";
-// four wavelengths (50 units each) from x -50 to 150, so it still covers the heart when slid one
-// wavelength; the water below the crest runs well past the heart's foot
-const WAVE = "M-50 0q12.5-5 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0V120H-50Z";
-
-/**
- * The waiting screen itself: the groom's name, a heart, the bride's name. The heart is the progress:
- * water rises in it with a moving wave, the percentage in the middle (while there is nothing to count
- * yet, the tide just rises and falls).
- */
+/** The waiting screen itself: a beating heart, the couple's names, and how far loading has got. */
 export const LoadingScreen = ({
   names,
   progress,
@@ -44,51 +33,23 @@ export const LoadingScreen = ({
     <div
       className={`pl-screen ${leaving ? "pl-leave" : ""} ${font ? "pl-font" : ""}`}
       role="status"
-      aria-label="Đang mở thiệp"
     >
-      {names && <p className="pl-name">{names[0]}</p>}
-      <svg
-        className={`pl-heart ${progress === undefined ? "pl-wait" : ""}`}
-        viewBox="0 0 100 90"
-        aria-hidden="true"
-      >
-        <defs>
-          <clipPath id="pl-clip">
-            <path d={HEART} />
-          </clipPath>
-          <linearGradient id="pl-water" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#fbd3db" />
-            <stop offset="1" stopColor="#ec9db0" />
-          </linearGradient>
-        </defs>
-        <path className="pl-inside" d={HEART} />
-        <g clipPath="url(#pl-clip)">
-          <g
-            className="pl-level"
-            style={
-              progress === undefined
-                ? undefined
-                : // the heart narrows to its foot, so the water climbs a little faster there
-                  { transform: `translateY(${90 - 96 * progress ** 0.75}px)` }
-            }
-          >
-            <g className="pl-slosh">
-              <path className="pl-wave pl-wave-back" d={WAVE} />
-              <path className="pl-wave" d={WAVE} fill="url(#pl-water)" />
-            </g>
-          </g>
-        </g>
-        <path className="pl-line" d={HEART} />
-        {/* the glint of light on glass */}
-        <path className="pl-glint" d="M20 13C13 16 9.5 22 10 30" />
-        {progress !== undefined && (
-          <text className="pl-num" x="50" y="44">
-            {Math.round(progress * 100)}
-            <tspan>%</tspan>
-          </text>
-        )}
+      <svg className="pl-heart" viewBox="0 0 32 29" aria-hidden="true">
+        <path d="M16 28C-6 14 2-2 16 6.5 30-2 38 14 16 28Z" />
       </svg>
-      {names && <p className="pl-name">{names[1]}</p>}
+      {names && (
+        <p className="pl-names">
+          <span>{names[0]}</span>
+          <span>&amp; {names[1]}</span>
+        </p>
+      )}
+      <p className="pl-caps">Đang mở thiệp</p>
+      <div className="pl-bar">
+        <i style={{ width: `${Math.round((progress ?? 0.08) * 100)}%` }} />
+      </div>
+      {progress !== undefined && (
+        <p className="pl-pct">{Math.round(progress * 100)}%</p>
+      )}
     </div>
   );
 };
