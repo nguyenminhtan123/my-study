@@ -5,11 +5,15 @@ const MAX_WAIT = 8000;
 const MIN_SHOW = 700;
 
 const HEART = "M16 28C-6 14 2-2 16 6.5 30-2 38 14 16 28Z";
+// four wavelengths (17 units each) from x -17 to 51, so it still covers the heart when slid one wavelength
+// either way; the water below the crest runs well past the heart's foot
+const WAVE =
+  "M-17 0q4.25-2.4 8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0V40H-17Z";
 
 /**
  * The waiting screen itself: the groom's name, a heart, the bride's name. The heart is the progress:
- * it fills with red from the bottom as the pictures load (or keeps filling and emptying while there is
- * nothing to count yet).
+ * water rises in it with a moving wave, the percentage in the middle (while there is nothing to count
+ * yet, the tide just rises and falls).
  */
 export const LoadingScreen = ({
   names,
@@ -21,27 +25,74 @@ export const LoadingScreen = ({
   /** 0..1, or undefined while there is nothing to count yet */
   progress?: number;
   leaving?: boolean;
-}) => (
-  <div className={`pl-screen ${leaving ? "pl-leave" : ""}`} role="status" aria-label="Đang mở thiệp">
-    {names && <p className="pl-name">{names[0]}</p>}
-    <div className={`pl-heart ${progress === undefined ? "pl-wait" : ""}`} aria-hidden="true">
-      <svg viewBox="-1 -1 34 31">
-        <path className="pl-line" d={HEART} />
-      </svg>
+}) => {
+  // the names wait for their handwriting font, so they never flash up in a plain one first
+  const [font, setFont] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    const show = () => alive && setFont(true);
+    document.fonts.load('40px "Great Vibes"').then(show, show);
+    const t = window.setTimeout(show, 1500);
+    return () => {
+      alive = false;
+      window.clearTimeout(t);
+    };
+  }, []);
+
+  return (
+    <div
+      className={`pl-screen ${leaving ? "pl-leave" : ""} ${font ? "pl-font" : ""}`}
+      role="status"
+      aria-label="Đang mở thiệp"
+    >
+      {names && <p className="pl-name">{names[0]}</p>}
       <svg
+        className={`pl-heart ${progress === undefined ? "pl-wait" : ""}`}
         viewBox="-1 -1 34 31"
-        className="pl-fill"
-        style={progress === undefined ? undefined : { clipPath: `inset(${Math.round((1 - progress) * 100)}% 0 0 0)` }}
+        aria-hidden="true"
       >
-        <path d={HEART} />
+        <defs>
+          <clipPath id="pl-clip">
+            <path d={HEART} />
+          </clipPath>
+          <linearGradient id="pl-water" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#f7b9c4" />
+            <stop offset="1" stopColor="#e07b93" />
+          </linearGradient>
+        </defs>
+        <path className="pl-inside" d={HEART} />
+        <g clipPath="url(#pl-clip)">
+          <g
+            className="pl-level"
+            style={
+              progress === undefined
+                ? undefined
+                : { transform: `translateY(${32 - 35 * progress}px)` }
+            }
+          >
+            <g className="pl-slosh">
+              <path className="pl-wave pl-wave-back" d={WAVE} />
+              <path className="pl-wave" d={WAVE} fill="url(#pl-water)" />
+            </g>
+          </g>
+        </g>
+        <path className="pl-line" d={HEART} />
+        {progress !== undefined && (
+          <text className="pl-num" x="16" y="14.5">
+            {Math.round(progress * 100)}
+            <tspan>%</tspan>
+          </text>
+        )}
       </svg>
+      {names && <p className="pl-name">{names[1]}</p>}
     </div>
-    {names && <p className="pl-name">{names[1]}</p>}
-  </div>
-);
+  );
+};
 
 const urlsIn = (value: string) =>
-  [...value.matchAll(/url\(["']?([^"')]+)["']?\)/g)].map((m) => m[1]).filter((u) => !u.startsWith("data:"));
+  [...value.matchAll(/url\(["']?([^"')]+)["']?\)/g)]
+    .map((m) => m[1])
+    .filter((u) => !u.startsWith("data:"));
 
 const loadImage = (src: string) =>
   new Promise<void>((done) => {
@@ -72,29 +123,44 @@ const Preloader = ({ names }: { names: [string, string] }) => {
     document.body.classList.add("pl-hold");
     let alive = true;
     const started = Date.now();
-    const creeping = window.setInterval(() => setCreep(0.9 * (1 - Math.exp(-(Date.now() - started) / 2500))), 200);
+    const creeping = window.setInterval(
+      () => setCreep(0.9 * (1 - Math.exp(-(Date.now() - started) / 2500))),
+      200,
+    );
     // the template has mounted by the next frame; gather what it shows
     const frame = requestAnimationFrame(() => {
       const pages = document.querySelectorAll(".zaui-page");
       const page = pages[pages.length - 1] ?? document.body;
       const images = new Set<string>();
-      page.querySelectorAll("img").forEach((img) => img.currentSrc && images.add(img.currentSrc));
+      page
+        .querySelectorAll("img")
+        .forEach((img) => img.currentSrc && images.add(img.currentSrc));
       page.querySelectorAll<HTMLElement>("*").forEach((el) => {
         for (const pseudo of [null, "::before", "::after"]) {
           const bg = getComputedStyle(el, pseudo).backgroundImage;
           if (bg && bg !== "none") urlsIn(bg).forEach((u) => images.add(u));
         }
       });
-      const tasks = [...[...images].map(loadImage), ...[...page.querySelectorAll("video")].map(videoReady)];
+      const tasks = [
+        ...[...images].map(loadImage),
+        ...[...page.querySelectorAll("video")].map(videoReady),
+      ];
       let done = 0;
-      const tick = () => alive && setProgress(tasks.length ? done / tasks.length : 1);
+      const tick = () =>
+        alive && setProgress(tasks.length ? done / tasks.length : 1);
       tasks.forEach((t) => t.then(() => (done++, tick())));
       tick();
       const finish = () => {
         if (!alive) return;
-        window.setTimeout(() => alive && setPhase("leave"), Math.max(0, MIN_SHOW - (Date.now() - started)));
+        window.setTimeout(
+          () => alive && setPhase("leave"),
+          Math.max(0, MIN_SHOW - (Date.now() - started)),
+        );
       };
-      Promise.race([Promise.all(tasks), new Promise((r) => window.setTimeout(r, MAX_WAIT))]).then(finish);
+      Promise.race([
+        Promise.all(tasks),
+        new Promise((r) => window.setTimeout(r, MAX_WAIT)),
+      ]).then(finish);
     });
     return () => {
       alive = false;
@@ -114,7 +180,9 @@ const Preloader = ({ names }: { names: [string, string] }) => {
 
   if (phase === "gone") return null;
   const shown = phase === "leave" ? 1 : Math.max(progress, creep);
-  return <LoadingScreen names={names} progress={shown} leaving={phase === "leave"} />;
+  return (
+    <LoadingScreen names={names} progress={shown} leaving={phase === "leave"} />
+  );
 };
 
 export default Preloader;
