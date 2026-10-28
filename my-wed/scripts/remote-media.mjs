@@ -19,7 +19,7 @@ export const remoteMedia = () => {
   const files = [];
   return {
     name: "remote-media",
-    apply: () => ENABLED || Boolean(process.env.MEDIA_SKIP_CHECK),
+    apply: (_, { command }) => command === "build" && (ENABLED || Boolean(process.env.MEDIA_SKIP_CHECK)),
     config: () => ({
       experimental: {
         renderBuiltUrl: (filename) => (REMOTE.test(filename) ? `${MEDIA_URL}/${filename}` : undefined),
