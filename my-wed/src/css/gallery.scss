@@ -294,8 +294,8 @@
   justify-content: center;
   gap: 10px;
   padding: 24px;
-  background: #fbf7f2;
-  color: #4a3530;
+  background: var(--pl-bg, #fbf7f2);
+  color: var(--pl-ink, #4a3530);
   text-align: center;
   transition:
     opacity 0.6s ease,
@@ -308,7 +308,7 @@
 }
 .pl-heart {
   width: 34px;
-  fill: #d0708c;
+  fill: var(--pl-accent, #d0708c);
   animation: pl-beat 1.2s ease-in-out infinite;
 }
 @keyframes pl-beat {
@@ -328,8 +328,8 @@
 }
 .pl-names {
   margin: 6px 0 0;
-  font: 400 38px/1.15 "Great Vibes", cursive;
-  color: #8a5a5a;
+  font: 400 38px/1.15 var(--pl-script, "Great Vibes", cursive);
+  color: var(--pl-ink, #8a5a5a);
   text-align: center;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -351,7 +351,7 @@
   font: 400 10.5px/1 "Be Vietnam Pro", sans-serif;
   letter-spacing: 0.36em;
   text-transform: uppercase;
-  color: #a08a84;
+  color: var(--pl-muted, #a08a84);
 }
 .pl-bar {
   width: 150px;
@@ -359,19 +359,28 @@
   margin-top: 8px;
   overflow: hidden;
   border-radius: 2px;
-  background: #efe3dc;
+  position: relative;
 
+  // the track: the muted colour, faint
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--pl-muted, #a08a84);
+    opacity: 0.22;
+  }
   i {
+    position: relative;
     display: block;
     height: 100%;
-    background: linear-gradient(90deg, #e8b9a6, #d0708c);
+    background: var(--pl-accent, #d0708c);
     transition: width 0.4s ease;
   }
 }
 .pl-pct {
   margin: 0;
   font: 400 11px/1 "Be Vietnam Pro", sans-serif;
-  color: #b39d97;
+  color: var(--pl-muted, #b39d97);
 }
 // while it shows, the template's CSS animations wait at their start, so the opening plays in full after
 body.pl-hold .zaui-page *,
