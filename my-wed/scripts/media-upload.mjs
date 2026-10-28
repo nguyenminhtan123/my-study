@@ -1,4 +1,4 @@
-// Upload the template images and videos to the media site (Cloudflare Pages), see scripts/remote-media.mjs.
+// Upload the template images to the media site (Cloudflare Pages), see scripts/remote-media.mjs.
 // Builds the app (which writes the hashed files to media-dist/), keeps every file already on the site so
 // mini app versions still live keep working, then deploys the lot.
 // Run: npm run media     (needs CLOUDFLARE_API_TOKEN with Cloudflare Pages: Edit, and CLOUDFLARE_ACCOUNT_ID)
