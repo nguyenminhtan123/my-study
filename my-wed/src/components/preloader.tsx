@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 const MAX_WAIT = 8000;
 const MIN_SHOW = 700;
 
-const HEART = "M16 28C-6 14 2-2 16 6.5 30-2 38 14 16 28Z";
-// four wavelengths (17 units each) from x -17 to 51, so it still covers the heart when slid one wavelength
-// either way; the water below the crest runs well past the heart's foot
-const WAVE =
-  "M-17 0q4.25-2.4 8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0t8.5 0V40H-17Z";
+// a slender heart in a 100 x 90 box
+const HEART =
+  "M50 86C21 65 3 47 3 27 3 13 13.5 3 27 3 37 3 45 9 50 18 55 9 63 3 73 3 86.5 3 97 13 97 27 97 47 79 65 50 86Z";
+// four wavelengths (50 units each) from x -50 to 150, so it still covers the heart when slid one
+// wavelength; the water below the crest runs well past the heart's foot
+const WAVE = "M-50 0q12.5-5 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0V120H-50Z";
 
 /**
  * The waiting screen itself: the groom's name, a heart, the bride's name. The heart is the progress:
@@ -48,7 +49,7 @@ export const LoadingScreen = ({
       {names && <p className="pl-name">{names[0]}</p>}
       <svg
         className={`pl-heart ${progress === undefined ? "pl-wait" : ""}`}
-        viewBox="-1 -1 34 31"
+        viewBox="0 0 100 90"
         aria-hidden="true"
       >
         <defs>
@@ -56,8 +57,8 @@ export const LoadingScreen = ({
             <path d={HEART} />
           </clipPath>
           <linearGradient id="pl-water" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#f7b9c4" />
-            <stop offset="1" stopColor="#e07b93" />
+            <stop offset="0" stopColor="#fbd3db" />
+            <stop offset="1" stopColor="#ec9db0" />
           </linearGradient>
         </defs>
         <path className="pl-inside" d={HEART} />
@@ -67,7 +68,8 @@ export const LoadingScreen = ({
             style={
               progress === undefined
                 ? undefined
-                : { transform: `translateY(${32 - 35 * progress}px)` }
+                : // the heart narrows to its foot, so the water climbs a little faster there
+                  { transform: `translateY(${90 - 96 * progress ** 0.75}px)` }
             }
           >
             <g className="pl-slosh">
@@ -77,8 +79,10 @@ export const LoadingScreen = ({
           </g>
         </g>
         <path className="pl-line" d={HEART} />
+        {/* the glint of light on glass */}
+        <path className="pl-glint" d="M20 13C13 16 9.5 22 10 30" />
         {progress !== undefined && (
-          <text className="pl-num" x="16" y="14.5">
+          <text className="pl-num" x="50" y="44">
             {Math.round(progress * 100)}
             <tspan>%</tspan>
           </text>

@@ -318,46 +318,54 @@
 .pl-font .pl-name {
   opacity: 1;
 }
-// the heart is the progress bar: water rising in it, a wave running across the surface
+// the heart is the progress bar: a slender glass heart, rose water rising in it with a soft wave
 .pl-heart {
-  width: 76px;
-  height: 68px;
-  margin: 8px 0;
+  width: 92px;
+  height: 83px;
+  margin: 10px 0;
   overflow: visible;
-  animation: pl-beat 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 8px 14px rgba(224, 123, 147, 0.22));
+  animation: pl-beat 1.8s ease-in-out infinite;
 }
 .pl-inside {
-  fill: #fff4f6;
+  fill: rgba(255, 255, 255, 0.85);
 }
 .pl-line {
   fill: none;
-  stroke: #e07b93;
-  stroke-width: 1;
+  stroke: #eaa6b6;
+  stroke-width: 1.1;
+}
+.pl-glint {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  opacity: 0.85;
 }
 .pl-level {
-  transform: translateY(32px);
-  transition: transform 0.6s ease;
+  transform: translateY(90px);
+  transition: transform 0.7s ease;
 }
 // the surface rocks gently from side to side, like water sloshing in a glass
 .pl-slosh {
-  transform-origin: 16px 0;
-  animation: pl-slosh 2.2s ease-in-out infinite;
+  transform-origin: 50px 0;
+  animation: pl-slosh 2.6s ease-in-out infinite;
 }
 @keyframes pl-slosh {
   0%,
   100% {
-    transform: rotate(-5deg);
+    transform: rotate(-3deg);
   }
   50% {
-    transform: rotate(5deg);
+    transform: rotate(3deg);
   }
 }
 .pl-wave {
-  animation: pl-wave 1.8s linear infinite;
+  animation: pl-wave 2.4s linear infinite;
 }
 .pl-wave-back {
-  fill: #f9cdd6;
-  animation-duration: 2.8s;
+  fill: #fde3e8;
+  animation-duration: 3.6s;
   animation-direction: reverse;
 }
 @keyframes pl-wave {
@@ -365,7 +373,7 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(-17px);
+    transform: translateX(-50px);
   }
 }
 // nothing to count yet (fetching the invitation): the tide rises and falls
@@ -375,21 +383,20 @@
 @keyframes pl-tide {
   0%,
   100% {
-    transform: translateY(26px);
+    transform: translateY(78px);
   }
   50% {
-    transform: translateY(8px);
+    transform: translateY(30px);
   }
 }
 .pl-num {
-  font: 600 8px "Be Vietnam Pro", sans-serif;
+  font: italic 600 28px "Cormorant Garamond", Georgia, serif;
   fill: #8c3d55;
   text-anchor: middle;
   dominant-baseline: middle;
 
   tspan {
-    font-size: 4.5px;
-    font-weight: 500;
+    font-size: 14px;
   }
 }
 @keyframes pl-beat {
@@ -399,13 +406,13 @@
     transform: scale(1);
   }
   15% {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
   30% {
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
   45% {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }
 // while it shows, the template's CSS animations wait at their start, so the opening plays in full after
