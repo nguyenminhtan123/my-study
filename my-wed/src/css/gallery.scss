@@ -306,114 +306,72 @@
   visibility: hidden;
   pointer-events: none;
 }
-.pl-name {
-  margin: 0;
-  max-width: 100%;
-  font: 400 40px/1.2 "Great Vibes", cursive;
-  color: #8a5a5a;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.pl-font .pl-name {
-  opacity: 1;
-}
-// the heart is the progress bar: a slender glass heart, rose water rising in it with a soft wave
 .pl-heart {
-  width: 92px;
-  height: 83px;
-  margin: 10px 0;
-  overflow: visible;
-  filter: drop-shadow(0 8px 14px rgba(224, 123, 147, 0.22));
-  animation: pl-beat 1.8s ease-in-out infinite;
-}
-.pl-inside {
-  fill: rgba(255, 255, 255, 0.85);
-}
-.pl-line {
-  fill: none;
-  stroke: #eaa6b6;
-  stroke-width: 1.1;
-}
-.pl-glint {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  opacity: 0.85;
-}
-.pl-level {
-  transform: translateY(90px);
-  transition: transform 0.7s ease;
-}
-// the surface rocks gently from side to side, like water sloshing in a glass
-.pl-slosh {
-  transform-origin: 50px 0;
-  animation: pl-slosh 2.6s ease-in-out infinite;
-}
-@keyframes pl-slosh {
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-.pl-wave {
-  animation: pl-wave 2.4s linear infinite;
-}
-.pl-wave-back {
-  fill: #fde3e8;
-  animation-duration: 3.6s;
-  animation-direction: reverse;
-}
-@keyframes pl-wave {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50px);
-  }
-}
-// nothing to count yet (fetching the invitation): the tide rises and falls
-.pl-wait .pl-level {
-  animation: pl-tide 2.8s ease-in-out infinite;
-}
-@keyframes pl-tide {
-  0%,
-  100% {
-    transform: translateY(78px);
-  }
-  50% {
-    transform: translateY(30px);
-  }
-}
-.pl-num {
-  font: italic 600 28px "Cormorant Garamond", Georgia, serif;
-  fill: #8c3d55;
-  text-anchor: middle;
-  dominant-baseline: middle;
-
-  tspan {
-    font-size: 14px;
-  }
+  width: 34px;
+  fill: #d0708c;
+  animation: pl-beat 1.2s ease-in-out infinite;
 }
 @keyframes pl-beat {
   0%,
-  60%,
   100% {
     transform: scale(1);
   }
   15% {
-    transform: scale(1.05);
+    transform: scale(1.18);
   }
   30% {
-    transform: scale(0.99);
+    transform: scale(0.96);
   }
   45% {
-    transform: scale(1.03);
+    transform: scale(1.1);
   }
+}
+.pl-names {
+  margin: 6px 0 0;
+  font: 400 38px/1.15 "Great Vibes", cursive;
+  color: #8a5a5a;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  span {
+    display: block;
+    padding-right: 1.2em;
+  }
+  span + span {
+    padding: 0 0 0 1.2em;
+  }
+}
+// the names show once their handwriting font is in
+.pl-font .pl-names {
+  opacity: 1;
+}
+.pl-caps {
+  margin: 4px 0 0;
+  font: 400 10.5px/1 "Be Vietnam Pro", sans-serif;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: #a08a84;
+}
+.pl-bar {
+  width: 150px;
+  height: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #efe3dc;
+
+  i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #e8b9a6, #d0708c);
+    transition: width 0.4s ease;
+  }
+}
+.pl-pct {
+  margin: 0;
+  font: 400 11px/1 "Be Vietnam Pro", sans-serif;
+  color: #b39d97;
 }
 // while it shows, the template's CSS animations wait at their start, so the opening plays in full after
 body.pl-hold .zaui-page *,
