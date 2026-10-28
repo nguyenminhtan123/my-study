@@ -196,9 +196,6 @@
         position: absolute;
         inset: 0;
         transform-origin: var(--cx) var(--cy);
-        transition:
-          transform 2s cubic-bezier(0.55, 0.05, 0.25, 1),
-          filter 2s ease;
       }
       .cam video {
         position: absolute;
@@ -206,18 +203,23 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: filter 1.6s ease 0.4s;
       }
+      /* one unbroken camera move: up to the door, then on through it, never slowing to a stop */
       .near .cam {
-        transform: scale(var(--zoom));
+        animation: push 3.2s both;
       }
-      /* the meadow goes soft behind the door as we get close, like a lens focusing on it */
-      .near .cam video {
-        filter: blur(1.6px) saturate(1.15);
-      }
-      .through .cam {
-        transform: scale(calc(var(--zoom) * 4));
-        transition: transform 1.4s cubic-bezier(0.6, 0, 0.4, 1);
+      @keyframes push {
+        0% {
+          transform: scale(1);
+          animation-timing-function: cubic-bezier(0.45, 0, 0.75, 0.75);
+        }
+        55% {
+          transform: scale(var(--zoom));
+          animation-timing-function: cubic-bezier(0.3, 0.3, 0.8, 0.5);
+        }
+        100% {
+          transform: scale(calc(var(--zoom) * 5));
+        }
       }
 
       /* the video's own door, sharpened (4x upscale of its frame), laid over it; it takes over as the camera
@@ -229,7 +231,7 @@
         width: var(--dw);
         height: var(--dh);
         opacity: 0;
-        transition: opacity 0.6s ease 1.3s;
+        transition: opacity 0.5s ease 0.9s;
         perspective: 420px;
       }
       .near .door {
@@ -273,7 +275,7 @@
       .door .leaf {
         background-position: calc(var(--dw) * -0.21) calc(var(--dh) * -0.124);
         transform-origin: 100% 50%;
-        transition: transform 1.4s cubic-bezier(0.5, 0, 0.3, 1);
+        transition: transform 1.2s cubic-bezier(0.45, 0, 0.35, 1);
       }
       .open .door .leaf {
         transform: rotateY(-82deg);
@@ -357,11 +359,10 @@
           transform: translate(-50%, -5px);
         }
       }
-      /* the light floods the screen as we pass through */
-      /* once the doorway fills the screen, the opening melts into the card's own sky behind it */
+      /* once the doorway fills the screen, the opening hands over to the card's own sky behind it */
       .intro.fade {
         opacity: 0;
-        transition: opacity 0.7s ease;
+        transition: opacity 0.25s linear;
       }
 
       /* ================= first screen: a bright pastel sky ================= */
@@ -669,7 +670,7 @@
       }
     </style>
   </head>
-  <body data-hold="2500">
+  <body data-hold="2500" data-open-ms="4200">
     <main class="page">
       <!-- the opening -->
       <div class="intro" id="intro" data-opener>
@@ -850,13 +851,13 @@
         if (opened) return;
         opened = true;
         intro.classList.add("near");
-        setTimeout(() => intro.classList.add("open"), 2100);
-        setTimeout(() => intro.classList.add("through"), 3200);
+        // the door starts to open while the camera is still coming, so nothing ever waits
+        setTimeout(() => intro.classList.add("open"), 1350);
         setTimeout(() => {
           intro.classList.add("fade");
           document.querySelectorAll(".cover [data-anim]").forEach((el) => el.classList.add("in"));
-        }, 4300);
-        setTimeout(() => intro.classList.add("gone"), 5100);
+        }, 3050);
+        setTimeout(() => intro.classList.add("gone"), 3350);
       });
 
       // December 2026, weeks starting Monday; the 1st is a Tuesday
