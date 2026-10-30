@@ -33,6 +33,15 @@
     font-style: normal;
     font-weight: 400;
   }
+  // the drifting sparkles pass behind the writing, never over it
+  .k-drift {
+    z-index: 0;
+  }
+  > section,
+  > footer {
+    position: relative;
+    z-index: 1;
+  }
 }
 .t03-small {
   font-size: 10.5px;
