@@ -10,4 +10,8 @@ export const demoData: WeddingData = {
   venueAddress: "Số 12 Ngõ 34 Phố Hàng Bạc, Hoàn Kiếm, Hà Nội",
   venueQuery: "Hàng Bạc Hoàn Kiếm Hà Nội",
   dressColors: ["#8e1b22", "#3f6b2a", "#d9a441", "#f8f1e3"],
+  gifts: {
+    groom: { ...base.gifts.groom, owner: "NGUYEN TRONG TRI" },
+    bride: { ...base.gifts.bride, owner: "LE VIET HOA" },
+  },
 };

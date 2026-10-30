@@ -25,20 +25,20 @@ export const demoData: WeddingData = {
   rsvpDeadline: "20.10",
   introImage: "",
   families: {
-    groom: ["Ông ___", "Bà ___"],
-    bride: ["Ông ___", "Bà ___"],
+    groom: ["Ông Nguyễn Văn Hùng", "Bà Trần Thị Mai"],
+    bride: ["Ông Lê Minh Đức", "Bà Phạm Thị Hoa"],
   },
   dressColors: ["#1E2440", "#5A3A32", "#A82B34", "#1A1A1A"],
   gifts: {
     groom: {
       bank: "Ngân hàng Techcombank",
-      account: "0000 0000 0000",
+      account: "1903 6688 2026",
       owner: "NGUYEN VAN TAN",
       qr: "",
     },
     bride: {
       bank: "Ngân hàng Techcombank",
-      account: "1111 1111 1111",
+      account: "0711 0022 5566",
       owner: "NGUYEN THI TRANG",
       qr: "",
     },

@@ -19,7 +19,7 @@ export const photoShape = (photo: PhotoSlot) => {
   return w > h ? "k-land" : "k-port";
 };
 
-/** Month grid (Monday first) with the wedding day highlighted by a heart. */
+/** Month grid (Monday first, in Vietnamese) with the wedding day highlighted by a heart. */
 export const CalendarCard = ({
   iso,
   monthClass = "",
@@ -38,16 +38,13 @@ export const CalendarCard = ({
     ...Array.from({ length: offset }, () => null),
     ...Array.from({ length: total }, (_, i) => i + 1),
   ];
-  const monthName = date.toLocaleString("en-US", {
-    month: "long",
-    timeZone: "UTC",
-  });
+  const monthName = `Tháng ${month + 1} · ${year}`;
 
   return (
     <div className="k-cal">
       <div className={`k-cal-month ${monthClass}`}>{monthName}</div>
       <div className="k-cal-grid">
-        {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((d) => (
+        {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((d) => (
           <span key={d} className="k-cal-dow">
             {d}
           </span>
