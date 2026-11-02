@@ -43,7 +43,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
   return (
     <Page className="t03-root">
-      <Drifters kind="sparkle" count={8} color="#e3a72f" opacity={0.6} />
+      <Drifters kind="sparkle" count={8} color="#f1cf7e" opacity={0.6} />
 
       {cover !== "off" && (
         <button
@@ -77,7 +77,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-center">
+      <section className="t03-sec t03-center t03-invite">
         <Reveal>
           <Leaves />
           <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
@@ -97,15 +97,13 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-red">
+      <section className="t03-red t03-silk t03-hem">
         <Reveal>
           <p className="t03-small t03-gold">Ngày lành tháng tốt</p>
           <p className="t03-bigdate">
             {d.day}
-            <span>
-              <b>Tháng {Number(d.month)}</b>
-              {d.year}
-            </span>
+            <span>tháng {Number(d.month)}</span>
+            {d.year}
           </p>
           <p className="t03-sub">
             {d.weekday} · {d.time}
@@ -133,15 +131,15 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-green">
+      <section className="t03-red t03-silk t03-hem t03-hem-top">
         <Reveal>
-          <p className="t03-small">Lịch trình</p>
+          <Leaves />
           <h2 className="t03-title">Chương trình</h2>
           <ol className="t03-steps">
             {data.timeline.map((s) => (
               <li key={s.time}>
                 <b>{s.time}</b>
-                <i className="t03-dot" />
+                <img src={leaf} alt="" />
                 <span>{s.label}</span>
               </li>
             ))}
@@ -170,7 +168,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-soft">
+      <section className="t03-sec t03-silk t03-on-red t03-hem-top">
         <Reveal>
           <div className="t03-card">
             <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />

@@ -1,17 +1,21 @@
+$silk: url("@/static/t03/silk.webp");
+$garland: url("@/static/t03/garland.webp");
+$spray: url("@/static/t03/spray.webp");
+
 // Template 03: Trầu cau. The Vietnamese betrothal: a real red tray of betel quids, real heart-shaped
 // betel leaves; deep red, leaf green and gold on cream; photos in leaf-shaped frames; 囍 seal.
 .t03-root {
-  --k-bg: #fbf3e6;
-  --k-ink: #2e1d16;
+  --k-bg: #f8f1e3;
+  --k-ink: #3a1d17;
   --k-muted: #86655a;
-  --k-accent: #c23a2b;
-  --k-accent2: #3d5a2c;
+  --k-accent: #8e1b22;
+  --k-accent2: #3f6b2a;
   --k-line: #e6d4b8;
   --k-card: #fffaf0;
   --k-display: "Playfair Display", "Times New Roman", Georgia, serif;
   --k-script: "Great Vibes", Georgia, serif;
   --k-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --gold: #e3a72f;
+  --gold: #d9a441;
   padding: 0;
   background: var(--k-bg);
   color: var(--k-ink);
@@ -50,7 +54,7 @@
   color: var(--k-accent);
 }
 .t03-gold {
-  color: #f6cf6a;
+  color: #f1cf7e;
 }
 .t03-title {
   font-family: var(--k-display);
@@ -73,11 +77,13 @@
   padding: 50px 22px;
 }
 .t03-card {
-  padding: 32px 22px;
-  background: #fffdf8;
-  border: 1px solid rgba(227, 167, 47, 0.4);
-  border-radius: 20px;
-  box-shadow: 0 16px 34px rgba(120, 30, 30, 0.07);
+  padding: 40px 22px 44px;
+  background: var(--k-card);
+  border: 1px solid var(--k-line);
+  box-shadow:
+    inset 0 0 0 5px var(--k-card),
+    inset 0 0 0 6px rgba(217, 164, 65, 0.55),
+    0 14px 30px rgba(90, 20, 20, 0.08);
   text-align: center;
 }
 .t03-hy {
@@ -86,8 +92,8 @@
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #f6cf6a, #e3a72f 60%, #b97d14);
-  color: #c23a2b;
+  background: radial-gradient(circle at 35% 30%, #f6d98f, #c9963f 60%, #9a6c22);
+  color: #8e1022;
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
   font-size: 28px;
   font-weight: 700;
@@ -150,8 +156,8 @@
       180deg,
       rgba(40, 10, 8, 0.15) 0%,
       rgba(40, 10, 8, 0.1) 35%,
-      rgba(138, 36, 24, 0.88) 72%,
-      #8a2418 100%
+      rgba(110, 16, 22, 0.88) 72%,
+      #6e1016 100%
     );
   }
 }
@@ -165,7 +171,7 @@
 
   .t03-small {
     margin-top: 16px;
-    color: #f6cf6a;
+    color: #f1cf7e;
   }
   h1 {
     margin: 10px 0 12px;
@@ -177,15 +183,15 @@
     i {
       display: block;
       font-size: 36px;
-      color: #f6cf6a;
+      color: #f1cf7e;
     }
   }
 }
 .t03-hero-date {
   display: inline-block;
   padding: 5px 18px;
-  border-top: 1px solid rgba(246, 207, 106, 0.6);
-  border-bottom: 1px solid rgba(246, 207, 106, 0.6);
+  border-top: 1px solid rgba(241, 207, 126, 0.6);
+  border-bottom: 1px solid rgba(241, 207, 126, 0.6);
   letter-spacing: 0.4em;
   font-size: 13px;
 }
@@ -196,7 +202,7 @@
   font-family: var(--k-display);
   font-size: 24px;
   font-style: italic;
-  color: var(--k-accent2);
+  color: var(--k-accent);
 }
 .t03-fam {
   display: grid;
@@ -222,42 +228,36 @@
 // ---------- red date band ----------
 .t03-red {
   --k-ink: #fff4dc;
-  --k-muted: #f6cf6a;
-  --k-accent: #f6cf6a;
-  --k-line: rgba(246, 207, 106, 0.35);
+  --k-muted: #f1cf7e;
+  --k-accent: #f6d98f;
+  --k-line: rgba(241, 207, 126, 0.35);
   display: grid;
   gap: 24px;
   padding: 56px 22px;
   background:
-    radial-gradient(120% 70% at 50% 0, rgba(255, 170, 120, 0.2), transparent 70%),
-    #c23a2b;
+    radial-gradient(
+      circle at 50% 0,
+      rgba(255, 200, 140, 0.18),
+      transparent 60%
+    ),
+    #7e1219;
   color: #fff4dc;
   text-align: center;
 }
 .t03-bigdate {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 8px;
   font-family: var(--k-display);
-  font-size: 104px;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  color: #fff4dc;
+  font-size: 54px;
+  line-height: 1;
+  color: #f6d98f;
 
   span {
-    display: grid;
-    padding-left: 16px;
-    border-left: 1px solid rgba(255, 244, 220, 0.5);
-    font-family: var(--k-body);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.7;
-    letter-spacing: 0.3em;
-    text-align: left;
-    text-transform: uppercase;
-    color: #f6cf6a;
+    font-size: 18px;
+    font-style: italic;
   }
 }
 .t03-sub {
@@ -274,7 +274,7 @@
 
   li {
     display: grid;
-    grid-template-columns: 1fr 7px 1fr;
+    grid-template-columns: 1fr 22px 1fr;
     align-items: center;
     gap: 14px;
     padding: 10px 0;
@@ -286,6 +286,10 @@
     font-size: 22px;
     font-weight: 400;
     color: var(--k-accent);
+  }
+  img {
+    width: 22px;
+    transform: rotate(-20deg);
   }
   span {
     align-self: center;
@@ -332,9 +336,9 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      #f4e6cf 0%,
-      rgba(160, 45, 30, 0.35) 30%,
-      rgba(138, 36, 24, 0.9) 100%
+      #6e1016 0%,
+      rgba(110, 16, 22, 0.35) 30%,
+      rgba(110, 16, 22, 0.9) 100%
     );
   }
   div {
@@ -355,7 +359,7 @@
 
     i {
       margin: 0 8px;
-      color: #f6cf6a;
+      color: #f1cf7e;
     }
   }
 }
@@ -377,14 +381,18 @@
 // album: rounded cream frames with a thin gold double line (the heart frame is only for the main portrait)
 .t03-album .t03-leaf {
   clip-path: none;
-  border-radius: 16px;
-  padding: 0;
-  background: none;
-  box-shadow: 0 12px 26px rgba(138, 36, 24, 0.12);
+  border-radius: 14px;
+  padding: 7px;
+  background: var(--k-card);
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 150, 63, 0.9),
+    inset 0 0 0 3px var(--k-card),
+    inset 0 0 0 4px rgba(201, 150, 63, 0.55),
+    0 10px 22px rgba(110, 16, 22, 0.1);
 
   img {
     clip-path: none;
-    border-radius: 16px;
+    border-radius: 9px;
   }
 }
 
@@ -393,7 +401,7 @@
   position: relative;
   width: 86%;
   margin: 0 auto 26px;
-  filter: drop-shadow(0 18px 26px rgba(138, 36, 24, 0.25));
+  filter: drop-shadow(0 18px 26px rgba(110, 16, 22, 0.25));
   animation: t03-beat 3.2s ease-in-out infinite;
 }
 // gold rim = the heart filled with gold, the photo is the same heart a little smaller
@@ -403,10 +411,10 @@
   box-sizing: border-box;
   background: linear-gradient(
     135deg,
-    #c98a1c,
-    #f6d27a 40%,
-    #e3a72f 65%,
-    #f8dc8e
+    #b8862e,
+    #f3d48a 40%,
+    #c9963f 65%,
+    #f6dc9c
   );
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 95'%3E%3Cpath d='M50 92C24 74 3 56 3 30C3 14 15 3 29 3C39 3 46 9 50 17C54 9 61 3 71 3C85 3 97 14 97 30C97 56 76 74 50 92Z'/%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
@@ -475,7 +483,7 @@
   gap: 14px;
   padding: 22vh 24px 0;
   border: 0;
-  background: #c23a2b 50% 100% / cover no-repeat;
+  background: #8e1b22 50% 100% / cover no-repeat;
   color: #fff4dc;
   font: inherit;
   text-align: center;
@@ -495,14 +503,14 @@
   width: 84px;
   height: 84px;
   margin-bottom: 6px;
-  border: 2px solid rgba(246, 207, 106, 0.85);
+  border: 2px solid rgba(241, 207, 126, 0.85);
   border-radius: 50%;
-  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(246, 207, 106, 0.45);
+  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(241, 207, 126, 0.45);
   font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
   font-size: 44px;
   font-weight: 700;
   line-height: 1;
-  color: #f6cf6a;
+  color: #f6d98f;
   text-shadow: 0 2px 6px rgba(60, 5, 10, 0.5);
   animation: t03-in 1s 0.2s ease-out both;
 }
@@ -519,18 +527,18 @@
   i {
     display: block;
     font-size: 30px;
-    color: #f6cf6a;
+    color: #f1cf7e;
   }
 }
 .t03-cloth-tap {
   margin-top: 18px;
   padding: 8px 22px;
-  border: 1px solid rgba(246, 207, 106, 0.7);
+  border: 1px solid rgba(241, 207, 126, 0.7);
   border-radius: 999px;
   font-size: 11px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #f6cf6a;
+  color: #f6d98f;
   animation:
     t03-in 1s 1.3s ease-out both,
     t03-pulse 2.4s 2.3s ease-in-out infinite;
@@ -561,61 +569,121 @@
 @keyframes t03-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(246, 207, 106, 0.45);
+    box-shadow: 0 0 0 0 rgba(241, 207, 126, 0.45);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(246, 207, 106, 0);
+    box-shadow: 0 0 0 10px rgba(241, 207, 126, 0);
   }
 }
 
-// ---------- a second, deeper cream, so the page still has rhythm without more red ----------
-.t03-soft {
-  background: #f4e6cf;
-}
-// ---------- the programme on a moss-green band (kept apart from the red by cream) ----------
-.t03-green {
-  --k-accent: #f6cf6a;
-  display: grid;
-  gap: 18px;
-  padding: 56px 22px;
+// ---------- red silk sections, hemmed with the cloth's gold embroidery ----------
+.t03-silk {
+  position: relative;
   background:
-    radial-gradient(120% 70% at 50% 0, rgba(140, 180, 90, 0.18), transparent 70%),
-    #3d5a2c;
-  color: #fbf3e6;
-  text-align: center;
+    linear-gradient(rgba(126, 18, 25, 0.25), rgba(126, 18, 25, 0.25)),
+    $silk 50% 0 / 100% auto repeat-y,
+    #7e1219;
+}
+.t03-hem {
+  padding-bottom: 190px;
 
-  .t03-small {
-    color: #e3a72f;
-  }
-  .t03-title {
-    margin-top: 6px;
-    font-size: 34px;
-    color: #fbf3e6;
-  }
-  .t03-steps {
-    li {
-      border-bottom-color: rgba(251, 243, 230, 0.2);
-    }
-    b {
-      font-size: 26px;
-      color: #f6cf6a;
-    }
-    span {
-      color: #fbf3e6;
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 52vw;
+    max-height: 230px;
+    background: $garland 50% 100% / 100% auto no-repeat;
+    pointer-events: none;
   }
 }
-.t03-dot {
-  width: 7px;
-  height: 7px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: var(--gold);
+.t03-hem-top {
+  padding-top: 150px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -6px;
+    height: 52vw;
+    max-height: 230px;
+    background: $garland 50% 100% / 100% auto no-repeat;
+    transform: scaleY(-1);
+    pointer-events: none;
+  }
+}
+.t03-red .t03-title {
+  font-size: 34px;
+  color: #f6d98f;
+}
+.t03-red .t03-steps {
+  li {
+    border-bottom-color: rgba(241, 207, 126, 0.35);
+  }
+  b {
+    color: #f6d98f;
+  }
+  span {
+    color: #fff4dc;
+  }
+}
+// cream cards resting on the red silk
+.t03-on-red {
+  padding-bottom: 70px;
+
+  .t03-card {
+    box-shadow:
+      inset 0 0 0 5px var(--k-card),
+      inset 0 0 0 6px rgba(217, 164, 65, 0.7),
+      0 18px 36px rgba(40, 4, 8, 0.4);
+  }
 }
 
-// the calendar sits straight on the card, not in a second box
-.t03-card .k-cal {
-  padding: 0;
-  background: none;
-  box-shadow: none;
+// ---------- gold sprays: corners of the invitation and of every card ----------
+.t03-invite {
+  position: relative;
+  padding-top: 70px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    width: 120px;
+    height: 110px;
+    background: $spray 0 0 / contain no-repeat;
+    pointer-events: none;
+  }
+  &::before {
+    left: 6px;
+  }
+  &::after {
+    right: 6px;
+    transform: scaleX(-1);
+  }
+}
+.t03-card {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 46px;
+    height: 42px;
+    background: $spray 0 0 / contain no-repeat;
+    pointer-events: none;
+  }
+  &::before {
+    top: 7px;
+    left: 7px;
+  }
+  &::after {
+    right: 7px;
+    bottom: 7px;
+    transform: rotate(180deg);
+  }
 }
