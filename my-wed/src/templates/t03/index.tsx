@@ -77,7 +77,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-center t03-invite">
+      <section className="t03-sec t03-center">
         <Reveal>
           <Leaves />
           <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
@@ -97,13 +97,15 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-red t03-silk t03-hem">
+      <section className="t03-red">
         <Reveal>
           <p className="t03-small t03-gold">Ngày lành tháng tốt</p>
           <p className="t03-bigdate">
             {d.day}
-            <span>tháng {Number(d.month)}</span>
-            {d.year}
+            <span>
+              <b>Tháng {Number(d.month)}</b>
+              {d.year}
+            </span>
           </p>
           <p className="t03-sub">
             {d.weekday} · {d.time}
@@ -131,7 +133,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-red t03-silk t03-hem t03-hem-top">
+      <section className="t03-red">
         <Reveal>
           <Leaves />
           <h2 className="t03-title">Chương trình</h2>
@@ -168,7 +170,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-silk t03-on-red t03-hem-top">
+      <section className="t03-sec t03-on-red">
         <Reveal>
           <div className="t03-card">
             <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
