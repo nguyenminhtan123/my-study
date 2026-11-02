@@ -1,0 +1,87 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"/><link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/latin-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/vietnamese-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/latin-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/vietnamese-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/latin-600.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/vietnamese-600.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/latin-400-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/vietnamese-400-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/latin-500-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/playfair-display/vietnamese-500-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/latin-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/vietnamese-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/latin-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/vietnamese-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/latin-600.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/vietnamese-600.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/latin-400-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/cormorant-garamond/vietnamese-400-italic.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/latin-300.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/vietnamese-300.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/latin-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/vietnamese-400.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/latin-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/vietnamese-500.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/latin-600.css" />
+<link rel="stylesheet" href="../../../node_modules/@fontsource/be-vietnam-pro/vietnamese-600.css" /><style>
+:root{--bg:#fbf6ee;--ink:#2a1a17;--red:#c8282e;--leaf:#4f7d2f;--muted:#8a766d;
+--serif:"Playfair Display",Georgia,serif;--sans:"Be Vietnam Pro",system-ui,sans-serif}
+
+body{margin:0;background:#e9e6e1}
+.board{display:flex;gap:18px;width:max-content;padding:18px;background:#e9e6e1}
+.screen{position:relative;width:390px;height:844px;overflow:hidden;background:var(--bg);color:var(--ink);box-sizing:border-box}
+.label{position:absolute;left:8px;top:6px;z-index:9;padding:2px 8px;border-radius:99px;background:rgba(0,0,0,.55);color:#fff;font:500 11px "Be Vietnam Pro"}
+p,h1,h2,h3{margin:0}
+
+.screen{font-family:var(--sans);font-weight:300}
+.caps{font:500 10.5px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--red)}
+.seal{display:inline-grid;place-items:center;width:46px;height:46px;background:var(--red);color:#fbf6ee;font:700 26px "Noto Serif CJK SC","Noto Serif SC",serif;border-radius:4px}
+/* 1 */
+.s1 .ph{position:absolute;inset:0 0 auto 0;height:58%;background:url(../../../src/static/cover.webp) 50% 30%/cover}
+.s1 .tx{position:absolute;left:28px;right:28px;bottom:44px}
+.s1 h1{font:400 58px/0.98 var(--serif);letter-spacing:-.02em;margin:14px 0 18px}
+.s1 h1 em{font-style:italic;color:var(--red);font-size:44px;display:block;margin:2px 0}
+.s1 .row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--ink);padding-top:14px;font:400 13px var(--sans);letter-spacing:.2em}
+.s1 .seal{position:absolute;right:24px;top:calc(58% - 23px)}
+/* 2 */
+.s2{padding:56px 28px}
+.num{font:400 12px var(--sans);color:var(--muted);letter-spacing:.2em}
+.s2 h2{font:italic 400 40px/1.1 var(--serif);margin:16px 0 28px;letter-spacing:-.01em}
+.s2 h2 span{color:var(--red)}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid #e4d8c8;padding-top:18px;font-size:13px;line-height:1.8}
+.fam b{display:block;font:500 10px var(--sans);letter-spacing:.3em;color:var(--red);margin-bottom:6px}
+.s2 .tray{position:absolute;right:0;bottom:0;width:62%;height:330px;background:url(../../../src/static/t03/tray.webp) 50% 40%/cover;border-top-left-radius:180px}
+.s2 .guest{position:absolute;left:28px;bottom:70px;width:30%;font:400 13px/1.7 var(--sans)}
+.s2 .guest i{display:block;font:italic 400 24px var(--serif);color:var(--red)}
+/* 3 */
+.s3{padding:56px 28px}
+.big{font:400 190px/1 var(--serif);color:var(--red);letter-spacing:-.04em;margin:10px 0 22px}
+.s3 .m{display:flex;justify-content:space-between;font:400 22px var(--serif);border-bottom:1px solid var(--ink);padding-bottom:14px}
+.s3 .t{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;letter-spacing:.15em}
+.venue{margin-top:54px;background:var(--red);color:#fbf6ee;margin-left:-28px;margin-right:-28px;padding:34px 28px}
+.venue .caps{color:#ffd9c9}
+.venue h3{font:400 32px/1.15 var(--serif);margin:10px 0}
+.venue p{font-size:13px;opacity:.9}
+.venue a{display:inline-block;margin-top:18px;font:500 12px var(--sans);letter-spacing:.2em;border-bottom:1px solid;padding-bottom:3px}
+/* 4 */
+.s4{padding:56px 28px}
+.prog div{display:grid;grid-template-columns:96px 1fr;align-items:baseline;border-top:1px solid #e4d8c8;padding:14px 0}
+.prog b{font:400 30px var(--serif);color:var(--red)}
+.prog span{font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+.alb{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;margin-top:34px;height:360px}
+.alb i{background:center/cover;border-radius:2px}
+.alb i:first-child{grid-row:span 2}
+</style></head><body><div class="board">
+<section class="screen s1"><span class="label">A1 · Màn đầu</span><div class="ph"></div><span class="seal">囍</span>
+<div class="tx"><p class="caps">Thiệp mời cưới</p><h1>Trọng Trí<em>&amp;</em>Việt Hoa</h1><div class="row"><span>30.10.2026</span><span>Hà Nội</span></div></div></section>
+<section class="screen s2"><span class="label">A2 · Lời mời</span><p class="num">01 — LỜI MỜI</p><h2>“Miếng trầu là<br/><span>đầu câu chuyện</span>”</h2>
+<div class="fam"><div><b>NHÀ TRAI</b>Ông Nguyễn Văn Hùng<br/>Bà Trần Thị Mai</div><div><b>NHÀ GÁI</b>Ông Lê Minh Đức<br/>Bà Phạm Thị Hoa</div></div>
+<p class="guest">Trân trọng kính mời<i>Quý khách</i>tới dự lễ thành hôn của chúng tôi</p><div class="tray"></div></section>
+<section class="screen s3"><span class="label">A3 · Ngày & nơi</span><p class="num">02 — NGÀY LÀNH</p><p class="big">30</p>
+<div class="m"><span>Tháng Mười</span><span>2026</span></div><div class="t"><span>THỨ SÁU</span><span>17:00</span></div>
+<p style="margin-top:10px;font-size:12px;color:var(--muted)">Nhằm ngày 21 tháng 9 năm Bính Ngọ</p>
+<div class="venue"><p class="caps">03 — Địa điểm</p><h3>Tư gia nhà gái</h3><p>Số 12 Ngõ 34 Phố Hàng Bạc, Hoàn Kiếm, Hà Nội</p><a>CHỈ ĐƯỜNG →</a></div></section>
+<section class="screen s4"><span class="label">A4 · Chương trình & album</span><p class="num">04 — CHƯƠNG TRÌNH</p>
+<div class="prog" style="margin-top:20px"><div><b>17:00</b><span>Đón khách</span></div><div><b>18:00</b><span>Lễ cưới</span></div><div><b>18:30</b><span>Khai tiệc</span></div></div>
+<div class="alb"><i style="background-image:url(../../../src/static/album1.jpeg)"></i><i style="background-image:url(../../../src/static/album2.jpeg)"></i><i style="background-image:url(../../../src/static/album3.jpeg)"></i></div></section>
+</div></body></html>
