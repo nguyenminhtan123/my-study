@@ -11,8 +11,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t16-lavender-sprig.webp` | Mẫu 16 (dải ngăn cách) | Lavender field background https://www.rawpixel.com/image/6035950/photo-image-background-flower-public-domain (CC0 1.0) |
 | `my-wed/src/static/t22-champagne.webp` | Mẫu 22 (ảnh chính) | Free champagne sparkling wine image https://www.rawpixel.com/image/5927536/photo-image-new-year-public-domain-hand (CC0 1.0) |
 | `my-wed/src/static/t22-gold-bokeh.webp` | Mẫu 22 (nền đếm ngược, cuối trang) | Free bokeh image https://www.rawpixel.com/image/5911823/free-bokeh-image-public-domain-light-cc0-photo (CC0 1.0) |
-| `my-wed/src/static/t03-betel-tray.jpg` | Mẫu 3 (ảnh chính, cuối trang) | Model of Vietnamese Betel Nuts của Gary Lee Todd, Ph.D. (flickr) https://www.flickr.com/photos/101561334@N08/25020626518 (CC0 1.0) |
-| `my-wed/src/static/t03-betel-leaf.webp` | Mẫu 3 (nền lá trầu) | betel leaf của Lutful Islam Ahmed (wordpress) https://wordpress.org/photos/photo/8926568459/ (CC0 1.0) |
 | `my-wed/src/static/t10-rings-box.webp` | Mẫu 10 (ảnh chính, cuối trang) | Wedding ring box (rawpixel) https://www.rawpixel.com/image/6030256/photo-image-background-public-domain-gold (CC0 1.0) |
 | `my-wed/src/static/t10-rings-gold.webp` | Mẫu 10 (nền ngày cưới; bản 600px) | Wedding Ring của Goran Vrakela (stocksnap) https://stocksnap.io/photo/wedding-ring-Z301VLPWCA (CC0 1.0) |
 | `my-wed/src/static/t17-bouquet.webp` | Mẫu 17 (ảnh chính, cuối trang) | Bridal bouquet background (rawpixel) https://www.rawpixel.com/image/6029615/photo-image-flower-public-domain-hand (CC0 1.0) |
@@ -109,3 +107,7 @@ Video đồng hoa do chủ repo tự làm và cho phép dùng: bản thử ở `
 | `butterfly.webp` | Bướm trắng | Màn hình đầu |
 | `gift.webp` | Bó hoa dại gói giấy kraft | Quà mừng |
 | `glade.webp` | Đồng hoa nắng chiều | Địa điểm, cuối thiệp |
+
+## Mẫu 3 · Trầu cau (`my-wed/design/t03/art/`, chép sang `src/static/t03/`)
+
+Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Hai mâm trầu cau (`tray.webp`, `tray-end.webp`) vẽ bằng chế độ ảnh tham chiếu của model, theo ảnh mâm quả chủ repo gửi để quả cau ra đúng hình; ảnh tham chiếu không lưu trong repo. Khăn đỏ thêu vàng `cloth.webp` vẽ không có chữ, chữ 囍 thêm bằng code. Lá trầu `leaf.webp` tách nền bằng `scripts/design/ai_art.py --alpha`. Dùng thương mại được, không bắt buộc ghi nguồn.
