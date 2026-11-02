@@ -54,7 +54,7 @@
 }
 .t03-title {
   font-family: var(--k-display);
-  font-size: 27px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 1.3;
   color: var(--k-accent);
@@ -141,7 +141,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 38% 50%;
+    object-position: 50% 30%;
     animation: t03-zoom 14s ease-out both;
   }
   &::after {
@@ -198,7 +198,7 @@
   font-family: var(--k-display);
   font-size: 24px;
   font-style: italic;
-  color: var(--k-accent2);
+  color: var(--k-accent);
 }
 .t03-fam {
   display: grid;
@@ -262,15 +262,7 @@
   letter-spacing: 0.24em;
 }
 
-// ---------- timeline over betel leaves ----------
-.t03-leafband {
-  padding: 60px 22px;
-  background: center / cover;
-
-  .t03-card {
-    background: rgba(255, 250, 240, 0.92);
-  }
-}
+// ---------- programme ----------
 .t03-steps {
   list-style: none;
   padding: 0;
@@ -377,15 +369,21 @@
   }
 }
 
-// album: rounded frames keep every face (the heart frame is only for the main portrait)
+// album: rounded cream frames with a thin gold double line (the heart frame is only for the main portrait)
 .t03-album .t03-leaf {
   clip-path: none;
-  border-radius: 16px;
-  padding: 4px;
+  border-radius: 14px;
+  padding: 7px;
+  background: var(--k-card);
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 150, 63, 0.9),
+    inset 0 0 0 3px var(--k-card),
+    inset 0 0 0 4px rgba(201, 150, 63, 0.55),
+    0 10px 22px rgba(110, 16, 22, 0.1);
 
   img {
     clip-path: none;
-    border-radius: 12px;
+    border-radius: 9px;
   }
 }
 
@@ -443,5 +441,128 @@
   }
   50% {
     transform: scale(1.025);
+  }
+}
+
+// ---------- two betel leaves above a title ----------
+.t03-orn {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 6px;
+
+  img {
+    width: 40px;
+    height: auto;
+    transform: rotate(-28deg);
+    filter: drop-shadow(0 3px 4px rgba(40, 60, 20, 0.25));
+  }
+  img + img {
+    transform: scaleX(-1) rotate(-28deg);
+  }
+}
+
+// ---------- the red cloth over the tray, lifted by the guest ----------
+.t03-cloth {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 22vh 24px 0;
+  border: 0;
+  background: #8e1b22 50% 100% / cover no-repeat;
+  color: #fff4dc;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transform-origin: 50% 0;
+  box-shadow: 0 30px 60px rgba(40, 5, 8, 0.45);
+
+  &.t03-lift {
+    pointer-events: none;
+    animation: t03-lift 1.3s cubic-bezier(0.6, 0, 0.35, 1) forwards;
+  }
+}
+.t03-cloth-hy {
+  display: inline-grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 6px;
+  border: 2px solid rgba(241, 207, 126, 0.85);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(241, 207, 126, 0.45);
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  color: #f6d98f;
+  text-shadow: 0 2px 6px rgba(60, 5, 10, 0.5);
+  animation: t03-in 1s 0.2s ease-out both;
+}
+.t03-cloth .t03-small {
+  animation: t03-in 1s 0.5s ease-out both;
+}
+.t03-cloth-names {
+  font-family: var(--k-display);
+  font-size: 36px;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(60, 5, 10, 0.45);
+  animation: t03-in 1.1s 0.8s ease-out both;
+
+  i {
+    display: block;
+    font-size: 30px;
+    color: #f1cf7e;
+  }
+}
+.t03-cloth-tap {
+  margin-top: 18px;
+  padding: 8px 22px;
+  border: 1px solid rgba(241, 207, 126, 0.7);
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #f6d98f;
+  animation:
+    t03-in 1s 1.3s ease-out both,
+    t03-pulse 2.4s 2.3s ease-in-out infinite;
+}
+// the hero waits still under the cloth, then zooms in as the cloth comes off
+.t03-root:has(.t03-cloth:not(.t03-lift)) .t03-hero > img {
+  animation-play-state: paused;
+}
+
+@keyframes t03-lift {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: translateY(-110%);
+  }
+}
+@keyframes t03-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes t03-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(241, 207, 126, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(241, 207, 126, 0);
   }
 }

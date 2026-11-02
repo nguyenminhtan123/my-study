@@ -20,7 +20,7 @@ const DEFAULT_SCRIPT = '"Great Vibes", cursive';
  * the document, after it.
  */
 const templatePage = () =>
-  [...document.querySelectorAll(".zaui-page")].find(
+  Array.from(document.querySelectorAll(".zaui-page")).find(
     (p) => !p.classList.contains("gl-page") && !p.classList.contains("iv-page"),
   );
 
@@ -106,10 +106,14 @@ export const LoadingScreen = ({
   );
 };
 
-const urlsIn = (value: string) =>
-  [...value.matchAll(/url\(["']?([^"')]+)["']?\)/g)]
-    .map((m) => m[1])
-    .filter((u) => !u.startsWith("data:"));
+const urlsIn = (value: string) => {
+  const found: string[] = [];
+  const re = /url\(["']?([^"')]+)["']?\)/g;
+  for (let m = re.exec(value); m; m = re.exec(value)) {
+    if (!m[1].startsWith("data:")) found.push(m[1]);
+  }
+  return found;
+};
 
 const loadImage = (src: string) =>
   new Promise<void>((done) => {
@@ -154,7 +158,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       page
         .querySelectorAll("img")
         .forEach((img) => img.currentSrc && images.add(img.currentSrc));
-      page.querySelectorAll<HTMLElement>("*").forEach((el) => {
+      page.querySelectorAll("*").forEach((el) => {
         for (const pseudo of [null, "::before", "::after"]) {
           const bg = getComputedStyle(el, pseudo).backgroundImage;
           if (bg && bg !== "none") urlsIn(bg).forEach((u) => images.add(u));
@@ -162,7 +166,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       });
       const tasks = [
         ...[...images].map(loadImage),
-        ...[...page.querySelectorAll("video")].map(videoReady),
+        ...Array.from(page.querySelectorAll("video")).map(videoReady),
       ];
       let done = 0;
       const tick = () =>

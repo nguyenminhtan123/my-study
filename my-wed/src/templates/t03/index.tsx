@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
-import leaf from "@/static/t03-betel-leaf.webp";
-import tray from "@/static/t03-betel-tray.jpg";
+import cloth from "@/static/t03/cloth.webp";
+import leaf from "@/static/t03/leaf.webp";
+import trayEnd from "@/static/t03/tray-end.webp";
+import tray from "@/static/t03/tray.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -20,12 +23,43 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
+/** Two small betel leaves above a section title, like the leaves round a betel quid. */
+const Leaves = () => (
+  <span className="t03-orn" aria-hidden="true">
+    <img src={leaf} alt="" />
+    <img src={leaf} alt="" />
+  </span>
+);
+
 const Template03 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
+  // the betel tray waits under its red cloth, as at a real betrothal, until the guest lifts it
+  const [cover, setCover] = useState<"on" | "lifting" | "off">("on");
+  const lift = () => {
+    if (cover !== "on") return;
+    setCover("lifting");
+    window.setTimeout(() => setCover("off"), 1600);
+  };
 
   return (
     <Page className="t03-root">
       <Drifters kind="sparkle" count={8} color="#f1cf7e" opacity={0.6} />
+
+      {cover !== "off" && (
+        <button
+          type="button"
+          className={`t03-cloth ${cover === "lifting" ? "t03-lift" : ""}`}
+          style={{ backgroundImage: `url(${cloth})` }}
+          onClick={lift}
+        >
+          <span className="t03-cloth-hy">囍</span>
+          <span className="t03-small t03-gold">Trầu cau nên duyên</span>
+          <span className="t03-cloth-names">
+            {data.groom} <i>&amp;</i> {data.bride}
+          </span>
+          <span className="t03-cloth-tap">Chạm để vén khăn</span>
+        </button>
+      )}
 
       <section className="t03-hero">
         <img src={tray} alt="" />
@@ -45,6 +79,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
       <section className="t03-sec t03-center">
         <Reveal>
+          <Leaves />
           <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
           <p className="t03-small">Trân trọng báo tin lễ thành hôn</p>
           <GuestName prefix="Kính gửi" />
@@ -96,12 +131,10 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section
-        className="t03-leafband"
-        style={{ backgroundImage: `url(${leaf})` }}
-      >
+      <section className="t03-sec">
         <Reveal>
           <div className="t03-card">
+            <Leaves />
             <h2 className="t03-title">Chương trình</h2>
             <ol className="t03-steps">
               {data.timeline.map((s) => (
@@ -117,6 +150,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
       <section className="t03-sec">
         <Reveal>
+          <Leaves />
           <h2 className="t03-title t03-center">Khoảnh khắc</h2>
         </Reveal>
         <div className="t03-album k-album">
@@ -138,11 +172,12 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       <section className="t03-sec">
         <Reveal>
           <div className="t03-card">
-            <RsvpForm data={data} title="Xác nhận tham dự" />
+            <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
           </div>
         </Reveal>
         <Reveal>
           <div className="t03-card">
+            <Leaves />
             <h2 className="t03-title t03-center">Mừng cưới</h2>
             <GiftCard data={data} />
           </div>
@@ -150,7 +185,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t03-foot">
-        <img src={tray} alt="" />
+        <img src={trayEnd} alt="" />
         <div>
           <span className="t03-hy">囍</span>
           <p className="t03-small t03-gold">Hân hạnh đón tiếp</p>
