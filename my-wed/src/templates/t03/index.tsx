@@ -77,7 +77,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-center">
+      <section className="t03-sec t03-center t03-invite">
         <Reveal>
           <Leaves />
           <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
@@ -97,7 +97,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-red">
+      <section className="t03-red t03-silk t03-hem">
         <Reveal>
           <p className="t03-small t03-gold">Ngày lành tháng tốt</p>
           <p className="t03-bigdate">
@@ -131,20 +131,19 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-sec">
+      <section className="t03-red t03-silk t03-hem t03-hem-top">
         <Reveal>
-          <div className="t03-card">
-            <Leaves />
-            <h2 className="t03-title">Chương trình</h2>
-            <ol className="t03-steps">
-              {data.timeline.map((s) => (
-                <li key={s.time}>
-                  <b>{s.time}</b>
-                  <span>{s.label}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <Leaves />
+          <h2 className="t03-title">Chương trình</h2>
+          <ol className="t03-steps">
+            {data.timeline.map((s) => (
+              <li key={s.time}>
+                <b>{s.time}</b>
+                <img src={leaf} alt="" />
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ol>
         </Reveal>
       </section>
 
@@ -169,7 +168,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec">
+      <section className="t03-sec t03-silk t03-on-red t03-hem-top">
         <Reveal>
           <div className="t03-card">
             <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
