@@ -5,11 +5,8 @@ import "@/templates/_kit/kit.scss";
 import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
 import cloth from "@/static/t03/cloth.webp";
-import bloomA from "@/static/t03/bloom-a.webp";
-import bloomB from "@/static/t03/bloom-b.webp";
-import crest from "@/static/t03/crest.webp";
 import filigree from "@/static/t03/filigree.webp";
-import sprig from "@/static/t03/sprig.webp";
+import phoenix from "@/static/t03/phoenix.webp";
 import trayEnd from "@/static/t03/tray-end.webp";
 import tray from "@/static/t03/tray.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
@@ -27,11 +24,18 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-/** A small rose-gold filigree crest above a title. */
-const Crest = () => <img className="t03-crest" src={crest} alt="" aria-hidden="true" />;
+/** A small betel quid folded into phoenix wings (trầu têm cánh phượng) above a title. */
+const Crest = () => <img className="t03-crest" src={phoenix} alt="" aria-hidden="true" />;
+
+/** Between sections: a hairline of gold with a betel quid in the middle. */
+const Divider = () => (
+  <div className="t03-divider" aria-hidden="true">
+    <img src={phoenix} alt="" />
+  </div>
+);
 
 /**
- * A pearl panel in a rose-gold frame, filigree in its four corners, paper flowers spilling over two of them
+ * A cream panel in a fine gold frame, filigree in its four corners, a betel quid folded into phoenix wings on two of them
  * (top left and bottom right, or the other way round with `flip`), a soft iridescent glow behind the words.
  */
 const Frame = ({ children, flip = false }: { children: ReactNode; flip?: boolean }) => (
@@ -39,8 +43,8 @@ const Frame = ({ children, flip = false }: { children: ReactNode; flip?: boolean
     {["tl", "tr", "bl", "br"].map((c) => (
       <img key={c} className={`t03-fil t03-fil-${c}`} src={filigree} alt="" aria-hidden="true" />
     ))}
-    <img className="t03-bloom t03-bloom-a" src={bloomA} alt="" aria-hidden="true" />
-    <img className="t03-bloom t03-bloom-b" src={bloomB} alt="" aria-hidden="true" />
+    <img className="t03-bloom t03-bloom-a" src={phoenix} alt="" aria-hidden="true" />
+    <img className="t03-bloom t03-bloom-b" src={phoenix} alt="" aria-hidden="true" />
     <div className="t03-frame-in">{children}</div>
   </div>
 );
@@ -129,7 +133,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
           </Reveal>
         </section>
 
-        <img className="t03-sprig" src={sprig} alt="" aria-hidden="true" />
+        <Divider />
 
         <section className="t03-sec">
           <Reveal>
@@ -164,7 +168,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </section>
 
         <section className="t03-sec t03-album-sec">
-          <img className="t03-album-bloom" src={bloomB} alt="" aria-hidden="true" />
+          <img className="t03-album-bloom" src={phoenix} alt="" aria-hidden="true" />
           <Reveal>
             <Crest />
             <h2 className="t03-title t03-center">Khoảnh khắc</h2>
@@ -185,7 +189,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
           </div>
         </section>
 
-        <img className="t03-sprig" src={sprig} alt="" aria-hidden="true" />
+        <Divider />
 
         <section className="t03-sec">
           <Reveal>
