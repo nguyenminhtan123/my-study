@@ -43,7 +43,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
   return (
     <Page className="t03-root">
-      <Drifters kind="sparkle" count={8} color="#f1cf7e" opacity={0.6} />
+      <Drifters kind="sparkle" count={8} color="#e3a72f" opacity={0.6} />
 
       {cover !== "off" && (
         <button
@@ -133,9 +133,9 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-sec t03-soft t03-center">
+      <section className="t03-green">
         <Reveal>
-          <Leaves />
+          <p className="t03-small">Lịch trình</p>
           <h2 className="t03-title">Chương trình</h2>
           <ol className="t03-steps">
             {data.timeline.map((s) => (
