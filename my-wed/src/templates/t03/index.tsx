@@ -133,7 +133,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t03-red">
+      <section className="t03-sec t03-soft t03-center">
         <Reveal>
           <Leaves />
           <h2 className="t03-title">Chương trình</h2>
@@ -141,7 +141,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
             {data.timeline.map((s) => (
               <li key={s.time}>
                 <b>{s.time}</b>
-                <img src={leaf} alt="" />
+                <i className="t03-dot" />
                 <span>{s.label}</span>
               </li>
             ))}
@@ -170,7 +170,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      <section className="t03-sec t03-on-red">
+      <section className="t03-sec t03-soft">
         <Reveal>
           <div className="t03-card">
             <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
