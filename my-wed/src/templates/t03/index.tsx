@@ -31,6 +31,13 @@ const Leaves = () => (
   </span>
 );
 
+/** 囍, drawn in clean block strokes so it looks the same, and sharp, on every phone (fonts differ). */
+const Hy = () => (
+  <svg className="t03-hy-glyph" viewBox="0 0 96 80" aria-label="囍" role="img">
+    <path d="M2 0H42V6H2Z M19.5 6H24.5V14H19.5Z M8 14H36V19H8Z M10 24H34V29H10Z M10 33H34V38H10Z M10 24H15V38H10Z M29 24H34V38H29Z M12 42H17V47H12Z M27 42H32V47H27Z M8 58H36V63H8Z M8 75H36V80H8Z M8 58H13V80H8Z M31 58H36V80H31Z M54 0H94V6H54Z M71.5 6H76.5V14H71.5Z M60 14H88V19H60Z M62 24H86V29H62Z M62 33H86V38H62Z M62 24H67V38H62Z M81 24H86V38H81Z M64 42H69V47H64Z M79 42H84V47H79Z M60 58H88V63H60Z M60 75H88V80H60Z M60 58H65V80H60Z M83 58H88V80H83Z M0 48H96V53H0Z" />
+  </svg>
+);
+
 const Template03 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
   // the betel tray waits under its red cloth, as at a real betrothal, until the guest lifts it
@@ -52,7 +59,9 @@ const Template03 = ({ data }: { data: WeddingData }) => {
           style={{ backgroundImage: `url(${cloth})` }}
           onClick={lift}
         >
-          <span className="t03-cloth-hy">囍</span>
+          <span className="t03-cloth-hy">
+            <Hy />
+          </span>
           <span className="t03-small t03-gold">Trầu cau nên duyên</span>
           <span className="t03-cloth-names">
             {data.groom} <i>&amp;</i> {data.bride}
@@ -64,7 +73,9 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       <section className="t03-hero">
         <img src={tray} alt="" />
         <div className="t03-hero-text">
-          <span className="t03-hy">囍</span>
+          <span className="t03-hy">
+            <Hy />
+          </span>
           <p className="t03-small">Trầu cau nên duyên</p>
           <h1>
             {data.groom}
@@ -92,7 +103,9 @@ const Template03 = ({ data }: { data: WeddingData }) => {
             <div className="t03-heart-frame">
               <img src={photoSrc(data.photos.cover)} alt="" />
             </div>
-            <span className="t03-hy t03-heart-hy">囍</span>
+            <span className="t03-hy t03-heart-hy">
+              <Hy />
+            </span>
           </div>
         </Reveal>
       </section>
@@ -186,7 +199,9 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       <footer className="t03-foot">
         <img src={trayEnd} alt="" />
         <div>
-          <span className="t03-hy">囍</span>
+          <span className="t03-hy">
+            <Hy />
+          </span>
           <p className="t03-small t03-gold">Hân hạnh đón tiếp</p>
           <h2>
             {data.groom}
