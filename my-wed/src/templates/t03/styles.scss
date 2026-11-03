@@ -612,30 +612,51 @@ $roseline: rgba(201, 150, 63, 0.6);
     color: $rose;
   }
 }
-.t03-crest {
-  width: 84px;
-  margin: 0 auto 4px;
-  filter: drop-shadow(0 6px 8px rgba(60, 40, 20, 0.15));
-}
-.t03-divider {
+.t03-mark {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 6px 40px;
+  gap: 10px;
+  width: 132px;
+  margin: 0 auto 10px;
 
   &::before,
   &::after {
     content: "";
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201, 150, 63, 0.8));
+    background: linear-gradient(90deg, transparent, rgba(201, 150, 63, 0.9));
   }
   &::after {
-    background: linear-gradient(90deg, rgba(201, 150, 63, 0.8), transparent);
+    background: linear-gradient(90deg, rgba(201, 150, 63, 0.9), transparent);
   }
+  > i {
+    width: 7px;
+    height: 7px;
+    background: #c9963f;
+    transform: rotate(45deg);
+  }
+}
+.t03-divider {
+  width: auto;
+  margin: 10px 56px;
+}
+// dragon and phoenix facing each other across the seal
+.t03-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+
   img {
-    width: 62px;
-    filter: drop-shadow(0 6px 8px rgba(60, 40, 20, 0.15));
+    width: 118px;
+    filter: drop-shadow(0 4px 6px rgba(120, 80, 20, 0.25));
+  }
+  .t03-hy {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    font-size: 24px;
   }
 }
 
@@ -693,31 +714,11 @@ $roseline: rgba(201, 150, 63, 0.6);
   pointer-events: none;
   filter: drop-shadow(0 10px 14px rgba(120, 70, 60, 0.18));
 }
-.t03-bloom-a {
-  top: -54px;
-  left: -26px;
-  width: 150px;
-  transform: rotate(-8deg);
-}
 .t03-bloom-b {
   right: -20px;
-  bottom: -40px;
-  width: 112px;
+  bottom: -44px;
+  width: 128px;
   transform: scaleX(-1) rotate(-8deg);
-}
-.t03-flip {
-  .t03-bloom-a {
-    top: -74px;
-    left: auto;
-    right: -26px;
-    transform: scaleX(-1) rotate(-8deg);
-  }
-  .t03-bloom-b {
-    right: auto;
-    bottom: -40px;
-    left: -20px;
-    transform: rotate(-8deg);
-  }
 }
 .t03-frame .t03-fam {
   font-size: 12.5px;
@@ -807,15 +808,6 @@ $roseline: rgba(201, 150, 63, 0.6);
 // album: rose-gold hairline frames, a paper peony on the corner
 .t03-album-sec {
   position: relative;
-}
-.t03-album-bloom {
-  position: absolute;
-  top: 14px;
-  right: -14px;
-  width: 104px;
-  transform: scaleX(-1);
-  z-index: 2;
-  filter: drop-shadow(0 10px 14px rgba(120, 70, 60, 0.18));
 }
 .t03-pearl .t03-album .t03-leaf {
   padding: 5px;
