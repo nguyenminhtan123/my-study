@@ -1,14 +1,11 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
 import cloth from "@/static/t03/cloth.webp";
-import filigree from "@/static/t03/filigree.webp";
-import long from "@/static/t03/long.webp";
-import phoenix from "@/static/t03/phoenix.webp";
-import phung from "@/static/t03/phung.webp";
+import leaf from "@/static/t03/leaf.webp";
 import trayEnd from "@/static/t03/tray-end.webp";
 import tray from "@/static/t03/tray.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
@@ -26,41 +23,12 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-/** Above a title: a gold hairline with a small diamond in the middle. */
-const Crest = () => (
-  <span className="t03-mark" aria-hidden="true">
-    <i />
+/** Two small betel leaves above a section title, like the leaves round a betel quid. */
+const Leaves = () => (
+  <span className="t03-orn" aria-hidden="true">
+    <img src={leaf} alt="" />
+    <img src={leaf} alt="" />
   </span>
-);
-
-/** Between sections: a longer gold hairline with the same diamond. */
-const Divider = () => (
-  <span className="t03-mark t03-divider" aria-hidden="true">
-    <i />
-  </span>
-);
-
-/** The dragon and the phoenix (long phụng) facing each other across the 囍 seal. */
-const LongPhung = () => (
-  <div className="t03-pair" aria-hidden="true">
-    <img src={long} alt="" />
-    <span className="t03-hy">囍</span>
-    <img src={phung} alt="" />
-  </div>
-);
-
-/**
- * A cream panel in a fine gold frame, filigree in its four corners, a soft glow behind the words, and with `quid` a
- * betel quid folded into phoenix wings (trầu têm cánh phượng) resting on the bottom right corner.
- */
-const Frame = ({ children, quid = false }: { children: ReactNode; quid?: boolean }) => (
-  <div className="t03-frame">
-    {["tl", "tr", "bl", "br"].map((c) => (
-      <img key={c} className={`t03-fil t03-fil-${c}`} src={filigree} alt="" aria-hidden="true" />
-    ))}
-    {quid && <img className="t03-bloom t03-bloom-b" src={phoenix} alt="" aria-hidden="true" />}
-    <div className="t03-frame-in">{children}</div>
-  </div>
 );
 
 const Template03 = ({ data }: { data: WeddingData }) => {
@@ -109,116 +77,111 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </div>
       </section>
 
-      {/* ---------- the inside: paper flowers and rose-gold filigree on pearl paper ---------- */}
-      <div className="t03-pearl">
-        <section className="t03-sec">
-          <Reveal>
-            <Frame quid>
-              <LongPhung />
-              <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
-              <p className="t03-small">Trân trọng báo tin lễ thành hôn</p>
-              <GuestName prefix="Kính gửi" />
-              <Families data={data} className="t03-fam" />
-              <div className="t03-heart">
-                <div className="t03-heart-frame">
-                  <img src={photoSrc(data.photos.cover)} alt="" />
-                </div>
-                <span className="t03-hy t03-heart-hy">囍</span>
-              </div>
-            </Frame>
-          </Reveal>
-        </section>
-
-        <section className="t03-sec">
-          <Reveal>
-            <Frame>
-              <p className="t03-small">Ngày lành tháng tốt</p>
-              <p className="t03-month">
-                Tháng {Number(d.month)} · {d.year}
-              </p>
-              <div className="t03-dayrow">
-                <span>{d.weekday}</span>
-                <b>{d.day}</b>
-                <span>{d.time}</span>
-              </div>
-              <LunarNote iso={data.weddingISO} />
-              <Countdown iso={data.weddingISO} />
-            </Frame>
-          </Reveal>
-        </section>
-
-        <Divider />
-
-        <section className="t03-sec">
-          <Reveal>
-            <div className="t03-card">
-              <CalendarCard iso={data.weddingISO} />
+      <section className="t03-sec t03-center t03-invite">
+        <Reveal>
+          <Leaves />
+          <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
+          <p className="t03-small">Trân trọng báo tin lễ thành hôn</p>
+          <GuestName prefix="Kính gửi" />
+        </Reveal>
+        <Reveal>
+          <Families data={data} className="t03-fam" />
+        </Reveal>
+        <Reveal variant="zoom">
+          <div className="t03-heart">
+            <div className="t03-heart-frame">
+              <img src={photoSrc(data.photos.cover)} alt="" />
             </div>
-          </Reveal>
-          <Reveal>
-            <div className="t03-card">
-              <Crest />
-              <p className="t03-small">Địa điểm</p>
-              <h2 className="t03-title">{data.venueName}</h2>
-              <p className="t03-muted">{data.venueAddress}</p>
-              <VenueActions data={data} />
-            </div>
-          </Reveal>
-          <Reveal>
-            <div className="t03-card">
-              <Crest />
-              <h2 className="t03-title">Chương trình</h2>
-              <ol className="t03-steps">
-                {data.timeline.map((s) => (
-                  <li key={s.time}>
-                    <b>{s.time}</b>
-                    <i className="t03-pearl-dot" />
-                    <span>{s.label}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </Reveal>
-        </section>
-
-        <section className="t03-sec t03-album-sec">
-          <Reveal>
-            <Crest />
-            <h2 className="t03-title t03-center">Khoảnh khắc</h2>
-          </Reveal>
-          <div className="t03-album k-album">
-            {data.album.map((p, i) => (
-              <Reveal
-                key={p.key}
-                variant="zoom"
-                delay={i * 120}
-                className={photoShape(p)}
-              >
-                <div className="t03-leaf">
-                  <img src={photoSrc(p)} alt="" />
-                </div>
-              </Reveal>
-            ))}
+            <span className="t03-hy t03-heart-hy">囍</span>
           </div>
-        </section>
+        </Reveal>
+      </section>
 
-        <Divider />
+      <section className="t03-red t03-silk t03-hem">
+        <Reveal>
+          <p className="t03-small t03-gold">Ngày lành tháng tốt</p>
+          <p className="t03-bigdate">
+            {d.day}
+            <span>tháng {Number(d.month)}</span>
+            {d.year}
+          </p>
+          <p className="t03-sub">
+            {d.weekday} · {d.time}
+          </p>
+          <LunarNote iso={data.weddingISO} />
+        </Reveal>
+        <Reveal>
+          <Countdown iso={data.weddingISO} />
+        </Reveal>
+      </section>
 
-        <section className="t03-sec">
-          <Reveal>
-            <div className="t03-card">
-              <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
-            </div>
-          </Reveal>
-          <Reveal>
-            <div className="t03-card">
-              <Crest />
-              <h2 className="t03-title t03-center">Mừng cưới</h2>
-              <GiftCard data={data} />
-            </div>
-          </Reveal>
-        </section>
-      </div>
+      <section className="t03-sec">
+        <Reveal>
+          <div className="t03-card">
+            <CalendarCard iso={data.weddingISO} />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t03-card">
+            <p className="t03-small">Địa điểm</p>
+            <h2 className="t03-title">{data.venueName}</h2>
+            <p className="t03-muted">{data.venueAddress}</p>
+            <VenueActions data={data} />
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="t03-red t03-silk t03-hem t03-hem-top">
+        <Reveal>
+          <Leaves />
+          <h2 className="t03-title">Chương trình</h2>
+          <ol className="t03-steps">
+            {data.timeline.map((s) => (
+              <li key={s.time}>
+                <b>{s.time}</b>
+                <img src={leaf} alt="" />
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </section>
+
+      <section className="t03-sec">
+        <Reveal>
+          <Leaves />
+          <h2 className="t03-title t03-center">Khoảnh khắc</h2>
+        </Reveal>
+        <div className="t03-album k-album">
+          {data.album.map((p, i) => (
+            <Reveal
+              key={p.key}
+              variant="zoom"
+              delay={i * 120}
+              className={photoShape(p)}
+            >
+              <div className="t03-leaf">
+                <img src={photoSrc(p)} alt="" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="t03-sec t03-silk t03-on-red t03-hem-top">
+        <Reveal>
+          <div className="t03-card">
+            <RsvpForm data={data} title="Xác nhận tham dự" variant="select" />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="t03-card">
+            <Leaves />
+            <h2 className="t03-title t03-center">Mừng cưới</h2>
+            <GiftCard data={data} />
+          </div>
+        </Reveal>
+      </section>
 
       <footer className="t03-foot">
         <img src={trayEnd} alt="" />
