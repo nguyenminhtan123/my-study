@@ -687,3 +687,15 @@ $spray: url("@/static/t03/spray.webp");
     transform: rotate(180deg);
   }
 }
+
+// the drawn 囍: sized to its seal, coloured like the text it replaces
+.t03-hy-glyph {
+  display: block;
+  width: 64%;
+  height: auto;
+  fill: currentColor;
+}
+.t03-cloth-hy .t03-hy-glyph {
+  width: 60%;
+  filter: drop-shadow(0 2px 4px rgba(60, 5, 10, 0.45));
+}
