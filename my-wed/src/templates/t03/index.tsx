@@ -99,13 +99,8 @@ const Template03 = ({ data }: { data: WeddingData }) => {
           <Families data={data} className="t03-fam" />
         </Reveal>
         <Reveal variant="zoom">
-          <div className="t03-heart">
-            <div className="t03-heart-frame">
-              <img src={photoSrc(data.photos.cover)} alt="" />
-            </div>
-            <span className="t03-hy t03-heart-hy">
-              <Hy />
-            </span>
+          <div className="t03-arch">
+            <img src={photoSrc(data.photos.cover)} alt="" />
           </div>
         </Reveal>
       </section>
