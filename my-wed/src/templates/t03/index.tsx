@@ -6,7 +6,9 @@ import "@/templates/t03/styles.scss";
 import { WeddingData } from "@/core/types";
 import cloth from "@/static/t03/cloth.webp";
 import filigree from "@/static/t03/filigree.webp";
+import long from "@/static/t03/long.webp";
 import phoenix from "@/static/t03/phoenix.webp";
+import phung from "@/static/t03/phung.webp";
 import trayEnd from "@/static/t03/tray-end.webp";
 import tray from "@/static/t03/tray.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
@@ -24,27 +26,39 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-/** A small betel quid folded into phoenix wings (trầu têm cánh phượng) above a title. */
-const Crest = () => <img className="t03-crest" src={phoenix} alt="" aria-hidden="true" />;
+/** Above a title: a gold hairline with a small diamond in the middle. */
+const Crest = () => (
+  <span className="t03-mark" aria-hidden="true">
+    <i />
+  </span>
+);
 
-/** Between sections: a hairline of gold with a betel quid in the middle. */
+/** Between sections: a longer gold hairline with the same diamond. */
 const Divider = () => (
-  <div className="t03-divider" aria-hidden="true">
-    <img src={phoenix} alt="" />
+  <span className="t03-mark t03-divider" aria-hidden="true">
+    <i />
+  </span>
+);
+
+/** The dragon and the phoenix (long phụng) facing each other across the 囍 seal. */
+const LongPhung = () => (
+  <div className="t03-pair" aria-hidden="true">
+    <img src={long} alt="" />
+    <span className="t03-hy">囍</span>
+    <img src={phung} alt="" />
   </div>
 );
 
 /**
- * A cream panel in a fine gold frame, filigree in its four corners, a betel quid folded into phoenix wings on two of them
- * (top left and bottom right, or the other way round with `flip`), a soft iridescent glow behind the words.
+ * A cream panel in a fine gold frame, filigree in its four corners, a soft glow behind the words, and with `quid` a
+ * betel quid folded into phoenix wings (trầu têm cánh phượng) resting on the bottom right corner.
  */
-const Frame = ({ children, flip = false }: { children: ReactNode; flip?: boolean }) => (
-  <div className={`t03-frame ${flip ? "t03-flip" : ""}`}>
+const Frame = ({ children, quid = false }: { children: ReactNode; quid?: boolean }) => (
+  <div className="t03-frame">
     {["tl", "tr", "bl", "br"].map((c) => (
       <img key={c} className={`t03-fil t03-fil-${c}`} src={filigree} alt="" aria-hidden="true" />
     ))}
-    <img className="t03-bloom t03-bloom-a" src={phoenix} alt="" aria-hidden="true" />
-    <img className="t03-bloom t03-bloom-b" src={phoenix} alt="" aria-hidden="true" />
+    {quid && <img className="t03-bloom t03-bloom-b" src={phoenix} alt="" aria-hidden="true" />}
     <div className="t03-frame-in">{children}</div>
   </div>
 );
@@ -99,8 +113,8 @@ const Template03 = ({ data }: { data: WeddingData }) => {
       <div className="t03-pearl">
         <section className="t03-sec">
           <Reveal>
-            <Frame>
-              <Crest />
+            <Frame quid>
+              <LongPhung />
               <p className="t03-quote">“Miếng trầu là đầu câu chuyện”</p>
               <p className="t03-small">Trân trọng báo tin lễ thành hôn</p>
               <GuestName prefix="Kính gửi" />
@@ -117,7 +131,7 @@ const Template03 = ({ data }: { data: WeddingData }) => {
 
         <section className="t03-sec">
           <Reveal>
-            <Frame flip>
+            <Frame>
               <p className="t03-small">Ngày lành tháng tốt</p>
               <p className="t03-month">
                 Tháng {Number(d.month)} · {d.year}
@@ -168,7 +182,6 @@ const Template03 = ({ data }: { data: WeddingData }) => {
         </section>
 
         <section className="t03-sec t03-album-sec">
-          <img className="t03-album-bloom" src={phoenix} alt="" aria-hidden="true" />
           <Reveal>
             <Crest />
             <h2 className="t03-title t03-center">Khoảnh khắc</h2>
