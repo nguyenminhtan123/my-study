@@ -4,7 +4,6 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | Tệp | Dùng ở | Nguồn |
 | --- | --- | --- |
 | `my-wed/src/static/aisle.webp` | Mẫu 14 (toàn bộ cảnh lối đi lễ đường) | rawpixel "Scene prepared wedding flower bouquets" https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird (CC0 1.0) |
-| `my-wed/src/static/curtain.jpg` | Mẫu 14 (rèm vải ở màn mở đầu) | rawpixel "Free white curtain image" https://www.rawpixel.com/image/5903743/photo-image-light-public-domain-shadow (CC0 1.0) |
 | `my-wed/src/static/t15-lanterns.webp` | Mẫu 15 (ảnh chính, cuối trang) | CNY - red, red lanterns https://www.rawpixel.com/image/6075594/cny-red-red-lanterns (CC0 1.0) |
 | `my-wed/src/static/t15-damask.jpg` | Mẫu 15 (phong bì, dải gấm đỏ) | Red silk damask wallcovering của Picdrome Public Domain Pictures https://www.flickr.com/photos/65798313@N06/18960169295 (CC0 1.0) |
 | `my-wed/src/static/t16-lavender-rows.jpg` | Mẫu 16 (ảnh chính, địa điểm, cuối trang) | Lavender field background https://www.rawpixel.com/image/6035698/photo-image-background-flower-public-domain (CC0 1.0) |
@@ -111,3 +110,7 @@ Video đồng hoa do chủ repo tự làm và cho phép dùng: bản thử ở `
 ## Mẫu 3 · Trầu cau (`my-wed/design/t03/art/`, chép sang `src/static/t03/`)
 
 Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Hai mâm trầu cau (`tray.webp`, `tray-end.webp`) vẽ bằng chế độ ảnh tham chiếu của model, theo ảnh mâm quả chủ repo gửi để quả cau ra đúng hình; ảnh tham chiếu không lưu trong repo. Khăn đỏ thêu vàng `cloth.webp` vẽ không có chữ, chữ 囍 thêm bằng code. Lá trầu `leaf.webp` tách nền bằng `scripts/design/ai_art.py --alpha`. Dải hoa thêu `garland.webp` và nhánh hoa `spray.webp` cắt từ phần thêu của `cloth.webp`, tách nền đỏ và đổi màu vàng bằng code; nền lụa `silk.webp` là phần trên của `cloth.webp`, ghép lật để lặp liền mạch. Dùng thương mại được, không bắt buộc ghi nguồn.
+
+## Mẫu 14 · Lối vào lễ đường (`my-wed/design/t14/art/`, chép sang `src/static/t14/`)
+
+Rèm nhung đỏ `curtain-velvet.webp` (diềm rủ, tua vàng) do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Dùng thương mại được, không bắt buộc ghi nguồn.
