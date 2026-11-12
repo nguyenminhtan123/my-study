@@ -295,7 +295,7 @@
   left: 16px;
   right: 16px;
   bottom: calc(84px + env(safe-area-inset-bottom, 0px));
-  max-height: 50%;
+  max-height: calc(100% - 84px - 140px - env(safe-area-inset-bottom, 0px)); // all the room under the title
   display: flex;
   flex-direction: column;
   padding: 16px 18px 18px;
@@ -560,7 +560,7 @@
   }
   .t14-card {
     bottom: calc(146px + env(safe-area-inset-bottom, 0px));
-    max-height: 44%;
+    max-height: calc(100% - 146px - 140px - env(safe-area-inset-bottom, 0px));
   }
   .t14-finale {
     bottom: calc(146px + env(safe-area-inset-bottom, 0px));
