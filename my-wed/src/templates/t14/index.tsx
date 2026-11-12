@@ -294,10 +294,11 @@ const Template14 = ({ data }: { data: WeddingData }) => {
               {d.day} · {d.month} · {d.year}
             </p>
           </div>
+          {/* right under the card, so it can never cover the names on a short screen */}
+          <button type="button" className="t14-gate-btn" onClick={enter}>
+            Thả bóng mở thiệp
+          </button>
         </div>
-        <button type="button" className="t14-gate-btn" onClick={enter}>
-          Thả bóng mở thiệp
-        </button>
       </div>
 
       {entered && (
