@@ -80,9 +80,13 @@ const NEXT = ".t14-next:last-of-type";
 if (await page.$(NEXT)) {
   const until = Date.now() + Number(seconds) * 1000 - 6500;
   while (Date.now() < until) {
+    // the last stop's button starts over: stay on the ending instead
+    const label = await page.$eval(NEXT, (b) => b.textContent ?? "").catch(() => "");
+    if (/xem lại/i.test(label)) break;
     await page.click(NEXT, { force: true, timeout: 1000 }).catch(() => {});
     await page.waitForTimeout(3400);
   }
+  await page.waitForTimeout(Math.max(0, Math.min(4000, until - Date.now())));
 } else await page.evaluate(
   `(async (ms) => {
     const el = ${SCROLLER};

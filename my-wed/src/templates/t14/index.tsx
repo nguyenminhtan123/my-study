@@ -10,6 +10,7 @@ import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t14/styles.scss";
+import balloons from "@/static/t14/balloons.webp";
 import { WeddingData } from "@/core/types";
 import { Drifters } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
@@ -174,7 +175,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     later(() => {
       setCardOn(true);
       setBusy(false);
-    }, 1500);
+    }, 2700);
   };
 
   // Hide the card, walk, swap the content, then show the card: never the other way round.
@@ -276,22 +277,26 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         )}
       </div>
 
-      {/* gate: the aisle through the floral arches; opening walks the camera in under them */}
+      {/* gate: the aisle through the floral arches; the balloons float off, then the camera walks in */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
         <div className="t14-gate-photo" />
-        <div className="t14-gate-text">
-          <p>Welcome to our wedding</p>
-          <h1>
-            {data.groom}
-            <i>&amp;</i>
-            {data.bride}
-          </h1>
-          <p className="t14-gate-date">
-            {d.day} · {d.month} · {d.year}
-          </p>
+        {/* a bunch of balloons holding a little card; opening lets them float away with it */}
+        <div className="t14-balloons">
+          <img src={balloons} alt="" />
+          <div className="t14-tag">
+            <p>Welcome to our wedding</p>
+            <h1>
+              {data.groom}
+              <i>&amp;</i>
+              {data.bride}
+            </h1>
+            <p className="t14-gate-date">
+              {d.day} · {d.month} · {d.year}
+            </p>
+          </div>
         </div>
         <button type="button" className="t14-gate-btn" onClick={enter}>
-          Mở cửa lễ đường
+          Thả bóng mở thiệp
         </button>
       </div>
 
