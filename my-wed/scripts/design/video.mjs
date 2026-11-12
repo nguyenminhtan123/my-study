@@ -75,8 +75,15 @@ recording = true;
 await page.waitForTimeout(2600);
 if (await openIntro(page)) await page.waitForTimeout(3200);
 
-// ease-in-out scroll to the bottom over the remaining time
-await page.evaluate(
+// templates told as stops (t14) step through with their "next" button; the others scroll
+const NEXT = ".t14-next:last-of-type";
+if (await page.$(NEXT)) {
+  const until = Date.now() + Number(seconds) * 1000 - 6500;
+  while (Date.now() < until) {
+    await page.click(NEXT, { force: true, timeout: 1000 }).catch(() => {});
+    await page.waitForTimeout(3400);
+  }
+} else await page.evaluate(
   `(async (ms) => {
     const el = ${SCROLLER};
     const max = el.scrollHeight - el.clientHeight;
@@ -90,7 +97,7 @@ await page.evaluate(
       requestAnimationFrame(step);
     });
   })(${Number(seconds) * 1000 - 6500})`,
-);
+  );
 await page.waitForTimeout(1200);
 recording = false;
 await cdp.send("Page.stopScreencast");
