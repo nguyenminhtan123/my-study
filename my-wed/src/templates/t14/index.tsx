@@ -276,23 +276,20 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         )}
       </div>
 
-      {/* gate: red curtains over the aisle; the names are written across both, and part with them */}
+      {/* gate: the aisle through the floral arches; opening walks the camera in under them */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
-        {(["l", "r"] as const).map((side) => (
-          <div key={side} className={`t14-curtain t14-curtain-${side}`}>
-            <div className="t14-gate-text" aria-hidden={side === "r"}>
-              <p>Welcome to our wedding</p>
-              <h1>
-                {data.groom}
-                <i>&amp;</i>
-                {data.bride}
-              </h1>
-              <p className="t14-gate-date">
-                {d.day} · {d.month} · {d.year}
-              </p>
-            </div>
-          </div>
-        ))}
+        <div className="t14-gate-photo" />
+        <div className="t14-gate-text">
+          <p>Welcome to our wedding</p>
+          <h1>
+            {data.groom}
+            <i>&amp;</i>
+            {data.bride}
+          </h1>
+          <p className="t14-gate-date">
+            {d.day} · {d.month} · {d.year}
+          </p>
+        </div>
         <button type="button" className="t14-gate-btn" onClick={enter}>
           Mở cửa lễ đường
         </button>
