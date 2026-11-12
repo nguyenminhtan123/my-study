@@ -3,7 +3,6 @@
 Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mark** (phạm vi công cộng, dùng thương mại được, không bắt buộc ghi nguồn). Vẫn ghi lại để truy vết.
 | Tệp | Dùng ở | Nguồn |
 | --- | --- | --- |
-| `my-wed/src/static/aisle.webp` | Mẫu 14 (toàn bộ cảnh lối đi lễ đường) | rawpixel "Scene prepared wedding flower bouquets" https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird (CC0 1.0) |
 | `my-wed/src/static/t15-lanterns.webp` | Mẫu 15 (ảnh chính, cuối trang) | CNY - red, red lanterns https://www.rawpixel.com/image/6075594/cny-red-red-lanterns (CC0 1.0) |
 | `my-wed/src/static/t15-damask.jpg` | Mẫu 15 (phong bì, dải gấm đỏ) | Red silk damask wallcovering của Picdrome Public Domain Pictures https://www.flickr.com/photos/65798313@N06/18960169295 (CC0 1.0) |
 | `my-wed/src/static/t16-lavender-rows.jpg` | Mẫu 16 (ảnh chính, địa điểm, cuối trang) | Lavender field background https://www.rawpixel.com/image/6035698/photo-image-background-flower-public-domain (CC0 1.0) |
@@ -113,4 +112,4 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 
 ## Mẫu 14 · Lối vào lễ đường (`my-wed/design/t14/art/`, chép sang `src/static/t14/`)
 
-Cảnh lối vào qua các vòm hoa `gate-arches.webp` do AI vẽ (lấy ý từ ảnh tham khảo chủ repo gửi, đổi bối cảnh; ảnh gốc không lưu) (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Dùng thương mại được, không bắt buộc ghi nguồn.
+Cảnh lối vào qua các vòm hoa `gate-arches.webp` và cảnh vườn ngang bên trong `garden.webp` do AI vẽ (lấy ý từ ảnh tham khảo chủ repo gửi, đổi bối cảnh; ảnh gốc không lưu) (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Dùng thương mại được, không bắt buộc ghi nguồn.

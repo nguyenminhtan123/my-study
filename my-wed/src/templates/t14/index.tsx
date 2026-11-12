@@ -224,14 +224,14 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         >
           <img src={photoSrc(data.photos.cover)} alt="" />
         </div>
-        <Drifters kind="heart" count={7} color="#f3c2c4" opacity={0.75} />
+        <Drifters kind="heart" count={7} color="#a9cc95" opacity={0.75} />
         <svg className="t14-defs" aria-hidden="true">
           <defs>
             {[
-              ["#ffd6dc", "#e98a9b"],
-              ["#ffe1e4", "#ef9fae"],
-              ["#f7d9a8", "#c9965a"],
-              ["#ffc2cc", "#d0607a"],
+              ["#e3f1d8", "#6f9d5a"],
+              ["#f4faef", "#9cc285"],
+              ["#fffaf0", "#cfe3c2"],
+              ["#d6ead0", "#4f7f43"],
             ].map(([a, b], i) => (
               <linearGradient
                 key={i}
