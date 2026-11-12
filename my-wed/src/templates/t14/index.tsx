@@ -175,7 +175,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     later(() => {
       setCardOn(true);
       setBusy(false);
-    }, 2700);
+    }, 2000);
   };
 
   // Hide the card, walk, swap the content, then show the card: never the other way round.
@@ -277,7 +277,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         )}
       </div>
 
-      {/* gate: the aisle through the floral arches; the balloons float off, then the camera walks in */}
+      {/* gate: the aisle through the floral arches; the balloons float off with the card and the invitation begins */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
         <div className="t14-gate-photo" />
         {/* a bunch of balloons holding a little card; opening lets them float away with it */}

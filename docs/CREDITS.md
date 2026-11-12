@@ -112,4 +112,4 @@ Toàn bộ tranh do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, gi
 
 ## Mẫu 14 · Lối vào lễ đường (`my-wed/design/t14/art/`, chép sang `src/static/t14/`)
 
-Cảnh lối vào qua các vòm hoa `gate-arches.webp` và cảnh vườn ngang bên trong `garden.webp`, chùm bóng bay `balloons.webp` (tách nền bằng `scripts/design/cutout.py`) do AI vẽ (lấy ý từ ảnh tham khảo chủ repo gửi, đổi bối cảnh; ảnh gốc không lưu) (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Dùng thương mại được, không bắt buộc ghi nguồn.
+Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloons.webp` (tách nền bằng `scripts/design/cutout.py`) do AI vẽ (lấy ý từ ảnh tham khảo chủ repo gửi, đổi bối cảnh; ảnh gốc không lưu) (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo). Dùng thương mại được, không bắt buộc ghi nguồn.
