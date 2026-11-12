@@ -77,14 +77,10 @@
   aspect-ratio: 3 / 2;
   translate: -54% 0;
   background: url("@/static/aisle.webp") center / 100% 100% no-repeat;
-  filter: blur(10px) brightness(1.08);
   transform: scale(1.06);
-  transition:
-    filter 1.6s ease 0.9s,
-    transform 2.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s;
+  transition: transform 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s;
 }
 .t14-entered .t14-photo {
-  filter: none;
   transform: none;
 }
 // warm light + cream fade at the bottom so the card always reads
@@ -142,13 +138,13 @@
   transform: none;
 }
 
-// ---------- gate: sheer curtains ----------
+// ---------- gate: red curtains, the names written across both ----------
 .t14-gate {
   position: fixed;
   inset: 0;
   z-index: 60;
   overflow: hidden;
-  transition: visibility 0s linear 2.4s;
+  transition: visibility 0s linear 1.8s;
 }
 .t14-gate-open {
   visibility: hidden;
@@ -160,144 +156,135 @@
   bottom: 0;
   width: 50.5%;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(60, 45, 30, 0.25);
-  transition: transform 2.1s cubic-bezier(0.65, 0, 0.25, 1) 0.1s;
+  box-shadow: 0 0 30px rgba(60, 20, 20, 0.35);
+  // the panels slide apart whole, so the fabric and the writing are never squashed
+  transition: transform 1.6s cubic-bezier(0.7, 0, 0.25, 1) 0.15s;
 
-  // real fabric photo, warmed slightly; the right panel is its mirror
+  // one velvet stage curtain (swag valance, gold fringe) spanning the screen; each panel shows its half
   &::before {
     content: "";
     position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    background: url("@/static/t14/curtain-velvet.webp") center top / cover no-repeat;
+  }
+  // soft light down the middle of the stage
+  &::after {
+    content: "";
+    position: absolute;
     inset: 0;
-    // red is the wedding (hỷ) colour; multiplying keeps the real folds and light of the fabric
-    background:
-      linear-gradient(180deg, #c8283a, #a3172b 70%, #8c1224),
-      url("@/static/curtain.jpg") center / cover no-repeat;
-    background-blend-mode: multiply;
-    filter: saturate(1.15) contrast(1.08);
+    pointer-events: none;
   }
 }
 .t14-curtain-l {
   left: 0;
-  transform-origin: left center;
 
+  &::before {
+    left: 0;
+  }
+  // a shadow where the two panels meet, and a little dimming behind the names
   &::after {
-    content: "";
-    position: absolute;
-    inset: 0 0 0 auto;
-    width: 36px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(40, 0, 5, 0.35));
+    background:
+      radial-gradient(90% 26% at 100% 52%, rgba(40, 0, 8, 0.38), transparent 70%),
+      linear-gradient(90deg, transparent calc(100% - 18px), rgba(30, 0, 5, 0.45));
   }
 }
 .t14-curtain-r {
   right: 0;
-  transform-origin: right center;
 
   &::before {
-    transform: scaleX(-1);
+    right: 0;
   }
   &::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 36px;
-    background: linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(40, 0, 5, 0.35));
+    background:
+      radial-gradient(90% 26% at 0 52%, rgba(40, 0, 8, 0.38), transparent 70%),
+      linear-gradient(270deg, transparent calc(100% - 18px), rgba(30, 0, 5, 0.45));
   }
 }
-// drawing the curtains: the fabric bunches up toward each side
 .t14-gate-open .t14-curtain-l {
-  transform: scaleX(0.14);
+  transform: translateX(-104%);
 }
 .t14-gate-open .t14-curtain-r {
-  transform: scaleX(0.14);
+  transform: translateX(104%);
 }
-// gold rod across the top
-.t14-pelmet {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 10px;
-  background: linear-gradient(180deg, #e9cf98, #b8955a 60%, #8f6f3c);
-  box-shadow: 0 3px 10px rgba(60, 45, 30, 0.3);
-  transition: opacity 0.6s ease 1.8s;
-}
-.t14-gate-open .t14-pelmet {
-  opacity: 0;
-}
+// the writing spans the whole screen; each panel shows its own half
 .t14-gate-text {
   position: absolute;
-  left: 0;
-  right: 0;
+  z-index: 1;
   top: 50%;
-  transform: translateY(-50%);
-  margin: 0 22px;
-  padding: 60px 20px 30px;
-  border-radius: 999px 999px 18px 18px;
-  background: rgba(255, 250, 242, 0.96);
-  box-shadow:
-    inset 0 0 0 6px rgba(255, 250, 242, 0.96),
-    inset 0 0 0 7px #c9a463,
-    0 24px 50px rgba(60, 10, 15, 0.45);
+  width: 100vw;
+  padding: 0 24px;
+  box-sizing: border-box;
+  transform: translateY(-45%);
+  color: #fff4e6;
   text-align: center;
-  transition: opacity 0.5s;
+  text-shadow: 0 2px 14px rgba(50, 0, 8, 0.55);
 
   p {
     font-size: 10.5px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: var(--k-accent2);
+    color: #f1d398;
   }
   h1 {
-    margin: 18px 0 14px;
+    margin: 22px 0 18px;
     font-family: var(--k-display);
-    font-size: 40px;
+    font-size: 44px;
     font-weight: 500;
     letter-spacing: 0.08em;
     line-height: 1.05;
 
     i {
       display: block;
-      margin: 4px 0;
-      font-size: 40px;
+      margin: 6px 0;
+      font-size: 42px;
       letter-spacing: 0;
-      color: var(--k-accent);
+      color: #f1d398;
     }
   }
   .t14-gate-date {
     letter-spacing: 0.4em;
-    color: var(--k-muted);
-  }
-  .t14-gate-rule {
-    width: 46px;
-    height: 1px;
-    margin: 22px auto;
-    background: var(--k-accent2);
-  }
-  button {
-    padding: 13px 30px;
-    border: 1px solid var(--k-ink);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--k-ink);
-    font: inherit;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid var(--k-ink);
-      animation: t14-pulse 2.4s ease-out infinite;
-      pointer-events: none;
-    }
+    color: #fff4e6;
   }
 }
-.t14-gate-open .t14-gate-text {
+.t14-curtain-l .t14-gate-text {
+  left: 0;
+}
+.t14-curtain-r .t14-gate-text {
+  right: 0;
+}
+.t14-gate-btn {
+  position: absolute;
+  left: 50%;
+  bottom: calc(14% + env(safe-area-inset-bottom, 0px));
+  z-index: 2;
+  padding: 14px 30px;
+  border: 1px solid #e3c385;
+  border-radius: 999px;
+  background: rgba(70, 8, 18, 0.35);
+  color: #fff4e6;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  cursor: pointer;
+  transition: opacity 0.4s;
+  -webkit-tap-highlight-color: transparent;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    border: 1px solid #e3c385;
+    animation: t14-pulse 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+}
+.t14-gate-open .t14-gate-btn {
   opacity: 0;
 }
 
@@ -583,8 +570,8 @@
   .t14-finale {
     bottom: calc(146px + env(safe-area-inset-bottom, 0px));
   }
-  .t14-gate-text {
-    margin-top: -30px;
+  .t14-gate-btn {
+    bottom: calc(84px + 8% + env(safe-area-inset-bottom, 0px));
   }
 }
 

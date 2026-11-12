@@ -174,7 +174,7 @@ const Template14 = ({ data }: { data: WeddingData }) => {
     later(() => {
       setCardOn(true);
       setBusy(false);
-    }, 2600);
+    }, 1500);
   };
 
   // Hide the card, walk, swap the content, then show the card: never the other way round.
@@ -276,26 +276,26 @@ const Template14 = ({ data }: { data: WeddingData }) => {
         )}
       </div>
 
-      {/* gate: sheer curtains over the aisle */}
+      {/* gate: red curtains over the aisle; the names are written across both, and part with them */}
       <div className={`t14-gate ${entered ? "t14-gate-open" : ""}`}>
-        <div className="t14-curtain t14-curtain-l" />
-        <div className="t14-curtain t14-curtain-r" />
-        <div className="t14-pelmet" />
-        <div className="t14-gate-text">
-          <p>Welcome to our wedding</p>
-          <h1>
-            {data.groom}
-            <i>&amp;</i>
-            {data.bride}
-          </h1>
-          <p className="t14-gate-date">
-            {d.day} · {d.month} · {d.year}
-          </p>
-          <div className="t14-gate-rule" />
-          <button type="button" onClick={enter}>
-            Mở cửa lễ đường
-          </button>
-        </div>
+        {(["l", "r"] as const).map((side) => (
+          <div key={side} className={`t14-curtain t14-curtain-${side}`}>
+            <div className="t14-gate-text" aria-hidden={side === "r"}>
+              <p>Welcome to our wedding</p>
+              <h1>
+                {data.groom}
+                <i>&amp;</i>
+                {data.bride}
+              </h1>
+              <p className="t14-gate-date">
+                {d.day} · {d.month} · {d.year}
+              </p>
+            </div>
+          </div>
+        ))}
+        <button type="button" className="t14-gate-btn" onClick={enter}>
+          Mở cửa lễ đường
+        </button>
       </div>
 
       {entered && (
