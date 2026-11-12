@@ -451,7 +451,7 @@
 .t14-nav {
   position: absolute;
   left: 16px;
-  right: 16px;
+  right: 62px; // the round music button sits in the bottom-right corner
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
@@ -475,17 +475,20 @@
     opacity: 0.4;
   }
   .t14-next {
-    padding: 0 20px;
+    flex: none;
+    padding: 0 16px;
+    white-space: nowrap;
     background: var(--main);
     border-color: var(--main);
     color: #fff8f2;
     font-size: 11px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 }
 .t14-dots {
   flex: 1;
+  min-width: 0;
   display: flex;
   justify-content: center;
   gap: 6px;
@@ -619,7 +622,7 @@
     border-top: 1px solid var(--k-accent2);
     font-size: 10.5px;
     letter-spacing: 0.3em;
-    color: #9c7a43;
+    color: var(--k-accent);
   }
 }
 .t14-head-on {
@@ -694,5 +697,46 @@
   .t14-card,
   .t14-finale {
     bottom: calc(126px + env(safe-area-inset-bottom, 0px));
+  }
+  .t14-card {
+    max-height: calc(100% - 126px - 140px - env(safe-area-inset-bottom, 0px));
+  }
+}
+
+// short phones (iPhone SE and the like): a smaller title and a tighter form leave the card more room
+@media (max-height: 740px) {
+  .t14-head {
+    top: calc(14px + env(safe-area-inset-top, 0px));
+
+    h2 {
+      font-size: 29px;
+    }
+  }
+  .t14-card {
+    max-height: calc(100% - 84px - 104px - env(safe-area-inset-bottom, 0px));
+    padding: 12px 14px 14px;
+  }
+  .t14-root .k-form {
+    gap: 8px;
+
+    textarea {
+      min-height: 0;
+      height: 54px;
+    }
+    input,
+    select {
+      padding-top: 7px;
+      padding-bottom: 7px;
+    }
+  }
+  .t14-portrait {
+    width: min(50vw, 210px, 30vh);
+    margin-left: calc(min(50vw, 210px, 30vh) / -2);
+  }
+  .gl-bar:not(.gl-bar-off) ~ .t14-root .t14-card {
+    max-height: calc(100% - 146px - 104px - env(safe-area-inset-bottom, 0px));
+  }
+  .gl-bar.gl-bar-off ~ .t14-root .t14-card {
+    max-height: calc(100% - 126px - 104px - env(safe-area-inset-bottom, 0px));
   }
 }
