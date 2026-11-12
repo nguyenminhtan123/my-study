@@ -2,12 +2,13 @@
 // open at the start, and between stops a gust of hearts blows across (transform/opacity only, so
 // it stays smooth on phones). The couple's own photo waits under the arch at the end.
 .t14-root {
-  --k-bg: #fbf3ef;
+  --k-bg: #f3f8ee;
+  --leaf: #4f7f43; // the garden green of the opening: buttons and highlights
   --k-ink: #3f3329;
   --k-muted: #85776a;
-  --k-accent: #b67d76;
-  --k-accent2: #b8955a;
-  --k-line: #ecd9d6;
+  --k-accent: #5e8f4f;
+  --k-accent2: #8fb27a;
+  --k-line: #d4e5ca;
   --k-card: rgba(255, 255, 255, 0.55);
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
   --k-script: "Allura", Georgia, serif;
@@ -15,7 +16,7 @@
   --vp: 44%; // vanishing point (vertical)
   padding: 0;
   overflow: hidden;
-  background: #efe6da;
+  background: #eaf3e3;
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
@@ -46,12 +47,12 @@
     font-size: 12.5px;
   }
   .k-submit {
-    background: var(--k-ink);
+    background: var(--leaf);
     letter-spacing: 0.24em;
   }
   .k-chips button.on {
-    background: var(--k-ink);
-    border-color: var(--k-ink);
+    background: var(--leaf);
+    border-color: var(--leaf);
   }
 }
 
@@ -60,7 +61,7 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: #efe6da;
+  background: #eaf3e3;
 }
 // framing: the sharp bouquet on the left, the aisle running to the draped arch on the right
 .t14-cam {
@@ -96,12 +97,12 @@
     ),
     linear-gradient(
       180deg,
-      rgba(251, 245, 238, 0.9) 0%,
-      rgba(251, 245, 238, 0.55) 16%,
-      rgba(251, 245, 238, 0) 30%,
-      rgba(251, 245, 238, 0) 52%,
-      rgba(251, 245, 238, 0.7) 78%,
-      rgba(251, 245, 238, 0.92) 100%
+      rgba(240, 247, 234, 0.9) 0%,
+      rgba(240, 247, 234, 0.55) 16%,
+      rgba(240, 247, 234, 0) 30%,
+      rgba(240, 247, 234, 0) 52%,
+      rgba(240, 247, 234, 0.7) 78%,
+      rgba(240, 247, 234, 0.92) 100%
     );
 }
 
@@ -150,109 +151,70 @@
   visibility: hidden;
   pointer-events: none;
 }
-.t14-curtain {
+// the aisle through the arches; opening walks the camera in toward the far end, then the scene fades in
+.t14-gate-photo {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(60, 20, 20, 0.35);
-  // the panels slide apart whole, so the fabric and the writing are never squashed
-  transition: transform 1.6s cubic-bezier(0.7, 0, 0.25, 1) 0.15s;
+  inset: 0;
+  background: url("@/static/t14/gate-arches.webp") 50% 50% / cover no-repeat;
+  transform-origin: 50% 58%;
+  transition:
+    transform 1.7s cubic-bezier(0.55, 0, 0.35, 1),
+    opacity 0.6s ease 1.15s;
 
-  // one velvet stage curtain (swag valance, gold fringe) spanning the screen; each panel shows its half
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100vw;
-    background: url("@/static/t14/curtain-velvet.webp") center top / cover no-repeat;
-  }
-  // soft light down the middle of the stage
+  // a little shade at the top so the names read over the trees
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    pointer-events: none;
+    background: linear-gradient(180deg, rgba(25, 35, 20, 0.5), rgba(25, 35, 20, 0.15) 38%, transparent 55%);
   }
 }
-.t14-curtain-l {
-  left: 0;
-
-  &::before {
-    left: 0;
-  }
-  // a shadow where the two panels meet, and a little dimming behind the names
-  &::after {
-    background:
-      radial-gradient(90% 26% at 100% 52%, rgba(40, 0, 8, 0.38), transparent 70%),
-      linear-gradient(90deg, transparent calc(100% - 18px), rgba(30, 0, 5, 0.45));
-  }
+.t14-gate-open .t14-gate-photo {
+  transform: scale(2.8);
+  opacity: 0;
 }
-.t14-curtain-r {
-  right: 0;
-
-  &::before {
-    right: 0;
-  }
-  &::after {
-    background:
-      radial-gradient(90% 26% at 0 52%, rgba(40, 0, 8, 0.38), transparent 70%),
-      linear-gradient(270deg, transparent calc(100% - 18px), rgba(30, 0, 5, 0.45));
-  }
-}
-.t14-gate-open .t14-curtain-l {
-  transform: translateX(-104%);
-}
-.t14-gate-open .t14-curtain-r {
-  transform: translateX(104%);
-}
-// the writing spans the whole screen; each panel shows its own half
+// the names over the treetops
 .t14-gate-text {
   position: absolute;
-  z-index: 1;
-  top: 50%;
-  width: 100vw;
+  top: calc(9% + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
   padding: 0 24px;
-  box-sizing: border-box;
-  transform: translateY(-45%);
-  color: #fff4e6;
+  color: #fffaf2;
   text-align: center;
-  text-shadow: 0 2px 14px rgba(50, 0, 8, 0.55);
+  text-shadow: 0 2px 14px rgba(20, 30, 15, 0.55);
+  transition: opacity 0.5s, transform 0.9s ease;
 
   p {
     font-size: 10.5px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: #f1d398;
+    color: #fbe3d6;
   }
   h1 {
-    margin: 22px 0 18px;
+    margin: 16px 0 12px;
     font-family: var(--k-display);
-    font-size: 44px;
+    font-size: 42px;
     font-weight: 500;
     letter-spacing: 0.08em;
     line-height: 1.05;
 
     i {
       display: block;
-      margin: 6px 0;
-      font-size: 42px;
+      margin: 4px 0;
+      font-size: 40px;
       letter-spacing: 0;
-      color: #f1d398;
+      color: #fbe3d6;
     }
   }
   .t14-gate-date {
     letter-spacing: 0.4em;
-    color: #fff4e6;
+    color: #fffaf2;
   }
 }
-.t14-curtain-l .t14-gate-text {
-  left: 0;
-}
-.t14-curtain-r .t14-gate-text {
-  right: 0;
+.t14-gate-open .t14-gate-text {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 .t14-gate-btn {
   position: absolute;
@@ -260,9 +222,10 @@
   bottom: calc(14% + env(safe-area-inset-bottom, 0px));
   z-index: 2;
   padding: 14px 30px;
-  border: 1px solid #e3c385;
+  border: 1px solid rgba(255, 250, 242, 0.85);
   border-radius: 999px;
-  background: rgba(70, 8, 18, 0.35);
+  background: rgba(60, 40, 30, 0.35);
+  backdrop-filter: blur(4px);
   color: #fff4e6;
   font: inherit;
   font-size: 11px;
@@ -279,7 +242,7 @@
     position: absolute;
     inset: -1px;
     border-radius: inherit;
-    border: 1px solid #e3c385;
+    border: 1px solid rgba(255, 250, 242, 0.85);
     animation: t14-pulse 2.4s ease-out infinite;
     pointer-events: none;
   }
@@ -304,12 +267,12 @@
   display: flex;
   flex-direction: column;
   padding: 16px 18px 18px;
-  background: rgba(255, 250, 246, 0.82);
+  background: rgba(244, 250, 239, 0.86);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(196, 160, 99, 0.45);
+  border: 1px solid rgba(110, 160, 90, 0.4);
   border-radius: 20px;
-  box-shadow: 0 18px 40px rgba(90, 40, 50, 0.2);
+  box-shadow: 0 18px 40px rgba(40, 70, 30, 0.18);
   text-align: center;
 }
 // --dir (set on .t14-ui) is 1 going forward and -1 going back: the card leaves with the wind
@@ -481,8 +444,8 @@
   }
   .t14-next {
     padding: 0 20px;
-    background: var(--k-ink);
-    border-color: var(--k-ink);
+    background: var(--leaf);
+    border-color: var(--leaf);
     color: #fff8f2;
     font-size: 11px;
     letter-spacing: 0.16em;
@@ -508,7 +471,7 @@
   .on {
     width: 18px;
     border-radius: 3px;
-    background: var(--k-ink);
+    background: var(--leaf);
   }
 }
 
