@@ -160,8 +160,8 @@
   position: absolute;
   left: 50%;
   top: calc(4% + env(safe-area-inset-top, 0px));
-  width: min(62vw, 280px);
-  margin-left: calc(min(62vw, 280px) / -2);
+  width: min(62vw, 280px, 31vh);
+  margin-left: calc(min(62vw, 280px, 31vh) / -2);
   transform-origin: 50% 100%;
   animation: t14-bob 4s ease-in-out infinite;
 
@@ -249,10 +249,10 @@
   }
 }
 .t14-gate-btn {
-  position: absolute;
+  position: relative;
   left: 50%;
-  bottom: calc(14% + env(safe-area-inset-bottom, 0px));
   z-index: 2;
+  margin-top: 22px;
   padding: 14px 30px;
   border: 1px solid rgba(255, 250, 242, 0.85);
   border-radius: 999px;
@@ -564,9 +564,6 @@
   }
   .t14-finale {
     bottom: calc(146px + env(safe-area-inset-bottom, 0px));
-  }
-  .t14-gate-btn {
-    bottom: calc(84px + 8% + env(safe-area-inset-bottom, 0px));
   }
 }
 
