@@ -2,13 +2,13 @@
 // open at the start, and between stops a gust of hearts blows across (transform/opacity only, so
 // it stays smooth on phones). The couple's own photo waits under the arch at the end.
 .t14-root {
-  --k-bg: #f3f8ee;
-  --leaf: #4f7f43; // the garden green of the opening: buttons and highlights
+  --k-bg: #fdf1f3;
+  --main: #e27d9a; // pastel rose: buttons and highlights
   --k-ink: #3f3329;
   --k-muted: #85776a;
-  --k-accent: #5e8f4f;
-  --k-accent2: #8fb27a;
-  --k-line: #d4e5ca;
+  --k-accent: #d9708f;
+  --k-accent2: #f0a9bb;
+  --k-line: #f5d3dc;
   --k-card: rgba(255, 255, 255, 0.55);
   --k-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
   --k-script: "Allura", Georgia, serif;
@@ -16,7 +16,7 @@
   --vp: 44%; // vanishing point (vertical)
   padding: 0;
   overflow: hidden;
-  background: #eaf3e3;
+  background: #fbe9ee;
   color: var(--k-ink);
   font-family: var(--k-body);
   font-weight: 300;
@@ -47,12 +47,12 @@
     font-size: 12.5px;
   }
   .k-submit {
-    background: var(--leaf);
+    background: var(--main);
     letter-spacing: 0.24em;
   }
   .k-chips button.on {
-    background: var(--leaf);
-    border-color: var(--leaf);
+    background: var(--main);
+    border-color: var(--main);
   }
 }
 
@@ -61,9 +61,9 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: #eaf3e3;
+  background: #fbe9ee;
 }
-// framing: the aisle runs straight up the middle to the floral arch and the glass pavilion
+// framing: the aisle runs up the middle of the screen to the floral arch and the glass pavilion
 .t14-cam {
   position: absolute;
   inset: 0;
@@ -97,12 +97,12 @@
     ),
     linear-gradient(
       180deg,
-      rgba(240, 247, 234, 0.9) 0%,
-      rgba(240, 247, 234, 0.55) 16%,
-      rgba(240, 247, 234, 0) 30%,
-      rgba(240, 247, 234, 0) 52%,
-      rgba(240, 247, 234, 0.7) 78%,
-      rgba(240, 247, 234, 0.92) 100%
+      rgba(253, 240, 244, 0.9) 0%,
+      rgba(253, 240, 244, 0.55) 16%,
+      rgba(253, 240, 244, 0) 30%,
+      rgba(253, 240, 244, 0) 52%,
+      rgba(253, 240, 244, 0.7) 78%,
+      rgba(253, 240, 244, 0.92) 100%
     );
 }
 
@@ -118,8 +118,8 @@
   border-radius: 999px 999px 14px 14px;
   background: rgba(255, 252, 247, 0.92);
   box-shadow:
-    0 0 0 1px rgba(110, 160, 90, 0.6),
-    0 24px 50px rgba(30, 60, 25, 0.3);
+    0 0 0 1px rgba(226, 125, 154, 0.55),
+    0 24px 50px rgba(150, 60, 85, 0.28);
   opacity: 0;
   transform: translateY(18px) scale(0.94);
   transition:
@@ -166,7 +166,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(25, 35, 20, 0.5), rgba(25, 35, 20, 0.15) 38%, transparent 55%);
+    background: linear-gradient(180deg, rgba(60, 30, 40, 0.42), rgba(60, 30, 40, 0.12) 38%, transparent 55%);
   }
 }
 .t14-gate-open .t14-gate-photo {
@@ -267,12 +267,12 @@
   display: flex;
   flex-direction: column;
   padding: 16px 18px 18px;
-  background: rgba(244, 250, 239, 0.86);
+  background: rgba(255, 245, 248, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(110, 160, 90, 0.4);
+  border: 1px solid rgba(226, 125, 154, 0.35);
   border-radius: 20px;
-  box-shadow: 0 18px 40px rgba(40, 70, 30, 0.18);
+  box-shadow: 0 18px 40px rgba(150, 60, 85, 0.16);
   text-align: center;
 }
 // --dir (set on .t14-ui) is 1 going forward and -1 going back: the card leaves with the wind
@@ -444,8 +444,8 @@
   }
   .t14-next {
     padding: 0 20px;
-    background: var(--leaf);
-    border-color: var(--leaf);
+    background: var(--main);
+    border-color: var(--main);
     color: #fff8f2;
     font-size: 11px;
     letter-spacing: 0.16em;
@@ -471,7 +471,7 @@
   .on {
     width: 18px;
     border-radius: 3px;
-    background: var(--leaf);
+    background: var(--main);
   }
 }
 
@@ -482,10 +482,10 @@
   right: 16px;
   bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   padding: 16px 18px;
-  background: rgba(244, 250, 239, 0.88);
+  background: rgba(255, 245, 248, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(110, 160, 90, 0.4);
+  border: 1px solid rgba(226, 125, 154, 0.35);
   border-radius: 20px;
   box-shadow: 0 18px 40px rgba(70, 50, 30, 0.18);
   text-align: center;
