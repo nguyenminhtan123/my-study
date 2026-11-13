@@ -1,10 +1,7 @@
 import { CSSProperties, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import butterfly from "@/static/t33/butterfly.webp";
-// ?inline puts the two corner flowers inside the app itself: they show the moment the waiting screen does,
-// with no network fetch (and no upload to the media site, see scripts/remote-media.mjs)
-import cornerBl from "@/static/t33/corner-bl.webp?inline";
-import cornerTr from "@/static/t33/corner-tr.webp?inline";
+import { cornerBl, cornerTr } from "@/components/meadow-corners";
 import meadowPoster from "@/static/t33/meadow-poster.webp";
 
 // How long a guest may wait at most, and how long the screen stays at least (no flash when cached).
