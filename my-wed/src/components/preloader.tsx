@@ -85,17 +85,25 @@ export const LoadingScreen = ({
   const script = theme.script ?? DEFAULT_SCRIPT;
   // the names wait for their handwriting font, so they never flash up in a plain one first
   const [font, setFont] = useState(false);
+  const caps = theme.caps;
+  const meadow = theme.loader === "meadow";
+  const nameText = names ? `${names[0]} & ${names[1]}` : " ";
   useEffect(() => {
     let alive = true;
     setFont(false);
     const show = () => alive && setFont(true);
-    document.fonts.load(`40px ${script}`).then(show, show);
+    // load() with no text only fetches the Latin glyphs: name the real text, so the Vietnamese-only letters
+    // (ọ ư ơ đ ạ ...) come from the handwriting font too, not a plain fallback
+    const loads = [document.fonts.load(`40px ${script}`, nameText)];
+    // the meadow look also shows its small-caps text at once, so that font is awaited as well
+    if (meadow && caps) loads.push(document.fonts.load(`500 12px ${caps}`, "Thiệp mời cưới Đang mở thiệp · 0123456789"));
+    Promise.all(loads).then(show, show);
     const t = window.setTimeout(show, 1500);
     return () => {
       alive = false;
       window.clearTimeout(t);
     };
-  }, [script]);
+  }, [script, nameText, meadow, caps]);
 
   const vars = {
     "--pl-bg": theme.bg,

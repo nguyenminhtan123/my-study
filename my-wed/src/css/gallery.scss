@@ -449,6 +449,10 @@
     z-index: 1;
   }
 }
+// the glass shows once its fonts are in, so no word flashes up in a plain font first
+.pl-meadow:not(.pl-font) .pl-m-card {
+  opacity: 0;
+}
 .pl-leave .pl-m-card {
   transform: scale(1.14);
   opacity: 0;
