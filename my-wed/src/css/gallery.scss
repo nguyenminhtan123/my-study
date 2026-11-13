@@ -382,6 +382,283 @@
   font: 400 11px/1 "Be Vietnam Pro", sans-serif;
   color: var(--pl-muted, #b39d97);
 }
+// ---------- the waiting screen in the Nắng đồng hoa look (a template opts in with --k-loader: meadow) ----------
+// Frosted glass over the soft meadow, wildflowers hugging two corners, a butterfly along the bar. On iPhone it
+// ends in an "Mở thiệp" button; the tap opens the glass and the meadow clears behind it.
+// Sizes follow the screen width (--u is 1% of it, capped on wide screens), so it scales like the card does.
+@function mu($n) {
+  @return calc(var(--u) * #{$n});
+}
+.pl-screen.pl-meadow {
+  --u: min(1vw, 4.8px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  gap: 0;
+  padding: 0 mu(5);
+  overflow: hidden;
+  background: #2b3a2c;
+  transition: none;
+}
+// the whole screen stays up while the butterfly crosses it; each layer fades by itself
+.pl-screen.pl-meadow.pl-leave {
+  opacity: 1;
+  visibility: visible;
+}
+.pl-m-bg,
+.pl-m-veil {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1.17s ease;
+}
+.pl-m-bg {
+  inset: -6%;
+  background: center / cover no-repeat;
+  filter: blur(16px) saturate(0.9);
+  transition: opacity 1.17s ease;
+}
+.pl-m-veil {
+  background: linear-gradient(rgba(255, 253, 249, 0.62), rgba(255, 253, 249, 0.5));
+}
+.pl-leave .pl-m-bg,
+.pl-leave .pl-m-veil {
+  opacity: 0;
+}
+.pl-m-card {
+  position: relative;
+  box-sizing: border-box;
+  width: min(100%, 460px);
+  overflow: hidden;
+  padding: mu(9) mu(6) mu(8);
+  text-align: center;
+  color: var(--pl-ink, #2f4637);
+  background: rgba(255, 253, 249, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: mu(7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 mu(2) mu(8) rgba(30, 50, 34, 0.16);
+  transition:
+    transform 1s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.75s ease,
+    filter 1s ease;
+
+  // the text sits above the corner flowers
+  > :not(.pl-m-corner) {
+    position: relative;
+    z-index: 1;
+  }
+}
+.pl-leave .pl-m-card {
+  transform: scale(1.14);
+  opacity: 0;
+  filter: blur(8px);
+}
+// two wildflower clusters hugging the corners of the glass; the card clips them to its rounded edge
+.pl-m-corner {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  animation: pl-m-sway 6s ease-in-out infinite alternate;
+}
+.pl-m-tr {
+  top: mu(-1.5);
+  right: mu(-1.5);
+  width: mu(33);
+  transform-origin: 100% 0;
+}
+.pl-m-bl {
+  bottom: mu(-1.5);
+  left: mu(-1.5);
+  width: mu(31);
+  transform-origin: 0 100%;
+  animation-duration: 7s;
+  animation-delay: -2.5s;
+}
+@keyframes pl-m-sway {
+  from {
+    transform: rotate(-1deg);
+  }
+  to {
+    transform: rotate(1deg);
+  }
+}
+.pl-m-kicker {
+  margin: 0;
+  font: 500 mu(3) / 1.6 var(--pl-caps, "Be Vietnam Pro", system-ui, sans-serif);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--pl-muted, #6c7a6f);
+}
+.pl-m-names {
+  display: grid;
+  margin: mu(3) 0 mu(6);
+  font: 400 mu(14.5) / 0.95 var(--pl-script, "Allura", cursive);
+  color: var(--pl-accent, #d0708c);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  span:nth-child(2) {
+    padding-left: mu(11);
+  }
+  i {
+    margin-right: mu(2);
+    font-size: mu(8);
+    font-style: normal;
+    color: var(--pl-gold, #d6b37a);
+  }
+}
+.pl-font .pl-m-names {
+  opacity: 1;
+}
+// the bar and the button share one slot: the bar gives way to the button once everything has loaded
+.pl-m-act {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: mu(14);
+}
+.pl-m-meter {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.pl-m-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: mu(6);
+  height: 1px;
+  background: rgba(47, 70, 55, 0.2);
+
+  i {
+    position: absolute;
+    left: 0;
+    top: -0.5px;
+    height: 2px;
+    width: var(--p, 0%);
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--pl-accent2, #6b80c0), var(--pl-accent, #d0708c));
+    transition: width 0.4s ease;
+  }
+}
+.pl-m-fly {
+  position: absolute;
+  top: 0;
+  left: var(--p, 0%);
+  width: mu(11);
+  transform: translateX(-50%);
+  transition: left 0.4s ease;
+}
+.pl-m-pct {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font: 400 mu(3.2) / 1 var(--pl-caps, "Be Vietnam Pro", system-ui, sans-serif);
+  color: var(--pl-muted, #6c7a6f);
+}
+.pl-m-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: mu(2.6);
+  padding: mu(4.4) mu(7.4);
+  border: 0;
+  border-radius: 999px;
+  white-space: nowrap;
+  font: 500 mu(3.3) / 1 var(--pl-caps, "Be Vietnam Pro", system-ui, sans-serif);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #d0708c, #b9567a);
+  box-shadow: 0 mu(2) mu(6) rgba(208, 112, 140, 0.45);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  transition:
+    opacity 0.5s ease 0.15s,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+
+  svg {
+    width: mu(4.6);
+    fill: #fff;
+  }
+  // a ring that keeps breathing out, so it reads as something to press
+  &::after {
+    content: "";
+    position: absolute;
+    inset: mu(-1.6);
+    border-radius: inherit;
+    border: 1px solid rgba(208, 112, 140, 0.65);
+    animation: pl-m-ring 2s ease-out infinite;
+  }
+}
+@keyframes pl-m-ring {
+  from {
+    transform: scale(0.94);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+.pl-ready {
+  .pl-m-meter {
+    opacity: 0;
+    transform: translateY(mu(-1));
+  }
+  .pl-m-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+}
+// once opened, a butterfly crosses the screen while the meadow comes clear
+.pl-m-flight {
+  position: absolute;
+  left: mu(-18);
+  bottom: 18%;
+  width: mu(16);
+  opacity: 0;
+  pointer-events: none;
+}
+.pl-leave .pl-m-flight {
+  animation: pl-m-flight 2.17s cubic-bezier(0.45, 0.1, 0.35, 1) 0.21s both;
+}
+@keyframes pl-m-flight {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-12deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  45% {
+    transform: translate(mu(70), -34vh) rotate(8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(mu(130), -62vh) rotate(-6deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-m-corner,
+  .pl-m-btn::after {
+    animation: none;
+  }
+  .pl-leave .pl-m-flight {
+    animation: none;
+  }
+}
+
 // while it shows, the template's CSS animations wait at their start, so the opening plays in full after
 body.pl-hold .zaui-page *,
 body.pl-hold .zaui-page *::before,
