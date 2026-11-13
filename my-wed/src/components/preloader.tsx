@@ -123,19 +123,18 @@ const loadImage = (src: string) =>
   });
 
 /**
- * Waits until the template's own video is playing (or could play). It never touches the video
- * element itself: the template starts it muted and inline, which is what lets Zalo on iPhone play
- * it by itself; calling load() or swapping its source would cost that. Meanwhile the file is
- * fetched once more so it lands in the cache sooner.
+ * Waits a little for the template's video to show its first frame (at most VIDEO_WAIT), without
+ * touching the element: the template starts it itself. iPhone often loads nothing before play
+ * starts, so the screen must not sit waiting the full MAX_WAIT for it.
  */
+const VIDEO_WAIT = 2500;
 const videoReady = (video: HTMLVideoElement) =>
   new Promise<void>((done) => {
-    const src = video.currentSrc || video.getAttribute("src");
-    if (!src || video.readyState >= 3 || !video.paused) return done();
-    for (const ev of ["playing", "canplaythrough", "canplay", "error"]) {
+    if (!video.getAttribute("src") || video.readyState >= 2 || !video.paused) return done();
+    for (const ev of ["loadeddata", "playing", "canplay", "error"]) {
       video.addEventListener(ev, () => done(), { once: true });
     }
-    fetch(src).catch(() => {});
+    window.setTimeout(done, VIDEO_WAIT);
   });
 
 /**
