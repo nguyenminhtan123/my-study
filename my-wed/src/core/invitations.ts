@@ -16,7 +16,8 @@ const rpc = async <T>(
   fn: string,
   body: Record<string, unknown>,
 ): Promise<T> => {
-  if (!URL || !KEY) throw new Error("Supabase is not configured");
+  if (!URL || !KEY)
+    throw new Error("Thiếu cấu hình Supabase trong bản build (.env.local)");
   const res = await fetch(`${URL}/rest/v1/rpc/${fn}`, {
     method: "POST",
     headers: {
@@ -25,8 +26,13 @@ const rpc = async <T>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
+  }).catch((e: unknown) => {
+    // no answer at all: offline, or the request was blocked before it reached Supabase
+    throw new Error(
+      `Không gọi được ${new globalThis.URL(URL).host}: ${e instanceof Error ? e.message : e}`,
+    );
   });
-  if (!res.ok) throw new Error(`${fn} failed: ${res.status}`);
+  if (!res.ok) throw new Error(`Supabase trả lỗi ${res.status} (${fn})`);
   return res.json() as Promise<T>;
 };
 
