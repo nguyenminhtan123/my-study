@@ -8,7 +8,6 @@ import blue from "@/static/t33/blue.webp";
 import butterfly from "@/static/t33/butterfly.webp";
 import cosmos from "@/static/t33/cosmos.webp";
 import gift from "@/static/t33/gift.webp";
-import meadowLoop from "@/static/t33/meadow-loop.webp";
 import meadowPoster from "@/static/t33/meadow-poster.webp";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -30,8 +29,9 @@ const SUPABASE = import.meta.env.VITE_SUPABASE_URL || "https://pguaakunmaryjgfhf
 const MEADOW = `${SUPABASE}/storage/v1/object/public/media/templates/t33/meadow-loop.mp4`;
 
 // Zalo on iPhone plays no video before the guest's first tap, muted or not (and Low Power Mode blocks it
-// everywhere), so on iPhone/iPad the meadow is the same loop as an animated WebP: images always animate,
-// so it moves as soon as the waiting screen lifts, with nothing to tap.
+// everywhere). So on iPhone/iPad the waiting screen ends with an "Mở thiệp" button (see components/preloader):
+// that tap starts the video, and the opening plays out of it. Elsewhere the video autoplays and the card
+// opens by itself.
 const IOS =
   typeof navigator !== "undefined" &&
   (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
@@ -128,15 +128,11 @@ const Template33 = ({ data }: { data: WeddingData }) => {
   });
 
   return (
-    <Page className="t33-root">
+    <Page className={`t33-root ${IOS ? "t33-ios" : ""}`}>
       <div ref={root}>
         {/* the meadow, still behind the whole card */}
         <div className="t33-bg" aria-hidden>
-          {IOS ? (
-            <img src={meadowLoop} alt="" />
-          ) : (
-            <video ref={video} src={MEADOW} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
-          )}
+          <video ref={video} src={MEADOW} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
           <div className="t33-shade" />
         </div>
 

@@ -1,4 +1,11 @@
-import { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
+import { CSSProperties, useEffect, useLayoutEffect, useRef, useState } from "react";
+
+import butterfly from "@/static/t33/butterfly.webp";
+// ?inline puts the two corner flowers inside the app itself: they show the moment the waiting screen does,
+// with no network fetch (and no upload to the media site, see scripts/remote-media.mjs)
+import cornerBl from "@/static/t33/corner-bl.webp?inline";
+import cornerTr from "@/static/t33/corner-tr.webp?inline";
+import meadowPoster from "@/static/t33/meadow-poster.webp";
 
 // How long a guest may wait at most, and how long the screen stays at least (no flash when cached).
 const MAX_WAIT = 8000;
@@ -11,6 +18,14 @@ type Theme = {
   muted?: string;
   accent?: string;
   script?: string;
+  /** a second accent, a gold, and the small-caps font, for the templates that dress the screen in their own look */
+  accent2?: string;
+  gold?: string;
+  caps?: string;
+  /** "meadow": the screen in the Nắng đồng hoa look (see the .pl-meadow styles) */
+  loader?: string;
+  /** stop at an "Mở thiệp" button once loaded: the guest's tap lets iPhone play the template's video */
+  tap?: boolean;
 };
 
 const DEFAULT_SCRIPT = '"Great Vibes", cursive';
@@ -37,6 +52,11 @@ const readTheme = (): Theme => {
     muted: get("--k-muted"),
     accent: get("--k-accent"),
     script: get("--k-script"),
+    accent2: get("--k-accent2"),
+    gold: get("--gold"),
+    caps: get("--caps"),
+    loader: get("--k-loader"),
+    tap: get("--k-tap") === "1",
   };
 };
 
@@ -48,6 +68,8 @@ export const LoadingScreen = ({
   names,
   progress,
   leaving = false,
+  ready = false,
+  onOpen,
   theme = {},
 }: {
   /** groom and bride */
@@ -55,6 +77,9 @@ export const LoadingScreen = ({
   /** 0..1, or undefined while there is nothing to count yet */
   progress?: number;
   leaving?: boolean;
+  /** loaded, waiting for the guest's tap on the button (only the meadow look has one) */
+  ready?: boolean;
+  onOpen?: () => void;
   theme?: Theme;
 }) => {
   const script = theme.script ?? DEFAULT_SCRIPT;
@@ -78,7 +103,57 @@ export const LoadingScreen = ({
     "--pl-muted": theme.muted,
     "--pl-accent": theme.accent,
     "--pl-script": script,
+    "--pl-accent2": theme.accent2,
+    "--pl-gold": theme.gold,
+    "--pl-caps": theme.caps,
   } as CSSProperties;
+
+  if (theme.loader === "meadow") {
+    const pct = Math.round((progress ?? 0.08) * 100);
+    return (
+      <div
+        className={`pl-screen pl-meadow ${leaving ? "pl-leave" : ""} ${font ? "pl-font" : ""} ${ready ? "pl-ready" : ""}`}
+        style={vars}
+        role="status"
+      >
+        {/* the meadow, soft behind frosted glass; it clears as the card opens */}
+        <div className="pl-m-bg" style={{ backgroundImage: `url(${meadowPoster})` }} />
+        <div className="pl-m-veil" />
+        <div className="pl-m-card">
+          <img className="pl-m-corner pl-m-tr" src={cornerTr} alt="" />
+          <img className="pl-m-corner pl-m-bl" src={cornerBl} alt="" />
+          <p className="pl-m-kicker">Thiệp mời cưới</p>
+          {names && (
+            <p className="pl-m-names">
+              <span>{names[0]}</span>
+              <span>
+                <i>&amp;</i>
+                {names[1]}
+              </span>
+            </p>
+          )}
+          <div className="pl-m-act">
+            <div className="pl-m-meter" style={{ "--p": `${pct}%` } as CSSProperties}>
+              <div className="pl-m-line">
+                <i />
+              </div>
+              <img className="pl-m-fly" src={butterfly} alt="" />
+              <p className="pl-m-pct">Đang mở thiệp{progress !== undefined ? ` · ${pct}%` : ""}</p>
+            </div>
+            {onOpen && (
+              <button type="button" className="pl-m-btn" onClick={onOpen}>
+                <svg viewBox="0 0 32 29" aria-hidden="true">
+                  <path d="M16 28C-6 14 2-2 16 6.5 30-2 38 14 16 28Z" />
+                </svg>
+                Mở thiệp
+              </button>
+            )}
+          </div>
+        </div>
+        <img className="pl-m-flight" src={butterfly} alt="" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -146,10 +221,15 @@ const Preloader = ({ names }: { names: [string, string] }) => {
   const [progress, setProgress] = useState(0);
   // before the first paint, so the screen never shows in the default colours first
   const [theme, setTheme] = useState<Theme>();
-  useLayoutEffect(() => setTheme(readTheme()), []);
+  const themeRef = useRef<Theme>();
+  useLayoutEffect(() => {
+    const read = readTheme();
+    themeRef.current = read;
+    setTheme(read);
+  }, []);
   // the bar creeps on by itself too (toward 90%), so it never sits still while a big file loads
   const [creep, setCreep] = useState(0);
-  const [phase, setPhase] = useState<"wait" | "leave" | "gone">("wait");
+  const [phase, setPhase] = useState<"wait" | "ready" | "leave" | "gone">("wait");
 
   useEffect(() => {
     document.body.classList.add("pl-hold");
@@ -184,7 +264,8 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       const finish = () => {
         if (!alive) return;
         window.setTimeout(
-          () => alive && setPhase("leave"),
+          // iPhone: stop at the button, the tap is what lets the video play
+          () => alive && setPhase(themeRef.current?.tap ? "ready" : "leave"),
           Math.max(0, MIN_SHOW - (Date.now() - started)),
         );
       };
@@ -205,9 +286,20 @@ const Preloader = ({ names }: { names: [string, string] }) => {
     if (phase !== "leave") return undefined;
     // let the template's animations start under the fading screen
     document.body.classList.remove("pl-hold");
-    const t = window.setTimeout(() => setPhase("gone"), 600);
+    // the meadow look lets its butterfly finish crossing the screen
+    const t = window.setTimeout(() => setPhase("gone"), themeRef.current?.loader === "meadow" ? 2500 : 600);
     return () => window.clearTimeout(t);
   }, [phase]);
+
+  // the guest's tap: iPhone lets the template's videos play from here on, so start them inside this tap
+  const open = () => {
+    const page = templatePage() ?? document.body;
+    page.querySelectorAll("video").forEach((v) => {
+      v.muted = true;
+      v.play().catch(() => {});
+    });
+    setPhase("leave");
+  };
 
   if (phase === "gone") return null;
   if (!theme) return null;
@@ -218,6 +310,8 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       names={names}
       progress={shown}
       leaving={phase === "leave"}
+      ready={phase === "ready"}
+      onOpen={phase === "ready" ? open : undefined}
     />
   );
 };
