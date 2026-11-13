@@ -1,4 +1,10 @@
-import { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
+import {
+  CSSProperties,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 // How long a guest may wait at most, and how long the screen stays at least (no flash when cached).
 const MAX_WAIT = 8000;
@@ -49,6 +55,7 @@ export const LoadingScreen = ({
   progress,
   leaving = false,
   theme = {},
+  onOpen,
 }: {
   /** groom and bride */
   names?: [string, string];
@@ -56,6 +63,8 @@ export const LoadingScreen = ({
   progress?: number;
   leaving?: boolean;
   theme?: Theme;
+  /** everything is loaded but the phone wants a tap before a video may play: show the button */
+  onOpen?: () => void;
 }) => {
   const script = theme.script ?? DEFAULT_SCRIPT;
   // the names wait for their handwriting font, so they never flash up in a plain one first
@@ -95,12 +104,20 @@ export const LoadingScreen = ({
           <span>&amp; {names[1]}</span>
         </p>
       )}
-      <p className="pl-caps">Đang mở thiệp</p>
-      <div className="pl-bar">
-        <i style={{ width: `${Math.round((progress ?? 0.08) * 100)}%` }} />
-      </div>
-      {progress !== undefined && (
-        <p className="pl-pct">{Math.round(progress * 100)}%</p>
+      {onOpen ? (
+        <button type="button" className="pl-open" onClick={onOpen}>
+          Chạm để mở thiệp
+        </button>
+      ) : (
+        <>
+          <p className="pl-caps">Đang mở thiệp</p>
+          <div className="pl-bar">
+            <i style={{ width: `${Math.round((progress ?? 0.08) * 100)}%` }} />
+          </div>
+          {progress !== undefined && (
+            <p className="pl-pct">{Math.round(progress * 100)}%</p>
+          )}
+        </>
       )}
     </div>
   );
@@ -123,22 +140,34 @@ const loadImage = (src: string) =>
   });
 
 /**
- * Waits until the video can play. On iPhone a video often has not started loading yet when the
- * template mounts (currentSrc is still empty), so ask it to load instead of taking that as "nothing
- * to wait for", and count it ready as soon as it plays or has enough data.
+ * Downloads the whole video while the loading screen shows and plays it from memory. Inside Zalo
+ * on iPhone a video neither loads nor plays by itself before the guest touches the screen, so
+ * waiting for it would just run out the clock; fetching it ourselves always works.
  */
-const videoReady = (video: HTMLVideoElement) =>
-  new Promise<void>((done) => {
-    if (!video.getAttribute("src") && !video.querySelector("source"))
-      return done();
-    if (video.readyState >= 3) return done();
-    for (const ev of ["canplay", "canplaythrough", "playing", "error"]) {
-      video.addEventListener(ev, () => done(), { once: true });
-    }
-    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
-    video.muted = true;
-    video.play().catch(() => {});
-  });
+const loadVideo = async (video: HTMLVideoElement) => {
+  const src = video.currentSrc || video.getAttribute("src");
+  if (!src || src.startsWith("blob:")) return;
+  try {
+    const res = await fetch(src);
+    if (!res.ok) return;
+    video.src = URL.createObjectURL(await res.blob());
+    video.load();
+  } catch {
+    // keep the link: the video still plays, just not preloaded
+  }
+};
+
+/** Starts the videos; true when the phone let every one of them play. */
+const playAll = (videos: HTMLVideoElement[]) =>
+  Promise.all(
+    videos.map((v) => {
+      v.muted = true;
+      return v.play().then(
+        () => true,
+        () => false,
+      );
+    }),
+  ).then((ok) => ok.every(Boolean));
 
 /**
  * Covers the template until its pictures and video have loaded (at most MAX_WAIT), with the template's
@@ -152,7 +181,8 @@ const Preloader = ({ names }: { names: [string, string] }) => {
   useLayoutEffect(() => setTheme(readTheme()), []);
   // the bar creeps on by itself too (toward 90%), so it never sits still while a big file loads
   const [creep, setCreep] = useState(0);
-  const [phase, setPhase] = useState<"wait" | "leave" | "gone">("wait");
+  const [phase, setPhase] = useState<"wait" | "tap" | "leave" | "gone">("wait");
+  const videos = useRef<HTMLVideoElement[]>([]);
 
   useEffect(() => {
     document.body.classList.add("pl-hold");
@@ -175,9 +205,10 @@ const Preloader = ({ names }: { names: [string, string] }) => {
           if (bg && bg !== "none") urlsIn(bg).forEach((u) => images.add(u));
         }
       });
+      videos.current = Array.from(page.querySelectorAll("video"));
       const tasks = [
         ...[...images].map(loadImage),
-        ...Array.from(page.querySelectorAll("video")).map(videoReady),
+        ...videos.current.map(loadVideo),
       ];
       let done = 0;
       const tick = () =>
@@ -187,7 +218,12 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       const finish = () => {
         if (!alive) return;
         window.setTimeout(
-          () => alive && setPhase("leave"),
+          async () => {
+            if (!alive) return;
+            // a phone that blocks autoplay (Zalo on iPhone) gets a tap button; the tap starts the video
+            const playing = await playAll(videos.current);
+            if (alive) setPhase(playing ? "leave" : "tap");
+          },
           Math.max(0, MIN_SHOW - (Date.now() - started)),
         );
       };
@@ -214,13 +250,21 @@ const Preloader = ({ names }: { names: [string, string] }) => {
 
   if (phase === "gone") return null;
   if (!theme) return null;
-  const shown = phase === "leave" ? 1 : Math.max(progress, creep);
+  const shown = phase === "wait" ? Math.max(progress, creep) : 1;
   return (
     <LoadingScreen
       theme={theme}
       names={names}
       progress={shown}
       leaving={phase === "leave"}
+      onOpen={
+        phase === "tap"
+          ? () => {
+              playAll(videos.current);
+              setPhase("leave");
+            }
+          : undefined
+      }
     />
   );
 };

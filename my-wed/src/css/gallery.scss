@@ -398,3 +398,26 @@ body.pl-hold .zaui-page *::after {
   color: #a8968a;
   word-break: break-word;
 }
+
+// once loaded, on phones that need a touch before a video plays
+.pl-open {
+  margin-top: 26px;
+  padding: 13px 28px;
+  border: 1px solid var(--pl-accent, #b67d76);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pl-ink, #3f3329);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  animation: pl-open-in 0.5s ease both;
+  -webkit-tap-highlight-color: transparent;
+}
+@keyframes pl-open-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
