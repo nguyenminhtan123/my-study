@@ -1,0 +1,32 @@
+# Keep the Supabase project awake: the free plan pauses a project after about a week without
+# activity, which takes down the invitations, the admin and the t33 video. Once a day this reads
+# the sample invitation exactly as a guest's phone would (a read-only database call).
+# Needs two repository secrets: SUPABASE_URL and SUPABASE_ANON_KEY (the public anon key).
+name: Giữ Supabase hoạt động
+
+on:
+  schedule:
+    - cron: "17 1 * * *" # 08:17 every day, Vietnam time
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Đọc thiệp mẫu
+        env:
+          URL: ${{ secrets.SUPABASE_URL }}
+          KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then
+            echo "Chưa có secret SUPABASE_URL hoặc SUPABASE_ANON_KEY" >&2
+            exit 1
+          fi
+          code=$(curl -sS -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 20 \
+            -X POST "$URL/rest/v1/rpc/get_invitation" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"p_code":"thu-nghiem-7k2p"}')
+          echo "Supabase trả về $code"
+          [ "$code" = "200" ]
