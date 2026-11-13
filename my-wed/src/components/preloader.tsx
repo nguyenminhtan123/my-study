@@ -122,11 +122,22 @@ const loadImage = (src: string) =>
     img.src = src;
   });
 
+/**
+ * Waits until the video can play. On iPhone a video often has not started loading yet when the
+ * template mounts (currentSrc is still empty), so ask it to load instead of taking that as "nothing
+ * to wait for", and count it ready as soon as it plays or has enough data.
+ */
 const videoReady = (video: HTMLVideoElement) =>
   new Promise<void>((done) => {
-    if (video.readyState >= 3 || !video.currentSrc) return done();
-    video.addEventListener("canplay", () => done(), { once: true });
-    video.addEventListener("error", () => done(), { once: true });
+    if (!video.getAttribute("src") && !video.querySelector("source"))
+      return done();
+    if (video.readyState >= 3) return done();
+    for (const ev of ["canplay", "canplaythrough", "playing", "error"]) {
+      video.addEventListener(ev, () => done(), { once: true });
+    }
+    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
+    video.muted = true;
+    video.play().catch(() => {});
   });
 
 /**
