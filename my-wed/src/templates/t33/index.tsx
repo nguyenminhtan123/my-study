@@ -8,6 +8,7 @@ import blue from "@/static/t33/blue.webp";
 import butterfly from "@/static/t33/butterfly.webp";
 import cosmos from "@/static/t33/cosmos.webp";
 import gift from "@/static/t33/gift.webp";
+import meadowLoop from "@/static/t33/meadow-loop.webp";
 import meadowPoster from "@/static/t33/meadow-poster.webp";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -27,6 +28,14 @@ import {
 // The project's public address is the fallback, so a build without the env file still plays the video.
 const SUPABASE = import.meta.env.VITE_SUPABASE_URL || "https://pguaakunmaryjgfhfqzf.supabase.co";
 const MEADOW = `${SUPABASE}/storage/v1/object/public/media/templates/t33/meadow-loop.mp4`;
+
+// Zalo on iPhone plays no video before the guest's first tap, muted or not (and Low Power Mode blocks it
+// everywhere), so on iPhone/iPad the meadow is the same loop as an animated WebP: images always animate,
+// so it moves as soon as the waiting screen lifts, with nothing to tap.
+const IOS =
+  typeof navigator !== "undefined" &&
+  (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
 
 // "CHỦ NHẬT" -> "Chủ Nhật"
 const titleCase = (s: string) =>
@@ -123,7 +132,11 @@ const Template33 = ({ data }: { data: WeddingData }) => {
       <div ref={root}>
         {/* the meadow, still behind the whole card */}
         <div className="t33-bg" aria-hidden>
-          <video ref={video} src={MEADOW} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
+          {IOS ? (
+            <img src={meadowLoop} alt="" />
+          ) : (
+            <video ref={video} src={MEADOW} poster={meadowPoster} autoPlay muted loop playsInline preload="auto" />
+          )}
           <div className="t33-shade" />
         </div>
 
