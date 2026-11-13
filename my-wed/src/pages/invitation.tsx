@@ -17,6 +17,14 @@ type State =
 const InvitationPage = ({ code }: { code: string }) => {
   const navigate = useNavigate();
   const [state, setState] = useState<State>({ kind: "loading" });
+  // The template (and so its own waiting screen) is only known once the invitation has been fetched. A quick
+  // fetch gets no screen of its own, so the guest sees one waiting screen, the template's; only a slow one
+  // shows the plain screen in the meantime.
+  const [slow, setSlow] = useState(false);
+  useEffect(() => {
+    const t = window.setTimeout(() => setSlow(true), 700);
+    return () => window.clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -58,8 +66,7 @@ const InvitationPage = ({ code }: { code: string }) => {
     );
   }
 
-  // the same waiting screen as while the pictures load, so opening an invitation is one smooth wait
-  if (state.kind === "loading") return <LoadingScreen />;
+  if (state.kind === "loading") return slow ? <LoadingScreen /> : null;
 
   return (
     <Page className="iv-page">

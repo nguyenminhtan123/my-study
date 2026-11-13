@@ -398,12 +398,14 @@
   padding: 0 mu(5);
   overflow: hidden;
   background: #2b3a2c;
-  transition: none;
+  transition: background-color 1.17s ease;
 }
 // the whole screen stays up while the butterfly crosses it; each layer fades by itself
+// the green under the layers clears too, so the card shows through while the butterfly crosses
 .pl-screen.pl-meadow.pl-leave {
   opacity: 1;
   visibility: visible;
+  background-color: transparent;
 }
 .pl-m-bg,
 .pl-m-veil {
@@ -635,7 +637,7 @@
   pointer-events: none;
 }
 .pl-leave .pl-m-flight {
-  animation: pl-m-flight 2.17s cubic-bezier(0.45, 0.1, 0.35, 1) 0.21s both;
+  animation: pl-m-flight 2.39s cubic-bezier(0.45, 0.1, 0.35, 1) 0.23s both;
 }
 @keyframes pl-m-flight {
   0% {
