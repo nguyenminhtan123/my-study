@@ -292,7 +292,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
     // let the template's animations start under the fading screen
     document.body.classList.remove("pl-hold");
     // the meadow look lets its butterfly finish crossing the screen
-    const t = window.setTimeout(() => setPhase("gone"), themeRef.current?.loader === "meadow" ? 2750 : 600);
+    const t = window.setTimeout(() => setPhase("gone"), themeRef.current?.loader === "meadow" ? 3000 : 600);
     return () => window.clearTimeout(t);
   }, [phase]);
 
