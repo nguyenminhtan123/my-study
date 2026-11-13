@@ -388,3 +388,13 @@ body.pl-hold .zaui-page *::before,
 body.pl-hold .zaui-page *::after {
   animation-play-state: paused !important;
 }
+
+// the technical reason under the "could not open" message, for the shop to read off a screenshot
+.iv-reason {
+  display: block;
+  margin-top: 18px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #a8968a;
+  word-break: break-word;
+}

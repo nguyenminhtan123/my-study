@@ -10,7 +10,7 @@ import { getTemplate } from "@/templates";
 type State =
   | { kind: "loading" }
   | { kind: "missing" }
-  | { kind: "error" }
+  | { kind: "error"; reason: string }
   | { kind: "ready"; templateId: string; data: WeddingData };
 
 /** A real invitation, opened from a link with `?thiep=<code>`. */
@@ -34,7 +34,14 @@ const InvitationPage = ({ code }: { code: string }) => {
           data: mergeInvitationData(template.demoData, invitation.data),
         });
       })
-      .catch(() => alive && setState({ kind: "error" }));
+      .catch(
+        (e: unknown) =>
+          alive &&
+          setState({
+            kind: "error",
+            reason: e instanceof Error ? e.message : String(e),
+          }),
+      );
     return () => {
       alive = false;
     };
@@ -74,6 +81,10 @@ const InvitationPage = ({ code }: { code: string }) => {
         >
           Xem các mẫu thiệp
         </button>
+        {/* the real cause, small, so a screenshot tells the shop what went wrong */}
+        {state.kind === "error" && (
+          <small className="iv-reason">{state.reason}</small>
+        )}
       </div>
     </Page>
   );
