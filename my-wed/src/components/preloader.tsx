@@ -1,10 +1,4 @@
-import {
-  CSSProperties,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
 
 // How long a guest may wait at most, and how long the screen stays at least (no flash when cached).
 const MAX_WAIT = 8000;
@@ -55,7 +49,6 @@ export const LoadingScreen = ({
   progress,
   leaving = false,
   theme = {},
-  onOpen,
 }: {
   /** groom and bride */
   names?: [string, string];
@@ -63,8 +56,6 @@ export const LoadingScreen = ({
   progress?: number;
   leaving?: boolean;
   theme?: Theme;
-  /** everything is loaded but the phone wants a tap before a video may play: show the button */
-  onOpen?: () => void;
 }) => {
   const script = theme.script ?? DEFAULT_SCRIPT;
   // the names wait for their handwriting font, so they never flash up in a plain one first
@@ -104,20 +95,12 @@ export const LoadingScreen = ({
           <span>&amp; {names[1]}</span>
         </p>
       )}
-      {onOpen ? (
-        <button type="button" className="pl-open" onClick={onOpen}>
-          Chạm để mở thiệp
-        </button>
-      ) : (
-        <>
-          <p className="pl-caps">Đang mở thiệp</p>
-          <div className="pl-bar">
-            <i style={{ width: `${Math.round((progress ?? 0.08) * 100)}%` }} />
-          </div>
-          {progress !== undefined && (
-            <p className="pl-pct">{Math.round(progress * 100)}%</p>
-          )}
-        </>
+      <p className="pl-caps">Đang mở thiệp</p>
+      <div className="pl-bar">
+        <i style={{ width: `${Math.round((progress ?? 0.08) * 100)}%` }} />
+      </div>
+      {progress !== undefined && (
+        <p className="pl-pct">{Math.round(progress * 100)}%</p>
       )}
     </div>
   );
@@ -155,19 +138,6 @@ const videoReady = (video: HTMLVideoElement) =>
     fetch(src).catch(() => {});
   });
 
-/** True when every video is playing; a paused one is asked to play (the template already tried). */
-const playAll = (videos: HTMLVideoElement[]) =>
-  Promise.all(
-    videos.map((v) =>
-      v.paused
-        ? v.play().then(
-            () => true,
-            () => false,
-          )
-        : true,
-    ),
-  ).then((ok) => ok.every(Boolean));
-
 /**
  * Covers the template until its pictures and video have loaded (at most MAX_WAIT), with the template's
  * CSS animations held at their start, so the opening plays in full once the guest can see it.
@@ -180,8 +150,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
   useLayoutEffect(() => setTheme(readTheme()), []);
   // the bar creeps on by itself too (toward 90%), so it never sits still while a big file loads
   const [creep, setCreep] = useState(0);
-  const [phase, setPhase] = useState<"wait" | "tap" | "leave" | "gone">("wait");
-  const videos = useRef<HTMLVideoElement[]>([]);
+  const [phase, setPhase] = useState<"wait" | "leave" | "gone">("wait");
 
   useEffect(() => {
     document.body.classList.add("pl-hold");
@@ -204,10 +173,9 @@ const Preloader = ({ names }: { names: [string, string] }) => {
           if (bg && bg !== "none") urlsIn(bg).forEach((u) => images.add(u));
         }
       });
-      videos.current = Array.from(page.querySelectorAll("video"));
       const tasks = [
         ...[...images].map(loadImage),
-        ...videos.current.map(videoReady),
+        ...Array.from(page.querySelectorAll("video")).map(videoReady),
       ];
       let done = 0;
       const tick = () =>
@@ -217,12 +185,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       const finish = () => {
         if (!alive) return;
         window.setTimeout(
-          async () => {
-            if (!alive) return;
-            // a phone that blocks autoplay (Zalo on iPhone) gets a tap button; the tap starts the video
-            const playing = await playAll(videos.current);
-            if (alive) setPhase(playing ? "leave" : "tap");
-          },
+          () => alive && setPhase("leave"),
           Math.max(0, MIN_SHOW - (Date.now() - started)),
         );
       };
@@ -256,14 +219,6 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       names={names}
       progress={shown}
       leaving={phase === "leave"}
-      onOpen={
-        phase === "tap"
-          ? () => {
-              playAll(videos.current);
-              setPhase("leave");
-            }
-          : undefined
-      }
     />
   );
 };
