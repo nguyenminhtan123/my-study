@@ -63,11 +63,39 @@ const Template33 = ({ data }: { data: WeddingData }) => {
   useEffect(() => {
     const host = root.current;
     if (!host) return undefined;
-    // React does not always put `muted` on the element, and iOS only autoplays muted video
+    // Start the meadow video. iOS only autoplays muted inline video, and React does not write the
+    // `muted` attribute, so set it by hand. Zalo on iPhone can still refuse the first play() (Low Power
+    // Mode, or a webview that wants a touch): keep retrying for a while, and start it on the guest's
+    // first touch anywhere (a scroll counts), so it never needs a button.
     const v = video.current;
-    if (v) {
+    const kicks = ["touchstart", "touchend", "click", "scroll"];
+    let tries = 0;
+    let timer = 0;
+    let running = false;
+    const stop = () => {
+      window.clearInterval(timer);
+      kicks.forEach((ev) => document.removeEventListener(ev, kick, true));
+    };
+    function kick() {
+      if (!v || running) return;
       v.muted = true;
       v.play().catch(() => {});
+    }
+    // only a real "playing" ends the retries: iOS can report not-paused while it has blocked playback
+    const onPlaying = () => {
+      running = true;
+      stop();
+    };
+    if (v) {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("webkit-playsinline", "");
+      v.addEventListener("playing", onPlaying, { once: true });
+      kicks.forEach((ev) => document.addEventListener(ev, kick, { capture: true, passive: true }));
+      timer = window.setInterval(() => (++tries > 20 ? stop() : kick()), 500);
+      kick();
     }
     // entrances: every block rises, zooms or slides in as it scrolls into view
     const reveal = new IntersectionObserver(
@@ -75,7 +103,11 @@ const Template33 = ({ data }: { data: WeddingData }) => {
       { threshold: 0.15 },
     );
     host.querySelectorAll("[data-anim]").forEach((el) => reveal.observe(el));
-    return () => reveal.disconnect();
+    return () => {
+      stop();
+      v?.removeEventListener("playing", onPlaying);
+      reveal.disconnect();
+    };
   }, []);
 
   // album: a landscape photo takes a full row; portraits go two by two, the second set a little lower
