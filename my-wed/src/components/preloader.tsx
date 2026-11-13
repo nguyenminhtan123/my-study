@@ -140,33 +140,32 @@ const loadImage = (src: string) =>
   });
 
 /**
- * Downloads the whole video while the loading screen shows and plays it from memory. Inside Zalo
- * on iPhone a video neither loads nor plays by itself before the guest touches the screen, so
- * waiting for it would just run out the clock; fetching it ourselves always works.
+ * Waits until the template's own video is playing (or could play). It never touches the video
+ * element itself: the template starts it muted and inline, which is what lets Zalo on iPhone play
+ * it by itself; calling load() or swapping its source would cost that. Meanwhile the file is
+ * fetched once more so it lands in the cache sooner.
  */
-const loadVideo = async (video: HTMLVideoElement) => {
-  const src = video.currentSrc || video.getAttribute("src");
-  if (!src || src.startsWith("blob:")) return;
-  try {
-    const res = await fetch(src);
-    if (!res.ok) return;
-    video.src = URL.createObjectURL(await res.blob());
-    video.load();
-  } catch {
-    // keep the link: the video still plays, just not preloaded
-  }
-};
+const videoReady = (video: HTMLVideoElement) =>
+  new Promise<void>((done) => {
+    const src = video.currentSrc || video.getAttribute("src");
+    if (!src || video.readyState >= 3 || !video.paused) return done();
+    for (const ev of ["playing", "canplaythrough", "canplay", "error"]) {
+      video.addEventListener(ev, () => done(), { once: true });
+    }
+    fetch(src).catch(() => {});
+  });
 
-/** Starts the videos; true when the phone let every one of them play. */
+/** True when every video is playing; a paused one is asked to play (the template already tried). */
 const playAll = (videos: HTMLVideoElement[]) =>
   Promise.all(
-    videos.map((v) => {
-      v.muted = true;
-      return v.play().then(
-        () => true,
-        () => false,
-      );
-    }),
+    videos.map((v) =>
+      v.paused
+        ? v.play().then(
+            () => true,
+            () => false,
+          )
+        : true,
+    ),
   ).then((ok) => ok.every(Boolean));
 
 /**
@@ -208,7 +207,7 @@ const Preloader = ({ names }: { names: [string, string] }) => {
       videos.current = Array.from(page.querySelectorAll("video"));
       const tasks = [
         ...[...images].map(loadImage),
-        ...videos.current.map(loadVideo),
+        ...videos.current.map(videoReady),
       ];
       let done = 0;
       const tick = () =>
