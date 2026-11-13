@@ -24,9 +24,9 @@ import {
 
 // The moving meadow: the owner's video, kept in Supabase Storage (Zalo will not ship an .mp4 in the app, and
 // iOS needs a host that answers byte-range requests, which the image site does not).
-const MEADOW = import.meta.env.VITE_SUPABASE_URL
-  ? `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/media/templates/t33/meadow-loop.mp4`
-  : "";
+// The project's public address is the fallback, so a build without the env file still plays the video.
+const SUPABASE = import.meta.env.VITE_SUPABASE_URL || "https://pguaakunmaryjgfhfqzf.supabase.co";
+const MEADOW = `${SUPABASE}/storage/v1/object/public/media/templates/t33/meadow-loop.mp4`;
 
 // "CHỦ NHẬT" -> "Chủ Nhật"
 const titleCase = (s: string) =>
