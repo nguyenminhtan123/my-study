@@ -38,7 +38,9 @@ const Template13 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t13-torn t13-torn-a">
-        <img src={photoSrc(data.photos.cover)} alt="" />
+        <div className="t13-paper">
+          <img src={photoSrc(data.photos.cover)} alt="" />
+        </div>
       </section>
 
       <section className="t13-card">
@@ -62,7 +64,9 @@ const Template13 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t13-torn t13-torn-b">
-        <img src={photoSrc(data.album[1])} alt="" />
+        <div className="t13-paper">
+          <img src={photoSrc(data.album[1])} alt="" />
+        </div>
         <Reveal>
           <p className="t13-over">Our love story</p>
         </Reveal>
@@ -77,8 +81,10 @@ const Template13 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t13-torn t13-torn-a">
-        <img src={photoSrc(data.album[0])} alt="" />
+      <section className="t13-torn t13-torn-a t13-torn-c">
+        <div className="t13-paper">
+          <img src={photoSrc(data.album[0])} alt="" />
+        </div>
       </section>
 
       <section className="t13-time">
