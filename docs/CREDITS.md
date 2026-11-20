@@ -124,3 +124,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 13 · Polaroid biển (`src/static/t13/`)
 
 `shells.webp`: cụm vỏ sò, ốc, sao biển và cỏ biển vẽ nét mực xanh navy, do AI vẽ (model FLUX.2 [klein] 4B của Black Forest Labs, giấy phép **Apache 2.0**, chạy trên Cloudflare Workers AI của chủ repo), nền trắng được bỏ theo độ đậm của nét. Dùng thương mại được, không bắt buộc ghi nguồn.
+
+## Mẫu 2 · Nắng đồng hoa: ảnh cưới mẫu (`my-wed/src/static/t33/demo/`)
+
+Ảnh mở đầu (`cover.webp`, có chữ ký studio YISLE) và 4 ảnh gallery (`album1-4.webp`) do chủ repo chọn từ Pinterest (ảnh chụp cưới của studio Hàn Quốc), **không có giấy phép sử dụng**. Chủ repo quyết định dùng làm ảnh minh hoạ cho thiệp mẫu. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
