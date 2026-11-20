@@ -23,6 +23,12 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
+// "ĐÓN KHÁCH" -> "Đón khách": the handwriting on the cake reads badly in capitals
+const sentence = (t: string) => {
+  const low = t.toLocaleLowerCase("vi");
+  return low.charAt(0).toLocaleUpperCase("vi") + low.slice(1);
+};
+
 // the middle of each tier's plain front in the cake photo, as a share of its height, top to bottom
 const CAKE_TIERS = [24.5, 42, 58.5, 75];
 
@@ -119,7 +125,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
                   style={{ top: `${CAKE_TIERS[i]}%`, animationDelay: `${0.5 + i * 0.18}s` }}
                 >
                   <b>{s.time}</b>
-                  <span>{s.label}</span>
+                  <span>{sentence(s.label)}</span>
                 </div>
               ))}
             </div>
