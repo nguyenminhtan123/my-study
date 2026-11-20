@@ -24,7 +24,7 @@ import {
 } from "@/templates/_kit/sections";
 
 // the middle of each tier's plain front in the cake photo, as a share of its height, top to bottom
-const CAKE_TIERS = [22, 39.5, 56, 72.5];
+const CAKE_TIERS = [24.5, 42, 58.5, 75];
 
 const Template20 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
@@ -106,7 +106,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <h2 className="t20-title t20-center">Chương trình</h2>
         </Reveal>
-        {/* the timeline written on the tiers of a real four-tier cake photo; a program with another
+        {/* the timeline written on the tiers of a real four-tier white cake photo; a program with another
             number of steps gets the drawn cake instead, one tier per step */}
         {data.timeline.length === CAKE_TIERS.length ? (
           <Reveal variant="zoom">
@@ -115,7 +115,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
               {data.timeline.map((s, i) => (
                 <div
                   key={s.time}
-                  className={`t20-cakehd-t${i % 2 ? " t20-cakehd-mint" : ""}`}
+                  className="t20-cakehd-t"
                   style={{ top: `${CAKE_TIERS[i]}%`, animationDelay: `${0.5 + i * 0.18}s` }}
                 >
                   <b>{s.time}</b>

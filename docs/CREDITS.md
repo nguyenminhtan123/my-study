@@ -21,7 +21,7 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t20-table.webp` | Mẫu 20 (ảnh chính) | Bàn tiệc cô dâu chú rể hoa hồng phấn, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 | `my-wed/src/static/t20-night.webp` | Mẫu 20 (nền ngày cưới) | Tiệc cưới buổi tối dưới đèn và nến, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 | `my-wed/src/static/t20-rings.webp` | Mẫu 20 (cuối trang) | Nhẫn cưới trên ruy băng hồng, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
-| `my-wed/src/static/t20-cake-hd.webp` | Mẫu 20 (Chương trình viết trên 4 tầng bánh) | Bánh cưới 4 tầng hồng và bạc hà tách nền (rembg), do AI vẽ theo bản phác bố cục (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t20-cake-hd.webp` | Mẫu 20 (Chương trình viết trên 4 tầng bánh) | Bánh cưới 4 tầng trắng, hoa hồng phấn trên đỉnh, tách nền (rembg), do AI vẽ theo bản phác bố cục (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 | `my-wed/src/static/t20-sugar-roses.webp` | Mẫu 20 (hoa đường trên bánh vẽ, khi Chương trình không đủ 4 mốc) | Cụm hoa hồng đường tách nền (rembg), do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 
 Ảnh đã được thu nhỏ và chuyển sang JPEG.
