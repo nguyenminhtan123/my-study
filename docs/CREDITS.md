@@ -18,8 +18,9 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t17-bouquet-roses.webp` | Mẫu 17 (nền đếm ngược; bản 600px) | Flower White của Terje Sollie (stocksnap) https://stocksnap.io/photo/flower-white-0IBJBQ5GWO (CC0 1.0) |
 | `my-wed/src/static/t19-reception.webp` | Mẫu 19 (ảnh chính, cuối trang) | Wedding Reception, Bangkok Thailand của pingjarupat (wordpress) https://wordpress.org/photos/photo/256693d10a/ (CC0 1.0) |
 | `my-wed/src/static/t19-candles.webp` | Mẫu 19 (nền ngày cưới) | Free light flower table (rawpixel) https://www.rawpixel.com/image/5912908/photo-image-flower-lights-public-domain (CC0 1.0) |
-| `my-wed/src/static/t20-cake.webp` | Mẫu 20 (ảnh chính, cuối trang) | wedding Cake của Amy Kekst F.O.O.D. (flickr) https://www.flickr.com/photos/142099288@N05/42416867761 (Public Domain Mark (phạm vi công cộng)) |
-| `my-wed/src/static/t20-cake-night.webp` | Mẫu 20 (nền ngày cưới) | Wedding Cake Decorated with Comestible Flowers của MyStockPhotos (flickr) https://www.flickr.com/photos/136375272@N05/48506493447 (CC0 1.0) |
+| `my-wed/src/static/t20-table.webp` | Mẫu 20 (ảnh chính) | Bàn tiệc cô dâu chú rể hoa hồng phấn, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t20-night.webp` | Mẫu 20 (nền ngày cưới) | Tiệc cưới buổi tối dưới đèn và nến, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t20-rings.webp` | Mẫu 20 (cuối trang) | Nhẫn cưới trên ruy băng hồng, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 
 Ảnh đã được thu nhỏ và chuyển sang JPEG.
 

@@ -1,6 +1,6 @@
-// Template 20: Bánh cưới. Sweet and pastel: a real tiered wedding cake piped with sugar roses, a real
-// cake by candlelight behind the countdown; mint, blush and cream, scalloped icing edges, a
-// timeline stacked like the tiers of a cake.
+// Template 20: Bánh cưới. Sweet and pastel: a sweetheart table of blush roses and mint eucalyptus in an arch with
+// icing edges, an evening reception by candlelight behind the countdown, rings among rose petals at the end;
+// mint, blush and cream, scalloped icing edges, a timeline stacked like the tiers of a cake.
 .t20-root {
   --k-bg: #fffaf3;
   --k-ink: #4b3a30;
@@ -102,6 +102,11 @@
     object-fit: cover;
     object-position: 60% 30%;
   }
+}
+// the sweetheart table: close in on its flowers and candles, not the tablecloth
+.t20-hero .t20-cake img {
+  transform: scale(1.5);
+  transform-origin: 42% 26%;
 }
 .t20-hero-text {
   animation: t20-rise 1.4s ease 0.5s both;

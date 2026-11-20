@@ -3,8 +3,9 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t20/styles.scss";
 import { WeddingData } from "@/core/types";
-import cake from "@/static/t20-cake.webp";
-import cakeNight from "@/static/t20-cake-night.webp";
+import night from "@/static/t20-night.webp";
+import rings from "@/static/t20-rings.webp";
+import table from "@/static/t20-table.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -29,7 +30,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
 
       <section className="t20-hero">
         <div className="t20-cake">
-          <img src={cake} alt="" />
+          <img src={table} alt="" />
         </div>
         <div className="t20-hero-text">
           <p className="t20-small">Sweet beginning</p>
@@ -65,7 +66,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t20-night">
-        <img src={cakeNight} alt="" />
+        <img src={night} alt="" />
         <Reveal>
           <div className="t20-glass">
             <p className="t20-small">Save the date</p>
@@ -148,7 +149,7 @@ const Template20 = ({ data }: { data: WeddingData }) => {
 
       <footer className="t20-foot">
         <div className="t20-cake t20-cake-sm">
-          <img src={cake} alt="" />
+          <img src={rings} alt="" />
         </div>
         <p className="t20-small">Thank you</p>
         <h2>
