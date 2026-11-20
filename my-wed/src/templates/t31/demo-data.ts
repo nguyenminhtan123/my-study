@@ -3,10 +3,12 @@ import album2 from "@/static/t31/demo/album2.webp";
 import album3 from "@/static/t31/demo/album3.webp";
 import album4 from "@/static/t31/demo/album4.webp";
 import cover from "@/static/t31/demo/cover.webp";
+import destiny from "@/static/t31/demo/destiny.webp";
 import { PhotoSlot, WeddingData } from "@/core/types";
 import { demoData as base } from "@/templates/t28/demo-data";
 
-// same couple as t28; its own bright studio photos (the cover in the arch, four for the album), chosen by
+// same couple as t28; its own bright studio photos (the cover in the arch, four for the album, the
+// couple by the window at the end), chosen by
 // the owner
 export const demoData: WeddingData = {
   ...base,
@@ -14,6 +16,7 @@ export const demoData: WeddingData = {
   photos: {
     ...base.photos,
     cover: { key: "cover", label: "Ảnh bìa", ratio: "3/4", src: cover },
+    destiny: { key: "destiny", label: "Ảnh cuối thiệp", ratio: "4/5", src: destiny },
   } as Record<string, PhotoSlot>,
   album: [
     { key: "album1", label: "Ảnh album 1", ratio: "3/4", src: album1 },
