@@ -3,6 +3,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t20/styles.scss";
 import { WeddingData } from "@/core/types";
+import cakeHd from "@/static/t20-cake-hd.webp";
 import night from "@/static/t20-night.webp";
 import rings from "@/static/t20-rings.webp";
 import sugarRoses from "@/static/t20-sugar-roses.webp";
@@ -21,6 +22,9 @@ import {
   photoShape,
   photoSrc,
 } from "@/templates/_kit/sections";
+
+// the middle of each tier's plain front in the cake photo, as a share of its height, top to bottom
+const CAKE_TIERS = [22, 39.5, 56, 72.5];
 
 const Template20 = ({ data }: { data: WeddingData }) => {
   const d = dateParts(data.weddingISO);
@@ -102,27 +106,49 @@ const Template20 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <h2 className="t20-title t20-center">Chương trình</h2>
         </Reveal>
-        {/* the timeline stacked like the tiers of a cake, widest at the bottom: sugar roses on top,
-            cream dripping over each tier, a row of piped pearls at its foot, on a cake stand */}
-        <div className="t20-tiers">
+        {/* the timeline written on the tiers of a real four-tier cake photo; a program with another
+            number of steps gets the drawn cake instead, one tier per step */}
+        {data.timeline.length === CAKE_TIERS.length ? (
           <Reveal variant="zoom">
-            <img className="t20-topper" src={sugarRoses} alt="" />
+            <div className="t20-cakehd">
+              <img src={cakeHd} alt="" />
+              {data.timeline.map((s, i) => (
+                <div
+                  key={s.time}
+                  className={`t20-cakehd-t${i % 2 ? " t20-cakehd-mint" : ""}`}
+                  style={{ top: `${CAKE_TIERS[i]}%`, animationDelay: `${0.5 + i * 0.18}s` }}
+                >
+                  <b>{s.time}</b>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
           </Reveal>
-          {data.timeline.map((s, i) => (
-            <Reveal key={s.time} variant="zoom" delay={i * 140}>
-              <div
-                className={`t20-tier${i % 2 ? " t20-tier-mint" : ""}`}
-                style={{ width: `${54 + (i * 40) / Math.max(1, data.timeline.length - 1)}%`, zIndex: 10 - i }}
-              >
-                <b>{s.time}</b>
-                <span>{s.label}</span>
-              </div>
+        ) : (
+          <>
+          {/* the timeline stacked like the tiers of a cake, widest at the bottom: sugar roses on top,
+              cream dripping over each tier, a row of piped pearls at its foot, on a cake stand */}
+          <div className="t20-tiers">
+            <Reveal variant="zoom">
+              <img className="t20-topper" src={sugarRoses} alt="" />
             </Reveal>
-          ))}
-          <div className="t20-stand">
-            <i />
+            {data.timeline.map((s, i) => (
+              <Reveal key={s.time} variant="zoom" delay={i * 140}>
+                <div
+                  className={`t20-tier${i % 2 ? " t20-tier-mint" : ""}`}
+                  style={{ width: `${54 + (i * 40) / Math.max(1, data.timeline.length - 1)}%`, zIndex: 10 - i }}
+                >
+                  <b>{s.time}</b>
+                  <span>{s.label}</span>
+                </div>
+              </Reveal>
+            ))}
+            <div className="t20-stand">
+              <i />
+            </div>
           </div>
-        </div>
+          </>
+        )}
       </section>
 
       <section className="t20-sec t20-mint">
