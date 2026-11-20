@@ -7,6 +7,7 @@ import aisle from "@/static/t16-aisle.webp";
 import bouquet from "@/static/t16-bouquet.webp";
 import garland from "@/static/t16-garland.webp";
 import reception from "@/static/t16-reception.webp";
+import spill from "@/static/t16-garland-spill.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -23,10 +24,14 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-// a strip of a wisteria wedding garland used as a divider
+// a divider: a rounded band of a wisteria garland photo, with the garland cut out on top, taller than
+// the band, so the flowers spill over its edge
 const Sprig = () => (
   <Reveal variant="fade">
-    <div className="t16-sprig" style={{ backgroundImage: `url(${garland})` }} />
+    <div className="t16-sprig">
+      <div className="t16-sprig-band" style={{ backgroundImage: `url(${garland})` }} />
+      <img className="t16-sprig-spill" src={spill} alt="" />
+    </div>
   </Reveal>
 );
 

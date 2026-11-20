@@ -161,11 +161,32 @@
   }
 }
 .t16-sprig {
-  height: 74px;
-  margin: 0 18px;
+  position: relative;
+  height: 60px;
+  margin: 40px 18px;
+}
+.t16-sprig-band {
+  position: absolute;
+  inset: 0;
   border-radius: 999px;
   background: center 46% / cover no-repeat;
   box-shadow: 0 10px 24px rgba(90, 70, 130, 0.18);
+}
+// the garland cut out, taller than the band: its flowers spill over the top and bottom edges; it fades
+// out before the band's rounded ends, so those stay clean
+.t16-sprig .t16-sprig-spill {
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  width: 84%;
+  height: 96px;
+  max-width: none;
+  object-fit: cover;
+  transform: translateY(-50%);
+  pointer-events: none;
+  filter: drop-shadow(0 6px 8px rgba(70, 50, 110, 0.2));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
 }
 
 // ---------- save the date ----------
