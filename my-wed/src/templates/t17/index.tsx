@@ -3,8 +3,9 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t17/styles.scss";
 import { WeddingData } from "@/core/types";
-import bouquet from "@/static/t17-bouquet.webp";
-import roses from "@/static/t17-bouquet-roses.webp";
+import bride from "@/static/t17-bride.webp";
+import rings from "@/static/t17-rings.webp";
+import veil from "@/static/t17-veil.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -28,7 +29,7 @@ const Template17 = ({ data }: { data: WeddingData }) => {
       <Drifters kind="petal" count={12} color="#f2b8ae" opacity={0.75} />
 
       <section className="t17-hero">
-        <img src={bouquet} alt="" />
+        <img src={bride} alt="" />
         <div className="t17-hero-text">
           <p className="t17-small">The bride's bouquet</p>
           <h1>
@@ -64,7 +65,7 @@ const Template17 = ({ data }: { data: WeddingData }) => {
 
       <section
         className="t17-roses"
-        style={{ backgroundImage: `url(${roses})` }}
+        style={{ backgroundImage: `url(${rings})` }}
       >
         <Reveal>
           <div className="t17-glass">
@@ -149,7 +150,7 @@ const Template17 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t17-foot">
-        <img src={bouquet} alt="" />
+        <img src={veil} alt="" />
         <div>
           <p className="t17-small">Thank you</p>
           <h2>

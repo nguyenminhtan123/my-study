@@ -1,6 +1,6 @@
-// Template 17: Bó hoa cô dâu. A real bridal bouquet of peach roses and white hydrangea held against
-// the dress; blush, peach and ivory; a satin-ribbon date, arch frames, a real rose bouquet behind
-// the countdown, falling petals.
+// Template 17: Bó hoa cô dâu. A bride holding her bouquet of peach roses and white hydrangea against
+// the dress; blush, peach and ivory; a satin-ribbon date, arch frames, the bouquet beside the rings
+// behind the countdown, the bouquet on the veil at the end, falling petals.
 .t17-root {
   --k-bg: #fff8f4;
   --k-ink: #4a3330;
@@ -84,7 +84,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 34% 40%;
+    object-position: 50% 30%;
     animation: t17-in 3s ease-out both;
   }
   &::after {

@@ -14,8 +14,9 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | `my-wed/src/static/t22-gold-bokeh.webp` | Mẫu 22 (nền đếm ngược, cuối trang) | Free bokeh image https://www.rawpixel.com/image/5911823/free-bokeh-image-public-domain-light-cc0-photo (CC0 1.0) |
 | `my-wed/src/static/t10-rings-box.webp` | Mẫu 10 (ảnh chính, cuối trang) | Wedding ring box (rawpixel) https://www.rawpixel.com/image/6030256/photo-image-background-public-domain-gold (CC0 1.0) |
 | `my-wed/src/static/t10-rings-gold.webp` | Mẫu 10 (nền ngày cưới; bản 600px) | Wedding Ring của Goran Vrakela (stocksnap) https://stocksnap.io/photo/wedding-ring-Z301VLPWCA (CC0 1.0) |
-| `my-wed/src/static/t17-bouquet.webp` | Mẫu 17 (ảnh chính, cuối trang) | Bridal bouquet background (rawpixel) https://www.rawpixel.com/image/6029615/photo-image-flower-public-domain-hand (CC0 1.0) |
-| `my-wed/src/static/t17-bouquet-roses.webp` | Mẫu 17 (nền đếm ngược; bản 600px) | Flower White của Terje Sollie (stocksnap) https://stocksnap.io/photo/flower-white-0IBJBQ5GWO (CC0 1.0) |
+| `my-wed/src/static/t17-bride.webp` | Mẫu 17 (ảnh chính) | Cô dâu cầm bó hoa hồng đào và cẩm tú cầu, không thấy mặt, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t17-rings.webp` | Mẫu 17 (nền đếm ngược) | Bó hoa cưới cạnh hộp nhẫn, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t17-veil.webp` | Mẫu 17 (cuối trang) | Bó hoa cưới trên khăn voan, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 | `my-wed/src/static/t19-reception.webp` | Mẫu 19 (ảnh chính, cuối trang) | Wedding Reception, Bangkok Thailand của pingjarupat (wordpress) https://wordpress.org/photos/photo/256693d10a/ (CC0 1.0) |
 | `my-wed/src/static/t19-candles.webp` | Mẫu 19 (nền ngày cưới) | Free light flower table (rawpixel) https://www.rawpixel.com/image/5912908/photo-image-flower-lights-public-domain (CC0 1.0) |
 | `my-wed/src/static/t20-table.webp` | Mẫu 20 (ảnh chính) | Bàn tiệc cô dâu chú rể hoa hồng phấn, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
