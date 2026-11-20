@@ -83,6 +83,27 @@ export const templates: TemplateEntry[] = [
     demoData: demoData01,
   },
   {
+    id: "t33",
+    name: "Mẫu 33 · Nắng đồng hoa",
+    thumbnail: thumb33,
+    Component: Template33,
+    demoData: demoData33,
+  },
+  {
+    id: "t32",
+    name: "Mẫu 32 · Hoa hồng pastel",
+    thumbnail: thumb32,
+    Component: Template32,
+    demoData: demoData32,
+  },
+  {
+    id: "t31",
+    name: "Mẫu 31 · Lễ đường",
+    thumbnail: thumb31,
+    Component: Template31,
+    demoData: demoData31,
+  },
+  {
     id: "t03",
     name: "Mẫu 3 · Trầu cau",
     thumbnail: thumb03,
@@ -200,27 +221,6 @@ export const templates: TemplateEntry[] = [
     thumbnail: thumb30,
     Component: Template30,
     demoData: demoData30,
-  },
-  {
-    id: "t31",
-    name: "Mẫu 31 · Lễ đường",
-    thumbnail: thumb31,
-    Component: Template31,
-    demoData: demoData31,
-  },
-  {
-    id: "t32",
-    name: "Mẫu 32 · Hoa hồng pastel",
-    thumbnail: thumb32,
-    Component: Template32,
-    demoData: demoData32,
-  },
-  {
-    id: "t33",
-    name: "Mẫu 33 · Nắng đồng hoa",
-    thumbnail: thumb33,
-    Component: Template33,
-    demoData: demoData33,
   },
 ];
 
