@@ -3,8 +3,10 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t16/styles.scss";
 import { WeddingData } from "@/core/types";
-import rows from "@/static/t16-lavender-rows.jpg";
-import sprig from "@/static/t16-lavender-sprig.webp";
+import aisle from "@/static/t16-aisle.webp";
+import bouquet from "@/static/t16-bouquet.webp";
+import garland from "@/static/t16-garland.webp";
+import reception from "@/static/t16-reception.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -21,10 +23,10 @@ import {
   photoSrc,
 } from "@/templates/_kit/sections";
 
-// a strip of the real lavender photo used as a divider
+// a strip of a wisteria wedding garland used as a divider
 const Sprig = () => (
   <Reveal variant="fade">
-    <div className="t16-sprig" style={{ backgroundImage: `url(${sprig})` }} />
+    <div className="t16-sprig" style={{ backgroundImage: `url(${garland})` }} />
   </Reveal>
 );
 
@@ -36,7 +38,7 @@ const Template16 = ({ data }: { data: WeddingData }) => {
       <Drifters kind="petal" count={12} color="#a98fcf" opacity={0.55} />
 
       <section className="t16-hero">
-        <img src={rows} alt="" />
+        <img src={aisle} alt="" />
         <div className="t16-hero-text">
           <p className="t16-kicker">We are getting married</p>
           <h1>
@@ -111,7 +113,7 @@ const Template16 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <section className="t16-field">
-        <img src={rows} alt="" />
+        <img src={reception} alt="" />
         <Reveal>
           <div className="t16-card t16-venue">
             <p className="t16-kicker">Địa điểm</p>
@@ -162,7 +164,7 @@ const Template16 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t16-foot">
-        <img src={rows} alt="" />
+        <img src={bouquet} alt="" />
         <div>
           <p className="t16-kicker">Thank you</p>
           <h2>

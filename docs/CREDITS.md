@@ -5,8 +5,10 @@ Các ảnh dưới đây có giấy phép **CC0 1.0** hoặc **Public Domain Mar
 | --- | --- | --- |
 | `my-wed/src/static/t15-lanterns.webp` | Mẫu 15 (ảnh chính, cuối trang) | CNY - red, red lanterns https://www.rawpixel.com/image/6075594/cny-red-red-lanterns (CC0 1.0) |
 | `my-wed/src/static/t15-damask.jpg` | Mẫu 15 (phong bì, dải gấm đỏ) | Red silk damask wallcovering của Picdrome Public Domain Pictures https://www.flickr.com/photos/65798313@N06/18960169295 (CC0 1.0) |
-| `my-wed/src/static/t16-lavender-rows.jpg` | Mẫu 16 (ảnh chính, địa điểm, cuối trang) | Lavender field background https://www.rawpixel.com/image/6035698/photo-image-background-flower-public-domain (CC0 1.0) |
-| `my-wed/src/static/t16-lavender-sprig.webp` | Mẫu 16 (dải ngăn cách) | Lavender field background https://www.rawpixel.com/image/6035950/photo-image-background-flower-public-domain (CC0 1.0) |
+| `my-wed/src/static/t16-aisle.webp` | Mẫu 16 (ảnh chính) | Lối đi lễ cưới dưới giàn tử đằng, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t16-reception.webp` | Mẫu 16 (địa điểm) | Bàn tiệc cưới hoa tím, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t16-bouquet.webp` | Mẫu 16 (cuối trang) | Bó hoa cưới tím, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
+| `my-wed/src/static/t16-garland.webp` | Mẫu 16 (dải ngăn cách) | Vòng hoa tử đằng, do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo) |
 | `my-wed/src/static/t22-champagne.webp` | Mẫu 22 (ảnh chính) | Free champagne sparkling wine image https://www.rawpixel.com/image/5927536/photo-image-new-year-public-domain-hand (CC0 1.0) |
 | `my-wed/src/static/t22-gold-bokeh.webp` | Mẫu 22 (nền đếm ngược, cuối trang) | Free bokeh image https://www.rawpixel.com/image/5911823/free-bokeh-image-public-domain-light-cc0-photo (CC0 1.0) |
 | `my-wed/src/static/t10-rings-box.webp` | Mẫu 10 (ảnh chính, cuối trang) | Wedding ring box (rawpixel) https://www.rawpixel.com/image/6030256/photo-image-background-public-domain-gold (CC0 1.0) |

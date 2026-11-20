@@ -1,5 +1,5 @@
-// Template 16: Oải hương. A real lavender field running to the horizon; soft lilac paper,
-// arch-topped photo frames, strips of a real lavender photo as dividers, drifting petals.
+// Template 16: Oải hương (tím). A wisteria-draped wedding aisle; soft lilac paper,
+// arch-topped photo frames, strips of a wisteria garland as dividers, a reception table and a bouquet, drifting petals.
 .t16-root {
   --k-bg: #f7f3fb;
   --k-ink: #3e3352;
@@ -242,7 +242,7 @@
     width: 100%;
     height: 340px;
     object-fit: cover;
-    object-position: 50% 80%;
+    object-position: 50% 40%;
     mask-image: linear-gradient(
       180deg,
       transparent,
@@ -293,7 +293,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 100%;
+    object-position: 50% 45%;
   }
   &::after {
     content: "";
