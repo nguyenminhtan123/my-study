@@ -129,3 +129,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 - `cover.webp` (ảnh mở đầu, cặp đôi trùm khăn voan trong rừng): chủ repo cho biết **đã mua bản quyền** bản không chữ ký (20/11/2026).
 - `album1-4.webp` (gallery) và `destiny.webp` (ảnh cuối thiệp, cặp đôi cúi chào; đã cắt bỏ nút giao diện của app trong ảnh chụp màn hình): chủ repo chọn từ Pinterest (ảnh chụp cưới của studio Hàn Quốc), **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 4 · Lễ đường: ảnh cưới mẫu (`my-wed/src/static/t31/demo/`)
+
+`cover.webp` (ảnh mở đầu trong khung vòm) và `album1-4.webp` (gallery; ảnh 4 có chữ ký studio "Wedding328", giữ nguyên): chủ repo chọn từ Pinterest (ảnh chụp cưới của studio Hàn Quốc), **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
