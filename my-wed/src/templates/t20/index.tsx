@@ -101,17 +101,18 @@ const Template20 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <h2 className="t20-title t20-center">Chương trình</h2>
         </Reveal>
-        {/* the timeline stacked like the tiers of a cake, widest at the bottom */}
-        <div className="t20-tiers">
+        {/* the timeline: a thin blush-to-mint line down the middle, the steps on alternate sides */}
+        <div className="t20-steps">
           {data.timeline.map((s, i) => (
-            <Reveal key={s.time} variant="zoom" delay={i * 140}>
-              <div style={{ width: `${58 + i * 14}%` }}>
-                <b>{s.time}</b>
-                <span>{s.label}</span>
+            <Reveal key={s.time} variant="up" delay={i * 140}>
+              <div className={`t20-step${i % 2 ? " t20-step-r" : ""}`}>
+                <div>
+                  <b>{s.time}</b>
+                  <span>{s.label}</span>
+                </div>
               </div>
             </Reveal>
           ))}
-          <div className="t20-stand" />
         </div>
       </section>
 
