@@ -1,6 +1,6 @@
 // Template 20: Bánh cưới. Sweet and pastel: a sweetheart table of blush roses and mint eucalyptus in an arch with
 // icing edges, an evening reception by candlelight behind the countdown, rings among rose petals at the end;
-// mint, blush and cream, scalloped icing edges, a slender timeline with the steps on alternate sides.
+// mint, blush and cream, scalloped icing edges, a timeline stacked like the tiers of a cake.
 .t20-root {
   --k-bg: #fffaf3;
   --k-ink: #4b3a30;
@@ -229,77 +229,130 @@
   }
 }
 
-// ---------- timeline ----------
-.t20-steps {
-  position: relative;
-  max-width: 330px;
-  margin: 6px auto 0;
-  padding: 4px 0;
+// ---------- cake tiers ----------
+$drip: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='22' viewBox='0 0 96 22'%3E%3Cpath fill='%23fffdf9' d='M0 0H96V7C92 7 91 9 91 12 91 15 89 16 87.5 16 86 16 84 15 84 12 84 9 82 7 78 7 74 7 73 8 73 10 73 12 72 13 70.5 13 69 13 68 12 68 10 68 8 66 7 60 7 55 7 54 9 54 14 54 18 52.5 20 50.5 20 48.5 20 47 18 47 14 47 9 45 7 40 7 35 7 34 8 34 10 34 12 33 13 31.5 13 30 13 29 12 29 10 29 8 27 7 22 7 18 7 17 9 17 13 17 16 15.5 17.5 13.5 17.5 11.5 17.5 10 16 10 13 10 9 8 7 4 7H0Z'/%3E%3C/svg%3E");
+.t20-tiers {
+  display: grid;
+  justify-items: center;
+  max-width: 340px;
+  margin: 0 auto;
 
-  // the line down the middle
+  .k-reveal {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+  }
+}
+// sugar roses on the top tier
+.t20-topper {
+  position: relative;
+  z-index: 20;
+  width: 34%;
+  margin-bottom: -16px;
+  filter: drop-shadow(0 6px 8px rgba(150, 90, 90, 0.18));
+}
+.t20-tier {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  height: 62px;
+  padding-top: 14px;
+  box-sizing: border-box;
+  border-radius: 8px 8px 4px 4px;
+  // a round cake: light down the middle, shading off to both sides
+  background:
+    linear-gradient(90deg, rgba(120, 60, 60, 0.12), rgba(255, 255, 255, 0) 16%, rgba(255, 255, 255, 0.45) 46%, rgba(255, 255, 255, 0) 74%, rgba(120, 60, 60, 0.14)),
+    #f6d9d8;
+  box-shadow: 0 6px 10px -6px rgba(140, 80, 80, 0.35);
+
+  // cream dripping over the top edge
   &::before {
     content: "";
     position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1.5px;
-    transform: translateX(-50%);
-    background: linear-gradient(180deg, transparent, #efc3c8 12%, #a8d3b6 50%, #efc3c8 88%, transparent);
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    height: 22px;
+    background: $drip 0 0 / 96px 22px repeat-x;
+    filter: drop-shadow(0 2px 1.5px rgba(140, 80, 80, 0.18));
+    border-radius: 8px 8px 0 0;
   }
-}
-.t20-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 16px 0;
-
-  > div {
-    padding-right: 28px;
-    text-align: right;
-  }
-  // the dot on the line
+  // a row of piped cream pearls along the foot
   &::after {
     content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid var(--k-accent);
-    box-shadow: 0 0 0 5px var(--k-bg);
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 10px;
+    background: radial-gradient(circle at 50% 45%, #fff 0 2.6px, #f1e6dc 3.4px, rgba(150, 110, 90, 0.18) 4.2px, transparent 4.8px) 0 0 / 10px 10px repeat-x;
   }
   b {
-    display: block;
+    position: relative;
     font-family: var(--k-display);
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 400;
-    line-height: 1.1;
-    color: var(--k-accent);
+    color: #8a4f55;
   }
   span {
-    display: block;
-    margin-top: 4px;
-    font-size: 11px;
+    position: relative;
+    font-size: 10.5px;
+    font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--k-muted);
+    color: #9a6b6e;
   }
 }
-.t20-step-r {
-  > div {
-    grid-column: 2;
-    padding: 0 0 0 28px;
-    text-align: left;
-  }
-  &::after {
-    border-color: #7fb894;
-  }
+.t20-tier-mint {
+  background:
+    linear-gradient(90deg, rgba(40, 90, 60, 0.12), rgba(255, 255, 255, 0) 16%, rgba(255, 255, 255, 0.45) 46%, rgba(255, 255, 255, 0) 74%, rgba(40, 90, 60, 0.14)),
+    #d3ebdb;
+  box-shadow: 0 6px 10px -6px rgba(60, 110, 80, 0.35);
   b {
-    color: #5f9c76;
+    color: #3f7656;
+  }
+  span {
+    color: #5f8a70;
+  }
+}
+// the cake stand: a white plate with a gilded rim on a slender foot
+.t20-stand {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff, #f1e7da);
+  box-shadow:
+    inset 0 -3px 0 #d8bf95,
+    inset 0 2px 0 #fff,
+    0 10px 16px -8px rgba(120, 90, 60, 0.35);
+
+  i {
+    position: absolute;
+    left: 50%;
+    top: 16px;
+    width: 30%;
+    height: 34px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #e6d6bd, #fffaf2 45%, #e2cfb2);
+    clip-path: polygon(38% 0, 62% 0, 70% 78%, 100% 100%, 0 100%, 30% 78%);
+  }
+}
+.t20-tiers {
+  padding-bottom: 36px;
+
+  // each tier's cream drips start at a different place, so no two tiers drip alike
+  .k-reveal:nth-child(3) .t20-tier::before {
+    background-position: 37px 0;
+  }
+  .k-reveal:nth-child(4) .t20-tier::before {
+    background-position: 71px 0;
+  }
+  .k-reveal:nth-child(5) .t20-tier::before {
+    background-position: 18px 0;
   }
 }
 

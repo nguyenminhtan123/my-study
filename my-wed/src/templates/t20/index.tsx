@@ -5,6 +5,7 @@ import "@/templates/t20/styles.scss";
 import { WeddingData } from "@/core/types";
 import night from "@/static/t20-night.webp";
 import rings from "@/static/t20-rings.webp";
+import sugarRoses from "@/static/t20-sugar-roses.webp";
 import table from "@/static/t20-table.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
@@ -101,18 +102,26 @@ const Template20 = ({ data }: { data: WeddingData }) => {
         <Reveal>
           <h2 className="t20-title t20-center">Chương trình</h2>
         </Reveal>
-        {/* the timeline: a thin blush-to-mint line down the middle, the steps on alternate sides */}
-        <div className="t20-steps">
+        {/* the timeline stacked like the tiers of a cake, widest at the bottom: sugar roses on top,
+            cream dripping over each tier, a row of piped pearls at its foot, on a cake stand */}
+        <div className="t20-tiers">
+          <Reveal variant="zoom">
+            <img className="t20-topper" src={sugarRoses} alt="" />
+          </Reveal>
           {data.timeline.map((s, i) => (
-            <Reveal key={s.time} variant="up" delay={i * 140}>
-              <div className={`t20-step${i % 2 ? " t20-step-r" : ""}`}>
-                <div>
-                  <b>{s.time}</b>
-                  <span>{s.label}</span>
-                </div>
+            <Reveal key={s.time} variant="zoom" delay={i * 140}>
+              <div
+                className={`t20-tier${i % 2 ? " t20-tier-mint" : ""}`}
+                style={{ width: `${54 + (i * 40) / Math.max(1, data.timeline.length - 1)}%`, zIndex: 10 - i }}
+              >
+                <b>{s.time}</b>
+                <span>{s.label}</span>
               </div>
             </Reveal>
           ))}
+          <div className="t20-stand">
+            <i />
+          </div>
         </div>
       </section>
 
