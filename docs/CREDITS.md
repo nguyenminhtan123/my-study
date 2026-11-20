@@ -133,3 +133,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 4 · Lễ đường: ảnh cưới mẫu (`my-wed/src/static/t31/demo/`)
 
 `cover.webp` (ảnh mở đầu trong khung vòm), `album1-4.webp` (gallery; ảnh 4 đã cắt bỏ nút mũi tên của app) và `destiny.webp` (ảnh cuối thiệp): chủ repo chọn từ Pinterest (ảnh chụp cưới của studio Hàn Quốc), **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 5 · Trầu cau: ảnh cưới mẫu (`my-wed/src/static/t03/demo/`)
+
+`cover.webp` và `album1-4.webp`: dâu rể mặc cổ phục Việt (áo tấc xanh than, giao lĩnh đỏ, nón quai thao), do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo). Concept theo một ảnh mẫu chủ repo gửi (chỉ lấy trang phục và màu, không lấy dáng hay bố cục); phong cách ảnh phim, hai ảnh được phủ hạt phim cho đồng bộ.
