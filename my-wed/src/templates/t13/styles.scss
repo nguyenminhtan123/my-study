@@ -1,6 +1,4 @@
-@use "./torn" as *;
-
-// Template 13: classic blue and cream (Pinterest-inspired): torn photo strips, monogram, thin type.
+// Template 13: classic blue and cream (Pinterest-inspired): beach polaroids with hand-drawn seashells, monogram, thin type.
 .t13-root {
   --k-bg: #f2efe6;
   --k-ink: #1b2f5e;
@@ -88,71 +86,72 @@
   color: var(--k-accent);
 }
 
-// torn photo prints: a ragged paper edge, a thin white fibrous rim, then the photo; a soft shadow under the paper
-@mixin torn($top, $bottom) {
-  $edge: 30px;
-  -webkit-mask:
-    $top top / 100% $edge no-repeat,
-    linear-gradient(#000, #000) center / 100% calc(100% - #{2 * $edge - 2px}) no-repeat,
-    $bottom bottom / 100% $edge no-repeat;
-  mask:
-    $top top / 100% $edge no-repeat,
-    linear-gradient(#000, #000) center / 100% calc(100% - #{2 * $edge - 2px}) no-repeat,
-    $bottom bottom / 100% $edge no-repeat;
-}
+// the photos are beach polaroids: a white print, a little tilted, with a soft shadow; a cluster of
+// hand-drawn navy seashells on two of them
 .t13-torn {
   position: relative;
-  filter: drop-shadow(0 6px 10px rgba(27, 47, 94, 0.18)) drop-shadow(0 1px 1.5px rgba(27, 47, 94, 0.22));
 }
 .t13-paper {
   position: absolute;
-  inset: 0;
+  inset: 6px 30px;
   overflow: hidden;
-  // the white paper of the print, showing where it tore
-  background: #fdfcf8;
+  background: #fffefb;
+  border-radius: 2px;
+  transform: rotate(-2.2deg);
+  box-shadow:
+    0 18px 30px -14px rgba(27, 47, 94, 0.45),
+    0 2px 6px rgba(27, 47, 94, 0.12);
 
   img {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    height: calc(100% - 56px);
     object-fit: cover;
     animation: t13-zoom 18s ease-in-out infinite alternate;
   }
 }
+.t13-shell {
+  position: absolute;
+  z-index: 3;
+  width: 84px;
+  right: 4px;
+  top: -16px;
+  transform: rotate(14deg);
+  pointer-events: none;
+}
 .t13-torn-a {
   height: 380px;
-  .t13-paper {
-    @include torn($torn-a-top-paper, $torn-a-bottom-paper);
-  }
-  .t13-paper img {
-    @include torn($torn-a-top-photo, $torn-a-bottom-photo);
-  }
 }
-// the third print is torn differently, so the two tall prints never look alike
 .t13-torn-c {
   .t13-paper {
-    @include torn($torn-c-top-paper, $torn-c-bottom-paper);
+    transform: rotate(1.6deg);
   }
-  .t13-paper img {
-    @include torn($torn-c-top-photo, $torn-c-bottom-photo);
+  .t13-shell {
+    top: auto;
+    right: auto;
+    left: 2px;
+    bottom: -14px;
+    transform: scaleX(-1) rotate(10deg);
   }
 }
 .t13-torn-b {
   height: 280px;
   margin-top: 34px;
   .t13-paper {
-    @include torn($torn-b-top-paper, $torn-b-bottom-paper);
+    transform: rotate(1.8deg);
   }
   .t13-paper img {
-    @include torn($torn-b-top-photo, $torn-b-bottom-photo);
     filter: saturate(0.85);
   }
   .t13-paper::after {
     content: "";
     position: absolute;
-    inset: 0;
-    @include torn($torn-b-top-photo, $torn-b-bottom-photo);
+    top: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    height: calc(100% - 56px);
     background: linear-gradient(
       180deg,
       rgba(20, 40, 90, 0.05),
@@ -163,7 +162,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 26px;
+    bottom: 66px;
     z-index: 2;
   }
 }

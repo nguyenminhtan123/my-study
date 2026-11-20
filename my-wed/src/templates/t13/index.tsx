@@ -2,6 +2,7 @@ import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t13/styles.scss";
+import shells from "@/static/t13/shells.webp";
 import { WeddingData } from "@/core/types";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
@@ -41,6 +42,7 @@ const Template13 = ({ data }: { data: WeddingData }) => {
         <div className="t13-paper">
           <img src={photoSrc(data.photos.cover)} alt="" />
         </div>
+        <img className="t13-shell" src={shells} alt="" />
       </section>
 
       <section className="t13-card">
@@ -85,6 +87,7 @@ const Template13 = ({ data }: { data: WeddingData }) => {
         <div className="t13-paper">
           <img src={photoSrc(data.album[0])} alt="" />
         </div>
+        <img className="t13-shell" src={shells} alt="" />
       </section>
 
       <section className="t13-time">
