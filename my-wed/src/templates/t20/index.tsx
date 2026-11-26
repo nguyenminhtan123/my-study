@@ -4,7 +4,7 @@ import "@/templates/_kit/kit.scss";
 import "@/templates/t20/styles.scss";
 import { WeddingData } from "@/core/types";
 import cakeHd from "@/static/t20-cake-hd.webp";
-import night from "@/static/t20-night.webp";
+import night from "@/static/t20/demo/lanterns.webp";
 import rings from "@/static/t20-rings.webp";
 import sugarRoses from "@/static/t20-sugar-roses.webp";
 import table from "@/static/t20-table.webp";
