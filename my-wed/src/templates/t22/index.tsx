@@ -4,7 +4,7 @@ import "@/templates/_kit/kit.scss";
 import "@/templates/t22/styles.scss";
 import { WeddingData } from "@/core/types";
 import bokeh from "@/static/t22-gold-bokeh.webp";
-import champagne from "@/static/t22-champagne.webp";
+import champagne from "@/static/t22/toast.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {

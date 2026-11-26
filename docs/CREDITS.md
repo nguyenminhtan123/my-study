@@ -153,3 +153,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 9 · Tiệc cưới lung linh: ảnh cưới mẫu (`my-wed/src/static/t19/demo/`)
 
 `couple.webp`, `album1-4.webp` và `../table.webp` (nền phần Save the date: bàn tiệc nến và hồng phấn): tiệc cưới tối ngoài vườn dưới dây đèn, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
+
+## Mẫu 10 · Champagne: ảnh cưới mẫu (`my-wed/src/static/t22/`)
+
+`demo/destiny.webp`, `demo/album1-4.webp` và `toast.webp` (nền màn mở đầu: cận hai ly champagne cụng nhau): sảnh art-deco ban đêm, tuxedo nhung đen, váy sequin vàng, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
