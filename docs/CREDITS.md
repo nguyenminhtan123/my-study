@@ -137,3 +137,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 5 · Trầu cau: ảnh cưới mẫu (`my-wed/src/static/t03/demo/`)
 
 `cover.webp` và `album1-5.webp`: bộ 6 ảnh dâu rể mặc cổ phục Việt (áo tấc xanh than, giao lĩnh đỏ, nón quai thao) trong studio phông đỏ có hoa sen trắng, **chủ repo tự tạo bằng Google Gemini** (Nano Banana) theo bộ prompt mô tả concept; đã cắt bỏ phần viền của trình xem ảnh trong ảnh chụp màn hình. Ảnh do AI tạo; dấu ngôi sao SynthID của Gemini ở góc dưới nằm ngoài vùng cắt.
+
+## Mẫu 6 · Nhẫn cưới: ảnh cưới mẫu (`my-wed/src/static/t10/demo/`)
+
+`destiny.webp` và `album1-5.webp`: dâu rể trong studio ngà (váy satin, tuxedo đen), cận tay trao nhẫn, hộp nhẫn, **chủ repo tự tạo bằng Google Gemini**; 4 ảnh album 2-5 được cắt từ một ảnh lưới 4 ô.
