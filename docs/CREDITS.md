@@ -165,3 +165,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 11 · Xanh cổ điển: ảnh cưới mẫu (`my-wed/src/static/t13/demo/`)
 
 `cover.webp` (cũng dùng làm ảnh cuối) và `album1-4.webp` (cắt từ một ảnh lưới 4 ô): ảnh cưới ở biển, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 13 · Oải hương: ảnh cưới mẫu (`my-wed/src/static/t16/demo/`)
+
+`destiny.webp` và `album1-4.webp`: ảnh cưới trên cánh đồng oải hương, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
