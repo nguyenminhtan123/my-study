@@ -4,7 +4,7 @@ import { Page } from "zmp-ui";
 import "@/templates/_kit/kit.scss";
 import "@/templates/t15/styles.scss";
 import { WeddingData } from "@/core/types";
-import lanterns from "@/static/t15-lanterns.webp";
+import tea from "@/static/t15/demo/album5.webp";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
 import {
@@ -53,7 +53,7 @@ const Template15 = ({ data }: { data: WeddingData }) => {
       <Drifters kind="sparkle" count={9} color="#f1cf7e" opacity={0.7} />
 
       <section className="t15-hero">
-        <img className="t15-hero-bg" src={lanterns} alt="" />
+        <img className="t15-hero-bg" src={tea} alt="" />
         <div className="t15-hero-text">
           <Seal />
           <p className="t15-kicker">Lễ thành hôn</p>
@@ -195,7 +195,7 @@ const Template15 = ({ data }: { data: WeddingData }) => {
       </section>
 
       <footer className="t15-foot">
-        <img src={lanterns} alt="" />
+        <img src={tea} alt="" />
         <div>
           <Seal />
           <p>Hân hạnh đón tiếp</p>
