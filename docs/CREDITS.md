@@ -149,3 +149,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 8 · Hỷ đỏ: ảnh cưới mẫu (`my-wed/src/static/t15/demo/`)
 
 `couple.webp` và `album1,2,4,5.webp`: dâu rể mặc áo dài gấm xanh than, khăn xếp và áo nhật bình đỏ, khăn vấn xanh, **chủ repo tự tạo bằng Google Gemini** theo concept một ảnh mẫu (không dùng ảnh mẫu đó); cắt từ 3 ảnh ghép 2 khung.
+
+## Mẫu 9 · Tiệc cưới lung linh: ảnh cưới mẫu (`my-wed/src/static/t19/demo/`)
+
+`couple.webp` và `album1-4.webp`: tiệc cưới tối ngoài vườn dưới dây đèn, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
