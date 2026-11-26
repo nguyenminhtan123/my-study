@@ -161,3 +161,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 3 · Hoa hồng pastel: ảnh cưới mẫu (`my-wed/src/static/t32/demo/`)
 
 `cover.webp`, `destiny.webp` (có chữ ký studio "Bellure", giữ nguyên) và `album1-4.webp` (cắt từ một ảnh lưới 4 ô): ảnh cưới ngoài trời trời xanh cỏ xanh, chủ repo chọn từ Pinterest (ảnh studio Hàn Quốc), **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 11 · Xanh cổ điển: ảnh cưới mẫu (`my-wed/src/static/t13/demo/`)
+
+`cover.webp` (cũng dùng làm ảnh cuối) và `album1-4.webp` (cắt từ một ảnh lưới 4 ô): ảnh cưới ở biển, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
