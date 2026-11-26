@@ -136,4 +136,4 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 ## Mẫu 5 · Trầu cau: ảnh cưới mẫu (`my-wed/src/static/t03/demo/`)
 
-`cover.webp` và `album1-4.webp`: dâu rể mặc cổ phục Việt (áo tấc xanh than, giao lĩnh đỏ, nón quai thao), do AI vẽ (FLUX.2 [klein] 4B, Apache 2.0, Cloudflare Workers AI của chủ repo). Concept theo một ảnh mẫu chủ repo gửi (chỉ lấy trang phục và màu, không lấy dáng hay bố cục); phong cách ảnh phim, hai ảnh được phủ hạt phim cho đồng bộ. Biểu cảm cả 5 ảnh được sửa lại cho dịu (bỏ kiểu cười toe toét) bằng FLUX.2 [dev] của Black Forest Labs, cũng chạy trên Cloudflare Workers AI.
+`cover.webp` và `album1-5.webp`: bộ 6 ảnh dâu rể mặc cổ phục Việt (áo tấc xanh than, giao lĩnh đỏ, nón quai thao) trong studio phông đỏ có hoa sen trắng, **chủ repo tự tạo bằng Google Gemini** (Nano Banana) theo bộ prompt mô tả concept; đã cắt bỏ phần viền của trình xem ảnh trong ảnh chụp màn hình. Ảnh do AI tạo; dấu ngôi sao SynthID của Gemini ở góc dưới nằm ngoài vùng cắt.
