@@ -152,4 +152,4 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 ## Mẫu 9 · Tiệc cưới lung linh: ảnh cưới mẫu (`my-wed/src/static/t19/demo/`)
 
-`couple.webp` và `album1-4.webp`: tiệc cưới tối ngoài vườn dưới dây đèn, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
+`couple.webp`, `album1-3.webp` và `../table.webp` (nền phần Save the date: bàn tiệc nến và hồng phấn): tiệc cưới tối ngoài vườn dưới dây đèn, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.

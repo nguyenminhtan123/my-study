@@ -321,6 +321,12 @@
   > :nth-child(even) {
     margin-top: 26px;
   }
+  // an odd photo out sits alone in the middle of the last row, so the grid stays balanced
+  > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 5px);
+  }
 }
 
 // ---------- footer ----------
