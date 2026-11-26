@@ -144,4 +144,4 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 ## Mẫu 7 · Đỏ rượu & kem: ảnh cưới mẫu (`my-wed/src/static/t11/demo/`)
 
-`couple.webp` và `album1-3.webp`: dâu rể trong lâu đài cổ (vest nhung đỏ rượu, váy ren kem), **chủ repo tự tạo bằng Google Gemini**; album 1-3 cắt từ ảnh ghép 2 khung.
+`couple.webp`, `album1-3.webp` và `envelope.webp` (nền phần Đếm ngược: phong bì sáp, hoa hồng, hai ly rượu): dâu rể trong lâu đài cổ (vest nhung đỏ rượu, váy ren kem), **chủ repo tự tạo bằng Google Gemini**; album 1-3 cắt từ ảnh ghép 2 khung.

@@ -3,6 +3,7 @@ import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t11/styles.scss";
+import envelope from "@/static/t11/demo/envelope.webp";
 import { WeddingData } from "@/core/types";
 import { Drifters, Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
@@ -79,7 +80,13 @@ const Template11 = ({ data }: { data: WeddingData }) => {
         </Reveal>
       </section>
 
-      <section className="t11-wine t11-count">
+      {/* the sealed envelope and two glasses of wine, under a wine-red veil so the numbers stay clear */}
+      <section
+        className="t11-wine t11-count"
+        style={{
+          backgroundImage: `linear-gradient(rgba(62, 10, 20, 0.7), rgba(62, 10, 20, 0.82)), url(${envelope})`,
+        }}
+      >
         <Reveal>
           <p className="t11-eyebrow">Đếm ngược</p>
           <Countdown iso={data.weddingISO} />
