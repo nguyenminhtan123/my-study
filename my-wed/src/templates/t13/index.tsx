@@ -69,9 +69,6 @@ const Template13 = ({ data }: { data: WeddingData }) => {
         <div className="t13-paper">
           <img src={photoSrc(data.album[1])} alt="" />
         </div>
-        <Reveal>
-          <p className="t13-over">Our love story</p>
-        </Reveal>
       </section>
 
       <section className="t13-cal">

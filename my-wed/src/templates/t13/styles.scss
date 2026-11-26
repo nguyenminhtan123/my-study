@@ -142,37 +142,6 @@
   .t13-paper {
     transform: rotate(1.8deg);
   }
-  .t13-paper img {
-    filter: saturate(0.85);
-  }
-  .t13-paper::after {
-    content: "";
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: calc(100% - 24px);
-    height: calc(100% - 56px);
-    background: linear-gradient(
-      180deg,
-      rgba(20, 40, 90, 0.05),
-      rgba(20, 40, 90, 0.55)
-    );
-  }
-  .k-reveal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 66px;
-    z-index: 2;
-  }
-}
-.t13-over {
-  text-align: center;
-  font-family: var(--k-display);
-  font-style: italic;
-  font-size: 34px;
-  color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
 .t13-card {
