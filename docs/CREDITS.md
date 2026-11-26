@@ -141,3 +141,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 6 · Nhẫn cưới: ảnh cưới mẫu (`my-wed/src/static/t10/demo/`)
 
 `destiny.webp` và `album1-5.webp`: dâu rể trong studio ngà (váy satin, tuxedo đen), cận tay trao nhẫn, hộp nhẫn, **chủ repo tự tạo bằng Google Gemini**; 4 ảnh album 2-5 được cắt từ một ảnh lưới 4 ô.
+
+## Mẫu 7 · Đỏ rượu & kem: ảnh cưới mẫu (`my-wed/src/static/t11/demo/`)
+
+`couple.webp` và `album1-3.webp`: dâu rể trong lâu đài cổ (vest nhung đỏ rượu, váy ren kem), **chủ repo tự tạo bằng Google Gemini**; album 1-3 cắt từ ảnh ghép 2 khung.
