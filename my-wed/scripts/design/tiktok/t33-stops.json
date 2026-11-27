@@ -1,0 +1,8 @@
+[
+  { "intro": 7800 },
+  { "sel": ".t33-fams", "hold": 2400 },
+  { "sel": ".k-count", "hold": 2400 },
+  { "sel": ".t33-album", "hold": 3000, "glide": 1300 },
+  { "sel": ".k-form", "hold": 2600 },
+  { "sel": ".t33-thanks", "hold": 3600, "glide": 1600 }
+]
