@@ -235,3 +235,15 @@ Theo [Chính sách kiểm duyệt](https://miniapp.zaloplatforms.com/documents/z
 - Trọn gói một thiệp **149.000đ** (ghi giá gốc 249.000đ), đủ mọi tính năng, làm hộ, không chia gói.
 - Thêm: thiệp thứ 2 cho tiệc bên còn lại +49.000đ · làm gấp 24 giờ +50.000đ · giữ thiệp kỷ niệm vĩnh viễn +49.000đ (mặc định thiệp có ngày hết hạn) · thiết kế riêng theo concept +500.000đ.
 - Giá chỉ ở ảnh báo giá / admin, không hiển thị trong Mini App.
+
+## Kiểm duyệt Zalo (đã qua duyệt 27/11/2026)
+
+Khi rà soát nguy cơ bị Zalo từ chối, đối chiếu [Chính sách kiểm duyệt Mini App](https://miniapp.zaloplatforms.com/documents/zalo-mini-app-censorship-policy/), **nhưng bỏ qua các điểm dưới đây**: app đã nộp và được duyệt khi còn đủ các điểm này, chủ repo xác nhận chúng không phải lý do bị từ chối:
+
+- Nút "Chỉ đường" mở Google Maps ra ngoài app (điều 4.1).
+- Chưa có trang Chính sách bảo mật / Điều khoản trong app (điều 4.8, 7); form xác nhận tham dự đã có ô đồng ý.
+- Màn chờ tải tối đa 8 giây và ảnh nền dung lượng lớn (điều 5.3).
+- Ảnh cưới lấy từ Pinterest và nhạc nền có bản quyền (điều 4.2).
+- Dữ liệu mẫu còn chỗ trống kiểu "Nhà hàng ABC", "Sảnh ___" (điều 5.1).
+- Tiêu đề `my-wed` trong `app-config.json` (điều 2.2; tên hiển thị thật đặt trên trang quản lý Zalo).
+- Số tài khoản và QR mừng cưới (điều 8).
