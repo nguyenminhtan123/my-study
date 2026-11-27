@@ -173,3 +173,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 15 · Bánh cưới: ảnh cưới mẫu (`my-wed/src/static/t20/demo/`)
 
 `destiny.webp` (cắt bánh), `album1-4.webp` (pháo bông que, cầu hôn dưới dây đèn: đã cắt bỏ nút mũi tên của app, dâu rể bên tiệc ngoài trời) và `lanterns.webp` (nền phần Save the date: tiệc dưới tán cây có đèn lồng): chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 17 · Song Hỷ đỏ: ảnh cưới mẫu (`my-wed/src/static/t26/demo/`)
+
+`cover.webp`, `couple.webp`, `destiny.webp` và `album1-4.webp` (cắt từ một ảnh lưới 4 ô): ảnh cưới studio phông đỏ có chữ Hỷ, chủ repo chọn (có dấu chỉnh sửa bằng Gemini), **chưa có giấy phép sử dụng** ảnh gốc; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
