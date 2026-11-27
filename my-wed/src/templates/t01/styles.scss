@@ -1015,3 +1015,26 @@
 .wd-consent.k-consent-error {
   color: #c0392b;
 }
+
+// zmp-ui draws its buttons, radios and focused inputs in Zalo blue; in this card they take its rose red
+.wd-page {
+  --zaui-light-bottom-navigation-active-color: var(--rose);
+  --zaui-light-button-primary-background: var(--rose);
+  --zaui-light-button-secondary-text: var(--rose);
+  --zaui-light-button-tertiary-text: var(--rose);
+  --zaui-light-calendar-cell-selected-background: var(--rose);
+  --zaui-light-calendar-selected-background: var(--rose);
+  --zaui-light-calendar-title-hover-color: var(--rose);
+  --zaui-light-checkbox-checked-background: var(--rose);
+  --zaui-light-input-hover-border-color: var(--rose);
+  --zaui-light-option-selected-color: var(--rose);
+  --zaui-light-picker-option-selected-color: var(--rose);
+  --zaui-light-progress-completed: var(--rose);
+  --zaui-light-radio-checked-background: var(--rose);
+  --zaui-light-slider-mark-filled-bg-color: var(--rose);
+  --zaui-light-slider-thumb-bg-color: var(--rose);
+  --zaui-light-slider-track-active-bg-color: var(--rose);
+  --zaui-light-spinner-dot-color: var(--rose);
+  --zaui-light-switch-bg-color: var(--rose);
+  --zaui-light-tabbar-active-line: var(--rose);
+}
