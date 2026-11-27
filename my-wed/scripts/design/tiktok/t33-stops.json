@@ -1,8 +1,8 @@
 [
-  { "intro": 7800 },
-  { "sel": ".t33-fams", "hold": 2400 },
-  { "sel": ".k-count", "hold": 2400 },
-  { "sel": ".t33-album", "hold": 3000, "glide": 1300 },
-  { "sel": ".k-form", "hold": 2600 },
-  { "sel": ".t33-thanks", "hold": 3600, "glide": 1600 }
+  { "intro": 7600 },
+  { "sel": ".t33-fams", "hold": 1300, "glide": 650 },
+  { "sel": ".k-count", "hold": 1300, "glide": 650 },
+  { "sel": ".t33-album", "hold": 1700, "glide": 700 },
+  { "sel": ".k-form", "hold": 1300, "glide": 650 },
+  { "sel": ".t33-thanks", "hold": 1600, "glide": 900 }
 ]
