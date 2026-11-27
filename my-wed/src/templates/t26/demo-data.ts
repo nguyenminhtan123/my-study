@@ -46,7 +46,7 @@ export const demoData: WeddingData = {
     ...base.photos,
     cover: { key: "cover", label: "Ảnh bìa", ratio: "3/4", src: cover },
     couple: { key: "couple", label: "Ảnh cặp đôi", ratio: "3/4", src: couple },
-    destiny: { key: "destiny", label: "Ảnh cuối thiệp", ratio: "3/4", src: destiny },
+    destiny: { key: "destiny", label: "Ảnh cuối thiệp", ratio: "1/1", src: destiny },
   } as Record<string, PhotoSlot>,
   album: [
     { key: "album1", label: "Ảnh album 1", ratio: "3/4", src: album1 },
