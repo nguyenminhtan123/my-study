@@ -177,3 +177,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 17 · Song Hỷ đỏ: ảnh cưới mẫu (`my-wed/src/static/t26/demo/`)
 
 `cover.webp`, `couple.webp`, `destiny.webp` và `album1-4.webp` (cắt từ một ảnh lưới 4 ô): ảnh cưới studio phông đỏ có chữ Hỷ, chủ repo chọn (có dấu chỉnh sửa bằng Gemini), **chưa có giấy phép sử dụng** ảnh gốc; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+
+## Mẫu 18 · Vườn Xanh: ảnh cưới mẫu (`my-wed/src/static/t27/demo/`)
+
+`cover.webp`, `destiny.webp`, `couple.webp` và `album1-4.webp`: ảnh cưới ngoài trời trên đồi cỏ và trong rừng, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.

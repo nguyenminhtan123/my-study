@@ -1,4 +1,11 @@
-import { WeddingData } from "@/core/types";
+import album1 from "@/static/t27/demo/album1.webp";
+import album2 from "@/static/t27/demo/album2.webp";
+import album3 from "@/static/t27/demo/album3.webp";
+import album4 from "@/static/t27/demo/album4.webp";
+import couple from "@/static/t27/demo/couple.webp";
+import cover from "@/static/t27/demo/cover.webp";
+import destiny from "@/static/t27/demo/destiny.webp";
+import { PhotoSlot, WeddingData } from "@/core/types";
 import { demoData as base } from "@/templates/t01/demo-data";
 
 export const demoData: WeddingData = {
@@ -35,4 +42,17 @@ export const demoData: WeddingData = {
     { time: "12:30", label: "CHỤP ẢNH CÙNG CÔ DÂU CHÚ RỂ" },
   ],
   dressColors: ["#7e9276", "#e9e4d6", "#c8b79a", "#3f4a3a"],
+  // outdoor photos in green fields and woods, chosen by the owner
+  photos: {
+    ...base.photos,
+    cover: { key: "cover", label: "Ảnh bìa", ratio: "3/4", src: cover },
+    destiny: { key: "destiny", label: "Ảnh dọc", ratio: "4/5", src: destiny },
+    couple: { key: "couple", label: "Ảnh cặp đôi", ratio: "4/5", src: couple },
+  } as Record<string, PhotoSlot>,
+  album: [
+    { key: "album1", label: "Ảnh album 1", ratio: "4/5", src: album1 },
+    { key: "album2", label: "Ảnh album 2", ratio: "3/4", src: album2 },
+    { key: "album3", label: "Ảnh album 3", ratio: "3/4", src: album3 },
+    { key: "album4", label: "Ảnh album 4", ratio: "3/4", src: album4 },
+  ] as PhotoSlot[],
 };
