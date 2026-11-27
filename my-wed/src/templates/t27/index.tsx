@@ -164,7 +164,7 @@ const Template27 = ({ data }: { data: WeddingData }) => {
           <div
             className="t27-arch"
             style={{
-              backgroundImage: `linear-gradient(rgba(40, 56, 38, 0.72), rgba(40, 56, 38, 0.55) 55%, rgba(40, 56, 38, 0.25)), url(${rings})`,
+              backgroundImage: `linear-gradient(rgba(52, 70, 50, 0.55), rgba(40, 56, 38, 0.72)), url(${rings})`,
             }}
           >
             <p className="t27-caps">{titleCase(d.weekday)}</p>
