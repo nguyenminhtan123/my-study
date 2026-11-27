@@ -193,3 +193,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 21 · Bình minh biển: ảnh cưới mẫu (`my-wed/src/static/t30/demo/`)
 
 `cover.webp`, `destiny.webp` và `album1-4.webp`: dâu rể trên bãi biển lúc bình minh (váy voan ngà, vest linen màu cát), **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
+
+## Ảnh nền được phóng to bằng AI (27/11/2026)
+
+`t31/aisle.webp` (Mẫu 4), `t19-reception.webp` và `t19/table.webp` (Mẫu 9), `t22/toast.webp` (Mẫu 10), `t30/hero.webp` (Mẫu 21): phóng to 4 lần bằng Real-ESRGAN x4plus (giấy phép BSD-3-Clause, chạy ONNX trên máy) rồi thu về khoảng 1800 px, để không vỡ khi phủ toàn màn hình điện thoại. Nội dung và nguồn ảnh giữ như ghi ở trên.
