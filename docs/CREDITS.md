@@ -196,4 +196,6 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 ## Ảnh nền được phóng to bằng AI (27/11/2026)
 
-`t31/aisle.webp` (Mẫu 4), `t19-reception.webp` và `t19/table.webp` (Mẫu 9), `t22/toast.webp` (Mẫu 10), `t30/hero.webp` (Mẫu 21): phóng to 4 lần bằng Real-ESRGAN x4plus (giấy phép BSD-3-Clause, chạy ONNX trên máy) rồi thu về khoảng 1800 px, để không vỡ khi phủ toàn màn hình điện thoại. Nội dung và nguồn ảnh giữ như ghi ở trên.
+`t31/aisle.webp` (Mẫu 4), `t19/table.webp` (Mẫu 9), `t22/toast.webp` (Mẫu 10), `t30/hero.webp` (Mẫu 21): phóng to 4 lần bằng Real-ESRGAN x4plus (giấy phép BSD-3-Clause, chạy ONNX trên máy) rồi thu về khoảng 1800 px, để không vỡ khi phủ toàn màn hình điện thoại. Nội dung và nguồn ảnh giữ như ghi ở trên.
+
+`t19-reception.webp` (Mẫu 9, nền màn mở đầu và cuối thiệp): tiệc cưới tối dưới tán lá và đèn dây, **chủ repo tự tạo bằng Google Gemini** (khổ 9:16), phóng to 4 lần bằng Real-ESRGAN.
