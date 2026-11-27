@@ -189,3 +189,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 20 · Sen hồng: ảnh cưới mẫu (`my-wed/src/static/t29/demo/`)
 
 `cover.webp`, `destiny.webp` và `album1-4.webp`: dâu rể áo dài hồng vẽ sen và áo dài kem bên đầm sen sương sớm, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
+
+## Mẫu 21 · Bình minh biển: ảnh cưới mẫu (`my-wed/src/static/t30/demo/`)
+
+`cover.webp`, `destiny.webp` và `album1-4.webp`: dâu rể trên bãi biển lúc bình minh (váy voan ngà, vest linen màu cát), **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
