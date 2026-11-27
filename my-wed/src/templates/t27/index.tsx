@@ -3,6 +3,7 @@ import { Page } from "zmp-ui";
 
 import "@/templates/_kit/kit.scss";
 import "@/templates/t27/styles.scss";
+import rings from "@/static/t27/demo/rings.webp";
 import { WeddingData } from "@/core/types";
 import { Reveal } from "@/templates/_kit/anim";
 import { dateParts } from "@/templates/_kit/date";
@@ -160,7 +161,12 @@ const Template27 = ({ data }: { data: WeddingData }) => {
       {/* ---------- date in a sage arch ---------- */}
       <section className="t27-sec t27-when">
         <Reveal variant="zoom">
-          <div className="t27-arch">
+          <div
+            className="t27-arch"
+            style={{
+              backgroundImage: `linear-gradient(rgba(52, 70, 50, 0.55), rgba(40, 56, 38, 0.72)), url(${rings})`,
+            }}
+          >
             <p className="t27-caps">{titleCase(d.weekday)}</p>
             <b className="t27-day">{d.day}</b>
             <p className="t27-month">

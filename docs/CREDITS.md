@@ -180,4 +180,4 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 
 ## Mẫu 18 · Vườn Xanh: ảnh cưới mẫu (`my-wed/src/static/t27/demo/`)
 
-`cover.webp`, `destiny.webp`, `couple.webp` và `album1-4.webp`: ảnh cưới ngoài trời trên đồi cỏ và trong rừng, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
+`cover.webp`, `destiny.webp`, `couple.webp`, `album1-4.webp` và `rings.webp` (nền khung vòm ngày cưới: nhẫn trên khúc gỗ giữa lá): ảnh cưới ngoài trời trên đồi cỏ và trong rừng, chủ repo chọn từ Pinterest, **chưa có giấy phép sử dụng**; chủ repo quyết định dùng làm ảnh minh hoạ. Nếu tác giả yêu cầu gỡ thì thay bằng ảnh có quyền dùng.
