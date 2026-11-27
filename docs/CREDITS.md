@@ -185,3 +185,7 @@ Cảnh lối vào qua các vòm hoa `gate-arches.webp`, chùm bóng bay `balloon
 ## Mẫu 19 · Đèn lồng Hội An: ảnh cưới mẫu (`my-wed/src/static/t28/demo/`)
 
 `cover.webp`, `destiny.webp` và `album1-4.webp`: dâu rể mặc cổ phục (áo dài xanh than, khăn xếp; áo nhật bình đỏ, khăn vấn xanh) ở phố cổ Hội An lúc chạng vạng, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
+
+## Mẫu 20 · Sen hồng: ảnh cưới mẫu (`my-wed/src/static/t29/demo/`)
+
+`cover.webp`, `destiny.webp` và `album1-4.webp`: dâu rể áo dài hồng vẽ sen và áo dài kem bên đầm sen sương sớm, **chủ repo tự tạo bằng Google Gemini**; cắt từ 3 ảnh ghép 2 khung.
