@@ -356,9 +356,12 @@ $sage: url("@/static/t27/paper-sage.webp");
   border-radius: 999px 999px 0 0;
   background: var(--sage) $sage repeat;
   background-size: 300px;
-  // the template sets the rings photo here, under a sage veil
-  background-size: cover;
-  background-position: center 45%;
+  // the template sets the rings photo here, under a sage veil; it is enlarged and pinned to the
+  // top so the rings sit below the text, in the extra room at the foot of the arch
+  background-size: 165% auto;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  padding-bottom: 150px;
   box-shadow: 0 0 0 6px var(--k-bg), 0 0 0 7px var(--sage-soft);
   color: #f6f3ea;
 
