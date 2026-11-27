@@ -1,4 +1,4 @@
-import { demoData as base } from "@/templates/t28/demo-data";
+import { sharedDemo as base } from "@/templates/t28/demo-data";
 import { WeddingData } from "@/core/types";
 
 // same couple and photos as t28

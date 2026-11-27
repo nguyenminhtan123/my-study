@@ -5,7 +5,7 @@ import album4 from "@/static/t32/demo/album4.webp";
 import cover from "@/static/t32/demo/cover.webp";
 import destiny from "@/static/t32/demo/destiny.webp";
 import { PhotoSlot, WeddingData } from "@/core/types";
-import { demoData as base } from "@/templates/t28/demo-data";
+import { sharedDemo as base } from "@/templates/t28/demo-data";
 
 // same couple as t28; its own photos under a clear blue sky on green grass, chosen by the owner
 export const demoData: WeddingData = {

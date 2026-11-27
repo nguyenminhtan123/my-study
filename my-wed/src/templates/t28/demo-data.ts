@@ -4,10 +4,17 @@ import album4 from "@/static/album4.jpeg";
 import couple from "@/static/couple.jpeg";
 import cover from "@/static/cover.webp";
 import destiny from "@/static/destiny.jpeg";
+import hAlbum1 from "@/static/t28/demo/album1.webp";
+import hAlbum2 from "@/static/t28/demo/album2.webp";
+import hAlbum3 from "@/static/t28/demo/album3.webp";
+import hAlbum4 from "@/static/t28/demo/album4.webp";
+import hCover from "@/static/t28/demo/cover.webp";
+import hDestiny from "@/static/t28/demo/destiny.webp";
 import { PhotoSlot, WeddingData } from "@/core/types";
 import { demoData as base } from "@/templates/t01/demo-data";
 
-export const demoData: WeddingData = {
+// the shared couple and photos other templates (t29, t30) build on
+export const sharedDemo: WeddingData = {
   ...base,
   groom: "Đức Minh",
   bride: "Khánh Linh",
@@ -50,5 +57,22 @@ export const demoData: WeddingData = {
     { key: "album3", label: "Ảnh album 3", ratio: "3/4", src: album3 },
     { key: "album4", label: "Ảnh album 4", ratio: "3/4", src: destiny },
     { key: "album5", label: "Ảnh album 5", ratio: "3/2", src: album4 },
+  ] as PhotoSlot[],
+};
+
+// this template's own photos: Vietnamese royal costume (navy áo dài, red áo nhật bình) in Hội An at dusk,
+// made by the owner with Gemini
+export const demoData: WeddingData = {
+  ...sharedDemo,
+  photos: {
+    ...sharedDemo.photos,
+    cover: { key: "cover", label: "Ảnh bìa", ratio: "1/3", src: hCover },
+    destiny: { key: "destiny", label: "Ảnh cuối thiệp", ratio: "1/3", src: hDestiny },
+  } as Record<string, PhotoSlot>,
+  album: [
+    { key: "album1", label: "Ảnh album 1", ratio: "1/3", src: hAlbum1 },
+    { key: "album2", label: "Ảnh album 2", ratio: "1/3", src: hAlbum2 },
+    { key: "album3", label: "Ảnh album 3", ratio: "1/3", src: hAlbum3 },
+    { key: "album4", label: "Ảnh album 4", ratio: "1/3", src: hAlbum4 },
   ] as PhotoSlot[],
 };

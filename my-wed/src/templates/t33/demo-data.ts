@@ -5,7 +5,7 @@ import album4 from "@/static/t33/demo/album4.webp";
 import cover from "@/static/t33/demo/cover.webp";
 import destiny from "@/static/t33/demo/destiny.webp";
 import { PhotoSlot, WeddingData } from "@/core/types";
-import { demoData as base } from "@/templates/t28/demo-data";
+import { sharedDemo as base } from "@/templates/t28/demo-data";
 
 // same couple as t28; its own outdoor photos (forest veil for the opening, flower fields for the album,
 // the couple bowing on the lawn at the end), chosen by the owner

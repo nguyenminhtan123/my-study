@@ -5,7 +5,7 @@ import album4 from "@/static/t31/demo/album4.webp";
 import cover from "@/static/t31/demo/cover.webp";
 import destiny from "@/static/t31/demo/destiny.webp";
 import { PhotoSlot, WeddingData } from "@/core/types";
-import { demoData as base } from "@/templates/t28/demo-data";
+import { sharedDemo as base } from "@/templates/t28/demo-data";
 
 // same couple as t28; its own bright studio photos (the cover in the arch, four for the album, the
 // couple by the window at the end), chosen by
